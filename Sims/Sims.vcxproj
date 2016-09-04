@@ -71,9 +71,10 @@
   <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>.\;..\Vendor</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -110,15 +111,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="core\event.cpp" />
+    <ClCompile Include="core\input_state.cpp" />
+    <ClCompile Include="core\log.cpp" />
+    <ClCompile Include="graphics_api\sims_dx9.cpp" />
     <ClCompile Include="math\math.cpp" />
+    <ClCompile Include="utils\string_utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="core\event.h" />
+    <ClInclude Include="core\input_state.h" />
+    <ClInclude Include="core\key_event.h" />
+    <ClInclude Include="core\log.h" />
+    <ClInclude Include="core\mouse_event.h" />
+    <ClInclude Include="core\ref.h" />
+    <ClInclude Include="core\timer.h" />
+    <ClInclude Include="graphics_api\sims_dx9.h" />
     <ClInclude Include="math\math_fwd.h" />
     <ClInclude Include="math\matrix33.h" />
     <ClInclude Include="math\matrix44.h" />
     <ClInclude Include="math\vector2.h" />
     <ClInclude Include="math\vector3.h" />
     <ClInclude Include="math\vector4.h" />
+    <ClInclude Include="sims.h" />
+    <ClInclude Include="utils\demo_app.h" />
+    <ClInclude Include="utils\string_utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

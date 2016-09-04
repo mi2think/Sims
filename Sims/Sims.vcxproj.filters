@@ -4,10 +4,34 @@
     <Filter Include="math">
       <UniqueIdentifier>{176b9be7-ba25-49e1-845a-ba3068065d41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{e3dd672a-2fd8-49f1-89e2-135e723f532b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics_api">
+      <UniqueIdentifier>{31fe616c-3bd1-4f63-b268-80e2668517f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{31355a82-24a6-4ed3-b03c-db225ead76d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\math.cpp">
       <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="core\log.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\sims_dx9.cpp">
+      <Filter>graphics_api</Filter>
+    </ClCompile>
+    <ClCompile Include="utils\string_utils.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="core\event.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\input_state.cpp">
+      <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -28,6 +52,37 @@
     </ClInclude>
     <ClInclude Include="math\vector4.h">
       <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\sims_dx9.h">
+      <Filter>graphics_api</Filter>
+    </ClInclude>
+    <ClInclude Include="core\log.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="sims.h" />
+    <ClInclude Include="utils\string_utils.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="core\event.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\ref.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\key_event.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\mouse_event.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\demo_app.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="core\input_state.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\timer.h">
+      <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
