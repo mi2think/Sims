@@ -12,7 +12,9 @@
 #ifndef __LOG_H__
 #define __LOG_H__
 
+#include <string>
 #include <sstream>
+#include <type_traits>
 
 namespace sims
 {
@@ -58,6 +60,16 @@ namespace sims
 #define LOGSCOPE_NAMELINE(name, line) LOGSCOPE_NAMELINE_CAT(name, line)
 #define LOGSCOPE_NEWLINE(newline) Log::ScopeNewline LOGSCOPE_NAMELINE(LogScope, __LINE__)(newline)
 
+	// check if T has member function like:
+	// string T::ToString() const;
+	template<typename T>
+	struct has_ToString {
+		template<typename U, std::string (U::*)() const> struct HELPS;
+		template<typename U> static char Test(HELPS<U, &U::ToString>*);
+		template<typename U> static int Test(...);
+		const static bool value = sizeof(Test<T>(0)) == sizeof(char);
+	};
+
 	// log stream
 	class LogStream
 	{
@@ -71,10 +83,24 @@ namespace sims
 		LogStream& operator<<(const T& t)
 		{
 			LOGSCOPE_NEWLINE(false);
+			GLOG.WriteBuf(level_, "%s", ToStr(t).c_str());
+			return *this;
+		}
+
+		template<typename T, typename std::enable_if<has_ToString<T>::value>::type* = nullptr>
+		std::string ToStr(const T& t)
+		{
+			std::ostringstream oss;
+			oss << t.ToString();
+			return oss.str();
+		}
+
+		template<typename T, typename std::enable_if<!has_ToString<T>::value>::type* = nullptr>
+		std::string ToStr(const T& t)
+		{
 			std::ostringstream oss;
 			oss << t;
-			GLOG.WriteBuf(level_, "%s", oss.str().c_str());
-			return *this;
+			return oss.str();
 		}
 	private:
 		int level_;

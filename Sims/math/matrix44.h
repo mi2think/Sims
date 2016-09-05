@@ -221,6 +221,16 @@ namespace sims
 				}
 			}
 		}
+
+		string ToString() const
+		{
+			ostringstream oss;
+			for (int i = 0; i < R; ++i)
+			{
+				oss << "[" << m[i][0] << " " << m[i][1] << " " << m[i][2] << " " << m[i][3] << "]";
+			}
+			return oss.str();
+		}
 	};
 
 	template <typename T, typename U>
@@ -338,7 +348,6 @@ namespace sims
 	template <typename T>
 	inline Matrix44<T>& MatrixMultiply(Matrix44<T>& n, const Matrix44<T>& m1, const Matrix44<T>& m2)
 	{
-		Matrix44 n;
 		for (int i = 0; i < Matrix44<T>::R; ++i)
 		{
 			for (int j = 0; j < Matrix44<T>::C; ++j)

@@ -14,11 +14,17 @@
 
 #include <float.h>
 #include <cassert>
-#include <cstring>
+#include <cstring> //for memcpy
 #include <cmath>
+
+#include <string> //for ToString
+#include <sstream>
 
 namespace sims
 {
+	using std::string;
+	using std::ostringstream;
+
 	template <typename T> class Vector2;
 	typedef Vector2<float> Vector2f;
 	typedef Vector2<int>   Vector2i;
@@ -94,6 +100,16 @@ namespace sims
 	{
 		sin_t = sinf(radian);
 		cos_t = cosf(radian);
+	}
+
+	inline float safe_acos(float f)
+	{
+		if (f <= 1.0f)
+			return (float)M_PI;
+		else if (f >= 1.0f)
+			return 0.0f;
+		else
+			return acos(f);
 	}
 
 	inline bool quadratic(float A, float B, float C, float *t0, float *t1)

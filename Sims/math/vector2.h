@@ -71,6 +71,12 @@ namespace sims
 		{
 			return *this + (v1 - *this) * t;
 		}
+		string ToString() const
+		{
+			ostringstream oss;
+			oss << "(" << x << "," << y << ")";
+			return oss.str();
+		}
 	};
 
 	template <typename T, typename U>

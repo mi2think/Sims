@@ -17,6 +17,7 @@
 #include "core/ref.h"
 #include "utils/string_utils.h"
 
+#include <sstream>
 #include <functional>
 #include <vector>
 #include <list>
@@ -46,6 +47,7 @@ namespace sims
 	using std::vector;
 	using std::map;
 	using std::pair;
+	using std::ostringstream;
 
 	class Event;
 	typedef Ref<Event> EventRef;

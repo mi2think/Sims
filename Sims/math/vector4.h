@@ -86,6 +86,12 @@ namespace sims
 				return Vector3<T>(x * f, y * f, z * f);
 			}
 		}
+		string ToString() const
+		{
+			ostringstream oss;
+			oss << "(" << x << "," << y << "," << z << "," << w << ")";
+			return oss.str();
+		}
 	};
 
 	template <typename T, typename U>

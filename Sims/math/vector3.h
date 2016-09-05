@@ -70,6 +70,12 @@ namespace sims
 		{
 			return x * x + y * y + z * z;
 		}
+		string ToString() const
+		{
+			ostringstream oss;
+			oss << "(" << x << "," << y << "," << z << ")";
+			return oss.str();
+		}
 	};
 
 	template <typename T, typename U>

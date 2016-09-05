@@ -178,8 +178,15 @@ namespace sims
 			}
 		}
 
-		static const Matrix33f IdentityMatrix;
-		static const Matrix33f ZeroMatrix;
+		string ToString() const
+		{
+			ostringstream oss;
+			for (int i = 0; i < R; ++i)
+			{
+				oss << "[" << m[i][0] << " " << m[i][1] << " " << m[i][2] << "]";
+			}
+			return oss.str();
+		}
 	};
 
 	template <typename T, typename U>
