@@ -23,7 +23,7 @@ namespace sims
 		float Tick()
 		{
 			currTime_ = std::chrono::high_resolution_clock::now();
-			timestep_ = std::chrono::duration<float>(lastTime_ - currTime_).count();
+			timestep_ = std::chrono::duration<float>(currTime_ - lastTime_).count();
 			return timestep_;
 		}
 		void Reset() { lastTime_ = currTime_; }
