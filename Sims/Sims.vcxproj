@@ -82,6 +82,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>.\;..\Vendor</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -117,6 +118,7 @@
     <ClCompile Include="graphics_api\sims_dx9.cpp" />
     <ClCompile Include="math\math.cpp" />
     <ClCompile Include="utils\string_utils.cpp" />
+    <ClCompile Include="utils\unit_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\event.h" />
@@ -136,6 +138,7 @@
     <ClInclude Include="sims.h" />
     <ClInclude Include="utils\demo_app.h" />
     <ClInclude Include="utils\string_utils.h" />
+    <ClInclude Include="utils\unit_test.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
