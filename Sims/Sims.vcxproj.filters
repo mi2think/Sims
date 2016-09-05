@@ -90,5 +90,8 @@
     <ClInclude Include="utils\unit_test.h">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="math\quat.h">
+      <Filter>math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
