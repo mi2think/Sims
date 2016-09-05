@@ -56,7 +56,7 @@ namespace sims
 
 	#define TESTCASE_NAME(testCaseName) testCaseName##TEST
 
-	#define DPTEST(testCaseName) \
+	#define UNIT_TEST(testCaseName) \
 			class TESTCASE_NAME(testCaseName) : public TestCase \
 			{ \
 			public: \
