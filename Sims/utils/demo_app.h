@@ -31,6 +31,7 @@ namespace sims
 		virtual void OnUpdate(const Timestep&) {}
 		virtual void OnRender(const Timestep&) {}
 		virtual bool OnEvent(const Event&) { return false; }
+		virtual void OnDestroy() {}
 	};
 
 	template<typename Window>

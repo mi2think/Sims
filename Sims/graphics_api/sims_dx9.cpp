@@ -401,6 +401,8 @@ namespace sims
 				}
 			}
 
+			app_->OnDestroy();
+
 			DestoryDX();
 
 			return false;
