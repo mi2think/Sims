@@ -24,12 +24,8 @@ namespace sims
 
 		virtual void Run() = 0;
 
-		int& GetPassed() { return nPassed_; }
-		int& GetFailed() { return nFailed_; }
 		const char* GetTestCaseName() const { return testCaseName_; }
 	protected:
-		int nPassed_;
-		int nFailed_;
 		const char* testCaseName_;
 	};
 
@@ -48,8 +44,6 @@ namespace sims
 
 		static void MarkCurrentTestCase(bool passed);
 	protected:
-		int nPassed_;
-		int nFailed_;
 		std::vector<TestCase*> testCases_;
 		TestCase* currTestCase_;
 	};

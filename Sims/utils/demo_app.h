@@ -47,7 +47,7 @@ namespace sims
 		virtual ~DemoApp()
 		{}
 
-		void Create(int width, int height, const char* title, bool wndmode = true)
+		void Create(uint32 width, uint32 height, const char* title, bool wndmode = true)
 		{
 			window_->Create(width, height, title, wndmode);
 			OnCreate();
@@ -68,8 +68,8 @@ namespace sims
 			height_ = window_->GetHeight();
 		}
 	protected:
-		int width_;
-		int height_;
+		uint32 width_;
+		uint32 height_;
 		Window* window_;
 	};
 }

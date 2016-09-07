@@ -29,13 +29,13 @@ namespace sims
 		class DXErrorChecker
 		{
 		public:
-			DXErrorChecker(const char* file, int line);
+			DXErrorChecker(const char* file, uint32 line);
 			~DXErrorChecker();
 
 			DXErrorChecker& operator=(HRESULT hr);
 		private:
 			const char* file_;
-			int line_;
+			uint32 line_;
 			HRESULT hr_;
 		};
 
@@ -65,21 +65,21 @@ namespace sims
 			Window();
 			~Window();
 
-			void Create(int width, int height, const char* title, bool wndmode);
+			void Create(uint32 width, uint32 height, const char* title, bool wndmode);
 			void CreateFullScreen(const char* title);
 			bool MsgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 			bool Loop();
 
-			int GetWidth() const { return width_; }
-			int GetHeight() const { return height_; }
+			uint32 GetWidth() const { return width_; }
+			uint32 GetHeight() const { return height_; }
 			HWND GetHandle() const;
 
 			void SetApp(DemoAppBase* app);
 			void SetupDX();
 			void DestoryDX();
 		private:
-			int width_;
-			int height_;
+			uint32 width_;
+			uint32 height_;
 			bool wndmode_;
 			DemoAppBase* app_;
 			Timer timer_;

@@ -26,7 +26,7 @@ namespace sims
 		// hack for dxerr.lib for it not compatible with vs2015
 		int (WINAPIV * __vsnprintf)(char *, size_t, const char*, va_list) = _vsnprintf;
 
-		DXErrorChecker::DXErrorChecker(const char* file, int line)
+		DXErrorChecker::DXErrorChecker(const char* file, uint32 line)
 			: file_(file)
 			, line_(line)
 			, hr_(D3D_OK)
@@ -208,7 +208,7 @@ namespace sims
 			return g_hwnd;
 		}
 
-		void Window::Create(int width, int height, const char* title, bool wndmode)
+		void Window::Create(uint32 width, uint32 height, const char* title, bool wndmode)
 		{
 			WNDCLASS wc;
 			wc.cbClsExtra = 0;
@@ -228,11 +228,11 @@ namespace sims
 				return;
 			}
 
-			int w = width;
-			int h = height;
+			uint32 w = width;
+			uint32 h = height;
 			if (wndmode)
 			{
-				RECT rect = { 0, 0, width, height };
+				RECT rect = { 0, 0, (LONG)width, (LONG)height };
 				AdjustWindowRect(&rect, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, 0);
 				w = rect.right - rect.left;
 				h = rect.bottom - rect.top;
