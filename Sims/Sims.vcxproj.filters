@@ -36,6 +36,9 @@
     <ClCompile Include="utils\unit_test.cpp">
       <Filter>utils</Filter>
     </ClCompile>
+    <ClCompile Include="color.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
