@@ -36,7 +36,9 @@
     <ClCompile Include="utils\unit_test.cpp">
       <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="color.cpp">
+    <ClCompile Include="core\color.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
       <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -96,7 +98,9 @@
     <ClInclude Include="math\quat.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="color.h">
+    <ClInclude Include="core\color.h">
+      <Filter>core</Filter>
+    </ClInclude>
       <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>

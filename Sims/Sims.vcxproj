@@ -120,7 +120,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="color.cpp" />
+    <ClCompile Include="core\color.cpp" />
     <ClCompile Include="core\event.cpp" />
     <ClCompile Include="core\input_state.cpp" />
     <ClCompile Include="core\log.cpp" />
@@ -130,7 +130,7 @@
     <ClCompile Include="utils\unit_test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="color.h" />
+    <ClInclude Include="core\color.h" />
     <ClInclude Include="core\event.h" />
     <ClInclude Include="core\input_state.h" />
     <ClInclude Include="core\key_event.h" />
