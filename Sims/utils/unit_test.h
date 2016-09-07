@@ -24,8 +24,12 @@ namespace sims
 
 		virtual void Run() = 0;
 
+		uint32& GetPassed() { return nPassed_; }
+		uint32& GetFailed() { return nFailed_; }
 		const char* GetTestCaseName() const { return testCaseName_; }
 	protected:
+		uint32 nPassed_;
+		uint32 nFailed_;
 		const char* testCaseName_;
 	};
 
@@ -44,6 +48,8 @@ namespace sims
 
 		static void MarkCurrentTestCase(bool passed);
 	protected:
+		uint32 nPassed_;
+		uint32 nFailed_;
 		std::vector<TestCase*> testCases_;
 		TestCase* currTestCase_;
 	};
