@@ -44,6 +44,13 @@ namespace sims
 			}; \
 		}
 
+	enum SeekType
+	{
+		ST_Start	= SEEK_SET,
+		ST_Current	= SEEK_CUR,
+		ST_End		= SEEK_END
+	};
+
 	typedef unsigned char		uint8;
 	typedef unsigned short int	uint16;
 	typedef unsigned int		uint32;
@@ -59,7 +66,9 @@ namespace sims
 	using std::ostringstream;
 
 	class Event;
+	class IOutputStream;
 	typedef Ref<Event> EventRef;
+	typedef Ref<IOutputStream> IOutputStreamRef;
 
 	class NonCopyable
 	{
