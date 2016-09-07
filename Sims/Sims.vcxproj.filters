@@ -39,6 +39,7 @@
     <ClCompile Include="core\color.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="core\file_output_stream.cpp">
       <Filter>core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,6 +102,10 @@
     <ClInclude Include="core\color.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="core\output_stream.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\file_output_stream.h">
       <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>
