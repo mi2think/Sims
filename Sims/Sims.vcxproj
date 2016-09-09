@@ -122,6 +122,7 @@
   <ItemGroup>
     <ClCompile Include="core\color.cpp" />
     <ClCompile Include="core\event.cpp" />
+    <ClCompile Include="core\file_input_stream.cpp" />
     <ClCompile Include="core\file_output_stream.cpp" />
     <ClCompile Include="core\input_state.cpp" />
     <ClCompile Include="core\input_stream.cpp" />
@@ -134,6 +135,7 @@
   <ItemGroup>
     <ClInclude Include="core\color.h" />
     <ClInclude Include="core\event.h" />
+    <ClInclude Include="core\file_input_stream.h" />
     <ClInclude Include="core\file_output_stream.h" />
     <ClInclude Include="core\input_state.h" />
     <ClInclude Include="core\input_stream.h" />
