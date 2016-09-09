@@ -13,6 +13,12 @@
     <Filter Include="utils">
       <UniqueIdentifier>{31355a82-24a6-4ed3-b03c-db225ead76d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="platform">
+      <UniqueIdentifier>{1297ed43-6cfc-4b38-8578-7bae6abb0287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform\windows">
+      <UniqueIdentifier>{8c50091d-f193-44ae-9e01-09086507e599}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\math.cpp">
@@ -47,6 +53,12 @@
     </ClCompile>
     <ClCompile Include="core\file_input_stream.cpp">
       <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\windows\windows_file_system.cpp">
+      <Filter>platform\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\windows\windows_platform.cpp">
+      <Filter>platform\windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +131,15 @@
     </ClInclude>
     <ClInclude Include="core\file_input_stream.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\file_system.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\windows\windows_file_system.h">
+      <Filter>platform\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\platform.h">
+      <Filter>platform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

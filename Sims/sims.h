@@ -68,10 +68,12 @@ namespace sims
 	class Event;
 	class IInputStream;
 	class IOutputStream;
+	class IFileSystem;
 
 	typedef Ref<Event> EventRef;
 	typedef Ref<IInputStream> IInputStreamRef;
 	typedef Ref<IOutputStream> IOutputStreamRef;
+	typedef Ref<IFileSystem> IFileSystemRef;
 
 	class NonCopyable
 	{

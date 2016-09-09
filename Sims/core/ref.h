@@ -163,7 +163,7 @@ namespace sims
 		{
 			IncRef();
 		}
-	private:
+
 		void IncRef()
 		{
 			if (counter)
@@ -183,7 +183,7 @@ namespace sims
 				}
 			}
 		}
-
+	private:
 		T* ptr;
 		Deleter del;
 		mutable int* counter;

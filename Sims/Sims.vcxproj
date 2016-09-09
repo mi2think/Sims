@@ -129,6 +129,8 @@
     <ClCompile Include="core\log.cpp" />
     <ClCompile Include="graphics_api\sims_dx9.cpp" />
     <ClCompile Include="math\math.cpp" />
+    <ClCompile Include="platform\windows\windows_file_system.cpp" />
+    <ClCompile Include="platform\windows\windows_platform.cpp" />
     <ClCompile Include="utils\string_utils.cpp" />
     <ClCompile Include="utils\unit_test.cpp" />
   </ItemGroup>
@@ -137,6 +139,7 @@
     <ClInclude Include="core\event.h" />
     <ClInclude Include="core\file_input_stream.h" />
     <ClInclude Include="core\file_output_stream.h" />
+    <ClInclude Include="core\file_system.h" />
     <ClInclude Include="core\input_state.h" />
     <ClInclude Include="core\input_stream.h" />
     <ClInclude Include="core\key_event.h" />
@@ -153,6 +156,8 @@
     <ClInclude Include="math\vector2.h" />
     <ClInclude Include="math\vector3.h" />
     <ClInclude Include="math\vector4.h" />
+    <ClInclude Include="platform\platform.h" />
+    <ClInclude Include="platform\windows\windows_file_system.h" />
     <ClInclude Include="sims.h" />
     <ClInclude Include="utils\demo_app.h" />
     <ClInclude Include="utils\string_utils.h" />
