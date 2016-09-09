@@ -57,6 +57,16 @@ namespace sims
 			return *this;
 		}
 
+		Color ToPackedARGB() const
+		{
+			return Color((a << 24) | (r << 16) | (g << 8) | b);
+		}
+
+		Color ToPackedRGBA() const
+		{
+			return Color((r << 24) | (g << 16) | (b << 8) | a);
+		}
+
 		static const Color white;
 		static const Color gray;
 		static const Color black;

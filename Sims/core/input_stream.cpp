@@ -13,6 +13,13 @@
 
 namespace sims
 {
+	vector<uint8> IInputStream::Read()
+	{
+		vector<uint8> buffer;
+		Read(buffer);
+		return buffer;
+	}
+
 	void IInputStream::Read(vector<uint8>& buffer)
 	{
 		uint32 size = GetSize();

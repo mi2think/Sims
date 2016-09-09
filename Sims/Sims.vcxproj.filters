@@ -45,6 +45,9 @@
     <ClCompile Include="core\color.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="core\image.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
     <ClCompile Include="core\file_output_stream.cpp">
       <Filter>core</Filter>
     </ClCompile>
@@ -120,7 +123,13 @@
     <ClInclude Include="core\color.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="core\image.h">
+      <Filter>core</Filter>
+    </ClInclude>
     <ClInclude Include="core\output_stream.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\pixel_format.h">
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="core\file_output_stream.h">

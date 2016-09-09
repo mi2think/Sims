@@ -66,11 +66,13 @@ namespace sims
 	using std::ostringstream;
 
 	class Event;
+	class Image;
 	class IInputStream;
 	class IOutputStream;
 	class IFileSystem;
 
 	typedef Ref<Event> EventRef;
+	typedef Ref<Image> ImageRef;
 	typedef Ref<IInputStream> IInputStreamRef;
 	typedef Ref<IOutputStream> IOutputStreamRef;
 	typedef Ref<IFileSystem> IFileSystemRef;
