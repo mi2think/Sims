@@ -42,6 +42,9 @@
     <ClCompile Include="core\file_output_stream.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="core\input_stream.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -106,6 +109,9 @@
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="core\file_output_stream.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\input_stream.h">
       <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>

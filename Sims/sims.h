@@ -66,8 +66,11 @@ namespace sims
 	using std::ostringstream;
 
 	class Event;
+	class IInputStream;
 	class IOutputStream;
+
 	typedef Ref<Event> EventRef;
+	typedef Ref<IInputStream> IInputStreamRef;
 	typedef Ref<IOutputStream> IOutputStreamRef;
 
 	class NonCopyable

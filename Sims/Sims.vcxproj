@@ -124,6 +124,7 @@
     <ClCompile Include="core\event.cpp" />
     <ClCompile Include="core\file_output_stream.cpp" />
     <ClCompile Include="core\input_state.cpp" />
+    <ClCompile Include="core\input_stream.cpp" />
     <ClCompile Include="core\log.cpp" />
     <ClCompile Include="graphics_api\sims_dx9.cpp" />
     <ClCompile Include="math\math.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="core\event.h" />
     <ClInclude Include="core\file_output_stream.h" />
     <ClInclude Include="core\input_state.h" />
+    <ClInclude Include="core\input_stream.h" />
     <ClInclude Include="core\key_event.h" />
     <ClInclude Include="core\log.h" />
     <ClInclude Include="core\mouse_event.h" />
