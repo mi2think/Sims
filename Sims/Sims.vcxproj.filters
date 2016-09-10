@@ -63,6 +63,9 @@
     <ClCompile Include="platform\windows\windows_platform.cpp">
       <Filter>platform\windows</Filter>
     </ClCompile>
+    <ClCompile Include="utils\geometry_gen.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -149,6 +152,9 @@
     </ClInclude>
     <ClInclude Include="platform\platform.h">
       <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\geometry_gen.h">
+      <Filter>utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -132,6 +132,7 @@
     <ClCompile Include="math\math.cpp" />
     <ClCompile Include="platform\windows\windows_file_system.cpp" />
     <ClCompile Include="platform\windows\windows_platform.cpp" />
+    <ClCompile Include="utils\geometry_gen.cpp" />
     <ClCompile Include="utils\string_utils.cpp" />
     <ClCompile Include="utils\unit_test.cpp" />
   </ItemGroup>
@@ -163,6 +164,7 @@
     <ClInclude Include="platform\windows\windows_file_system.h" />
     <ClInclude Include="sims.h" />
     <ClInclude Include="utils\demo_app.h" />
+    <ClInclude Include="utils\geometry_gen.h" />
     <ClInclude Include="utils\string_utils.h" />
     <ClInclude Include="utils\unit_test.h" />
   </ItemGroup>

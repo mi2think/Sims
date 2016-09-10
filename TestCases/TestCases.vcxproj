@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="dptest_event.cpp" />
+    <ClCompile Include="dptest_geometrygen.cpp" />
     <ClCompile Include="dptest_main.cpp" />
     <ClCompile Include="dptest_matrix33.cpp" />
     <ClCompile Include="dptest_matrix44.cpp" />

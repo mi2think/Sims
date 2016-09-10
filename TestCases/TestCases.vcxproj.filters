@@ -11,5 +11,6 @@
     <ClCompile Include="dptest_ref.cpp" />
     <ClCompile Include="dptest_event.cpp" />
     <ClCompile Include="dptest_quat.cpp" />
+    <ClCompile Include="dptest_geometrygen.cpp" />
   </ItemGroup>
 </Project>
