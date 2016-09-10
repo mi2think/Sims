@@ -23,6 +23,7 @@ namespace sims
 		{
 			VT_Position = BIT(0),
 			VT_Normal	= BIT(1),
+			VT_UV		= BIT(2),
 
 			VT_Num
 		};
@@ -97,6 +98,15 @@ namespace sims
 		static bool GenBox(float width,
 			float height,
 			float depth,
+			const VBDesc& vbDesc,
+			const IBDesc& ibDesc,
+			int vts);
+
+		// length	length of cube, along x or y or z -axis
+		// vbDesc	desc of vertex buffer
+		// ibDesc	desc of index buffer
+		// vts		composition of VertexType
+		static bool GenUVCube(float length,
 			const VBDesc& vbDesc,
 			const IBDesc& ibDesc,
 			int vts);

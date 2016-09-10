@@ -10,6 +10,7 @@
 	purpose:	Geometry Generate
 *********************************************************************/
 #include "geometry_gen.h"
+#include "math/vector2.h"
 #include "math/vector3.h"
 
 namespace sims
@@ -303,6 +304,107 @@ namespace sims
 			GenNormals(8, 12, vbDesc, ibDesc);
 		}
 
+		return true;
+	}
+
+	bool GeometryGen::GenUVCube(float length, const VBDesc& vbDesc, const IBDesc& ibDesc, int vts)
+	{
+		if (!vbDesc.vb || !ibDesc.ib || (vts & VT_Position) == 0 || (vts & VT_UV) == 0)
+			return false;
+
+		uint8* vb = vbDesc.vb + vbDesc.offset;
+		uint16 posOffset = vbDesc.voffsets[VT_Position];
+		uint16 normalOffset = vbDesc.voffsets[VT_Normal];
+		uint16 uvOffset = vbDesc.voffsets[VT_UV];
+
+		// generate position
+		float xOrigin = -length / 2;
+		float yOrigin = xOrigin;
+		float zOrigin = xOrigin;
+
+		for (uint32 k = 0; k < 2; ++k)
+		{
+			for (uint32 j = 0; j < 2; ++j)
+			{
+				for (uint32 i = 0; i < 2; ++i)
+				{
+					uint32 offset = (k * 4 + j * 2 + i) * vbDesc.stride;
+					Vector3f* p = (Vector3f*)(vb + offset + posOffset);
+					p->x = xOrigin + length * i;
+					p->y = yOrigin + length * j;
+					p->z = zOrigin + length * k;
+
+					if ((vts & VT_Normal) != 0)
+					{
+						Vector3f* n = (Vector3f*)(vb + offset + normalOffset);
+						n->x = 0.0f;
+						n->y = 0.0f;
+						n->z = 0.0f;
+					}
+				}
+			}
+		}
+
+		// copy 4, 5, 6, 7, and 4, 6
+		memcpy(vb + 8 * vbDesc.stride,  vb + 4 * vbDesc.stride, 4 * vbDesc.stride);
+		memcpy(vb + 12 * vbDesc.stride, vb + 4 * vbDesc.stride, vbDesc.stride);
+		memcpy(vb + 13 * vbDesc.stride, vb + 6 * vbDesc.stride, vbDesc.stride);
+
+		// generate triangle index
+		uint8* ib = ibDesc.ib + ibDesc.offset;
+		if (ibDesc.indexType == IBDesc::Index16)
+		{
+			uint16 n[36] = {
+				0, 3, 1,//front -
+				0, 2, 3,
+				8, 11, 10,//back +
+				8, 9, 11,
+				12, 2, 0,//left +
+				12, 13, 2,
+				1, 3, 11,//right +
+				1, 11, 9,
+				2, 7, 3,//top -
+				2, 6, 7,
+				4, 1, 5,//bottom -
+				4, 0, 1
+			};
+			memcpy(ib, n, sizeof(n));
+		}
+		else if (ibDesc.indexType == IBDesc::Index32)
+		{
+			uint32 n[36] = {
+				0, 3, 1,//front -
+				0, 2, 3,
+				8, 11, 10,//back +
+				8, 9, 11,
+				12, 2, 0,//left +
+				12, 13, 2,
+				1, 3, 11,//right +
+				1, 11, 9,
+				2, 7, 3,//top -
+				2, 6, 7,
+				4, 1, 5,//bottom -
+				4, 0, 1
+			};
+			memcpy(ib, n, sizeof(n));
+		}
+
+		float u[14] = { 0.25f, 0.50f, 0.25f, 0.50f, 0.25f, 0.50f, 0.25f, 0.50f, 1.0f, 0.75f, 1.0f, 0.75f, 0.0f, 0.0f };
+		float v[14] = { 2/3.0f, 2/3.0f, 1/3.0f, 1/3.0f, 1.0f, 1.0f, 0.00f, 0.00f, 2/3.0f, 2/3.0f, 1/3.0f, 1/3.0f, 2/3.0f, 1/3.0f };
+
+		for (int i = 0; i < 14; ++i)
+		{
+			uint32 offset = i * vbDesc.stride;
+			Vector2f* uv = (Vector2f*)(vb + offset + uvOffset);
+			uv->x = u[i];
+			uv->y = v[i];
+		}
+
+		// generate normal
+		if ((vts & VT_Normal) != 0)
+		{
+			GenNormals(14, 12, vbDesc, ibDesc);
+		}
 		return true;
 	}
 }
