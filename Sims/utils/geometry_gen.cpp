@@ -265,8 +265,8 @@ namespace sims
 			uint16 n[36] = {
 				0, 3, 1,//front
 				0, 2, 3,
-				4, 7, 5,//back
-				4, 6, 7,
+				4, 7, 6,//back
+				4, 5, 7,
 				4, 2, 0,//left
 				4, 6, 2,
 				1, 3, 7,//right
@@ -283,8 +283,8 @@ namespace sims
 			uint32 n[36] = {
 				0, 3, 1,//front
 				0, 2, 3,
-				4, 7, 5,//back
-				4, 6, 7,
+				4, 7, 6,//back
+				4, 5, 7,
 				4, 2, 0,//left
 				4, 6, 2,
 				1, 3, 7,//right
