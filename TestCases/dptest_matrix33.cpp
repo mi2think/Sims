@@ -53,4 +53,6 @@ UNIT_TEST(Matrix33)
 	Matrix33f m13;
 	m13.Identity();
 	EXPECT_EQ(m13, Matrix33f(1, 0, 0, 0, 1, 0, 0, 0, 1));
+	EXPECT_TRUE(m13.IsIdentity());
+	EXPECT_FALSE(m7.IsIdentity());
 }

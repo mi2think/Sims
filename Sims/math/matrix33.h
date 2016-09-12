@@ -178,12 +178,27 @@ namespace sims
 			}
 		}
 
+		bool IsIdentity() const
+		{
+			for (int i = 0; i < R; ++i)
+			{
+				for (int j = 0; j < C; ++j)
+				{
+					if (i == j && ! equal_t(m[i][j], T(1)))
+					{
+						return false;
+					}
+				}
+			}
+			return true;
+		}
+
 		string ToString() const
 		{
 			ostringstream oss;
 			for (int i = 0; i < R; ++i)
 			{
-				oss << "[" << m[i][0] << " " << m[i][1] << " " << m[i][2] << "]";
+				oss << "[" << m[i][0] << " " << m[i][1] << " " << m[i][2] << "]\n";
 			}
 			return oss.str();
 		}

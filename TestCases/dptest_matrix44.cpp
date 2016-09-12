@@ -76,9 +76,11 @@ UNIT_TEST(Matrix44)
 							 0,1,0,0,
 							 0,0,1,0,
 							 0,0,0,1));
+	EXPECT_TRUE(m20.IsIdentity());
 
 	Matrix44f m21 = 0.24f * m9;
 	EXPECT_EQ(m21, m12);
+	EXPECT_FALSE(m21.IsIdentity())
 
 	float det = MatrixDeterminant(m18);
 	EXPECT_EQ(det, 124972.813f);
