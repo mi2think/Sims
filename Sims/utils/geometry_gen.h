@@ -74,13 +74,11 @@ namespace sims
 			uint32 i2;
 		};
 
-		// width	width of plane, along x-axis
-		// height	height of plane, along y-axis
-		// slices	number of slices about the main axis
-		// stacks	number of stacks about the main axis
-		// vbDesc	desc of vertex buffer
-		// ibDesc	desc of index buffer
-		// vts		composition of VertexType
+		
+		// Plane
+		// no UV
+		// slices number of slices about the x axis
+		// stacks number of stacks about the y axis
 		static bool GenPlane(float width,
 			float height,
 			uint32 slices,
@@ -89,12 +87,9 @@ namespace sims
 			const IBDesc& ibDesc,
 			int vts);
 
-		// width	width of box, along x-axis
-		// height	height of box, along y-axis
-		// depth	depth of box, along z-axis
-		// vbDesc	desc of vertex buffer
-		// ibDesc	desc of index buffer
-		// vts		composition of VertexType
+		// Box
+		// 8  vertices, 36 indices(12 triangles) or
+		// 24 vertices, 36 indices(12 triangles) if box has UV 
 		static bool GenBox(float width,
 			float height,
 			float depth,
@@ -102,14 +97,16 @@ namespace sims
 			const IBDesc& ibDesc,
 			int vts);
 
-		// length	length of cube, along x or y or z -axis
-		// vbDesc	desc of vertex buffer
-		// ibDesc	desc of index buffer
-		// vts		composition of VertexType
-		static bool GenUVCube(float length,
+		// sky box
+		// 14 vertices, 36 indices(12 triangles)
+		// special UV at vertex
+		static bool GenSkyBox(float width,
+			float height,
+			float depth,
 			const VBDesc& vbDesc,
 			const IBDesc& ibDesc,
 			int vts);
+
 
 		static void GenNormals(uint32 vertexNum,
 			uint32 triNum,
