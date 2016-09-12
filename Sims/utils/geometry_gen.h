@@ -35,12 +35,14 @@ namespace sims
 			uint16 stride;	// vertex stride
 			uint16 voffsets[VT_Num];
 
-			VBDesc(uint8* _vb, uint16 _stride, uint32 _offset = 0)
+			VBDesc(uint8* _vb, uint16 _stride, uint32 _offset = 0, uint16 voftUV = 0, uint16 voftN = 0, uint16 voftP = 0)
 				: vb(_vb)
 				, stride(_stride)
 				, offset(_offset)
 			{
-				memset(voffsets, 0, sizeof(voffsets));
+				voffsets[VT_Position] = voftP;
+				voffsets[VT_Normal] = voftN;
+				voffsets[VT_UV] = voftUV;
 			}
 
 			void SetVOffset(VertexType vt, uint16 ofs) { ASSERT(vt < VT_Num); voffsets[vt] = ofs; }

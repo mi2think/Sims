@@ -316,12 +316,12 @@ namespace sims
 		Vector3f pos[6] = { 
 			// triangle 0
 			Vector3f(xOrigin, yOrigin, z),
-			Vector3f(xOrigin + width / 2, yOrigin + height / 2, z),
-			Vector3f(xOrigin + width / 2, yOrigin, z),
+			Vector3f(xOrigin + width, yOrigin + height, z),
+			Vector3f(xOrigin + width, yOrigin, z),
 			// triangle 1
 			Vector3f(xOrigin, yOrigin, z),
-			Vector3f(xOrigin, yOrigin + height / 2, z),
-			Vector3f(xOrigin + width / 2, yOrigin + height / 2, z),
+			Vector3f(xOrigin, yOrigin + height, z),
+			Vector3f(xOrigin + width, yOrigin + height, z),
 		};
 
 		for (uint32 i = 0; i < 6; ++i)
