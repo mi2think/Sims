@@ -222,6 +222,142 @@ namespace sims
 		return true;
 	}
 
+	bool GeometryGen::GenQuad(float width, float height, float z, const VBDesc& vbDesc, const IBDesc& ibDesc, int vts)
+	{
+		if (!vbDesc.vb || !ibDesc.ib || (vts & VT_Position) == 0)
+			return false;
+
+		uint8* vb = vbDesc.vb + vbDesc.offset;
+		uint16 posOffset = vbDesc.voffsets[VT_Position];
+		uint16 normalOffset = vbDesc.voffsets[VT_Normal];
+
+		// generate position
+		float xOrigin = -width / 2;
+		float yOrigin = -height / 2;
+
+		for (uint32 j = 0; j < 2; ++j)
+		{
+			for (uint32 i = 0; i < 2; ++i)
+			{
+				uint32 offset = (j * 2 + i) * vbDesc.stride;
+				Vector3f* p = (Vector3f*)(vb + offset + posOffset);
+				p->x = xOrigin + width * i;
+				p->y = yOrigin + height * j;
+				p->z = z;
+
+				if ((vts & VT_Normal) != 0)
+				{
+					Vector3f* n = (Vector3f*)(vb + offset + normalOffset);
+					n->x = 0.0f;
+					n->y = 0.0f;
+					n->z = 0.0f;
+				}
+			}
+		}
+
+		// generate index
+		uint8* ib = ibDesc.ib + ibDesc.offset;
+		if (ibDesc.indexType == IBDesc::Index16)
+		{
+			uint16 n[6] = {
+				0, 3, 1,
+				0, 2, 3,
+			};
+			memcpy(ib, n, sizeof(n));
+		}
+		else if (ibDesc.indexType == IBDesc::Index32)
+		{
+			uint32 n[6] = {
+				0, 3, 1,
+				0, 2, 3,
+			};
+			memcpy(ib, n, sizeof(n));
+		}
+
+		// generate UV
+		if ((vts & VT_UV) != 0)
+		{
+			float u[4] = {0.0f, 1.0f, 0.0f, 1.0f};
+			float v[4] = {1.0f, 1.0f, 0.0f, 0.0f};
+			uint16 uvOffset = vbDesc.voffsets[VT_UV];
+
+			for (uint32 i = 0; i < 4; ++i)
+			{
+				uint32 offset = i * vbDesc.stride;
+				Vector2f* uv = (Vector2f*)(vb + offset + uvOffset);
+				uv->x = u[i];
+				uv->y = v[i];
+			}
+		}
+
+		// generate normal
+		if ((vts & VT_Normal) != 0)
+		{
+			GenNormals(4, 2, vbDesc, ibDesc);
+		}
+
+		return true;
+	}
+
+	bool GeometryGen::GenQuad(float width, float height, float z, const VBDesc& vbDesc, int vts)
+	{
+		if (!vbDesc.vb || (vts & VT_Position) == 0)
+			return false;
+
+		uint8* vb = vbDesc.vb + vbDesc.offset;
+		uint16 posOffset = vbDesc.voffsets[VT_Position];
+		uint16 normalOffset = vbDesc.voffsets[VT_Normal];
+
+		// generate position
+		float xOrigin = -width / 2;
+		float yOrigin = -height / 2;
+
+		// 6 points
+		Vector3f pos[6] = { 
+			// triangle 0
+			Vector3f(xOrigin, yOrigin, z),
+			Vector3f(xOrigin + width / 2, yOrigin + height / 2, z),
+			Vector3f(xOrigin + width / 2, yOrigin, z),
+			// triangle 1
+			Vector3f(xOrigin, yOrigin, z),
+			Vector3f(xOrigin, yOrigin + height / 2, z),
+			Vector3f(xOrigin + width / 2, yOrigin + height / 2, z),
+		};
+
+		for (uint32 i = 0; i < 6; ++i)
+		{
+			uint32 offset = i * vbDesc.stride;
+			Vector3f* p = (Vector3f*)(vb + offset + posOffset);
+			*p = pos[i];
+
+			if ((vts & VT_Normal) != 0)
+			{
+				Vector3f* n = (Vector3f*)(vb + offset + normalOffset);
+				n->x = 0.0f;
+				n->y = 0.0f;
+				n->z =-1.0f;
+			}
+		}
+
+		// generate UV
+		if ((vts & VT_UV) != 0)
+		{
+			float u[6] = { 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f };
+			float v[6] = { 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f };
+			uint16 uvOffset = vbDesc.voffsets[VT_UV];
+
+			for (uint32 i = 0; i < 6; ++i)
+			{
+				uint32 offset = i * vbDesc.stride;
+				Vector2f* uv = (Vector2f*)(vb + offset + uvOffset);
+				uv->x = u[i];
+				uv->y = v[i];
+			}
+		}
+
+		return true;
+	}
+
 	bool GeometryGen::GenBox(float width, float height, float depth, const VBDesc& vbDesc, const IBDesc& ibDesc, int vts)
 	{
 		if (!vbDesc.vb || !ibDesc.ib || (vts & VT_Position) == 0)

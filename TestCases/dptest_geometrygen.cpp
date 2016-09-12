@@ -16,26 +16,76 @@ struct VertexUV
 	Vector2f uv;
 };
 
+struct VertexUVN
+{
+	Vector3f pos;
+	Vector3f n;
+	Vector2f uv;
+};
+
 UNIT_TEST(GeometryGen)
 {
-	Vertex v[8];
-	GeometryGen::VBDesc vb((uint8*)&v[0], sizeof(Vertex));
-	vb.SetVOffset(GeometryGen::VT_Position, offsetof(Vertex, pos));
-	vb.SetVOffset(GeometryGen::VT_Normal, offsetof(Vertex, n));
+	{
+		Vertex v[8];
+		GeometryGen::VBDesc vb((uint8*)&v[0], sizeof(Vertex));
+		vb.SetVOffset(GeometryGen::VT_Position, offsetof(Vertex, pos));
+		vb.SetVOffset(GeometryGen::VT_Normal, offsetof(Vertex, n));
 
-	uint16 i[36];
-	GeometryGen::IBDesc ib((uint8*)&i[0], GeometryGen::IBDesc::Index16);
+		uint16 i[36];
+		GeometryGen::IBDesc ib((uint8*)&i[0], GeometryGen::IBDesc::Index16);
 
-	bool b1 = GeometryGen::GenBox(2, 4, 6, vb, ib, GeometryGen::VT_Position | GeometryGen::VT_Normal);
+		bool b1 = GeometryGen::GenBox(2, 4, 6, vb, ib, GeometryGen::VT_Position | GeometryGen::VT_Normal);
+	}
 
-	VertexUV vuv[14];
-	uint16 iuv[36];
+	{
+		VertexUV v[24];
+		GeometryGen::VBDesc vb((uint8*)&v[0], sizeof(VertexUV));
+		vb.SetVOffset(GeometryGen::VT_Position, offsetof(VertexUV, pos));
+		vb.SetVOffset(GeometryGen::VT_UV, offsetof(VertexUV, uv));
 
-	GeometryGen::VBDesc vbuv((uint8*)&vuv[0], sizeof(VertexUV));
-	vbuv.SetVOffset(GeometryGen::VT_Position, offsetof(VertexUV, pos));
-	vbuv.SetVOffset(GeometryGen::VT_UV, offsetof(VertexUV, uv));
+		uint16 i[36];
+		GeometryGen::IBDesc ib((uint8*)&i[0], GeometryGen::IBDesc::Index16);
 
-	GeometryGen::IBDesc ibuv((uint8*)&iuv[0], GeometryGen::IBDesc::Index16);
+		bool b2 = GeometryGen::GenBox(2, 4, 6, vb, ib, GeometryGen::VT_Position | GeometryGen::VT_UV);
+	}
 
-	bool b2 = GeometryGen::GenUVCube(2, vbuv, ibuv, GeometryGen::VT_Position | GeometryGen::VT_UV);
+
+	{
+		VertexUV v[14];
+		uint16 i[36];
+
+		GeometryGen::VBDesc vb((uint8*)&v[0], sizeof(VertexUV));
+		vb.SetVOffset(GeometryGen::VT_Position, offsetof(VertexUV, pos));
+		vb.SetVOffset(GeometryGen::VT_UV, offsetof(VertexUV, uv));
+
+		GeometryGen::IBDesc ib((uint8*)&i[0], GeometryGen::IBDesc::Index16);
+
+		bool b3 = GeometryGen::GenSkyBox(2, 2, 2, vb, ib, GeometryGen::VT_Position | GeometryGen::VT_UV);
+	}
+
+	{
+		VertexUVN v[4];
+		uint16 i[6];
+
+		GeometryGen::VBDesc vb((uint8*)&v[0], sizeof(VertexUVN));
+		vb.SetVOffset(GeometryGen::VT_Position, offsetof(VertexUVN, pos));
+		vb.SetVOffset(GeometryGen::VT_Normal, offsetof(Vertex, n));
+		vb.SetVOffset(GeometryGen::VT_UV, offsetof(VertexUVN, uv));
+
+		GeometryGen::IBDesc ib((uint8*)&i[0], GeometryGen::IBDesc::Index16);
+
+		bool b4 = GeometryGen::GenQuad(2, 2, 2, vb, ib, GeometryGen::VT_Position | GeometryGen::VT_UV | GeometryGen::VT_Normal);
+	}
+
+	{
+		VertexUVN v[6];
+
+		GeometryGen::VBDesc vb((uint8*)&v[0], sizeof(VertexUVN));
+		vb.SetVOffset(GeometryGen::VT_Position, offsetof(VertexUVN, pos));
+		vb.SetVOffset(GeometryGen::VT_Normal, offsetof(Vertex, n));
+		vb.SetVOffset(GeometryGen::VT_UV, offsetof(VertexUVN, uv));
+
+		bool b5 = GeometryGen::GenQuad(2, 2, 2, vb, GeometryGen::VT_Position | GeometryGen::VT_UV | GeometryGen::VT_Normal);
+	}
+
 }

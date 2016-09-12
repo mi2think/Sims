@@ -87,6 +87,25 @@ namespace sims
 			const IBDesc& ibDesc,
 			int vts);
 
+		// Quad
+		// 4 vertices, 6 indices(2 triangles)
+		// x-z axis
+		static bool GenQuad(float width,
+			float height,
+			float z,
+			const VBDesc& vbDesc,
+			const IBDesc& ibDesc,
+			int vts);
+
+		// Quad
+		// 6 vertices(2 triangles)
+		// x-z axis,  no index
+		static bool GenQuad(float width,
+			float height,
+			float z,
+			const VBDesc& vbDesc,
+			int vts);
+
 		// Box
 		// 8  vertices, 36 indices(12 triangles) or
 		// 24 vertices, 36 indices(12 triangles) if box has UV 
