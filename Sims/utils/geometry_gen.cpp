@@ -169,8 +169,8 @@ namespace sims
 		uint32 triNum = (stacks - 1) * (slices - 1) * 2;
 
 		// generate position
-		float xStep = width / slices;
-		float zStep = height / stacks;
+		float xStep = width / (slices - 1);
+		float zStep = height / (stacks - 1);
 		float xOrigin = -width / 2;
 		float zOrigin = -height / 2;
 
