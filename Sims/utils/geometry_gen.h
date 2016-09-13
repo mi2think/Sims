@@ -13,6 +13,7 @@
 #define __GEOMETRY_GEN_H__
 
 #include "sims.h"
+#include "math/matrix44.h"
 
 namespace sims
 {
@@ -34,6 +35,7 @@ namespace sims
 			uint32 offset;	// offset of vertex buffer
 			uint16 stride;	// vertex stride
 			uint16 voffsets[VT_Num];
+			Matrix44f m;	// transform apply to vertex
 
 			VBDesc(uint8* _vb, uint16 _stride, uint32 _offset = 0, uint16 voftUV = 0, uint16 voftN = 0, uint16 voftP = 0)
 				: vb(_vb)
@@ -43,9 +45,11 @@ namespace sims
 				voffsets[VT_Position] = voftP;
 				voffsets[VT_Normal] = voftN;
 				voffsets[VT_UV] = voftUV;
+				m.Identity();
 			}
 
 			void SetVOffset(VertexType vt, uint16 ofs) { ASSERT(vt < VT_Num); voffsets[vt] = ofs; }
+			void SetTransform(const Matrix44f& _m) { m = _m; }
 		};
 
 		struct IBDesc
@@ -133,6 +137,8 @@ namespace sims
 			uint32 triNum,
 			const VBDesc& vbDesc,
 			const IBDesc& ibDesc);
+
+		static void TransformVertex(uint32 vertexNum, const VBDesc& vbDesc, int vts);
 	};
 }
 

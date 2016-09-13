@@ -167,7 +167,7 @@ namespace sims
 			return *this;
 		}
 
-		void Identity()
+		Matrix33& Identity()
 		{
 			for (int i = 0; i < R; ++i)
 			{
@@ -176,6 +176,7 @@ namespace sims
 					i == j ? m[i][j] = 1 : m[i][j] = 0;
 				}
 			}
+			return *this;
 		}
 
 		bool IsIdentity() const
@@ -184,13 +185,29 @@ namespace sims
 			{
 				for (int j = 0; j < C; ++j)
 				{
-					if (i == j && ! equal_t(m[i][j], T(1)))
-					{
+					if (i == j && !equal_t(m[i][j], T(1)))
 						return false;
-					}
+					else if (!equal_t(m[i][j], T(0)))
+						return false;
 				}
 			}
 			return true;
+		}
+
+		// Transpose
+		Matrix33& Transpose()
+		{
+			for (int i = 0; i < R; ++i)
+			{
+				for (int j = i; j < C; ++j)
+				{
+					if (i != j)
+					{
+						swap_t(m[i][j], m[j][i]);
+					}
+				}
+			}
+			return *this;
 		}
 
 		string ToString() const

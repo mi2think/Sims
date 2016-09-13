@@ -1,5 +1,6 @@
 #include "math/vector2.h"
 #include "math/vector3.h"
+#include "math/matrix44.h"
 #include "utils/geometry_gen.h"
 #include "utils/unit_test.h"
 using namespace sims;
@@ -30,6 +31,9 @@ UNIT_TEST(GeometryGen)
 		GeometryGen::VBDesc vb((uint8*)&v[0], sizeof(Vertex));
 		vb.SetVOffset(GeometryGen::VT_Position, offsetof(Vertex, pos));
 		vb.SetVOffset(GeometryGen::VT_Normal, offsetof(Vertex, n));
+		Matrix44f m;
+		MaxtrixTranslation(m, Vector3f(0, 0, 10));
+		vb.SetTransform(m);
 
 		uint16 i[36];
 		GeometryGen::IBDesc ib((uint8*)&i[0], GeometryGen::IBDesc::Index16);

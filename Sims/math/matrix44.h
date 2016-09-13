@@ -178,7 +178,7 @@ namespace sims
 			return *this;
 		}
 
-		void Identity()
+		Matrix44& Identity()
 		{
 			for (int i = 0; i < R; ++i)
 			{
@@ -187,6 +187,7 @@ namespace sims
 					i == j ? m[i][j] = 1 : m[i][j] = 0;
 				}
 			}
+			return *this;
 		}
 
 		bool IsIdentity() const
@@ -196,25 +197,27 @@ namespace sims
 				for (int j = 0; j < C; ++j)
 				{
 					if (i == j && !equal_t(m[i][j], T(1)))
-					{
 						return false;
-					}
+					else if (!equal_t(m[i][j], T(0)))
+						return false;
 				}
 			}
 			return true;
 		}
 
 		// Translation methods
-		void ZeroTranslation()
+		Matrix44& ZeroTranslation()
 		{
 			m41 = m42 = m43 = 0;
+			return *this;
 		}
 
-		void SetTranslation(const Vector3<T>& v)
+		Matrix44& SetTranslation(const Vector3<T>& v)
 		{
 			m41 = v.x;
 			m42 = v.y;
 			m43 = v.z;
+			return *this;
 		}
 
 		Vector3<T> GetTranslation() const
@@ -223,7 +226,7 @@ namespace sims
 		}
 
 		// Transpose
-		void Transpose()
+		Matrix44& Transpose()
 		{
 			for (int i = 0; i < R; ++i)
 			{
@@ -235,6 +238,15 @@ namespace sims
 					}
 				}
 			}
+			return *this;
+		}
+
+		// Left top 3x3 matrix
+		Matrix33<T> LTMatrix33() const
+		{
+			return Matrix33<T>(m11, m12, m13,
+				m21, m22, m23,
+				m31, m32, m33);
 		}
 
 		string ToString() const

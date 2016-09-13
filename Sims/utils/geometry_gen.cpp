@@ -119,6 +119,36 @@ namespace sims
 		delete[] count;
 	}
 
+	void GeometryGen::TransformVertex(uint32 vertexNum, const VBDesc& vbDesc, int vts)
+	{
+		uint8* vb = vbDesc.vb + vbDesc.offset;
+		uint16 posOffset = vbDesc.voffsets[VT_Position];
+		uint16 normalOffset = vbDesc.voffsets[VT_Normal];
+
+		// apply transform to vertex
+		for (uint32 i = 0; i < vertexNum; ++i)
+		{
+			uint32 offset = i * vbDesc.stride;
+			Vector3f* p = (Vector3f*)(vb + offset + posOffset);
+			*p = *p * vbDesc.m;
+		}
+
+		// if vertex normal need transform
+		if ((vts & VT_Normal) != 0)
+		{
+			Matrix44f mInv;
+			MatrixInverse(mInv, vbDesc.m);
+			Matrix33f m = mInv.Transpose().LTMatrix33();
+
+			for (uint32 i = 0; i < vertexNum; ++i)
+			{
+				uint32 offset = i * vbDesc.stride;
+				Vector3f* n = (Vector3f*)(vb + offset + normalOffset);
+				*n = *n * m;
+			}
+		}
+	}
+
 	bool GeometryGen::GenPlane(float width,
 		float height,
 		uint32 slices,
@@ -135,6 +165,8 @@ namespace sims
 		uint8* vb = vbDesc.vb + vbDesc.offset;
 		uint16 posOffset = vbDesc.voffsets[VT_Position];
 		uint16 normalOffset = vbDesc.voffsets[VT_Normal];
+		uint32 vertexNum = stacks * slices;
+		uint32 triNum = (stacks - 1) * (slices - 1) * 2;
 
 		// generate position
 		float xStep = width / slices;
@@ -216,7 +248,13 @@ namespace sims
 		// generate vertex normal
 		if ((vts & VT_Normal) != 0)
 		{
-			GenNormals(stacks * slices, (stacks - 1) * (slices - 1) * 2, vbDesc, ibDesc);
+			GenNormals(vertexNum, triNum, vbDesc, ibDesc);
+		}
+
+		// apply transform to vertex
+		if (!vbDesc.m.IsIdentity())
+		{
+			TransformVertex(vertexNum, vbDesc, vts);
 		}
 
 		return true;
@@ -230,6 +268,8 @@ namespace sims
 		uint8* vb = vbDesc.vb + vbDesc.offset;
 		uint16 posOffset = vbDesc.voffsets[VT_Position];
 		uint16 normalOffset = vbDesc.voffsets[VT_Normal];
+		uint32 vertexNum = 4;
+		uint32 triNum = 2;
 
 		// generate position
 		float xOrigin = -width / 2;
@@ -281,7 +321,7 @@ namespace sims
 			float v[4] = {1.0f, 1.0f, 0.0f, 0.0f};
 			uint16 uvOffset = vbDesc.voffsets[VT_UV];
 
-			for (uint32 i = 0; i < 4; ++i)
+			for (uint32 i = 0; i < vertexNum; ++i)
 			{
 				uint32 offset = i * vbDesc.stride;
 				Vector2f* uv = (Vector2f*)(vb + offset + uvOffset);
@@ -293,7 +333,13 @@ namespace sims
 		// generate normal
 		if ((vts & VT_Normal) != 0)
 		{
-			GenNormals(4, 2, vbDesc, ibDesc);
+			GenNormals(vertexNum, triNum, vbDesc, ibDesc);
+		}
+
+		// apply transform to vertex
+		if (!vbDesc.m.IsIdentity())
+		{
+			TransformVertex(vertexNum, vbDesc, vts);
 		}
 
 		return true;
@@ -307,6 +353,7 @@ namespace sims
 		uint8* vb = vbDesc.vb + vbDesc.offset;
 		uint16 posOffset = vbDesc.voffsets[VT_Position];
 		uint16 normalOffset = vbDesc.voffsets[VT_Normal];
+		uint32 vertexNum = 6;
 
 		// generate position
 		float xOrigin = -width / 2;
@@ -355,6 +402,12 @@ namespace sims
 			}
 		}
 
+		// apply transform to vertex
+		if (!vbDesc.m.IsIdentity())
+		{
+			TransformVertex(vertexNum, vbDesc, vts);
+		}
+
 		return true;
 	}
 
@@ -367,6 +420,7 @@ namespace sims
 		uint16 posOffset = vbDesc.voffsets[VT_Position];
 		uint16 normalOffset = vbDesc.voffsets[VT_Normal];
 		uint32 vertexNum = 8;
+		uint32 triNum = 12;
 
 		// generate position
 		float xOrigin = -width / 2;
@@ -505,7 +559,13 @@ namespace sims
 		// generate normal
 		if ((vts & VT_Normal) != 0)
 		{
-			GenNormals(vertexNum, 12, vbDesc, ibDesc);
+			GenNormals(vertexNum, triNum, vbDesc, ibDesc);
+		}
+
+		// apply transform to vertex
+		if (!vbDesc.m.IsIdentity())
+		{
+			TransformVertex(vertexNum, vbDesc, vts);
 		}
 
 		return true;
@@ -519,6 +579,8 @@ namespace sims
 		uint8* vb = vbDesc.vb + vbDesc.offset;
 		uint16 posOffset = vbDesc.voffsets[VT_Position];
 		uint16 normalOffset = vbDesc.voffsets[VT_Normal];
+		uint32 vertexNum = 14;
+		uint32 triNum = 12;
 
 		// generate position
 		float xOrigin = -width / 2;
@@ -603,7 +665,7 @@ namespace sims
 			float u[14] = { 0.25f, 0.50f, 0.25f, 0.50f, 0.25f, 0.50f, 0.25f, 0.50f, 1.0f, 0.75f, 1.0f, 0.75f, 0.0f, 0.0f };
 			float v[14] = { 2 / 3.0f, 2 / 3.0f, 1 / 3.0f, 1 / 3.0f, 1.0f, 1.0f, 0.00f, 0.00f, 2 / 3.0f, 2 / 3.0f, 1 / 3.0f, 1 / 3.0f, 2 / 3.0f, 1 / 3.0f };
 			uint16 uvOffset = vbDesc.voffsets[VT_UV];
-			for (int i = 0; i < 14; ++i)
+			for (uint32 i = 0; i < vertexNum; ++i)
 			{
 				uint32 offset = i * vbDesc.stride;
 				Vector2f* uv = (Vector2f*)(vb + offset + uvOffset);
@@ -615,7 +677,13 @@ namespace sims
 		// generate normal
 		if ((vts & VT_Normal) != 0)
 		{
-			GenNormals(14, 12, vbDesc, ibDesc);
+			GenNormals(vertexNum, triNum, vbDesc, ibDesc);
+		}
+
+		// apply transform to vertex
+		if (!vbDesc.m.IsIdentity())
+		{
+			TransformVertex(vertexNum, vbDesc, vts);
 		}
 		return true;
 	}
