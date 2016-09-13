@@ -245,6 +245,27 @@ namespace sims
 			}
 		}
 
+		// generate UV
+		if ((vts & VT_UV) != 0)
+		{
+			float uOrigin = 0.0f;
+			float vOrigin = 1.0f;
+			float uStep = 1.0f / (slices - 1);
+			float vStep = -1.0f / (stacks - 1);
+			uint16 uvOffset = vbDesc.voffsets[VT_UV];
+
+			for (uint32 j = 0; j < stacks; ++j)
+			{
+				for (uint32 i = 0; i < slices; ++i)
+				{
+					uint32 offset = (j * slices + i) * vbDesc.stride;
+					Vector2f* uv = (Vector2f*)(vb + offset + uvOffset);
+					uv->x = uOrigin + i * uStep;
+					uv->y = vOrigin + j * vStep;
+				}
+			}
+		}
+
 		// generate vertex normal
 		if ((vts & VT_Normal) != 0)
 		{

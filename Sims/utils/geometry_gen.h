@@ -82,7 +82,7 @@ namespace sims
 
 		
 		// Plane
-		// no UV
+		// slices*stacks vertices, (stacks-1)*(slices-1)*6 indices
 		// slices number of slices about the x axis
 		// stacks number of stacks about the y axis
 		static bool GenPlane(float width,
