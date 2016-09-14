@@ -146,7 +146,7 @@ namespace sims
 				: vb_(nullptr)
 				, ib_(nullptr)
 			{
-				Init(width, height, slices, stacks);
+				Init(width, height, slices, stacks, m);
 			}
 
 			void Init(float width, float height, uint32 slices, uint32 stacks, const Matrix44f& m)
