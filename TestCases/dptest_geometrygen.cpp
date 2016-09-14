@@ -3,6 +3,7 @@
 #include "math/matrix44.h"
 #include "utils/geometry_gen.h"
 #include "utils/unit_test.h"
+#include "graphics_api/sims_dx9_geometry_def.h"
 using namespace sims;
 
 struct Vertex
@@ -99,5 +100,20 @@ UNIT_TEST(GeometryGen)
 		GeometryGen::VBDesc vb((uint8*)&v[0], sizeof(VertexUV), 0, offsetof(VertexUV, uv));
 
 		GeometryGen::GenPlane(2, 4, 4, 4, vb, GeometryGen::IBDesc((uint8*)&i[0], GeometryGen::IBDesc::Index16), GeometryGen::VT_Position | GeometryGen::VT_UV);
+	}
+
+
+	{
+		dx9::GeoBase* quad = new dx9::GeoQuad<dx9::VertexN>();
+		delete quad;
+
+		dx9::GeoBase* plane = new dx9::GeoPlane<dx9::VertexUVN>();
+		delete plane;
+
+		dx9::GeoBase* box = new dx9::GeoBox<dx9::Vertex>();
+		delete box;
+
+		dx9::GeoBase* skybox = new dx9::GeoSkyBox<dx9::VertexUVN>();
+		delete skybox;
 	}
 }

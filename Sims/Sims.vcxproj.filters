@@ -156,5 +156,8 @@
     <ClInclude Include="utils\geometry_gen.h">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="graphics_api\sims_dx9_geometry_def.h">
+      <Filter>graphics_api</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -185,10 +185,16 @@ namespace sims
 			{
 				for (int j = 0; j < C; ++j)
 				{
-					if (i == j && !equal_t(m[i][j], T(1)))
-						return false;
-					else if (!equal_t(m[i][j], T(0)))
-						return false;
+					if (i == j)
+					{
+						if (!equal_t(m[i][j], T(1)))
+							return false;
+					}
+					else
+					{
+						if (!equal_t(m[i][j], T(0)))
+							return false;
+					}
 				}
 			}
 			return true;
