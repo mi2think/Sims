@@ -80,6 +80,7 @@ namespace sims
 			};
 			virtual ~GeoBase() {}
 			virtual void Draw(D3DXMATRIX* world, D3DMATERIAL9* mtrl, IDirect3DTexture9* tex) = 0;
+			virtual void OnDestory() = 0;
 		};
 
 		template<typename T>
