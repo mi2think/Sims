@@ -88,14 +88,18 @@ namespace sims
 		{
 		public:
 			GeoQuad() : vb_(nullptr) {}
-			GeoQuad(float width, float height, float z, const Matrix44f& m, int vts)
+			GeoQuad(float width, float height, float z, const Matrix44f& m)
 				: vb_(nullptr)
 			{
-				Init(width, height, z, m, vts);
+				Init(width, height, z, m);
 			}
 
-			void Init(float width, float height, float z, const Matrix44f& m, int vts)
+			void Init(float width, float height, float z, const Matrix44f& m)
 			{
+				int vts = GeometryGen::VT_Position;
+				vts |= ((T::FVF & D3DFVF_NORMAL) != 0 ? GeometryGen::VT_Normal : 0);
+				vts |= ((T::FVF & D3DFVF_TEX1) != 0 ? GeometryGen::VT_UV : 0);
+
 				T vertices[6];
 				GeometryGen::VBDesc vbDesc((uint8*)&vertices[0], sizeof(T), 0, OFFSET_UV, OFFSET_N, OFFSET_P);
 				vbDesc.SetTransform(m);
@@ -138,15 +142,19 @@ namespace sims
 				: vb_(nullptr)
 				, ib_(nullptr)
 			{}
-			GeoPlane(float width, float height, uint32 slices, uint32 stacks, const Matrix44f& m, int vts)
+			GeoPlane(float width, float height, uint32 slices, uint32 stacks, const Matrix44f& m)
 				: vb_(nullptr)
 				, ib_(nullptr)
 			{
-				Init(width, height, slices, stacks, vts);
+				Init(width, height, slices, stacks);
 			}
 
-			void Init(float width, float height, uint32 slices, uint32 stacks, const Matrix44f& m, int vts)
+			void Init(float width, float height, uint32 slices, uint32 stacks, const Matrix44f& m)
 			{
+				int vts = GeometryGen::VT_Position;
+				vts |= ((T::FVF & D3DFVF_NORMAL) != 0 ? GeometryGen::VT_Normal : 0);
+				vts |= ((T::FVF & D3DFVF_TEX1) != 0 ? GeometryGen::VT_UV : 0);
+
 				int vertexNum = slices * stacks;
 				int indexNum = (stacks - 1) * (slices - 1) * 6;
 				T* vertices = new T[vertexNum];
@@ -217,15 +225,19 @@ namespace sims
 				: vb_(nullptr)
 				, ib_(nullptr)
 			{}
-			GeoBox(float width, float height, float depth, const Matrix44f& m, int vts)
+			GeoBox(float width, float height, float depth, const Matrix44f& m)
 				: vb_(nullptr)
 				, ib_(nullptr)
 			{
-				Init(width, height, depth, m, vts);
+				Init(width, height, depth, m);
 			}
 
-			void Init(float width, float height, float depth, const Matrix44f& m, int vts)
+			void Init(float width, float height, float depth, const Matrix44f& m)
 			{
+				int vts = GeometryGen::VT_Position;
+				vts |= ((T::FVF & D3DFVF_NORMAL) != 0 ? GeometryGen::VT_Normal : 0);
+				vts |= ((T::FVF & D3DFVF_TEX1) != 0 ? GeometryGen::VT_UV : 0);
+
 				int vertexNum = 8;
 				int indexNum = 36;
 				if ((vts & GeometryGen::VT_UV) != 0)
@@ -236,6 +248,7 @@ namespace sims
 
 				GeometryGen::VBDesc vbDesc((uint8*)vertices, sizeof(T), 0, OFFSET_UV, OFFSET_N, OFFSET_P);
 				vbDesc.SetTransform(m);
+	
 				GeometryGen::GenBox(width, height, depth, vbDesc, GeometryGen::IBDesc((uint8*)indices, GeometryGen::IBDesc::Index16), vts);
 
 				dx9::CHECK_HR = dx9::g_pD3DD->CreateVertexBuffer(sizeof(T) * vertexNum,
@@ -297,15 +310,19 @@ namespace sims
 				: vb_(nullptr)
 				, ib_(nullptr)
 			{}
-			GeoSkyBox(float width, float height, float depth, const Matrix44f& m, int vts)
+			GeoSkyBox(float width, float height, float depth, const Matrix44f& m)
 				: vb_(nullptr)
 				, ib_(nullptr)
 			{
-				Init(width, height, depth, m, vts);
+				Init(width, height, depth, m);
 			}
 
-			void Init(float width, float height, float depth, const Matrix44f& m, int vts)
+			void Init(float width, float height, float depth, const Matrix44f& m)
 			{
+				int vts = GeometryGen::VT_Position;
+				vts |= ((T::FVF & D3DFVF_NORMAL) != 0 ? GeometryGen::VT_Normal : 0);
+				vts |= ((T::FVF & D3DFVF_TEX1) != 0 ? GeometryGen::VT_UV : 0);
+
 				T vertices[14];
 				uint16 indices[36];
 
