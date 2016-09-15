@@ -152,7 +152,6 @@
     <ClInclude Include="core\pixel_format.h" />
     <ClInclude Include="core\ref.h" />
     <ClInclude Include="core\timer.h" />
-    <ClInclude Include="fps.h" />
     <ClInclude Include="graphics_api\sims_dx9.h" />
     <ClInclude Include="graphics_api\sims_dx9_geometry_def.h" />
     <ClInclude Include="math\math_fwd.h" />
@@ -166,6 +165,7 @@
     <ClInclude Include="platform\windows\windows_file_system.h" />
     <ClInclude Include="sims.h" />
     <ClInclude Include="utils\demo_app.h" />
+    <ClInclude Include="utils\fps.h" />
     <ClInclude Include="utils\geometry_gen.h" />
     <ClInclude Include="utils\string_utils.h" />
     <ClInclude Include="utils\unit_test.h" />
