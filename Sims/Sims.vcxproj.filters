@@ -159,5 +159,8 @@
     <ClInclude Include="graphics_api\sims_dx9_geometry_def.h">
       <Filter>graphics_api</Filter>
     </ClInclude>
+    <ClInclude Include="fps.h">
+      <Filter>utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
