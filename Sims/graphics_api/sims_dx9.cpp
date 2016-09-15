@@ -379,7 +379,7 @@ namespace sims
 				else
 				{
 					float time = timer_.Tick();
-					int milliseconds = clamp_t<int>(int(time * 1000.0f), 0, 100);
+					int milliseconds = int(time * 1000.0f);
 					Timestep timestep(milliseconds);
 
 					app_->OnUpdate(timestep);
