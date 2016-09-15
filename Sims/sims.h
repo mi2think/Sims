@@ -101,12 +101,12 @@ namespace sims
 	class Timestep
 	{
 	public:
-		explicit Timestep(int milliseconds) : milliseconds_(milliseconds) {}
+		explicit Timestep(float seconds) : seconds_(seconds) {}
 
-		int GetMilliseconds() const { return milliseconds_; }
-		float GetSeconds() const { return milliseconds_ * 0.001f; }
+		int GetMilliseconds() const { return int(seconds_ * 1000); }
+		float GetSeconds() const { return seconds_; }
 	private:
-		int milliseconds_;
+		float seconds_;
 	};
 }
 
