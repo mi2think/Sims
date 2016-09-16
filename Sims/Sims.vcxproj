@@ -129,6 +129,7 @@
     <ClCompile Include="core\input_stream.cpp" />
     <ClCompile Include="core\log.cpp" />
     <ClCompile Include="graphics_api\sims_dx9.cpp" />
+    <ClCompile Include="math\bbox.cpp" />
     <ClCompile Include="math\math.cpp" />
     <ClCompile Include="platform\windows\windows_file_system.cpp" />
     <ClCompile Include="platform\windows\windows_platform.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="core\timer.h" />
     <ClInclude Include="graphics_api\sims_dx9.h" />
     <ClInclude Include="graphics_api\sims_dx9_geometry_def.h" />
+    <ClInclude Include="math\bbox.h" />
     <ClInclude Include="math\math_fwd.h" />
     <ClInclude Include="math\matrix33.h" />
     <ClInclude Include="math\matrix44.h" />

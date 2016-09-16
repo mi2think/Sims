@@ -66,6 +66,9 @@
     <ClCompile Include="utils\geometry_gen.cpp">
       <Filter>utils</Filter>
     </ClCompile>
+    <ClCompile Include="math\bbox.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -161,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="utils\fps.h">
       <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="math\bbox.h">
+      <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
