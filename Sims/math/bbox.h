@@ -25,7 +25,7 @@ namespace sims
 
 		BBox() { Reset(); }
 		BBox(const Vector3f& mi, const Vector3f& ma) : minP_(mi), maxP_(ma) {}
-		BBox(const Vector3f& c, float radius) { Vector3f r(radius, radius, radius); minP_ = c - r; maxP_ = c + r; }
+		BBox(const Vector3f& c, float radius) { Vector3f r(radius, radius, radius); minP_ = c - r; maxP_ = c + r; } // may restore sphere by InnerSphere
 		BBox(const BBox& bbox) : minP_(bbox.minP_), maxP_(bbox.maxP_) {}
 		BBox& operator=(const BBox& bbox) { minP_ = bbox.minP_; maxP_ = bbox.maxP_; return *this; }
 		BBox& operator|=(const BBox& bbox) { return Union(bbox); }
@@ -59,6 +59,19 @@ namespace sims
 		{
 			c = Center();
 			radius = Inside(c) ? Distance(c, maxP_) : 0.f;
+		}
+
+		void InnerSphere(Vector3f& c, float& radius) const
+		{
+			c = Center();
+
+			Vector3f aSize = Size();
+			float d = aSize.x;
+			if (d > aSize.y)
+				d = aSize.y;
+			if (d > aSize.z )
+				d = aSize.z;
+			radius = Inside(c) ? 0.5f * d : 0.0f;
 		}
 
 		BBox& Union(const Vector3f& pt);
