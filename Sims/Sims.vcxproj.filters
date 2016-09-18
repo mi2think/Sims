@@ -69,6 +69,9 @@
     <ClCompile Include="math\bbox.cpp">
       <Filter>math</Filter>
     </ClCompile>
+    <ClCompile Include="core\path.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
     <ClCompile Include="core\file_system.cpp">
       <Filter>core</Filter>
     </ClCompile>
@@ -170,6 +173,9 @@
     </ClInclude>
     <ClInclude Include="math\bbox.h">
       <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="core\path.h">
+      <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
