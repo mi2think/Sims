@@ -418,8 +418,6 @@ namespace sims
 		float ay = a * v.y;
 		float az = a * v.z;
 
-		n.ZeroTranslation();
-
 		n.m11 = ax * v.x + c;
 		n.m12 = ax * v.y + v.z * s;
 		n.m13 = ax * v.z - v.y * s;
