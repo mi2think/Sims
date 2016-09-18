@@ -35,6 +35,18 @@ namespace sims
 
 		// get file info, return false if not exists
 		virtual bool GetFileInfo(const string& path, FileInfo& fi) const = 0;
+
+		// whether a file or directory exists
+		virtual bool Exists(const string& path);
+
+		// whether a file exists
+		virtual bool FileExists(const string& path);
+
+		// whether a Directory exists
+		virtual bool DirectoryExists(const string& path);
+
+		// delete file at given path
+		virtual bool DeleteFile(const string& path) = 0;
 	};
 }
 

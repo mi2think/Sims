@@ -14,6 +14,7 @@
 #include "core/file_output_stream.h"
 
 #include <windows.h>
+#undef DeleteFile
 
 namespace sims
 {
@@ -59,5 +60,10 @@ namespace sims
 			return true;
 		}
 		return false;
+	}
+
+	bool WindowsFileSystem::DeleteFile(const string& path)
+	{
+		return ::DeleteFileA(path.c_str()) == TRUE;
 	}
 }

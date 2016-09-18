@@ -27,6 +27,9 @@ namespace sims
 
 		// get file info, return false if not exists
 		virtual bool GetFileInfo(const string& path, FileInfo& fi) const;
+
+		// delete file at given path
+		virtual bool DeleteFile(const string& path);
 	};
 }
 
