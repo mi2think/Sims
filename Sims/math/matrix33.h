@@ -221,7 +221,7 @@ namespace sims
 			ostringstream oss;
 			for (int i = 0; i < R; ++i)
 			{
-				oss << "[" << m[i][0] << " " << m[i][1] << " " << m[i][2] << "]\n";
+				oss << "\n[" << m[i][0] << " " << m[i][1] << " " << m[i][2] << "]";
 			}
 			return oss.str();
 		}
@@ -238,7 +238,6 @@ namespace sims
 	template <typename T>
 	inline Matrix33<T>& MatrixMultiply(Matrix33<T>& n, const Matrix33<T>& m1, const Matrix33<T>& m2)
 	{
-		Matrix33 n;
 		for (int i = 0; i < Matrix33<T>::R; ++i)
 		{
 			for (int j = 0; j < Matrix33<T>::C; ++j)
@@ -310,6 +309,129 @@ namespace sims
 
 		MatrixStandardAdjugate(n, _m);
 		n /= det;
+		return n;
+	}
+
+
+	// Scale
+
+	// scale by coordinate axis
+	template <typename T>
+	inline Matrix33<T>& MatrixScaling(Matrix33<T>& n, const Vector3<T>& v)
+	{
+		n.m11 = v.x;  n.m12 = 0.0f; n.m13 = 0.0f;
+		n.m21 = 0.0f; n.m22 = v.y;  n.m23 = 0.0f;
+		n.m31 = 0.0f; n.m32 = 0.0f; n.m33 = v.z;
+		return n;
+	}
+
+	// Rotate
+
+	template <typename T>
+	inline Matrix33<T>& MatrixRotationX(Matrix33<T>& n, float radian)
+	{
+		float s = 0.0f;
+		float c = 0.0f;
+		sincos(s, c, radian);
+
+		n.m11 = 1.0f; n.m12 = 0.0f; n.m13 = 0.0f;
+		n.m21 = 0.0f; n.m22 = c;	n.m23 = s;
+		n.m31 = 0.0f; n.m32 = -s;	n.m33 = c;
+		return n;
+	}
+
+	template <typename T>
+	inline Matrix33<T>& MatrixRotationY(Matrix33<T>& n, float radian)
+	{
+		float s = 0.0f;
+		float c = 0.0f;
+		sincos(s, c, radian);
+
+		n.m11 = c;    n.m12 = 0.0f; n.m13 = -s;
+		n.m21 = 0.0f; n.m22 = 1.0f;	n.m23 = 0;
+		n.m31 = s;	  n.m32 = 0.0f;	n.m33 = c;
+		return n;
+	}
+
+	template <typename T>
+	inline Matrix33<T>& MatrixRotationZ(Matrix33<T>& n, float radian)
+	{
+		float s = 0.0f;
+		float c = 0.0f;
+		sincos(s, c, radian);
+
+		n.m11 = c;    n.m12 = s;    n.m13 = 0.0f;
+		n.m21 = -s;   n.m22 = c;	n.m23 = 0.0f;
+		n.m31 = 0.0f; n.m32 = 0.0f;	n.m33 = 1.0f;
+		return n;
+	}
+
+	template <typename T>
+	inline Matrix33<T>& MatrixRotationXYZ(Matrix33<T>& m, float radianX, float radianY, float radianZ)
+	{
+		Matrix33<T> mx;
+		MatrixRotationX(mx, radianX);
+
+		Matrix33<T> my;
+		MatrixRotationY(my, radianY);
+
+		Matrix33<T> mz;
+		MatrixRotationZ(mz, radianZ);
+
+		Matrix33<T> n;
+		MatrixMultiply(n, mx, my);
+
+		return MatrixMultiply(m, n, mz);
+	}
+
+	template <typename T>
+	inline Matrix33<T>& MatrixRotationZYX(Matrix33<T>& m, float radianX, float radianY, float radianZ)
+	{
+		Matrix33<T> mx;
+		MatrixRotationX(mx, radianX);
+
+		Matrix33<T> my;
+		MatrixRotationY(my, radianY);
+
+		Matrix33<T> mz;
+		MatrixRotationZ(mz, radianZ);
+
+		Matrix33<T> n;
+		MatrixMultiply(n, mz, my);
+
+		return MatrixMultiply(m, n, mx);
+	}
+
+	// Assume v through the origin, v must be normal Vector
+	template <typename T>
+	inline Matrix33<T>& MatrixRotationAxis(Matrix33<T>& n, const Vector3<T>& v, float radian)
+	{
+		assert(v.IsNormalized());
+
+		float s = 0.0f;
+		float c = 0.0f;
+		sincos(s, c, radian);
+
+		// Common expr 
+		float a = 1.0f - c;
+		float ax = a * v.x;
+		float ay = a * v.y;
+		float az = a * v.z;
+
+		n.ZeroTranslation();
+
+		n.m11 = ax * v.x + c;
+		n.m12 = ax * v.y + v.z * s;
+		n.m13 = ax * v.z - v.y * s;
+
+		n.m21 = ay * v.x - az * s;
+		n.m22 = ay * v.y + c;
+		n.m23 = ay * v.z + v.x * s;
+
+		n.m31 = az * v.x + ay * s;
+		n.m32 = az * v.y - ax * s;
+		n.m33 = az * v.z + c;
+
 		return n;
 	}
 

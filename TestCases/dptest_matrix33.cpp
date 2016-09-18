@@ -55,4 +55,27 @@ UNIT_TEST(Matrix33)
 	EXPECT_EQ(m13, Matrix33f(1, 0, 0, 0, 1, 0, 0, 0, 1));
 	EXPECT_TRUE(m13.IsIdentity());
 	EXPECT_FALSE(m7.IsIdentity());
+
+	{
+		Matrix33f m25;
+		MatrixRotationZYX(m25, angle2radian(30), angle2radian(45), angle2radian(60));
+		m25.Transpose();
+
+		// OpenGL way
+		Matrix33f x, y, z;
+		MatrixRotationX(x, angle2radian(30));
+		x.Transpose();
+		MatrixRotationY(y, angle2radian(45));
+		y.Transpose();
+		MatrixRotationZ(z, angle2radian(60));
+		z.Transpose();
+
+		Matrix33f xy;
+		MatrixMultiply(xy, x, y);
+
+		Matrix33f xyz;
+		MatrixMultiply(xyz, xy, z);
+
+		EXPECT_EQ(xyz, m25);
+	}
 }

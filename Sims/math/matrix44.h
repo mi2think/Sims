@@ -260,7 +260,7 @@ namespace sims
 			ostringstream oss;
 			for (int i = 0; i < R; ++i)
 			{
-				oss << "[" << m[i][0] << " " << m[i][1] << " " << m[i][2] << " " << m[i][3] << "]\n";
+				oss << "\n[" << m[i][0] << " " << m[i][1] << " " << m[i][2] << " " << m[i][3] << "]";
 			}
 			return oss.str();
 		}
