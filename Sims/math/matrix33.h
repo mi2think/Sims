@@ -444,6 +444,13 @@ namespace sims
 		v.z = T(_v.x * _m.m13 + _v.y * _m.m23 + _v.z * _m.m33);
 		return v;
 	}
+
+	template <typename T, typename U>
+	inline Vector3<T>& operator*=(Vector3<T>& v, const Matrix33<U>& _m)
+	{
+		v = v * _m;
+		return v;
+	}
 }
 
 #endif
