@@ -24,6 +24,7 @@
 #include <map>
 #include <algorithm>
 #include <cassert>
+#include <cstdlib>
 
 namespace sims
 {

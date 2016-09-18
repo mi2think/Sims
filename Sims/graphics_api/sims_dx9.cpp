@@ -14,6 +14,8 @@
 #include "core/mouse_event.h"
 #include "core/input_state.h"
 
+#include "platform/platform.h"
+
 #include <windowsx.h>	// for GET_X_LPARAM and GET_Y_LPARAM
 
 namespace sims
@@ -138,20 +140,6 @@ namespace sims
 		}
 
 		//////////////////////////////////////////////////////////////////////////
-		void CheckWin32Error(const char* file, int line)
-		{
-			DWORD error = GetLastError();
-			if (error == 0)
-				return;
-
-			char buf[128] = { 0 };
-			FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, 0, error,
-				LANG_SYSTEM_DEFAULT, buf, sizeof(buf), nullptr);
-			const char* str = str_format("%s(%d):\n%s\n", file, line, buf);
-			MessageBox(nullptr, str, "error", MB_OK);
-		}
-#define CHECK_WIN32_ERROR()  CheckWin32Error(__FILE__, __LINE__)
-
 		HWND g_hwnd = NULL;
 		Window* g_Window = nullptr;
 		static int s_clickCount = 0;
@@ -212,7 +200,7 @@ namespace sims
 
 			if (!RegisterClass(&wc))
 			{
-				CHECK_WIN32_ERROR();
+				CHECK_WIN_ERROR();
 				return;
 			}
 
@@ -230,7 +218,7 @@ namespace sims
 				(GetSystemMetrics(SM_CXSCREEN) - w) / 2, (GetSystemMetrics(SM_CYSCREEN) - h) / 2, w, h, NULL, NULL, wc.hInstance, NULL);
 			if (!g_hwnd)
 			{
-				CHECK_WIN32_ERROR();
+				CHECK_WIN_ERROR();
 				return;
 			}
 

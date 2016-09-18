@@ -65,7 +65,30 @@ namespace sims
 	{
 	public:
 		static IFileSystemRef GetFileSystem();
+
+		// environment
+		static string GetEnv(const string& name);
+		static bool SetEnv(const string& name, const string& val);
 	};
+
+#if PLATFORM_WINDOWS
+	void CheckWinError(const char* file, int line);
+	#define CHECK_WIN_ERROR()  CheckWinError(__FILE__, __LINE__)
+#else
+	string Platform::GetEnv(const string& name)
+	{
+		char* val = getenv(name.c_str());
+		string retVal;
+		if (val != nullptr)
+			retVal = val;
+		return retVal;
+	}
+
+	bool Platform::SetEnv(const string& name, const string& val)
+	{
+		return setenv(name.c_str(), val.c_str(), 1) == 0;
+	}
+#endif
 }
 
 #endif

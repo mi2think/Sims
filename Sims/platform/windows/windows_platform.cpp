@@ -12,8 +12,23 @@
 #include "platform/platform.h"
 #include "windows_file_system.h"
 
+#include <windows.h>
+
 namespace sims
 {
+	void CheckWinError(const char* file, int line)
+	{
+		DWORD error = GetLastError();
+		if (error == 0)
+			return;
+
+		char buf[128] = { 0 };
+		FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, 0, error,
+			LANG_SYSTEM_DEFAULT, buf, sizeof(buf), nullptr);
+		const char* str = str_format("%s(%d):\n%s\n", file, line, buf);
+		MessageBox(nullptr, str, "error", MB_OK);
+	}
+
 	static WindowsFileSystem s_fileSystem;
 
 	IFileSystemRef Platform::GetFileSystem()
@@ -21,5 +36,42 @@ namespace sims
 		IFileSystemRef fs(&s_fileSystem);
 		fs.IncRef();
 		return fs;
+	}
+
+	string Platform::GetEnv(const string& name)
+	{
+		const int32 bufferSize = 4096;
+		vector<char> buffer;
+		buffer.resize(bufferSize);
+
+		string retVal;
+		DWORD val = GetEnvironmentVariable(name.c_str(), &buffer[0], bufferSize);
+		if (val == 0)
+		{
+			CHECK_WIN_ERROR();
+			return retVal;
+		}
+		else if (bufferSize < val)
+		{
+			buffer.resize(val);
+			val = GetEnvironmentVariable(name.c_str(), &buffer[0], val);
+			if (!val)
+			{
+				CHECK_WIN_ERROR();
+				return retVal;
+			}
+		}
+		retVal.assign(&buffer[0], &buffer[0] + val);
+		return retVal;
+	}
+
+	bool Platform::SetEnv(const string& name, const string& val)
+	{
+		if (!SetEnvironmentVariable(name.c_str(), val.c_str()))
+		{
+			CHECK_WIN_ERROR();
+			return false;
+		}
+		return true;
 	}
 }

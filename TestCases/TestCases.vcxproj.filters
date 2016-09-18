@@ -13,5 +13,6 @@
     <ClCompile Include="dptest_quat.cpp" />
     <ClCompile Include="dptest_geometrygen.cpp" />
     <ClCompile Include="dptest_path.cpp" />
+    <ClCompile Include="dptest_platform.cpp" />
   </ItemGroup>
 </Project>
