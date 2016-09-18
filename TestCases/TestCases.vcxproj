@@ -82,6 +82,7 @@
     <ClCompile Include="dptest_main.cpp" />
     <ClCompile Include="dptest_matrix33.cpp" />
     <ClCompile Include="dptest_matrix44.cpp" />
+    <ClCompile Include="dptest_path.cpp" />
     <ClCompile Include="dptest_quat.cpp" />
     <ClCompile Include="dptest_ref.cpp" />
     <ClCompile Include="dptest_strutility.cpp" />
