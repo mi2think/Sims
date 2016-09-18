@@ -96,7 +96,7 @@ namespace sims
 		return (val < minVal ? minVal : (val > maxVal ? maxVal : val));
 	}
 
-	inline void sincos(float& sin_t, float cos_t, float radian)
+	inline void sincos(float& sin_t, float& cos_t, float radian)
 	{
 		sin_t = sinf(radian);
 		cos_t = cosf(radian);
