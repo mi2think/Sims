@@ -422,12 +422,12 @@ namespace sims
 		n.m12 = ax * v.y + v.z * s;
 		n.m13 = ax * v.z - v.y * s;
 
-		n.m21 = ay * v.x - az * s;
+		n.m21 = ay * v.x - v.z * s;
 		n.m22 = ay * v.y + c;
 		n.m23 = ay * v.z + v.x * s;
 
-		n.m31 = az * v.x + ay * s;
-		n.m32 = az * v.y - ax * s;
+		n.m31 = az * v.x + v.y * s;
+		n.m32 = az * v.y - v.x * s;
 		n.m33 = az * v.z + c;
 
 		return n;
