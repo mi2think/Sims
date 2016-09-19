@@ -17,9 +17,9 @@
 #include "utils/demo_app.h"
 
 #include <windows.h>
-#include "DirectX/Include/d3d9.h"
-#include "DirectX/Include/d3dx9.h"
-#include "DirectX/Include/DxErr.h"
+#include "d3d9.h"
+#include "d3dx9.h"
+#include "DxErr.h"
 
 namespace sims
 {

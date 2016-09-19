@@ -16,8 +16,8 @@
 #include "file_system.h"
 #include "platform/platform.h"
 
-#include "stb/stb_image.h"
-#include "stb/stb_image_write.h"
+#include "stb_image.h"
+#include "stb_image_write.h"
 
 namespace sims
 {
