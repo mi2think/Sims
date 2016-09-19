@@ -120,6 +120,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Vendor\stb\stb_image.c" />
+    <ClCompile Include="..\Vendor\stb\stb_image_write.c" />
     <ClCompile Include="core\color.cpp" />
     <ClCompile Include="core\event.cpp" />
     <ClCompile Include="core\file_input_stream.cpp" />
@@ -140,6 +142,8 @@
     <ClCompile Include="utils\unit_test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Vendor\stb\stb_image.h" />
+    <ClInclude Include="..\Vendor\stb\stb_image_write.h" />
     <ClInclude Include="core\color.h" />
     <ClInclude Include="core\event.h" />
     <ClInclude Include="core\file_input_stream.h" />

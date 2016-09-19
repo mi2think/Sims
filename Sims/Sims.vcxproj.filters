@@ -19,6 +19,12 @@
     <Filter Include="platform\windows">
       <UniqueIdentifier>{8c50091d-f193-44ae-9e01-09086507e599}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vendor">
+      <UniqueIdentifier>{c0801fae-e8e5-46da-a1a8-21b502fa036b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\stb">
+      <UniqueIdentifier>{518ae3a6-b469-4c13-9b7e-f374f546cc2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\math.cpp">
@@ -74,6 +80,12 @@
     </ClCompile>
     <ClCompile Include="core\file_system.cpp">
       <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Vendor\stb\stb_image.c">
+      <Filter>vendor\stb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Vendor\stb\stb_image_write.c">
+      <Filter>vendor\stb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +188,12 @@
     </ClInclude>
     <ClInclude Include="core\path.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Vendor\stb\stb_image.h">
+      <Filter>vendor\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Vendor\stb\stb_image_write.h">
+      <Filter>vendor\stb</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

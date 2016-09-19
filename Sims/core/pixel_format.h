@@ -17,6 +17,7 @@ namespace sims
 	enum PixelFormat
 	{
 		PF_Unknown,
+		PF_A8,
 		PF_R8G8B8,
 		PF_R8G8B8A8,
 		PF_A8R8G8B8,

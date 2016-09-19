@@ -113,10 +113,10 @@ namespace sims
 		stream->Write((uint8*)&header.imagedescriptor, 1);
 
 		const uint8* src = image->GetData();
-		for (uint32 y = height_ - 1; y >= 0; --y)
+		for (int y = height_ - 1; y >= 0; --y)
 		{
 			const uint8* row = src + y * width_ * 4;
-			for (uint32 x = 0; x < width_ * 4; x += 4)
+			for (int x = 0; x < width_ * 4; x += 4)
 			{
 				uint8 r = row[x];
 				uint8 g = row[x + 1];
@@ -134,18 +134,17 @@ namespace sims
 	{
 		switch (format)
 		{
+		case PF_A8:
+			return 1;
 		case PF_R8G8B8:
 			return 3;
-			break;
 		case PF_R8G8B8A8:
 		case PF_A8R8G8B8:
 			return 4;
-			break;
 		case PF_FloatRGB:
 			return 12;
 		case PF_FloatRGBA:
 			return 16;
-			break;
 		default:
 			ASSERT(0 && "error: unsupported image format");
 			break;
