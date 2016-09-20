@@ -13,7 +13,6 @@
 #define __IMAGE_H__
 
 #include "sims.h"
-#include "pixel_format.h"
 
 namespace sims
 {

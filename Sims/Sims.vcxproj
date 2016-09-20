@@ -157,7 +157,6 @@
     <ClInclude Include="core\mouse_event.h" />
     <ClInclude Include="core\output_stream.h" />
     <ClInclude Include="core\path.h" />
-    <ClInclude Include="core\pixel_format.h" />
     <ClInclude Include="core\ref.h" />
     <ClInclude Include="core\timer.h" />
     <ClInclude Include="graphics_api\sims_dx9.h" />

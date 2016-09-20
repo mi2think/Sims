@@ -153,9 +153,6 @@
     <ClInclude Include="core\output_stream.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="core\pixel_format.h">
-      <Filter>core</Filter>
-    </ClInclude>
     <ClInclude Include="core\file_output_stream.h">
       <Filter>core</Filter>
     </ClInclude>
