@@ -132,6 +132,7 @@
     <ClCompile Include="core\input_stream.cpp" />
     <ClCompile Include="core\log.cpp" />
     <ClCompile Include="core\path.cpp" />
+    <ClCompile Include="core\texture.cpp" />
     <ClCompile Include="graphics_api\sims_dx9.cpp" />
     <ClCompile Include="math\bbox.cpp" />
     <ClCompile Include="math\math.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="core\output_stream.h" />
     <ClInclude Include="core\path.h" />
     <ClInclude Include="core\ref.h" />
+    <ClInclude Include="core\texture.h" />
     <ClInclude Include="core\timer.h" />
     <ClInclude Include="graphics_api\sims_dx9.h" />
     <ClInclude Include="graphics_api\sims_dx9_geometry_def.h" />

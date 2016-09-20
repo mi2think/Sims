@@ -37,31 +37,39 @@ namespace sims
 #define BIT(x)	(1<<(x))
 
 #define DECLARE_ENUM(name) \
-		namespace name { \
-			enum Type {
+			enum name {
 
 #define END_DECLARE_ENUM() \
-				,Max \
-			}; \
-		}
+			};
 
-	enum PixelFormat
-	{
+	DECLARE_ENUM(PixelFormat)
 		PF_Unknown,
 		PF_A8,
 		PF_R8G8B8,
 		PF_R8G8B8A8,
 		PF_A8R8G8B8,
 		PF_FloatRGB,
-		PF_FloatRGBA,
-	};
+		PF_FloatRGBA
+	END_DECLARE_ENUM()
 
-	enum SeekType
-	{
-		ST_Start	= SEEK_SET,
-		ST_Current	= SEEK_CUR,
-		ST_End		= SEEK_END
-	};
+	DECLARE_ENUM(TextureFilter)
+		TF_Point,
+		TF_Linear,
+		TF_Anisotropic
+	END_DECLARE_ENUM()
+	
+	DECLARE_ENUM(TextureWrap)
+		TW_Reapeat,
+		TW_Mirror,
+		TW_Clamp,
+		TW_Border
+	END_DECLARE_ENUM()
+	
+	DECLARE_ENUM(SeekType)
+		ST_Start = SEEK_SET,
+		ST_Current = SEEK_CUR,
+		ST_End = SEEK_END
+	END_DECLARE_ENUM()
 
 	typedef unsigned char		uint8;
 	typedef unsigned short int	uint16;
@@ -79,12 +87,14 @@ namespace sims
 
 	class Event;
 	class Image;
+	class Texture;
 	class IInputStream;
 	class IOutputStream;
 	class IFileSystem;
 
 	typedef Ref<Event> EventRef;
 	typedef Ref<Image> ImageRef;
+	typedef Ref<Texture> TextureRef;
 	typedef Ref<IInputStream> IInputStreamRef;
 	typedef Ref<IOutputStream> IOutputStreamRef;
 	typedef Ref<IFileSystem> IFileSystemRef;
