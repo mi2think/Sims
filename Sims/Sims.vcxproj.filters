@@ -28,6 +28,9 @@
     <Filter Include="font">
       <UniqueIdentifier>{e1b376c3-6038-4fb1-862c-66b90a48dec2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="vendor\rapidxml">
+      <UniqueIdentifier>{6ee657f6-a16d-483b-9150-bf411d214596}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\math.cpp">
@@ -212,6 +215,18 @@
     </ClInclude>
     <ClInclude Include="graphics_api\sims_dx9_texture.h">
       <Filter>graphics_api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Vendor\rapidxml\rapidxml.hpp">
+      <Filter>vendor\rapidxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Vendor\rapidxml\rapidxml_iterators.hpp">
+      <Filter>vendor\rapidxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Vendor\rapidxml\rapidxml_print.hpp">
+      <Filter>vendor\rapidxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Vendor\rapidxml\rapidxml_utils.hpp">
+      <Filter>vendor\rapidxml</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

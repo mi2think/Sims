@@ -144,6 +144,10 @@
     <ClCompile Include="utils\unit_test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Vendor\rapidxml\rapidxml.hpp" />
+    <ClInclude Include="..\Vendor\rapidxml\rapidxml_iterators.hpp" />
+    <ClInclude Include="..\Vendor\rapidxml\rapidxml_print.hpp" />
+    <ClInclude Include="..\Vendor\rapidxml\rapidxml_utils.hpp" />
     <ClInclude Include="..\Vendor\stb\stb_image.h" />
     <ClInclude Include="..\Vendor\stb\stb_image_write.h" />
     <ClInclude Include="core\color.h" />
