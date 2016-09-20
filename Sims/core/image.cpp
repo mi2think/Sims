@@ -252,7 +252,7 @@ namespace sims
 			{
 				for (int x = 0; x < w; ++x)
 				{
-					*((Color*)dest[0]) = Color(src[0], src[1], src[2], src[3]).ToPackedARGB();
+					*((Color*)dest) = Color(src[0], src[1], src[2], src[3]).ToPackedARGB();
 					dest += 4;
 					src += 4;
 				}
