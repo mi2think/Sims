@@ -85,8 +85,8 @@ namespace sims
 			, tex_(nullptr)
 		{}
 
-		DX9Texture::DX9Texture(const string& path, uint32 usage, uint32 pool)
-			: Texture(path)
+		DX9Texture::DX9Texture(const string& path, PixelFormat format, uint32 usage, uint32 pool)
+			: Texture(path, format)
 			, usage_(usage)
 			, pool_(pool)
 			, tex_(nullptr)

@@ -22,13 +22,13 @@ namespace sims
 	public:
 		Texture();
 		Texture(uint32 width, uint32 height, PixelFormat format);
-		Texture(const string& path, bool mipmaps = false);
+		Texture(const string& path, PixelFormat format);
 		Texture(const ImageRef& image);
 		~Texture();
 
 		const string& GetName() const { return name_; }
 		void SetImage(const ImageRef& image);
-		void Load(const string& path, bool mipmaps = false);
+		void Load(const string& path, PixelFormat format);
 		void SaveTGA(const string& path, uint32 level = 0);
 		void Clear();
 

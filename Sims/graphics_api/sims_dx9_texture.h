@@ -24,7 +24,7 @@ namespace sims
 		public:
 			DX9Texture();
 			DX9Texture(uint32 width, uint32 height, PixelFormat format, uint32 usage, uint32 pool);
-			DX9Texture(const string& path, uint32 usage, uint32 pool);
+			DX9Texture(const string& path, PixelFormat format, uint32 usage, uint32 pool);
 			DX9Texture(const ImageRef& image, uint32 usage, uint32 pool);
 
 			uint32 GetUsage() const { return usage_; }

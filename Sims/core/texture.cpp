@@ -42,14 +42,14 @@ namespace sims
 		mipmaps_.push_back(image);
 	}
 
-	Texture::Texture(const string& path, bool mipmaps)
+	Texture::Texture(const string& path, PixelFormat format)
 		: filterMin_(TF_Linear)
 		, filterMag_(TF_Linear)
 		, filterMip_(TF_Linear)
 		, wrapS_(TW_Clamp)
 		, wrapT_(TW_Clamp)
 	{
-		Load(path, mipmaps);
+		Load(path, format);
 	}
 
 	Texture::Texture(const ImageRef& image)
@@ -76,12 +76,12 @@ namespace sims
 		mipmaps_.push_back(image);
 	}
 
-	void Texture::Load(const string& path, bool mipmaps)
+	void Texture::Load(const string& path, PixelFormat format)
 	{
 		Clear();
 
 		// get 4bp RGBA data from file
-		ImageRef image = Image::FromFile(path);
+		ImageRef image = Image::FromFile(path, format);
 		uint32 width = image->GetWidth();
 		uint32 height = image->GetHeight();
 		ASSERT(image->Valid());
