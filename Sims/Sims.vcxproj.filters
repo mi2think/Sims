@@ -25,6 +25,9 @@
     <Filter Include="vendor\stb">
       <UniqueIdentifier>{518ae3a6-b469-4c13-9b7e-f374f546cc2b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="font">
+      <UniqueIdentifier>{e1b376c3-6038-4fb1-862c-66b90a48dec2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\math.cpp">
@@ -197,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="..\Vendor\stb\stb_image_write.h">
       <Filter>vendor\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="font\glyph.h">
+      <Filter>font</Filter>
     </ClInclude>
     <ClInclude Include="math\rectangle.h">
       <Filter>math</Filter>

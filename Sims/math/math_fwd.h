@@ -27,6 +27,7 @@ namespace sims
 
 	template <typename T> class Rectangle;
 	typedef Rectangle<float> Rectf;
+	typedef Rectangle<int> Recti;
 
 	template <typename T> class Vector2;
 	typedef Vector2<float> Vector2f;
