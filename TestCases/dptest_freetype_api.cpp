@@ -17,13 +17,13 @@ void I_SimpleGlyphLoading()
 
 	// 2.loading a font face
 	FT_Face face;
-	e = FT_New_Face(library, "C:\\Windows\\fonts\\arial.ttf", 0, &face);
+	e = FT_New_Face(library, "C:\\Windows\\fonts\\simsun.ttc", 0, &face);
 	ASSERT(e == FT_Err_Ok);
 	LOG_INFO("%d faces embedded in arial", face->num_faces);
 	FT_Done_Face(face);
 
 	// 3.loading a font face from memory
-	auto inputStream = Platform::GetFileSystem()->OpenInputStream("C:\\Windows\\fonts\\arial.ttf");
+	auto inputStream = Platform::GetFileSystem()->OpenInputStream("C:\\Windows\\fonts\\simsun.ttc");
 	vector<uint8> buffer(inputStream->GetSize());
 	inputStream->Read(&buffer[0], buffer.size());
 	e = FT_New_Memory_Face(library,
@@ -67,7 +67,7 @@ void I_SimpleGlyphLoading()
 	// by default, when a face object is created, it select a Unicode charmap.
 	// to convert a Unicode character code to a font glyph index, use FT_Get_Char_Index
 
-	wchar_t c = L'A';
+	wchar_t c = L'жа';
 	e = FT_Select_Charmap(face, FT_ENCODING_GB2312);
 	auto index = FT_Get_Char_Index(face, c);
 
@@ -81,7 +81,7 @@ void I_SimpleGlyphLoading()
 	// if it's not FT_GLYPH_FORMAT_BITMAP, can use FT_Render_Glyph to convert to a bitmap
 	// default 256 gray levels, can use FT_RENDER_MODE_MONO to generate 1-bit monochrome bitmap
 
-	e = FT_Load_Glyph(face, index, FT_LOAD_RENDER);
+	e = FT_Load_Glyph(face, index, FT_LOAD_RENDER); // load glyph image into slot(erase previous one)
 	ASSERT(e == FT_Err_Ok);
 
 	auto& bitmap = face->glyph->bitmap;
