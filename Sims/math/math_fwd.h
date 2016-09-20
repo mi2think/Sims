@@ -25,6 +25,9 @@ namespace sims
 	using std::string;
 	using std::ostringstream;
 
+	template <typename T> class Rectangle;
+	typedef Rectangle<float> Rectf;
+
 	template <typename T> class Vector2;
 	typedef Vector2<float> Vector2f;
 	typedef Vector2<int>   Vector2i;

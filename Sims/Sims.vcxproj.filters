@@ -195,5 +195,8 @@
     <ClInclude Include="..\Vendor\stb\stb_image_write.h">
       <Filter>vendor\stb</Filter>
     </ClInclude>
+    <ClInclude Include="math\rectangle.h">
+      <Filter>math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
