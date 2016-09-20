@@ -90,6 +90,9 @@
     <ClCompile Include="core\texture.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="graphics_api\sims_dx9_texture.cpp">
+      <Filter>graphics_api</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -200,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="core\texture.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\sims_dx9_texture.h">
+      <Filter>graphics_api</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

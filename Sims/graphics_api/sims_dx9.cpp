@@ -143,8 +143,6 @@ namespace sims
 		HWND g_hwnd = NULL;
 		Window* g_Window = nullptr;
 		static int s_clickCount = 0;
-		IDirect3DVertexBuffer9* g_pVB = nullptr;
-		IDirect3DTexture9* g_pTex = nullptr;
 
 		LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		{
@@ -382,11 +380,8 @@ namespace sims
 			return false;
 		}
 
-
 		void Window::DestoryDX()
 		{
-			SAFE_RELEASE(g_pVB);
-			SAFE_RELEASE(g_pTex);
 			DestoryDirectX();
 		}
 	}

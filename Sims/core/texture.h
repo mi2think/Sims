@@ -58,7 +58,7 @@ namespace sims
 		// hardware interface
 		virtual void Bind(int) {}
 		virtual void Unbind(int) {}
-		virtual void Destory() {}
+		virtual void Destroy() {}
 	protected:
 		void GenMipmaps(ImageRef image);
 

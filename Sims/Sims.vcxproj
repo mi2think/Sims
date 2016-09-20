@@ -134,6 +134,7 @@
     <ClCompile Include="core\path.cpp" />
     <ClCompile Include="core\texture.cpp" />
     <ClCompile Include="graphics_api\sims_dx9.cpp" />
+    <ClCompile Include="graphics_api\sims_dx9_texture.cpp" />
     <ClCompile Include="math\bbox.cpp" />
     <ClCompile Include="math\math.cpp" />
     <ClCompile Include="platform\windows\windows_file_system.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="core\timer.h" />
     <ClInclude Include="graphics_api\sims_dx9.h" />
     <ClInclude Include="graphics_api\sims_dx9_geometry_def.h" />
+    <ClInclude Include="graphics_api\sims_dx9_texture.h" />
     <ClInclude Include="math\bbox.h" />
     <ClInclude Include="math\math_fwd.h" />
     <ClInclude Include="math\matrix33.h" />
