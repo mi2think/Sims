@@ -14,6 +14,6 @@
     <ClCompile Include="dptest_geometrygen.cpp" />
     <ClCompile Include="dptest_path.cpp" />
     <ClCompile Include="dptest_platform.cpp" />
-    <ClCompile Include="dptest_freetype_api.cpp" />
+    <ClCompile Include="dptest_font.cpp" />
   </ItemGroup>
 </Project>
