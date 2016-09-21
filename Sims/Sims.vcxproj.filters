@@ -228,5 +228,8 @@
     <ClInclude Include="..\Vendor\rapidxml\rapidxml_utils.hpp">
       <Filter>vendor\rapidxml</Filter>
     </ClInclude>
+    <ClInclude Include="font\font.h">
+      <Filter>font</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

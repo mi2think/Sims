@@ -166,6 +166,7 @@
     <ClInclude Include="core\ref.h" />
     <ClInclude Include="core\texture.h" />
     <ClInclude Include="core\timer.h" />
+    <ClInclude Include="font\font.h" />
     <ClInclude Include="font\glyph.h" />
     <ClInclude Include="graphics_api\sims_dx9.h" />
     <ClInclude Include="graphics_api\sims_dx9_geometry_def.h" />
