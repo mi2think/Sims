@@ -21,6 +21,43 @@
 
 namespace sims
 {
+	LockedImage::LockedImage()
+	{
+		Clear();
+	}
+
+	LockedImage::LockedImage(Image* image, uint32 lockFlags)
+	{
+		Init(image, lockFlags);
+	}
+
+	void LockedImage::Init(Image* image, uint32 lockFlags)
+	{
+		image_ = image;
+		lockFlags_ = lockFlags;
+	}
+
+	void LockedImage::Clear()
+	{
+		image_ = nullptr;
+		lockFlags_ = 0;
+	}
+
+	uint8* LockedImage::GetData()
+	{
+		return image_->GetData();
+	}
+
+	const uint8* LockedImage::GetData() const
+	{
+		return image_->GetData();
+	}
+
+	uint32 LockedImage::GetImageDataSize() const
+	{
+		return image_->GetImageDataSize();
+	}
+
 	Image::Image()
 		: width_(0)
 		, height_(0)
@@ -28,6 +65,7 @@ namespace sims
 		, bytesPerPixel_(0)
 		, dataSize_(0)
 		, data_(nullptr)
+		, isLocked_(false)
 	{
 	}
 
@@ -35,6 +73,7 @@ namespace sims
 		: width_(width)
 		, height_(height)
 		, format_(format)
+		, isLocked_(false)
 	{
 		bytesPerPixel_ = Image::GetBytesPerPixel(format_);
 		dataSize_ = width_ * height_ * bytesPerPixel_;
@@ -58,6 +97,7 @@ namespace sims
 			data_ = new uint8[dataSize_];
 			memcpy(data_, data, dataSize_);
 			bytesPerPixel_ = Image::GetBytesPerPixel(format_);
+			isLocked_ = false;
 		}
 	}
 
@@ -112,11 +152,12 @@ namespace sims
 		stream->Write((uint8*)&header.bitsperpixel, 1);
 		stream->Write((uint8*)&header.imagedescriptor, 1);
 
-		const uint8* src = image->GetData();
+		auto L = image->Lock(LockRead);
+		const uint8* src = L->GetData();
 		for (int y = height_ - 1; y >= 0; --y)
 		{
 			const uint8* row = src + y * width_ * 4;
-			for (int x = 0; x < width_ * 4; x += 4)
+			for (int x = 0; x < (int)width_ * 4; x += 4)
 			{
 				uint8 r = row[x];
 				uint8 g = row[x + 1];
@@ -128,6 +169,7 @@ namespace sims
 				stream->Write(&a, 1);
 			}
 		}
+		image->Unlock(L);
 	}
 
 	uint32 Image::GetBytesPerPixel(PixelFormat format)
@@ -186,11 +228,13 @@ namespace sims
 		PixelFormat pf = origin->GetFormat();
 		int w = origin->GetWidth();
 		int h = origin->GetHeight();
-		const uint8* data = origin->GetData();
+		auto L = origin->Lock(LockRead);
+		const uint8* data = L->GetData();
 
 		// same format
 		if (format == pf)
 		{
+			origin->Unlock(L);
 			return origin;
 		}
 
@@ -258,7 +302,58 @@ namespace sims
 				}
 			}
 		}
-
+		origin->Unlock(L);
 		return image;
+	}
+
+	void Image::Invalidate()
+	{
+		InvalidateRegion(Recti(0, 0, GetWidth(), GetHeight()));
+	}
+
+	void Image::InvalidateRegion(const Recti& region)
+	{
+		invalidRegion_ |= region;
+	}
+
+	void Image::Validate()
+	{
+		invalidRegion_.Width(0);
+		invalidRegion_.Height(0);
+	}
+
+	LockedImage* Image::Lock(uint32 lockFlags)
+	{
+		if (isLocked_)
+		{
+			// read is ok if pre-lock is read
+			if ((lockFlags & LockWrite) != 0 ||
+				(lockedImage_.lockFlags_ & LockWrite) != 0)
+			{
+				ASSERT(false && "lock locked image");
+				return nullptr;
+			}
+		}
+
+		if (!Valid())
+		{
+			ASSERT(false && "image has no data");
+			return nullptr;
+		}
+		isLocked_ = true;
+		lockedImage_.Init(this, lockFlags);
+		return &lockedImage_;
+	}
+
+	void Image::Unlock(LockedImage* L)
+	{
+		if (!L || L->image_ != this)
+		{
+			ASSERT(false && "can not unlock image");
+			return;
+		}
+
+		isLocked_ = false;
+		L->Clear();
 	}
 }

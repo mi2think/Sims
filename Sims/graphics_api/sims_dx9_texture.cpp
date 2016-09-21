@@ -115,7 +115,8 @@ namespace sims
 				ImageRef image = GetImage(0);
 				ASSERT(image->Valid());
 				uint32 bytesPerPixel = image->GetBytesPerPixel();
-				uint8* src = image->GetData();
+				auto L = image->Lock(Image::LockRead);
+				uint8* src = L->GetData();
 
 				IDirect3DTexture9* updateTex = tex_;
 				if (pool_ == D3DPOOL_DEFAULT)
@@ -146,6 +147,8 @@ namespace sims
 					CHECK_HR = g_pD3DD->UpdateTexture(updateTex, tex_);
 					SAFE_RELEASE(updateTex);
 				}
+
+				image->Unlock(L);
 			}
 
 			CHECK_HR = g_pD3DD->SetSamplerState(0, D3DSAMP_MAGFILTER, ToD3DTXF(filterMag_));

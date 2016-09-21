@@ -47,6 +47,7 @@ namespace sims
 			top = MIN(top, rhs.top);
 			right = MAX(right, rhs.right);
 			bottom = MAX(bottom, rhs.bottom);
+			return *this;
 		}
 
 		void CopyRect(const Rectangle<T>* src) { memcpy(this, src, sizeof(Rectangle<T>)); }
@@ -54,6 +55,8 @@ namespace sims
 
 		T Width() const { return right - left; }
 		T Height() const { return bottom - top; }
+		void Width(T width) { right = left + width; }
+		void Height(T height) { bottom = top + height; }
 		Vector2f CenterPoint() const { return Vector2f((left + right) / 2.0f, (top + bottom) / 2.0f); }
 		bool IsRectEmpty() const { return left >= right || top >= bottom; }
 		

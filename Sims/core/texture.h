@@ -55,6 +55,8 @@ namespace sims
 		Color GetBorderColor() const { return borderColor_; }
 		void SetBorderColor(const Color& c) { borderColor_ = c; }
 
+		virtual void Invalidate() {}
+
 		// hardware interface
 		virtual void Bind(int) {}
 		virtual void Unbind(int) {}

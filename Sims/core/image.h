@@ -13,12 +13,39 @@
 #define __IMAGE_H__
 
 #include "sims.h"
+#include "math/rectangle.h"
 
 namespace sims
 {
+	class LockedImage
+	{
+	public:
+		LockedImage();
+		LockedImage(Image* image, uint32 lockFlags);
+
+		void Clear();
+		void Init(Image* image, uint32 lockFlags);
+
+		uint8* GetData();
+		const uint8* GetData() const;
+		uint32 GetImageDataSize() const;
+	private:
+		friend class Image;
+		Image* image_;
+		uint32 lockFlags_;
+	};
+
+
 	class Image : public NonCopyable
 	{
 	public:
+		enum ImageLockFlags
+		{
+			LockRead    = BIT(0),
+			LockWrite   = BIT(1),
+			LockRW      = LockRead | LockWrite
+		};
+
 		Image();
 		Image(uint32 width, uint32 height, PixelFormat format);
 		Image(const void* data, uint32 length, PixelFormat format);
@@ -29,11 +56,18 @@ namespace sims
 		uint32 GetHeight() const { return height_; }
 		PixelFormat GetFormat() const { return format_; }
 
-		int GetBytesPerPixel() const { return bytesPerPixel_; }
-		int GetImageDataSize() const { return dataSize_; }
+		uint32 GetBytesPerPixel() const { return bytesPerPixel_; }
+		uint32 GetImageDataSize() const { return dataSize_; }
 
-		uint8* GetData() { return data_; }
-		const uint8* GetData() const { return data_; }
+		// mutable image data, i.e., not loaded from an asset
+		void Invalidate();
+		void InvalidateRegion(const Recti& region);
+		void Validate();
+		const Recti& GetInvalidRegion() const { return invalidRegion_; }
+		
+		// lock image
+		LockedImage* Lock(uint32 lockFlags);
+		void Unlock(LockedImage* L);
 
 		void SaveTGA(const string& path);
 
@@ -41,12 +75,21 @@ namespace sims
 		static ImageRef FromFile(const string& path, PixelFormat format = PF_R8G8B8A8);
 		static ImageRef ToPixelFormat(const ImageRef& origin, PixelFormat format);
 	private:
+		friend class LockedImage;
+		uint8* GetData() { return data_; }
+		const uint8* GetData() const { return data_; }
+	private:
 		uint32 width_;
 		uint32 height_;
 		PixelFormat format_;
 		uint32 bytesPerPixel_;
 		uint32 dataSize_;
 		uint8* data_;
+
+		bool isLocked_;
+		LockedImage lockedImage_;
+		// mark for update later, e.g. for dynamic texture
+		Recti invalidRegion_;
 	};
 }
 
