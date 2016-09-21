@@ -112,7 +112,7 @@ void I_SimpleGlyphLoading()
 			dest += 256 * 4;
 		}
 		image->Unlock(L);
-		image->SaveTGA("font.tga");
+	//	image->SaveTGA("font.tga");
 	}
 
 	FT_Done_Face(face);

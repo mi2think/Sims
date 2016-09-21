@@ -85,6 +85,7 @@ namespace sims
 	using std::pair;
 	using std::ostringstream;
 
+	class Font;
 	class Glyph;
 	class Event;
 	class Image;
@@ -93,6 +94,7 @@ namespace sims
 	class IOutputStream;
 	class IFileSystem;
 
+	typedef Ref<Font> FontRef;
 	typedef Ref<Glyph> GlyphRef;
 	typedef Ref<Event> EventRef;
 	typedef Ref<Image> ImageRef;

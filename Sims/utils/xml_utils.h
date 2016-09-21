@@ -18,7 +18,15 @@ using namespace rapidxml;
 
 namespace sims
 {
-	inline bool xml_get_float_attrite(xml_node<>* node, const char* attr_name, string& val)
+	template<typename T>
+	inline bool xml_get_attrite(xml_node<>* node, const char* attr_name, T& val) 
+	{
+		ASSERT(false && "no support type"); 
+		return false; 
+	}
+
+	template<>
+	inline bool xml_get_attrite(xml_node<>* node, const char* attr_name, string& val)
 	{
 		xml_attribute<>* attr = node->first_attribute(attr_name);
 		if (!attr)
@@ -28,17 +36,53 @@ namespace sims
 		return true;
 	}
 
-	inline bool xml_get_float_attrite(xml_node<>* node, const char* attr_name, float& val)
+	template<>
+	inline bool xml_get_attrite(xml_node<>* node, const char* attr_name, float& val)
 	{
 		xml_attribute<>* attr = node->first_attribute(attr_name);
 		if (!attr)
 			return false;
 
-		val = atof(attr->value());
+		val = (float)atof(attr->value());
 		return true;
 	}
 
-	inline bool xml_get_int_attrite(xml_node<>* node, const char* attr_name, int& val)
+	template<>
+	inline bool xml_get_attrite(xml_node<>* node, const char* attr_name, wchar_t& val)
+	{
+		xml_attribute<>* attr = node->first_attribute(attr_name);
+		if (!attr)
+			return false;
+
+		val = (wchar_t)atoi(attr->value());
+		return true;
+	}
+
+	template<>
+	inline bool xml_get_attrite(xml_node<>* node, const char* attr_name, int16& val)
+	{
+		xml_attribute<>* attr = node->first_attribute(attr_name);
+		if (!attr)
+			return false;
+
+		val = (int16)atoi(attr->value());
+		return true;
+	}
+
+	template<>
+	inline bool xml_get_attrite(xml_node<>* node, const char* attr_name, uint16& val)
+	{
+		xml_attribute<>* attr = node->first_attribute(attr_name);
+		if (!attr)
+			return false;
+
+		val = (uint16)atoi(attr->value());
+		return true;
+	}
+
+
+	template<>
+	inline bool xml_get_attrite(xml_node<>* node, const char* attr_name, int32& val)
 	{
 		xml_attribute<>* attr = node->first_attribute(attr_name);
 		if (!attr)
@@ -48,17 +92,8 @@ namespace sims
 		return true;
 	}
 
-	inline bool xml_get_int32_attrite(xml_node<>* node, const char* attr_name, int32& val)
-	{
-		xml_attribute<>* attr = node->first_attribute(attr_name);
-		if (!attr)
-			return false;
-
-		val = atoi(attr->value());
-		return true;
-	}
-
-	inline bool xml_get_uint32_attrite(xml_node<>* node, const char* attr_name, uint32& val)
+	template<>
+	inline bool xml_get_attrite(xml_node<>* node, const char* attr_name, uint32& val)
 	{
 		xml_attribute<>* attr = node->first_attribute(attr_name);
 		if (!attr)

@@ -53,7 +53,7 @@ namespace sims
 			int32 width;
 			int32 height;
 			// character image id
-			int32 pageId;
+			int32 page;
 		};
 
 		uint32 fontSize_;
@@ -68,7 +68,8 @@ namespace sims
 		GlyphMap glyphMap_;
 
 		// <character, GlyphParams>
-		typedef std::unordered_map<wchar_t, GlyphParams> GlyphParamsMap;
+		typedef Ref<GlyphParams> GlyphParamsRef;
+		typedef std::unordered_map<wchar_t, GlyphParamsRef> GlyphParamsMap;
 		GlyphParamsMap glyphParamsMap_;
 
 		struct Kerning

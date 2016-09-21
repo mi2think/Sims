@@ -89,6 +89,8 @@ extern int stbi_write_bmp(char const *filename, int w, int h, int comp, const vo
 extern int stbi_write_tga(char const *filename, int w, int h, int comp, const void  *data);
 extern int stbi_write_hdr(char const *filename, int w, int h, int comp, const float *data);
 
+extern unsigned char *stbi_write_png_to_mem(unsigned char *pixels, int stride_bytes, int x, int y, int n, int *out_len);
+
 #ifdef __cplusplus
 }
 #endif
