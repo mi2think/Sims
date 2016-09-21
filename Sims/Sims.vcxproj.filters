@@ -31,6 +31,9 @@
     <Filter Include="vendor\rapidxml">
       <UniqueIdentifier>{6ee657f6-a16d-483b-9150-bf411d214596}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphics_api\dx9">
+      <UniqueIdentifier>{7678d550-4507-497c-8c5a-5df9918379eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\math.cpp">
@@ -38,9 +41,6 @@
     </ClCompile>
     <ClCompile Include="core\log.cpp">
       <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics_api\sims_dx9.cpp">
-      <Filter>graphics_api</Filter>
     </ClCompile>
     <ClCompile Include="utils\string_utils.cpp">
       <Filter>utils</Filter>
@@ -96,14 +96,20 @@
     <ClCompile Include="core\texture.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="graphics_api\sims_dx9_texture.cpp">
-      <Filter>graphics_api</Filter>
-    </ClCompile>
     <ClCompile Include="font\font.cpp">
       <Filter>font</Filter>
     </ClCompile>
     <ClCompile Include="font\bitmap_font.cpp">
       <Filter>font</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\dx9\common_dx9.cpp">
+      <Filter>graphics_api\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\dx9\renderer_dx9.cpp">
+      <Filter>graphics_api\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\windows\windows_window_base.cpp">
+      <Filter>platform\windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,9 +130,6 @@
     </ClInclude>
     <ClInclude Include="math\vector4.h">
       <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics_api\sims_dx9.h">
-      <Filter>graphics_api</Filter>
     </ClInclude>
     <ClInclude Include="core\log.h">
       <Filter>core</Filter>
@@ -192,9 +195,6 @@
     <ClInclude Include="utils\geometry_gen.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="graphics_api\sims_dx9_geometry_def.h">
-      <Filter>graphics_api</Filter>
-    </ClInclude>
     <ClInclude Include="utils\fps.h">
       <Filter>utils</Filter>
     </ClInclude>
@@ -219,9 +219,6 @@
     <ClInclude Include="core\texture.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="graphics_api\sims_dx9_texture.h">
-      <Filter>graphics_api</Filter>
-    </ClInclude>
     <ClInclude Include="..\Vendor\rapidxml\rapidxml.hpp">
       <Filter>vendor\rapidxml</Filter>
     </ClInclude>
@@ -242,6 +239,27 @@
     </ClInclude>
     <ClInclude Include="utils\xml_utils.h">
       <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\renderer_rhi.h">
+      <Filter>graphics_api</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\dx9\renderer_dx9.h">
+      <Filter>graphics_api\dx9</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\dx9\common_dx9.h">
+      <Filter>graphics_api\dx9</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\dx9\geometry_def_dx9.h">
+      <Filter>graphics_api\dx9</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\windows\windows_window_base.h">
+      <Filter>platform\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\dx9\window_dx9.h">
+      <Filter>graphics_api\dx9</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\sims_sdk_dx9.h">
+      <Filter>graphics_api</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

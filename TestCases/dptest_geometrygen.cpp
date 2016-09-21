@@ -3,7 +3,7 @@
 #include "math/matrix44.h"
 #include "utils/geometry_gen.h"
 #include "utils/unit_test.h"
-#include "graphics_api/sims_dx9_geometry_def.h"
+#include "graphics_api/sims_sdk_dx9.h"
 using namespace sims;
 
 struct Vertex
