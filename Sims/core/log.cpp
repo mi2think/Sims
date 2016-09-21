@@ -12,7 +12,6 @@
 #include "log.h"
 
 #include <windows.h>
-#include <iostream>
 #include <cstdarg>
 
 namespace sims
@@ -20,12 +19,29 @@ namespace sims
 	Log::Log()
 		: hwnd_(nullptr)
 		, newline_(true)
+		, os_(nullptr)
 	{}
 
-	void Log::WriteBuf(int level, const char* fmt, ...)
+	void Log::WriteBegin(int level)
 	{
 		SetTextColor(GetTextColor(level));
 
+		if (level == Error || level == Fatal)
+			os_ = &std::cout;
+		else
+			os_ = &std::cerr;
+	}
+
+	void Log::WriteEnd()
+	{
+		if (newline_)
+			(*os_) << std::endl;
+	}
+
+	void Log::WriteFormat(int level, const char* fmt, ...)
+	{
+		WriteBegin(level);
+	
 		static char buffer[1024];
 		va_list ap;
 		va_start(ap, fmt);
@@ -33,14 +49,38 @@ namespace sims
 		va_end(ap);
 		buffer[1023] = 0;
 
-		std::ostream* os = nullptr;
-		if (level == Error || level == Fatal)
-			os = &std::cout;
-		else
-			os = &std::cerr;
-		(*os) << buffer;
-		if (newline_)
-			(*os) << std::endl;
+		(*os_) << buffer;
+
+		WriteEnd();
+	}
+
+	void Log::WriteString(int level, const char* s)
+	{
+		WriteBegin(level);
+		(*os_) << s;
+		WriteEnd();
+	}
+
+	LogStream& LogStream::operator<<(char* s)
+	{
+		return operator<<((const char*)s);
+	}
+
+	LogStream& LogStream::operator<<(const char* s)
+	{
+		LOGSCOPE_NEWLINE(false);
+		GLOG.WriteString(level_, s);
+		return *this;
+	}
+
+	LogStream& LogStream::operator<<(std::string& s)
+	{
+		return operator<<((const char*)s.c_str());
+	}
+
+	LogStream& LogStream::operator<<(const std::string& s)
+	{
+		return operator<<(s.c_str());
 	}
 
 	unsigned short Log::GetTextColor(int level)

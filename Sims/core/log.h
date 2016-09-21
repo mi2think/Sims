@@ -14,6 +14,7 @@
 
 #include <string>
 #include <sstream>
+#include <iostream>
 #include <type_traits>
 
 namespace sims
@@ -39,18 +40,23 @@ namespace sims
 		static Log& GetInstance() { static Log s_ins; return s_ins; }
 		Log();
 
-		void WriteBuf(int level, const char* fmt, ...);
+		void WriteFormat(int level, const char* fmt, ...);
+		void WriteString(int level, const char* s);
 		unsigned short GetTextColor(int level);
 		void SetTextColor(unsigned short color);
 		void SetNewline(bool newline) { newline_ = newline; }
 		bool GetNewline() const { return newline_; }
 	private:
+		void WriteBegin(int level);
+		void WriteEnd();
+
+		std::ostream* os_;
 		void* hwnd_;
 		bool newline_;
 	};
 
 #define GLOG Log::GetInstance()
-#define LOG_TO(level, fmt, ...) GLOG.WriteBuf(level, fmt, __VA_ARGS__)
+#define LOG_TO(level, fmt, ...) GLOG.WriteFormat(level, fmt, __VA_ARGS__)
 #define LOG_INFO(fmt, ...)	LOG_TO(Log::Info, fmt, __VA_ARGS__)
 #define LOG_WARN(fmt, ...)	LOG_TO(Log::Warn, fmt, __VA_ARGS__)
 #define LOG_ERROR(fmt, ...)	LOG_TO(Log::Error, fmt, __VA_ARGS__)
@@ -83,9 +89,15 @@ namespace sims
 		LogStream& operator<<(const T& t)
 		{
 			LOGSCOPE_NEWLINE(false);
-			GLOG.WriteBuf(level_, "%s", ToStr(t).c_str());
+			GLOG.WriteFormat(level_, "%s", ToStr(t).c_str());
 			return *this;
 		}
+
+		// no need format
+		LogStream& operator<<(char* s);
+		LogStream& operator<<(const char* s);
+		LogStream& operator<<(std::string& s);
+		LogStream& operator<<(const std::string& s);
 
 		template<typename T, typename std::enable_if<has_ToString<T>::value>::type* = nullptr>
 		std::string ToStr(const T& t)
