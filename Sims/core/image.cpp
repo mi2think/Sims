@@ -115,6 +115,12 @@ namespace sims
 
 		// write tga
 		IOutputStreamRef stream = Platform::GetFileSystem()->OpenOutputStream(path);
+		if (!stream)
+		{
+			LOG_ERROR("open file '%s' for write failed!", path.c_str());
+			return;
+		}
+
 		struct TGAHeader
 		{
 			uint8 idlength;
@@ -172,6 +178,46 @@ namespace sims
 		image->Unlock(L);
 	}
 
+	void Image::SavePNG(const string& path, bool filpped)
+	{
+		ASSERT(format_ == PF_A8 || format_ == PF_R8G8B8 || format_ == PF_R8G8B8A8);
+
+		IOutputStreamRef stream = Platform::GetFileSystem()->OpenOutputStream(path);
+		if (!stream)
+		{
+			LOG_ERROR("open file '%s' for write failed!", path.c_str());
+			return;
+		}
+
+		int len = 0;
+		auto L = Lock(LockRead);
+		const uint8* buffer = nullptr;
+		if (filpped)
+		{
+			int pitch = width_ * bytesPerPixel_;
+			buffer = (const uint8*)stbi_write_png_to_mem((unsigned char*)L->GetData() + (height_ - 1) * pitch, 
+				-pitch, 
+				width_, 
+				height_, 
+				bytesPerPixel_,
+				&len);
+		}
+		else
+		{
+			buffer = (const uint8*)stbi_write_png_to_mem((unsigned char*)L->GetData(),
+				width_ * bytesPerPixel_,
+				width_,
+				height_,
+				bytesPerPixel_,
+				&len);
+		}
+
+		ASSERT(buffer && "can not save to png");
+		Unlock(L);
+		stream->Write(buffer, len);
+		stbi_image_free((void*)buffer);
+	}
+
 	uint32 Image::GetBytesPerPixel(PixelFormat format)
 	{
 		switch (format)
@@ -199,23 +245,44 @@ namespace sims
 		IInputStreamRef stream = Platform::GetFileSystem()->OpenInputStream(path);
 		vector<uint8> buffer = stream->Read();
 
-		// load PF_R8G8B8A8 data
+		ImageRef image;
+
+		stbi_uc* stbi_data = nullptr;
 		int width = 0;
 		int height = 0;
 		int comp = 0;
-		stbi_uc* stbi_data = stbi_load_from_memory(&buffer[0], buffer.size(), &width, &height, &comp, 4);
-		if (!stbi_data)
+		
+		uint32 bytesPerPixel = GetBytesPerPixel(format);
+		if (bytesPerPixel == 1)
 		{
-			LOG_ERROR("error: stbi decode image %s filed!\n", path.c_str());
-			return ImageRef();
+			// load gray(may be use as alpha)
+			stbi_data = stbi_load_from_memory(&buffer[0], buffer.size(), &width, &height, &comp, 1);
+			ASSERT(comp == 1);
+			if (stbi_data != nullptr)
+			{
+				ImageRef origin(new Image(width, height, format));
+				void* data = origin->GetData();
+				memcpy(data, stbi_data, origin->GetBytesPerPixel() * width * height);
+				image = origin;
+			}
+		}
+		else
+		{
+			// load PF_R8G8B8A8 data, then convert if need
+			stbi_data = stbi_load_from_memory(&buffer[0], buffer.size(), &width, &height, &comp, 4);
+			if (stbi_data != nullptr)
+			{
+				ImageRef origin(new Image(width, height, PF_R8G8B8A8));
+				void* data = origin->GetData();
+				memcpy(data, stbi_data, origin->GetBytesPerPixel() * width * height);
+				image = ToPixelFormat(origin, format);
+			}
 		}
 
-		ImageRef origin(new Image(width, height, PF_R8G8B8A8));
-		void* data = origin->GetData();
-		memcpy(data, stbi_data, origin->GetBytesPerPixel() * width * height);
-		ImageRef image = ToPixelFormat(origin, format);
-
-		stbi_image_free(stbi_data);
+		if (stbi_data)
+			stbi_image_free(stbi_data);
+		else
+			LOG_ERROR("error: stbi decode image %s filed!\n", path.c_str());
 
 		return image;
 	}

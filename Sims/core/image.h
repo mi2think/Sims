@@ -69,7 +69,10 @@ namespace sims
 		LockedImage* Lock(uint32 lockFlags);
 		void Unlock(LockedImage* L);
 
+		// image format must be PF_R8G8B8A8
 		void SaveTGA(const string& path);
+		// more format
+		void SavePNG(const string& path, bool filpped);
 
 		static uint32 GetBytesPerPixel(PixelFormat format);
 		static ImageRef FromFile(const string& path, PixelFormat format = PF_R8G8B8A8);
