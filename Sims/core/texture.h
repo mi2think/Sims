@@ -20,16 +20,25 @@ namespace sims
 	class Texture
 	{
 	public:
+		enum StorageFlags
+		{
+			SF_Local		= BIT(0),
+			SF_Hardware		= BIT(1),
+			// hint for hardware, only valid if SF_Hardware set
+			SF_HintDynamic	= BIT(2)
+		};
+
 		Texture();
-		Texture(uint32 width, uint32 height, PixelFormat format);
-		Texture(const string& path, PixelFormat format);
-		Texture(const ImageRef& image);
+		Texture(uint32 width, uint32 height, PixelFormat format, uint32 storgeFlags = SF_Local);
+		Texture(const string& path, PixelFormat format, uint32 storgeFlags = SF_Local);
+		Texture(const ImageRef& image, uint32 storgeFlags = SF_Local);
 		~Texture();
 
 		const string& GetName() const { return name_; }
 		void SetImage(const ImageRef& image);
 		void Load(const string& path, PixelFormat format);
 		void SaveTGA(const string& path, uint32 level = 0);
+		void SavePNG(const string& path, uint32 level = 0, bool filpped = false);
 		void Clear();
 
 		int GetWidth() const { return width_; }
@@ -49,18 +58,21 @@ namespace sims
 
 		TextureWrap GetWrapS() const { return wrapS_; }
 		TextureWrap GetWrapT() const { return wrapT_; }
+		Color GetBorderColor() const { return borderColor_; }
 		void SetWrapS(TextureWrap wrap) { wrapS_ = wrap; }
 		void SetWrapT(TextureWrap wrap) { wrapT_ = wrap; }
-
-		Color GetBorderColor() const { return borderColor_; }
 		void SetBorderColor(const Color& c) { borderColor_ = c; }
 
-		virtual void Invalidate() {}
+		RenderID GetRenderID() const { return renderID_; }
+		void SetRenderID(RenderID id) { renderID_ = id; }
 
-		// hardware interface
-		virtual void Bind(int) {}
-		virtual void Unbind(int) {}
-		virtual void Destroy() {}
+		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
+		uint32 GetStorageFlags() const { return storageFlags_; }
+
+		// propagates changes on the texture and its mipmap images to the renderer.
+		//   you must call invalidate after modifying any texture paramters or image data,
+		//   for it to be uploaded to GPU.
+		void Invalidate();
 	protected:
 		void GenMipmaps(ImageRef image);
 
@@ -78,6 +90,9 @@ namespace sims
 
 		uint32 mipmapCount_;
 		vector<ImageRef> mipmaps_;
+
+		uint32 storageFlags_;
+		RenderID renderID_;
 	};
 }
 

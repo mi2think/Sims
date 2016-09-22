@@ -94,5 +94,23 @@ namespace sims
 			LOG_INFO("\t%d.%d.%d.%d\n", Product, Version, SubVersion, Build);
 		}
 
+		D3DFORMAT ToD3DFormat(PixelFormat format)
+		{
+			switch (format)
+			{
+			case PF_A8:
+				return D3DFMT_A8;
+			case PF_R8G8B8:
+				return D3DFMT_R8G8B8;
+			case PF_R8G8B8A8:
+				return D3DFMT_A8B8G8R8; // need test
+			case PF_A8R8G8B8:
+				return D3DFMT_A8R8G8B8;
+			default:
+				ASSERT(false);
+				break;
+			}
+			return D3DFMT_A8R8G8B8;
+		}
 	}
 }

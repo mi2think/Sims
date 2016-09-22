@@ -54,6 +54,8 @@ namespace sims
 		void PrintAdapterCount();
 		void PrintAdapterIdentifier();
 
+		D3DFORMAT ToD3DFormat(PixelFormat format);
+
 		// vertex define
 		struct Vertex
 		{

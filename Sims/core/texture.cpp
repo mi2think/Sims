@@ -11,6 +11,7 @@
 *********************************************************************/
 #include "texture.h"
 #include "image.h"
+#include "graphics_api/renderer_rhi.h"
 
 namespace sims
 {
@@ -24,10 +25,12 @@ namespace sims
 		, filterMip_(TF_Linear)
 		, wrapS_(TW_Clamp)
 		, wrapT_(TW_Clamp)
+		, renderID_(0)
+		, storageFlags_(SF_Local)
 	{
 	}
 
-	Texture::Texture(uint32 width, uint32 height, PixelFormat format)
+	Texture::Texture(uint32 width, uint32 height, PixelFormat format, uint32 storgeFlags)
 		: width_(width)
 		, height_(height)
 		, format_(format)
@@ -37,22 +40,27 @@ namespace sims
 		, wrapS_(TW_Clamp)
 		, wrapT_(TW_Clamp)
 		, mipmapCount_(1)
+		, renderID_(0)
+		, storageFlags_(storgeFlags)
 	{
 		ImageRef image(new Image(width, height, format));
 		mipmaps_.push_back(image);
 	}
 
-	Texture::Texture(const string& path, PixelFormat format)
+	Texture::Texture(const string& path, PixelFormat format, uint32 storgeFlags)
 		: filterMin_(TF_Linear)
 		, filterMag_(TF_Linear)
 		, filterMip_(TF_Linear)
 		, wrapS_(TW_Clamp)
 		, wrapT_(TW_Clamp)
+		, renderID_(0)
+		, storageFlags_(storgeFlags)
 	{
 		Load(path, format);
 	}
 
-	Texture::Texture(const ImageRef& image)
+	Texture::Texture(const ImageRef& image, uint32 storgeFlags)
+		: storageFlags_(storgeFlags)
 	{
 		SetImage(image);
 	}
@@ -80,7 +88,6 @@ namespace sims
 	{
 		Clear();
 
-		// get 4bp RGBA data from file
 		ImageRef image = Image::FromFile(path, format);
 		uint32 width = image->GetWidth();
 		uint32 height = image->GetHeight();
@@ -97,6 +104,12 @@ namespace sims
 	{
 		ASSERT(level < mipmaps_.size());
 		mipmaps_[level]->SaveTGA(path);
+	}
+
+	void Texture::SavePNG(const string& path, uint32 level, bool filpped)
+	{
+		ASSERT(level < mipmaps_.size());
+		mipmaps_[level]->SavePNG(path, filpped);
 	}
 
 	ImageRef Texture::GetImage(uint32 level) const
@@ -116,4 +129,30 @@ namespace sims
 		mipmapCount_ = 0;
 	}
 
+	void Texture::Invalidate()
+	{
+		if ((storageFlags_ & SF_Hardware) == 0)
+			return;
+
+		// collect invalid region, for update later
+		vector<Recti> regions;
+		Recti bbox;
+		for (uint32 i = 0; i < mipmapCount_; ++i)
+		{
+			ImageRef image = GetImage(i);
+			if (image)
+			{
+				regions.push_back(image->GetInvalidRegion());
+				bbox |= regions.back();
+				image->Validate(); // clear invalidate
+			}
+			else
+				regions.push_back(Recti());
+		}
+		if (bbox.IsRectEmpty())
+			return;
+
+		// update texture
+		RHIRenderer::GetRenderer()->UpdateTexture(*this, &regions[0]);
+	}
 }

@@ -74,6 +74,7 @@ namespace sims
 		, height_(height)
 		, format_(format)
 		, isLocked_(false)
+		, invalidRegion_(0, 0, width, height)
 	{
 		bytesPerPixel_ = Image::GetBytesPerPixel(format_);
 		dataSize_ = width_ * height_ * bytesPerPixel_;
@@ -99,6 +100,7 @@ namespace sims
 			bytesPerPixel_ = Image::GetBytesPerPixel(format_);
 			isLocked_ = false;
 		}
+		invalidRegion_.SetRect(0, 0, w, h);
 	}
 
 	Image::~Image()

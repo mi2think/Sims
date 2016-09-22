@@ -114,6 +114,9 @@
     <ClCompile Include="font\glyph.cpp">
       <Filter>font</Filter>
     </ClCompile>
+    <ClCompile Include="graphics_api\renderer_rhi.cpp">
+      <Filter>graphics_api</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">

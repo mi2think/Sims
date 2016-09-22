@@ -138,6 +138,7 @@
     <ClCompile Include="font\glyph.cpp" />
     <ClCompile Include="graphics_api\dx9\common_dx9.cpp" />
     <ClCompile Include="graphics_api\dx9\renderer_dx9.cpp" />
+    <ClCompile Include="graphics_api\renderer_rhi.cpp" />
     <ClCompile Include="math\bbox.cpp" />
     <ClCompile Include="math\math.cpp" />
     <ClCompile Include="platform\windows\windows_file_system.cpp" />

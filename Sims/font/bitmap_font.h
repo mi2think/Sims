@@ -28,9 +28,6 @@ namespace sims
 
 		virtual GlyphRef GetGlyph(wchar_t c) const;
 
-		virtual void DrawChar(FontCanvas& canvas, wchar_t c, float x, float y) const;
-		virtual void DrawString(FontCanvas& canvas, const wstring& s, float x, float y) const;
-
 		virtual float GetCharAdvance(wchar_t c) const;
 		virtual float GetStringAdvance(const wstring& s) const;
 
@@ -38,14 +35,17 @@ namespace sims
 		virtual Recti GetStringBoundingBox(const wstring& s) const;
 
 		virtual float GetLineHeight() const;
+
+		virtual void DrawChar(FontCanvas&, wchar_t, float, float) const;
+		virtual void DrawString(FontCanvas&, const wstring&, float, float) const;
 	private:
 		struct GlyphParams
 		{
 			// advance for draw next character
 			float xadvance;
 			// draw offset
-			float xoffset;
-			float yoffset;
+			int32 xoffset;
+			int32 yoffset;
 			// position of character image in texture
 			int32 x;
 			int32 y;
@@ -58,14 +58,16 @@ namespace sims
 
 		uint32 fontSize_;
 		float lineHeight_;
+		float imageWidth_;
+		float imageHeight_;
 
-		// <page id, image>
-		typedef std::unordered_map<int32, ImageRef> ImageMap;
-		ImageMap imageMap_;
+		// <page id, TextureRef>
+		typedef std::unordered_map<int32, TextureRef> TextureMap;
+		TextureMap textureMap_;
 		
 		// <character, GlyphRef>
 		typedef std::unordered_map<wchar_t, GlyphRef> GlyphMap;
-		GlyphMap glyphMap_;
+		mutable GlyphMap glyphMap_;
 
 		// <character, GlyphParams>
 		typedef Ref<GlyphParams> GlyphParamsRef;

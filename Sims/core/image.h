@@ -68,11 +68,12 @@ namespace sims
 		// lock image
 		LockedImage* Lock(uint32 lockFlags);
 		void Unlock(LockedImage* L);
+		const uint8* GetConstData() const { return data_; }
 
 		// image format must be PF_R8G8B8A8
 		void SaveTGA(const string& path);
 		// more format
-		void SavePNG(const string& path, bool filpped);
+		void SavePNG(const string& path, bool filpped = false);
 
 		static uint32 GetBytesPerPixel(PixelFormat format);
 		static ImageRef FromFile(const string& path, PixelFormat format = PF_R8G8B8A8);
@@ -80,7 +81,6 @@ namespace sims
 	private:
 		friend class LockedImage;
 		uint8* GetData() { return data_; }
-		const uint8* GetData() const { return data_; }
 	private:
 		uint32 width_;
 		uint32 height_;

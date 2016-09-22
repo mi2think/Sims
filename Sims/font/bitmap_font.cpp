@@ -12,6 +12,7 @@
 #include "bitmap_font.h"
 #include "glyph.h"
 #include "core/image.h"
+#include "core/texture.h"
 #include "core/path.h"
 #include "core/log.h"
 #include "core/file_system.h"
@@ -23,6 +24,10 @@ namespace sims
 {
 	BitmapFont::BitmapFont(const string& path)
 		: Font()
+		, fontSize_(0)
+		, lineHeight_(0)
+		, imageWidth_(0)
+		, imageHeight_(0)
 	{
 		Load(path);
 	}
@@ -58,12 +63,14 @@ namespace sims
 		ASSERT(common_node);
 		xml_get_attrite(common_node, "lineHeight", lineHeight_);
 		uint32 pages = 0;
-		xml_get_attrite(common_node, "lineHeight", pages);
+		xml_get_attrite(common_node, "pages", pages);
+		xml_get_attrite(common_node, "scaleW", imageWidth_);
+		xml_get_attrite(common_node, "scaleH", imageWidth_);
 
 		// pages
 		auto pages_node = font_node->first_node("pages");
 		ASSERT(pages_node);
-		imageMap_.reserve(pages);
+		textureMap_.reserve(pages);
 		string dir = Path::Parent(path);
 		for (auto node = pages_node->first_node("page"); node; node = node->next_sibling("page"))
 		{
@@ -75,8 +82,8 @@ namespace sims
 			string imagePath = Path::Join(dir, fileName);
 			if (Path::FileExists(imagePath))
 			{
-				ImageRef image = Image::FromFile(imagePath, PF_A8);
-				imageMap_[id] = image;
+				TextureRef texture(new Texture(Image::FromFile(imagePath, PF_A8), Texture::SF_Hardware | Texture::SF_HintDynamic));
+				textureMap_[id] = texture;
 			}
 			else
 			{
@@ -131,44 +138,83 @@ namespace sims
 			return it->second;
 
 		// try create glyph from param
-		auto it2 = glyphParamsMap_.find(c);
-		if (it2 != glyphParamsMap_.end())
+		auto itParam = glyphParamsMap_.find(c);
+		if (itParam != glyphParamsMap_.end())
 		{
-			auto& param = it2->second;
-		}
+			auto& param = itParam->second;
 
+			// font texture
+			auto itTex = textureMap_.find(param->page);
+			ASSERT(itTex != textureMap_.end());
+			auto& texture = itTex->second;
+			if (texture)
+			{
+				texture->Invalidate();
+			}
+
+			Rectf bbox((float)param->xoffset, (float)param->yoffset, (float)param->xoffset + param->width, (float)param->yoffset + param->height);
+			Rectf uvbox(param->x / imageWidth_, param->y / imageHeight_, (param->x + param->width) / imageWidth_, (param->y + param->height) / imageHeight_);		
+			GlyphRef glyph(new Glyph(*this, c, bbox, uvbox, param->xadvance, texture));
+
+			glyphMap_[c] = glyph;
+			return glyph;
+		}
 
 		return GlyphRef();
 	}
 
-	void BitmapFont::DrawChar(FontCanvas& canvas, wchar_t c, float x, float y) const
+	void BitmapFont::DrawChar(FontCanvas&, wchar_t, float, float) const
 	{
-
+		ASSERT(false && "bitmap font on need draw");
 	}
 
-	void BitmapFont::DrawString(FontCanvas& canvas, const wstring& s, float x, float y) const
+	void BitmapFont::DrawString(FontCanvas&, const wstring&, float, float) const
 	{
-
+		ASSERT(false && "bitmap font on need draw string");
 	}
 
 	float BitmapFont::GetCharAdvance(wchar_t c) const
 	{
+		auto itParam = glyphParamsMap_.find(c);
+		if (itParam != glyphParamsMap_.end())
+			return itParam->second->xadvance;
+
 		return 0.0f;
 	}
 
 	float BitmapFont::GetStringAdvance(const wstring& s) const
 	{
-		return 0.0f;
+		float len = 0.0f;
+		for (auto& c : s)
+			len += GetCharAdvance(c);
+		return len;
 	}
 
 	Recti BitmapFont::GetCharBoundingBox(wchar_t c) const
 	{
+		auto itParam = glyphParamsMap_.find(c);
+		if (itParam != glyphParamsMap_.end())
+		{
+			auto& param = itParam->second;
+			Recti bbox(param->xoffset, param->yoffset, param->xoffset + param->width, param->yoffset + param->height);
+			return bbox;
+		}
 		return Recti();
 	}
 
 	Recti BitmapFont::GetStringBoundingBox(const wstring& s) const
 	{
-		return Recti();
+		int32 top = 0;
+		int32 bottom = 0;
+		for (auto& c : s)
+		{
+			Recti rc = GetCharBoundingBox(c);
+			top = MIN(top, rc.top);
+			bottom = MAX(bottom, rc.bottom);
+		}
+		int32 width = (int32)GetStringAdvance(s);
+
+		return Recti(0, top, width, bottom);
 	}
 
 	float BitmapFont::GetLineHeight() const

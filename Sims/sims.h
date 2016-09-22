@@ -85,6 +85,8 @@ namespace sims
 	using std::pair;
 	using std::ostringstream;
 
+	typedef void* RenderID; // generic, platform independent
+
 	class Font;
 	class Glyph;
 	class Event;

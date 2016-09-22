@@ -24,10 +24,8 @@ namespace sims
 		{
 		public:
 
-
-
-
-
+			virtual void UpdateTexture(Texture& texture, Recti* regions);
+			virtual void DeleteTexture(RenderID id);
 		};
 
 		extern IDirect3D9* g_pD3D;

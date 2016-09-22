@@ -22,6 +22,9 @@ namespace sims
 		static RHIRenderer* GetRenderer();
 
 		virtual ~RHIRenderer() {}
+
+		virtual void UpdateTexture(Texture& texture, Recti* regions) = 0;
+		virtual void DeleteTexture(RenderID id) = 0;
 	};
 }
 

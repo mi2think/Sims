@@ -67,12 +67,12 @@ namespace sims
 			return Color((r << 24) | (g << 16) | (b << 8) | a);
 		}
 
-		static const Color white;
-		static const Color gray;
-		static const Color black;
-		static const Color red;
-		static const Color green;
-		static const Color blue;
+		static const Color c_white;
+		static const Color c_gray;
+		static const Color c_black;
+		static const Color c_red;
+		static const Color c_green;
+		static const Color c_blue;
 	};
 
 	inline Color operator*(const Color& c, float k)

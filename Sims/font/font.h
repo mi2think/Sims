@@ -42,10 +42,6 @@ namespace sims
 
 		// for font self contain a texture region. e.g. bitmap fonts
 		virtual GlyphRef GetGlyph(wchar_t c) const = 0;
-		
-		// for font need draw
-		virtual void DrawChar(FontCanvas& canvas, wchar_t c, float x, float y) const = 0;
-		virtual void DrawString(FontCanvas& canvas, const wstring& s, float x, float y) const = 0;
 
 		// distance from character to next
 		virtual float GetCharAdvance(wchar_t c) const = 0;
@@ -56,6 +52,10 @@ namespace sims
 		virtual Recti GetStringBoundingBox(const wstring& s) const = 0;
 
 		virtual float GetLineHeight() const = 0;
+
+		// for font need draw
+		virtual void DrawChar(FontCanvas& canvas, wchar_t c, float x, float y) const = 0;
+		virtual void DrawString(FontCanvas& canvas, const wstring& s, float x, float y) const = 0;
 	protected:
 		uint32 id_;
 		string fontName_;

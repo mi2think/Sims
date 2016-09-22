@@ -13,10 +13,10 @@
 
 namespace sims
 {
-	const Color Color::white = Color(255, 255, 255);
-	const Color Color::gray = Color(100, 100, 100);
-	const Color Color::black = Color(0, 0, 0);
-	const Color Color::red = Color(255, 0, 0);
-	const Color Color::green = Color(0, 255, 0);
-	const Color Color::blue = Color(0, 0, 255);
+	const Color Color::c_white = Color(255, 255, 255);
+	const Color Color::c_gray = Color(100, 100, 100);
+	const Color Color::c_black = Color(0, 0, 0);
+	const Color Color::c_red = Color(255, 0, 0);
+	const Color Color::c_green = Color(0, 255, 0);
+	const Color Color::c_blue = Color(0, 0, 255);
 }
