@@ -10,6 +10,7 @@
 	purpose:	Bitmap Font
 *********************************************************************/
 #include "bitmap_font.h"
+#include "glyph.h"
 #include "core/image.h"
 #include "core/path.h"
 #include "core/log.h"

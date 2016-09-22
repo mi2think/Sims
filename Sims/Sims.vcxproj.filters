@@ -111,6 +111,9 @@
     <ClCompile Include="platform\windows\windows_window_base.cpp">
       <Filter>platform\windows</Filter>
     </ClCompile>
+    <ClCompile Include="font\glyph.cpp">
+      <Filter>font</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">

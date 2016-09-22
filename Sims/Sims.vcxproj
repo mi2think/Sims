@@ -135,6 +135,7 @@
     <ClCompile Include="core\texture.cpp" />
     <ClCompile Include="font\bitmap_font.cpp" />
     <ClCompile Include="font\font.cpp" />
+    <ClCompile Include="font\glyph.cpp" />
     <ClCompile Include="graphics_api\dx9\common_dx9.cpp" />
     <ClCompile Include="graphics_api\dx9\renderer_dx9.cpp" />
     <ClCompile Include="math\bbox.cpp" />
