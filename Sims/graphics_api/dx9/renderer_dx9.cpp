@@ -19,6 +19,29 @@ namespace sims
 {
 	namespace dx9
 	{
+		void DX9Renderer::BeginFrame(uint32 clearFlags, Color color, float depth, uint32 stencil)
+		{
+			DWORD flags = 0;
+			if ((clearFlags & CF_Color) != 0)
+				flags |= D3DCLEAR_TARGET;
+			if ((clearFlags & CF_Depth) != 0)
+				flags |= D3DCLEAR_ZBUFFER;
+			if ((clearFlags & CF_Stencil) != 0)
+				flags |= D3DCLEAR_STENCIL;
+
+			dx9::CHECK_HR = dx9::g_pD3DD->Clear(0, 0, flags, color.value, depth, stencil);
+		}
+
+		void DX9Renderer::EndFrame()
+		{
+			dx9::CHECK_HR = dx9::g_pD3DD->EndScene();
+		}
+
+		void DX9Renderer::PresentFrame()
+		{
+			dx9::CHECK_HR = dx9::g_pD3DD->Present(0, 0, 0, 0);
+		}
+
 		void DX9Renderer::UpdateTexture(Texture& texture, Recti* regions)
 		{
 			IDirect3DTexture9* id = (IDirect3DTexture9*)texture.GetRenderID();

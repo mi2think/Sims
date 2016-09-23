@@ -64,6 +64,12 @@ namespace sims
 		TW_Clamp,
 		TW_Border
 	END_DECLARE_ENUM()
+
+	DECLARE_ENUM(ClearFlags)
+		CF_Color,
+		CF_Depth,
+		CF_Stencil
+	END_DECLARE_ENUM()
 	
 	DECLARE_ENUM(SeekType)
 		ST_Start = SEEK_SET,

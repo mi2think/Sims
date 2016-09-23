@@ -13,6 +13,7 @@
 #define __RENDERER_RHI_H__
 
 #include "sims.h"
+#include "core/color.h"
 
 namespace sims
 {
@@ -22,6 +23,10 @@ namespace sims
 		static RHIRenderer* GetRenderer();
 
 		virtual ~RHIRenderer() {}
+
+		virtual void BeginFrame(uint32 clearFlags, Color color, float depth, uint32 stencil) = 0;
+		virtual void EndFrame() = 0;
+		virtual void PresentFrame() = 0;
 
 		virtual void UpdateTexture(Texture& texture, Recti* regions) = 0;
 		virtual void DeleteTexture(RenderID id) = 0;

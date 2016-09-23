@@ -23,6 +23,9 @@ namespace sims
 		class DX9Renderer : public RHIRenderer
 		{
 		public:
+			virtual void BeginFrame(uint32 clearFlags, Color color, float depth, uint32 stencil);
+			virtual void EndFrame();
+			virtual void PresentFrame();
 
 			virtual void UpdateTexture(Texture& texture, Recti* regions);
 			virtual void DeleteTexture(RenderID id);
