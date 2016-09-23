@@ -150,7 +150,7 @@ namespace sims
 	}
 
 	bool GeometryGen::GenPlane(float width,
-		float height,
+		float depth,
 		uint32 slices,
 		uint32 stacks,
 		const VBDesc& vbDesc,
@@ -170,13 +170,13 @@ namespace sims
 
 		// generate position
 		float xStep = width / (slices - 1);
-		float zStep = height / (stacks - 1);
+		float zStep = depth / (stacks - 1);
 		float xOrigin = -width / 2;
-		float zOrigin = -height / 2;
+		float zOrigin = -depth / 2;
 
-		for (uint32 j = 0; j < stacks; ++j)
+		for (uint32 j = 0; j < stacks; ++j) // z
 		{
-			for (uint32 i = 0; i < slices; ++i)
+			for (uint32 i = 0; i < slices; ++i) // x
 			{
 				uint32 offset = (j * slices + i) * vbDesc.stride;
 				Vector3f* p = (Vector3f*)(vb + offset + posOffset);

@@ -79,6 +79,18 @@ namespace sims
 			static const uint32 FVF = D3DFVF_XYZ | D3DFVF_NORMAL;
 		};
 
+		struct VertexUV
+		{
+			Vector3f p;
+			Vector2f uv;
+			VertexUV() = default;
+			VertexUV(const Vector3f& _p, const Vector2f& _uv)
+				: p(_p)
+				, uv(_uv)
+			{}
+			static const uint32 FVF = D3DFVF_XYZ | D3DFVF_TEX1;
+		};
+
 		struct VertexUVN
 		{
 			Vector3f p;

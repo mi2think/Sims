@@ -86,7 +86,7 @@ namespace sims
 		// slices number of slices about the x axis
 		// stacks number of stacks about the y axis
 		static bool GenPlane(float width,
-			float height,
+			float depth,
 			uint32 slices,
 			uint32 stacks,
 			const VBDesc& vbDesc,
