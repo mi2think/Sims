@@ -26,6 +26,7 @@ namespace sims
 		virtual void Create(int, int, const char*, bool) {}
 		// title
 		virtual void CreateFullScreen(const char*) {}
+		virtual void Destroy() {}
 
 		virtual void OnCreate() {}
 		virtual void OnUpdate(const Timestep&) {}
@@ -50,24 +51,30 @@ namespace sims
 		void Create(uint32 width, uint32 height, const char* title, bool wndmode = true)
 		{
 			window_->Create(width, height, title, wndmode);
-			OnCreate();
+			CreateInteral();
 		}
 
 		void CreateFullScreen(const char* title)
 		{
 			window_->CreateFullScreen(title);
-			OnCreate();
+			CreateInteral();
 		}
 
 		bool Loop() { return window_->Loop(); }
 
-		virtual void OnCreate() override
+		void Destroy()
+		{
+			OnDestroy();
+		}
+	protected:
+		void CreateInteral()
 		{
 			window_->SetApp(this);
 			width_ = window_->GetWidth();
 			height_ = window_->GetHeight();
+			OnCreate();
 		}
-	protected:
+
 		uint32 width_;
 		uint32 height_;
 		Window* window_;

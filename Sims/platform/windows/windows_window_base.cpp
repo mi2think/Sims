@@ -246,7 +246,7 @@ namespace sims
 			}
 		}
 
-		app_->OnDestroy();
+		app_->Destroy();
 
 		OnDestroy();
 
