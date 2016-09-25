@@ -143,6 +143,7 @@
     <ClCompile Include="graphics_api\renderer_rhi.cpp" />
     <ClCompile Include="math\bbox.cpp" />
     <ClCompile Include="math\math.cpp" />
+    <ClCompile Include="math\rng.cpp" />
     <ClCompile Include="platform\windows\windows_file_system.cpp" />
     <ClCompile Include="platform\windows\windows_platform.cpp" />
     <ClCompile Include="platform\windows\windows_window_base.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="math\matrix44.h" />
     <ClInclude Include="math\quat.h" />
     <ClInclude Include="math\rectangle.h" />
+    <ClInclude Include="math\rng.h" />
     <ClInclude Include="math\vector2.h" />
     <ClInclude Include="math\vector3.h" />
     <ClInclude Include="math\vector4.h" />

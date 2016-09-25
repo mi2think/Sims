@@ -117,6 +117,9 @@
     <ClCompile Include="graphics_api\renderer_rhi.cpp">
       <Filter>graphics_api</Filter>
     </ClCompile>
+    <ClCompile Include="math\rng.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -266,6 +269,9 @@
     </ClInclude>
     <ClInclude Include="graphics_api\sims_sdk_dx9.h">
       <Filter>graphics_api</Filter>
+    </ClInclude>
+    <ClInclude Include="math\rng.h">
+      <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
