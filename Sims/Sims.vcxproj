@@ -129,6 +129,7 @@
     <ClCompile Include="core\file_input_stream.cpp" />
     <ClCompile Include="core\file_output_stream.cpp" />
     <ClCompile Include="core\file_system.cpp" />
+    <ClCompile Include="core\find_path2d.cpp" />
     <ClCompile Include="core\image.cpp" />
     <ClCompile Include="core\input_state.cpp" />
     <ClCompile Include="core\input_stream.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="core\file_input_stream.h" />
     <ClInclude Include="core\file_output_stream.h" />
     <ClInclude Include="core\file_system.h" />
+    <ClInclude Include="core\find_path2d.h" />
     <ClInclude Include="core\image.h" />
     <ClInclude Include="core\input_state.h" />
     <ClInclude Include="core\input_stream.h" />

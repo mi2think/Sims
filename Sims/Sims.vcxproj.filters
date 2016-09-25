@@ -120,6 +120,9 @@
     <ClCompile Include="math\rng.cpp">
       <Filter>math</Filter>
     </ClCompile>
+    <ClCompile Include="core\find_path2d.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -272,6 +275,9 @@
     </ClInclude>
     <ClInclude Include="math\rng.h">
       <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="core\find_path2d.h">
+      <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -106,8 +106,8 @@ namespace sims
 	template <typename T>
 	inline float DistanceSQ(const Vector2<T>& a, const Vector2<T>& b)
 	{
-		float dx = a.x - b.x;
-		float dy = a.y - b.y;
+		float dx = float(a.x - b.x);
+		float dy = float(a.y - b.y);
 		return dx * dx + dy * dy;
 	}
 
