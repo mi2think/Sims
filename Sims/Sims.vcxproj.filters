@@ -279,5 +279,11 @@
     <ClInclude Include="core\find_path2d.h">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="math\ray.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\sphere.h">
+      <Filter>math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

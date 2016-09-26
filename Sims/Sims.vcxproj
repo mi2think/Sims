@@ -190,8 +190,10 @@
     <ClInclude Include="math\matrix33.h" />
     <ClInclude Include="math\matrix44.h" />
     <ClInclude Include="math\quat.h" />
+    <ClInclude Include="math\ray.h" />
     <ClInclude Include="math\rectangle.h" />
     <ClInclude Include="math\rng.h" />
+    <ClInclude Include="math\sphere.h" />
     <ClInclude Include="math\vector2.h" />
     <ClInclude Include="math\vector3.h" />
     <ClInclude Include="math\vector4.h" />

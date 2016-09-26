@@ -45,6 +45,10 @@ namespace sims
 	template <typename T> class Matrix44;
 	typedef Matrix44<float> Matrix44f;
 
+	class Ray;
+	class BBox;
+	class Sphere;
+
 #define isnan _isnan
 #define isinf(f) (!_finite((f)))
 

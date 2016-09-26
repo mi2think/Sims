@@ -12,6 +12,7 @@
 #include "bbox.h"
 #include "vector4.h"
 #include "matrix44.h"
+#include "ray.h"
 
 namespace sims
 {
@@ -73,5 +74,26 @@ namespace sims
 			Union(pt.DivW());
 		}
 		return *this;
+	}
+
+	bool Intersect(const Ray& ray, const BBox& bbox, float& t)
+	{
+		float t0 = ray.mint_;
+		float t1 = ray.maxt_;
+
+		for (int i = 0; i < 3; ++i)
+		{
+			float invRayDir = 1.0f / ray.direction_[i];
+			float tnear = (bbox.minP_[i] - ray.origin_[i]) * invRayDir;
+			float tfar = (bbox.maxP_[i] - ray.origin_[i]) * invRayDir;
+			if (tnear > tfar)
+				swap_t(tnear, tfar);
+			t0 = tnear > t0 ? tnear : t0;
+			t1 = tfar < t1 ? tfar : t1;
+			if (t0 > t1)
+				return false;
+		}
+		t = t0;
+		return true;
 	}
 }
