@@ -68,6 +68,11 @@ namespace sims
 	Texture::~Texture()
 	{
 		Clear();
+		
+		if (!renderID_)
+		{
+			RHIRenderer::GetRenderer()->DeleteTexture(renderID_);
+		}
 	}
 
 	void Texture::SetImage(const ImageRef& image)
