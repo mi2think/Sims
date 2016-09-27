@@ -22,7 +22,7 @@ namespace sims
 	public:
 		Ray() : mint_(0.0f), maxt_(FLT_MAX) {}
 		Ray(const Vector3f& origin, const Vector3f& direction,
-			float mint, float maxt = FLT_MAX)
+			float mint = 0.0f, float maxt = FLT_MAX)
 			: origin_(origin)
 			, direction_(direction)
 			, mint_(mint)
@@ -39,6 +39,17 @@ namespace sims
 		mutable float mint_;
 		mutable float maxt_;
 	};
+
+	// get ray in view space, which origin at eye
+	// screenX, screenY: position in screen space
+	Ray GetViewRay(int screenX, 
+		int screenY, 
+		int screenWidth, 
+		int screenHeight, 
+		const Matrix44f& proj);
+	
+	// transform ray by matrix
+	Ray TransformRay(const Ray& ray, const Matrix44f& m);
 }
 
 #endif

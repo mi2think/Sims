@@ -123,6 +123,9 @@
     <ClCompile Include="core\find_path2d.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="math\ray.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">

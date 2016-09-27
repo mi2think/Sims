@@ -144,6 +144,7 @@
     <ClCompile Include="graphics_api\renderer_rhi.cpp" />
     <ClCompile Include="math\bbox.cpp" />
     <ClCompile Include="math\math.cpp" />
+    <ClCompile Include="math\ray.cpp" />
     <ClCompile Include="math\rng.cpp" />
     <ClCompile Include="platform\windows\windows_file_system.cpp" />
     <ClCompile Include="platform\windows\windows_platform.cpp" />
