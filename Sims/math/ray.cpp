@@ -21,8 +21,9 @@ namespace sims
 		const Matrix44f& proj)
 	{
 		/** object -> world -> view -> projection -> viewport -> screen
-		 *                       ?  <-            <-           <- known
+		 *                       ?  <-            <-          <- known
 		 *  so we have screen coord, target is point in view.
+		 *
 		 *  view matrix:
 		 *	[Width/2   0         0       0]
 		 *	[0      -Height/2    0       0]
