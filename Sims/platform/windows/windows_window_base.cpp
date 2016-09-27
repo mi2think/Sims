@@ -237,7 +237,8 @@ namespace sims
 			}
 			else
 			{
-				Timestep timestep(timer_.Tick());
+				float ts = clamp_t(timer_.Tick(), 0.0f, 1.0f);
+				Timestep timestep(ts);
 
 				app_->OnUpdate(timestep);
 				app_->OnRender(timestep);
