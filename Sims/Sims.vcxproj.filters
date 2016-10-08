@@ -126,6 +126,9 @@
     <ClCompile Include="math\ray.cpp">
       <Filter>math</Filter>
     </ClCompile>
+    <ClCompile Include="graphics_api\dx9\xmesh_dx9.cpp">
+      <Filter>graphics_api\dx9</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -287,6 +290,9 @@
     </ClInclude>
     <ClInclude Include="math\sphere.h">
       <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\dx9\xmesh_dx9.h">
+      <Filter>graphics_api\dx9</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

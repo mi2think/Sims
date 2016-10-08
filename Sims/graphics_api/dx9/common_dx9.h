@@ -47,6 +47,13 @@ namespace sims
 
 #define CHECK_HR DXErrorChecker(__FILE__, __LINE__)
 
+		extern IDirect3D9* g_pD3D;
+		extern IDirect3DDevice9* g_pD3DD;
+
+		IDirect3D9* SetupD3D();
+		IDirect3DDevice9* SetupD3DDevice(HWND hwnd, int width, int height, bool wndmode);
+		void DestoryDirectX();
+
 		// common functions
 		const char* D3DFormat2String(D3DFORMAT format);
 

@@ -30,13 +30,6 @@ namespace sims
 			virtual void UpdateTexture(Texture& texture, Recti* regions);
 			virtual void DeleteTexture(RenderID id);
 		};
-
-		extern IDirect3D9* g_pD3D;
-		extern IDirect3DDevice9* g_pD3DD;
-
-		IDirect3D9* SetupD3D();
-		IDirect3DDevice9* SetupD3DDevice(HWND hwnd, int width, int height, bool wndmode);
-		void DestoryDirectX();
 	}
 }
 

@@ -13,7 +13,7 @@
 #define __WINDOW_DX9_H__
 
 #include "sims.h"
-#include "renderer_dx9.h"
+#include "common_dx9.h"
 #include "platform/windows/windows_window_base.h"
 
 namespace sims
