@@ -16,5 +16,6 @@
 #include "dx9/geometry_def_dx9.h"
 #include "dx9/window_dx9.h"
 #include "dx9/renderer_dx9.h"
+#include "dx9/xmesh_dx9.h"
 
 #endif
