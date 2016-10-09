@@ -49,6 +49,7 @@ namespace sims
 		Vector4& operator/=(U k) { float f = 1.0f / k; x *= f; y *= f; z *= f; w *= f; return *this; }
 
 		void Zero() { x = y = z = w = T(0); }
+
 		void Normalize()
 		{
 			float len = Length();
@@ -61,19 +62,34 @@ namespace sims
 				w *= f;
 			}
 		}
+
 		bool IsNormalized() const { return equal_t(LengthSQ(), 1.0f); }
+
 		float Length() const
 		{
 			return sqrt(LengthSQ());
 		}
+
 		float LengthSQ() const
 		{
 			return x * x + y * y + z * z + w * w;
 		}
-		Vector4 Interpolate(const Vector4& v1, float t) const
+
+		Vector4 Lerp(const Vector4& v1, float t) const
 		{
 			return *this + (v1 - *this) * t;
 		}
+
+		Vector4 Proj(const Vector4& n) const
+		{
+			return DotProduct(*this, n) / n.LengthSQ() * n;
+		}
+
+		Vector4 Perp(const Vector4& n) const
+		{
+			return *this - Proj(n);
+		}
+
 		Vector3<T> DivW() const
 		{
 			if (equal_t(w, 0.0f) || equal_t(w, 1.0f))
@@ -86,6 +102,7 @@ namespace sims
 				return Vector3<T>(x * f, y * f, z * f);
 			}
 		}
+
 		string ToString() const
 		{
 			ostringstream oss;

@@ -48,6 +48,7 @@ namespace sims
 		Vector2& operator/=(U k) { float f = 1.0f / k; x *= f; y *= f; return *this; }
 
 		void Zero() { x = y = T(0); }
+	
 		void Normalize()
 		{
 			float sq = x * x + y * y;
@@ -58,19 +59,34 @@ namespace sims
 				y *= f;
 			}
 		}
+		
 		bool IsNormalized() const { return equal_t(LengthSQ(), 1.0f); }
+		
 		float Length() const
 		{
 			return sqrt(x * x + y * y);
 		}
+		
 		float LengthSQ() const
 		{
 			return x * x + y * y;
 		}
-		Vector2 Interpolate(const Vector2& v1, float t) const
+		
+		Vector2 Lerp(const Vector2& v1, float t) const
 		{
 			return *this + (v1 - *this) * t;
 		}
+
+		Vector2 Proj(const Vector2& n) const
+		{
+			return DotProduct(*this, n) / n.LengthSQ() * n;
+		}
+
+		Vector2 Perp(const Vector2& n) const
+		{
+			return *this - Proj(n);
+		}
+		
 		string ToString() const
 		{
 			ostringstream oss;

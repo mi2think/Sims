@@ -50,6 +50,7 @@ namespace sims
 		Vector3& operator/=(U k) { float f = 1.0f / k; x *= f; y *= f; z *= f; return *this; }
 
 		void Zero() { x = y = z = T(0); }
+
 		void Normalize()
 		{
 			float sq = x * x + y * y + z * z;
@@ -61,15 +62,34 @@ namespace sims
 				z *= f;
 			}
 		}
+
 		bool IsNormalized() const { return equal_t(LengthSQ(), 1.0f); }
+
 		float Length() const
 		{
 			return sqrt(x * x + y * y + z * z);
 		}
+
 		float LengthSQ() const
 		{
 			return x * x + y * y + z * z;
 		}
+
+		Vector3 Lerp(const Vector3& v1, float t) const
+		{
+			return *this + (v1 - *this) * t;
+		}
+
+		Vector3 Proj(const Vector3& n) const
+		{
+			return DotProduct(*this, n) / n.LengthSQ() * n;
+		}
+
+		Vector3 Perp(const Vector3& n) const
+		{
+			return *this - Proj(n);
+		}
+
 		string ToString() const
 		{
 			ostringstream oss;
