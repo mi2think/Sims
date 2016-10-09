@@ -14,7 +14,6 @@
 
 #include "sims.h"
 #include "graphics_api/renderer_rhi.h"
-#include <d3d9.h>
 
 namespace sims
 {

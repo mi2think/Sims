@@ -34,6 +34,9 @@
     <Filter Include="graphics_api\dx9">
       <UniqueIdentifier>{7678d550-4507-497c-8c5a-5df9918379eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphics_api\dx11">
+      <UniqueIdentifier>{abefd6b4-a26b-4b23-8e9a-c756d37356fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\math.cpp">
@@ -128,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="graphics_api\dx9\xmesh_dx9.cpp">
       <Filter>graphics_api\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\dx11\common_dx11.cpp">
+      <Filter>graphics_api\dx11</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -293,6 +299,12 @@
     </ClInclude>
     <ClInclude Include="graphics_api\dx9\xmesh_dx9.h">
       <Filter>graphics_api\dx9</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\dx11\window_dx11.h">
+      <Filter>graphics_api\dx11</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\dx11\common_dx11.h">
+      <Filter>graphics_api\dx11</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

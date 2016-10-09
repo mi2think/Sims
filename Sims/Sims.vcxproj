@@ -102,6 +102,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>.\;..\Vendor;..\Vendor\stb\;..\Vendor\DirectX\Include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4201</DisableSpecificWarnings>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -139,6 +140,7 @@
     <ClCompile Include="font\bitmap_font.cpp" />
     <ClCompile Include="font\font.cpp" />
     <ClCompile Include="font\glyph.cpp" />
+    <ClCompile Include="graphics_api\dx11\common_dx11.cpp" />
     <ClCompile Include="graphics_api\dx9\common_dx9.cpp" />
     <ClCompile Include="graphics_api\dx9\renderer_dx9.cpp" />
     <ClCompile Include="graphics_api\dx9\xmesh_dx9.cpp" />
@@ -181,6 +183,8 @@
     <ClInclude Include="font\bitmap_font.h" />
     <ClInclude Include="font\font.h" />
     <ClInclude Include="font\glyph.h" />
+    <ClInclude Include="graphics_api\dx11\common_dx11.h" />
+    <ClInclude Include="graphics_api\dx11\window_dx11.h" />
     <ClInclude Include="graphics_api\dx9\common_dx9.h" />
     <ClInclude Include="graphics_api\dx9\geometry_def_dx9.h" />
     <ClInclude Include="graphics_api\dx9\renderer_dx9.h" />

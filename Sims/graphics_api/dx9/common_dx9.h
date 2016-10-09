@@ -16,6 +16,7 @@
 #include "math/vector2.h"
 #include "math/vector3.h"
 
+#include <d3d9.h>
 #include <d3dx9.h>
 
 #define red    D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f)
