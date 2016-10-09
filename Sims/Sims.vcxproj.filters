@@ -306,5 +306,8 @@
     <ClInclude Include="graphics_api\dx11\common_dx11.h">
       <Filter>graphics_api\dx11</Filter>
     </ClInclude>
+    <ClInclude Include="graphics_api\sims_sdk_dx11.h">
+      <Filter>graphics_api</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -191,6 +191,7 @@
     <ClInclude Include="graphics_api\dx9\window_dx9.h" />
     <ClInclude Include="graphics_api\dx9\xmesh_dx9.h" />
     <ClInclude Include="graphics_api\renderer_rhi.h" />
+    <ClInclude Include="graphics_api\sims_sdk_dx11.h" />
     <ClInclude Include="graphics_api\sims_sdk_dx9.h" />
     <ClInclude Include="math\bbox.h" />
     <ClInclude Include="math\math_fwd.h" />
