@@ -550,6 +550,45 @@ namespace sims
 		return n;
 	}
 
+	template <typename T>
+	inline Matrix44<T>& MatrixLookAtLH(Matrix44<T>& n, const Vector3<T>& eye, const Vector3<T>& target, const Vector3<T>& up)
+	{
+		Vector3<T> look = target - eye;
+		look.Normalize();
+
+		Vector3<T> right;
+		CrossProduct(right, up, look);
+		right.Normalize();
+
+		CrossProduct(up, look, right);
+		up.Normalize();
+
+		auto& m = n.m;
+		m[0][0] = right.x;  m[0][1] = up.x;  m[0][2] = look.x;  m[0][3] = 0.0f;
+		m[1][0] = right.y;  m[1][1] = up.y;  m[1][2] = look.y;  m[1][3] = 0.0f;
+		m[2][0] = right.z;  m[2][1] = up.z;  m[2][2] = look.z;  m[2][3] = 0.0f;
+
+		m[3][0] = -DotProduct(eye, right);
+		m[3][1] = -DotProduct(eye, up);
+		m[3][2] = -DotProduct(eye, look);
+		m[3][3] = 1.0f;
+		return n;
+	}
+
+	template <typename T>
+	inline Matrix44<T>& MatrixPerspectiveFovLH(Matrix44<T>& n, float fovy, float aspect, float zn, float zf)
+	{
+		float k = tan(fovy / 2.0f);
+		auto& m = n.Identity().m;
+		m[0][0] = 1.0f / (aspect * k);
+		m[1][1] = 1.0f / k;
+		m[2][2] = zf / (zf - zn);
+		m[2][3] = 1.0f;
+		m[3][2] = (zf * zn) / (zn - zf);
+		m[3][3] = 0.0f;
+		return n;
+	}
+
 	//////////////////////////////////////////////////////////////////////////
 
 	template <typename T, typename U>
