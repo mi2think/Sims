@@ -51,7 +51,7 @@ namespace sims
 				, indexNum_(0)
 			{}
 
-			void Init(float width, float height, float depth, const Matrix44f& m, std::function<void(T*, uint32 n)>& func)
+			void Init(float width, float height, float depth, const Matrix44f& m, const std::function<void(T*, uint32)>& func = {})
 			{
 				// gen vertices and indices
 				int vertexNum = 8;
@@ -70,7 +70,10 @@ namespace sims
 				GeometryGen::GenBox(width, height, depth, vbDesc, GeometryGen::IBDesc((uint8*)indices, GeometryGen::IBDesc::Index16), vts);
 
 				// a chance for modify vertices
-				func(vertices, vertexNum);
+				if (func)
+				{
+					func(vertices, vertexNum);
+				}
 
 				// create vertex buffer and index buffer
 				D3D11_BUFFER_DESC vbd;
