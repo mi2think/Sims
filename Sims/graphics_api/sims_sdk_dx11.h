@@ -14,5 +14,6 @@
 
 #include "dx11/common_dx11.h"
 #include "dx11/window_dx11.h"
+#include "dx11/geometry_def_dx11.h"
 
 #endif

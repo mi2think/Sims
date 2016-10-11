@@ -184,6 +184,7 @@
     <ClInclude Include="font\font.h" />
     <ClInclude Include="font\glyph.h" />
     <ClInclude Include="graphics_api\dx11\common_dx11.h" />
+    <ClInclude Include="graphics_api\dx11\geometry_def_dx11.h" />
     <ClInclude Include="graphics_api\dx11\window_dx11.h" />
     <ClInclude Include="graphics_api\dx9\common_dx9.h" />
     <ClInclude Include="graphics_api\dx9\geometry_def_dx9.h" />
