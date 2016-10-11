@@ -51,15 +51,9 @@ namespace sims
 				, indexNum_(0)
 			{}
 
-			void Init(float width, float height, float depth, const Matrix44f& m)
+			void Init(float width, float height, float depth, const Matrix44f& m, std::function<void(T*, uint32 n)>& func)
 			{
-				// build vertex input layout
-				CHECK_HR = g_pD3DD->CreateInputLayout(T::GetDesc(),
-					T::GetDescNum(),
-					pIAInputSignature_,
-					IAInputSignatureSize_,
-					inputLayout_);
-
+				// gen vertices and indices
 				int vertexNum = 8;
 				int indexNum = 36;
 				int vts = GeometryGen::VT_Position;
@@ -75,6 +69,10 @@ namespace sims
 				vbDesc.SetTransform(m);
 				GeometryGen::GenBox(width, height, depth, vbDesc, GeometryGen::IBDesc((uint8*)indices, GeometryGen::IBDesc::Index16), vts);
 
+				// a chance for modify vertices
+				func(vertices, vertexNum);
+
+				// create vertex buffer and index buffer
 				D3D11_BUFFER_DESC vbd;
 				vbd.Usage = D3D11_USAGE_IMMUTABLE;
 				vbd.ByteWidth = sizeof(T) * vertexNum;
@@ -96,6 +94,13 @@ namespace sims
 				D3D11_SUBRESOURCE_DATA iInitData;
 				iInitData.pSysMem = indices;
 				CHECK_HR = g_pD3DD->CreateBuffer(&ibd, &iInitData, &ib_);
+
+				// build vertex input layout
+				CHECK_HR = g_pD3DD->CreateInputLayout(T::GetDesc(),
+					T::GetDescNum(),
+					pIAInputSignature_,
+					IAInputSignatureSize_,
+					inputLayout_);
 
 				vertexNum_ = vertexNum;
 				indexNum_ = indexNum;
