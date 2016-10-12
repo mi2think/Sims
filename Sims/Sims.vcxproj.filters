@@ -40,6 +40,9 @@
     <Filter Include="graphics_api\rhi">
       <UniqueIdentifier>{8778a5bb-b4a1-4d05-91a8-0e106632d54a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphics_api\ogl">
+      <UniqueIdentifier>{a0d2cff1-1a6c-404c-8844-9cca0f84fa66}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\math.cpp">
@@ -137,6 +140,9 @@
     </ClCompile>
     <ClCompile Include="graphics_api\rhi\renderer_rhi.cpp">
       <Filter>graphics_api\rhi</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\ogl\window_ogl.cpp">
+      <Filter>graphics_api\ogl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -314,6 +320,12 @@
     </ClInclude>
     <ClInclude Include="graphics_api\rhi\renderer_rhi.h">
       <Filter>graphics_api\rhi</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\ogl\common_ogl.h">
+      <Filter>graphics_api\ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\ogl\window_ogl.h">
+      <Filter>graphics_api\ogl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

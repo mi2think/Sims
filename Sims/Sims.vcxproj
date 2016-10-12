@@ -81,7 +81,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\;..\Vendor;..\Vendor\stb\;..\Vendor\DirectX\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\Vendor;..\Vendor\stb\;..\Vendor\DirectX\Include;..\Vendor\opengl\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4201</DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -144,6 +144,7 @@
     <ClCompile Include="graphics_api\dx9\common_dx9.cpp" />
     <ClCompile Include="graphics_api\dx9\renderer_dx9.cpp" />
     <ClCompile Include="graphics_api\dx9\xmesh_dx9.cpp" />
+    <ClCompile Include="graphics_api\ogl\window_ogl.cpp" />
     <ClCompile Include="graphics_api\rhi\renderer_rhi.cpp" />
     <ClCompile Include="math\bbox.cpp" />
     <ClCompile Include="math\math.cpp" />
@@ -191,6 +192,8 @@
     <ClInclude Include="graphics_api\dx9\renderer_dx9.h" />
     <ClInclude Include="graphics_api\dx9\window_dx9.h" />
     <ClInclude Include="graphics_api\dx9\xmesh_dx9.h" />
+    <ClInclude Include="graphics_api\ogl\common_ogl.h" />
+    <ClInclude Include="graphics_api\ogl\window_ogl.h" />
     <ClInclude Include="graphics_api\rhi\renderer_rhi.h" />
     <ClInclude Include="graphics_api\sims_sdk_dx11.h" />
     <ClInclude Include="graphics_api\sims_sdk_dx9.h" />

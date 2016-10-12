@@ -24,7 +24,48 @@ namespace sims
 {
 	namespace ogl
 	{
+		// glut call backs
+		class GLUT_Callbacks
+		{
+		public:
+			virtual ~GLUT_Callbacks() {}
 
+			virtual void KeyboardFunc(unsigned char key, int x, int y) = 0;
+			virtual void KeyboardSpecialFunc(int key, int x, int y) = 0;
+			virtual void KeyboardUpFunc(unsigned char key, int x, int y) = 0;
+
+			virtual void MouseFunc(int button, int state, int x, int y) = 0;
+			virtual void MotionFunc(int x, int y) = 0;
+			virtual void PassiveMotionFunc(int x, int y) = 0;
+
+			virtual void DisplayFunc() = 0;
+			virtual void IdleFunc() = 0;
+		};
+
+		extern GLUT_Callbacks* g_callback;
+
+		// init glut and display mode with:
+		//     depth,
+		//     stencil,
+		//     double buffer,
+		//     rgba
+		void glut_init();
+
+		// create window and center it
+		//     60hz if full screen
+		void glut_create_window(uint32 width, uint32 height, const char* title, bool fullscreen);
+
+		// bind glut call back to g_callback
+		void glut_bind_callbacks();
+
+		// enter main loop
+		void glut_main_loop();
+
+		// init gl states:
+		//    clear color, depth & stencil
+		//    depth test: GL_LESS
+		//    cull face: GL_BACK
+		void gl_init_states(float r, float g, float b, float a);
 	}
 }
 
