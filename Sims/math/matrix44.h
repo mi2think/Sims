@@ -556,20 +556,19 @@ namespace sims
 		Vector3<T> look = target - eye;
 		look.Normalize();
 
-		Vector3<T> right;
-		CrossProduct(right, up, look);
+		Vector3<T> right = CrossProduct(up, look);
 		right.Normalize();
 
-		CrossProduct(up, look, right);
-		up.Normalize();
+		Vector3<T> upn = CrossProduct(look, right);
+		upn.Normalize();
 
 		auto& m = n.m;
-		m[0][0] = right.x;  m[0][1] = up.x;  m[0][2] = look.x;  m[0][3] = 0.0f;
-		m[1][0] = right.y;  m[1][1] = up.y;  m[1][2] = look.y;  m[1][3] = 0.0f;
-		m[2][0] = right.z;  m[2][1] = up.z;  m[2][2] = look.z;  m[2][3] = 0.0f;
+		m[0][0] = right.x;  m[0][1] = upn.x;  m[0][2] = look.x;  m[0][3] = 0.0f;
+		m[1][0] = right.y;  m[1][1] = upn.y;  m[1][2] = look.y;  m[1][3] = 0.0f;
+		m[2][0] = right.z;  m[2][1] = upn.z;  m[2][2] = look.z;  m[2][3] = 0.0f;
 
 		m[3][0] = -DotProduct(eye, right);
-		m[3][1] = -DotProduct(eye, up);
+		m[3][1] = -DotProduct(eye, upn);
 		m[3][2] = -DotProduct(eye, look);
 		m[3][3] = 1.0f;
 		return n;
