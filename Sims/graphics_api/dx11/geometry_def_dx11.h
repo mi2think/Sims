@@ -103,7 +103,7 @@ namespace sims
 					T::GetDescNum(),
 					pIAInputSignature_,
 					IAInputSignatureSize_,
-					inputLayout_);
+					&inputLayout_);
 
 				vertexNum_ = vertexNum;
 				indexNum_ = indexNum;
