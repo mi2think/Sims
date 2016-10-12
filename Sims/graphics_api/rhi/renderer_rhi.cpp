@@ -14,7 +14,7 @@
 #define SIMS_RENDERER_DX9 1
 
 #if SIMS_RENDERER_DX9
-	#include "dx9/renderer_dx9.h"
+	#include "../dx9/renderer_dx9.h"
 #endif
 
 namespace sims

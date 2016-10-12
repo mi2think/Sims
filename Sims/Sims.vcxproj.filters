@@ -37,6 +37,9 @@
     <Filter Include="graphics_api\dx11">
       <UniqueIdentifier>{abefd6b4-a26b-4b23-8e9a-c756d37356fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphics_api\rhi">
+      <UniqueIdentifier>{8778a5bb-b4a1-4d05-91a8-0e106632d54a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\math.cpp">
@@ -117,9 +120,6 @@
     <ClCompile Include="font\glyph.cpp">
       <Filter>font</Filter>
     </ClCompile>
-    <ClCompile Include="graphics_api\renderer_rhi.cpp">
-      <Filter>graphics_api</Filter>
-    </ClCompile>
     <ClCompile Include="math\rng.cpp">
       <Filter>math</Filter>
     </ClCompile>
@@ -134,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="graphics_api\dx11\common_dx11.cpp">
       <Filter>graphics_api\dx11</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\rhi\renderer_rhi.cpp">
+      <Filter>graphics_api\rhi</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -264,9 +267,6 @@
     <ClInclude Include="utils\xml_utils.h">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="graphics_api\renderer_rhi.h">
-      <Filter>graphics_api</Filter>
-    </ClInclude>
     <ClInclude Include="graphics_api\dx9\renderer_dx9.h">
       <Filter>graphics_api\dx9</Filter>
     </ClInclude>
@@ -311,6 +311,9 @@
     </ClInclude>
     <ClInclude Include="graphics_api\dx11\geometry_def_dx11.h">
       <Filter>graphics_api\dx11</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\rhi\renderer_rhi.h">
+      <Filter>graphics_api\rhi</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
