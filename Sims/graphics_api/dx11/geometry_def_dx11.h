@@ -44,7 +44,7 @@ namespace sims
 		public:
 			GeoBox(uint8* pIAInputSignature, uint32 IAInputSignatureSize)
 				: GeoBase(pIAInputSignature, IAInputSignatureSize)
-				: vb_(nullptr)
+				, vb_(nullptr)
 				, ib_(nullptr)
 				, inputLayout_(nullptr)
 				, vertexNum_(0)
