@@ -100,7 +100,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>.\;..\Vendor;..\Vendor\stb\;..\Vendor\DirectX\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;..\Vendor;..\Vendor\stb\;..\Vendor\DirectX\Include;..\Vendor\opengl\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4201</DisableSpecificWarnings>
       <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>

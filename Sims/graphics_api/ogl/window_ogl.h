@@ -37,9 +37,9 @@ namespace sims
 			void SetApp(DemoAppBase* app);
 
 			// callbacks
-			virtual void KeyboardFunc(unsigned char key, int x, int y);
-			virtual void KeyboardSpecialFunc(int key, int x, int y);
-			virtual void KeyboardUpFunc(unsigned char key, int x, int y);
+			virtual void KeyboardFunc(unsigned char key, int, int);
+			virtual void KeyboardSpecialFunc(int key, int, int);
+			virtual void KeyboardUpFunc(unsigned char key, int, int);
 
 			virtual void MouseFunc(int button, int state, int x, int y);
 			virtual void MotionFunc(int x, int y);
@@ -47,7 +47,7 @@ namespace sims
 
 			virtual void DisplayFunc();
 			virtual void IdleFunc();
-		protected:
+		private:
 			uint32 width_;
 			uint32 height_;
 			bool wndmode_;

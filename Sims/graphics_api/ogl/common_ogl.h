@@ -12,6 +12,9 @@
 #ifndef __COMMON_OGL_H__
 #define __COMMON_OGL_H__
 
+#pragma warning(push)
+#pragma warning( disable : 4505 )  // unreferenced local function has been removed in freeglut_std.h
+
 #define FREEGLUT_STATIC // defined so you can link to freeglut_static.lib when compiling
 #define GLEW_STATIC     // defined so you can link to glew's static .lib when compiling
 
@@ -69,5 +72,6 @@ namespace sims
 	}
 }
 
+#pragma warning(pop)
 
 #endif
