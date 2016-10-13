@@ -11,7 +11,7 @@
 *********************************************************************/
 #include "texture.h"
 #include "image.h"
-#include "graphics_api/renderer_rhi.h"
+#include "graphics_api/rhi/renderer_rhi.h"
 
 namespace sims
 {

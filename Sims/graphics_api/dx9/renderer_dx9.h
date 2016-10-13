@@ -13,7 +13,7 @@
 #define __RENDERER_DX9_H__
 
 #include "sims.h"
-#include "graphics_api/renderer_rhi.h"
+#include "graphics_api/rhi/renderer_rhi.h"
 
 namespace sims
 {
