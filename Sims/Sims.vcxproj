@@ -144,6 +144,7 @@
     <ClCompile Include="graphics_api\dx9\common_dx9.cpp" />
     <ClCompile Include="graphics_api\dx9\renderer_dx9.cpp" />
     <ClCompile Include="graphics_api\dx9\xmesh_dx9.cpp" />
+    <ClCompile Include="graphics_api\ogl\common_ogl.cpp" />
     <ClCompile Include="graphics_api\ogl\window_ogl.cpp" />
     <ClCompile Include="graphics_api\rhi\renderer_rhi.cpp" />
     <ClCompile Include="math\bbox.cpp" />

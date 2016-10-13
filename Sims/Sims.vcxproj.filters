@@ -144,6 +144,9 @@
     <ClCompile Include="graphics_api\ogl\window_ogl.cpp">
       <Filter>graphics_api\ogl</Filter>
     </ClCompile>
+    <ClCompile Include="graphics_api\ogl\common_ogl.cpp">
+      <Filter>graphics_api\ogl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
