@@ -4,6 +4,9 @@
 
 #ifdef STB_IMAGE_WRITE_IMPLEMENTATION
 
+#pragma warning(push)
+#pragma warning( disable : 4456 4457 )  // hide variable
+
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -619,4 +622,7 @@ int stbi_write_png(char const *filename, int x, int y, int comp, const void *dat
 	STBIW_FREE(png);
 	return 1;
 }
+
+#pragma warning(pop)
+
 #endif // STB_IMAGE_WRITE_IMPLEMENTATION

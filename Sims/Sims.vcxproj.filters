@@ -330,5 +330,8 @@
     <ClInclude Include="graphics_api\ogl\window_ogl.h">
       <Filter>graphics_api\ogl</Filter>
     </ClInclude>
+    <ClInclude Include="graphics_api\sims_sdk_ogl.h">
+      <Filter>graphics_api</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
