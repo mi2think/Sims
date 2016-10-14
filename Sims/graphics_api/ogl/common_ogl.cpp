@@ -44,8 +44,11 @@ namespace sims
 			displayMode |= GLUT_DEPTH;  // with depth
 			displayMode |= GLUT_STENCIL;// with stencil
 			glutInitDisplayMode(displayMode);
-			glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
-			glutInitContextVersion(4, 3);
+			glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);	
+			
+			// disable this for in test function allow VBO without wrap in VAO
+			// http://gamedev.stackexchange.com/questions/28306/vbo-triangle-not-rendered-using-freeglut-opengl-3-x-not-understanding-the-weird
+			//glutInitContextVersion(4, 3);
 
 			hasInit = true;
 		}
