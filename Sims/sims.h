@@ -70,6 +70,11 @@ namespace sims
 		CF_Depth,
 		CF_Stencil
 	END_DECLARE_ENUM()
+
+	DECLARE_ENUM(ShaderType)
+		ST_Vertex,
+		ST_Fragment
+	END_DECLARE_ENUM()
 	
 	DECLARE_ENUM(SeekType)
 		ST_Start = SEEK_SET,

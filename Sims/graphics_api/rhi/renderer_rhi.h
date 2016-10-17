@@ -17,20 +17,21 @@
 
 namespace sims
 {
-	class RHIRenderer
+	namespace rhi
 	{
-	public:
-		static RHIRenderer* GetRenderer();
+		class RHIRenderer
+		{
+		public:
+			virtual ~RHIRenderer() {}
 
-		virtual ~RHIRenderer() {}
+			virtual void BeginFrame(uint32 clearFlags, Color color, float depth, uint32 stencil) = 0;
+			virtual void EndFrame() = 0;
+			virtual void PresentFrame() = 0;
 
-		virtual void BeginFrame(uint32 clearFlags, Color color, float depth, uint32 stencil) = 0;
-		virtual void EndFrame() = 0;
-		virtual void PresentFrame() = 0;
-
-		virtual void UpdateTexture(Texture& texture, Recti* regions) = 0;
-		virtual void DeleteTexture(RenderID id) = 0;
-	};
+			virtual void UpdateTexture(Texture& texture, Recti* regions) = 0;
+			virtual void DeleteTexture(RenderID id) = 0;
+		};
+	}
 }
 
 #endif

@@ -147,6 +147,8 @@
     <ClCompile Include="graphics_api\ogl\common_ogl.cpp" />
     <ClCompile Include="graphics_api\ogl\window_ogl.cpp" />
     <ClCompile Include="graphics_api\rhi\renderer_rhi.cpp" />
+    <ClCompile Include="graphics_api\rhi\shader_rhi.cpp" />
+    <ClCompile Include="graphics_api\sims_sdk_rhi.cpp" />
     <ClCompile Include="math\bbox.cpp" />
     <ClCompile Include="math\math.cpp" />
     <ClCompile Include="math\ray.cpp" />
@@ -196,9 +198,11 @@
     <ClInclude Include="graphics_api\ogl\common_ogl.h" />
     <ClInclude Include="graphics_api\ogl\window_ogl.h" />
     <ClInclude Include="graphics_api\rhi\renderer_rhi.h" />
+    <ClInclude Include="graphics_api\rhi\shader_rhi.h" />
     <ClInclude Include="graphics_api\sims_sdk_dx11.h" />
     <ClInclude Include="graphics_api\sims_sdk_dx9.h" />
     <ClInclude Include="graphics_api\sims_sdk_ogl.h" />
+    <ClInclude Include="graphics_api\sims_sdk_rhi.h" />
     <ClInclude Include="math\bbox.h" />
     <ClInclude Include="math\math_fwd.h" />
     <ClInclude Include="math\matrix33.h" />

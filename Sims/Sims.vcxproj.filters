@@ -147,6 +147,12 @@
     <ClCompile Include="graphics_api\ogl\common_ogl.cpp">
       <Filter>graphics_api\ogl</Filter>
     </ClCompile>
+    <ClCompile Include="graphics_api\rhi\shader_rhi.cpp">
+      <Filter>graphics_api\rhi</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\sims_sdk_rhi.cpp">
+      <Filter>graphics_api</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -331,6 +337,12 @@
       <Filter>graphics_api\ogl</Filter>
     </ClInclude>
     <ClInclude Include="graphics_api\sims_sdk_ogl.h">
+      <Filter>graphics_api</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\rhi\shader_rhi.h">
+      <Filter>graphics_api\rhi</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\sims_sdk_rhi.h">
       <Filter>graphics_api</Filter>
     </ClInclude>
   </ItemGroup>

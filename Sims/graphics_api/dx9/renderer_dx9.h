@@ -19,7 +19,7 @@ namespace sims
 {
 	namespace dx9
 	{
-		class DX9Renderer : public RHIRenderer
+		class DX9Renderer : public rhi::RHIRenderer
 		{
 		public:
 			virtual void BeginFrame(uint32 clearFlags, Color color, float depth, uint32 stencil);
