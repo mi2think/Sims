@@ -10,16 +10,41 @@
 	purpose:	Shader
 *********************************************************************/
 #include "shader_rhi.h"
+#include "core/vfs.h"
 
 namespace sims
 {
-	RHIShader::RHIShader()
-		: id_(0)
-	{}
-
-	RHIShader::RHIShader(ShaderType type, const string& source)
-		: id_(0)
+	namespace rhi
 	{
-		Compile(type, source);
+		RHIShader::RHIShader()
+			: id_(0)
+		{}
+
+		RHIShader::RHIShader(ShaderType type, const string& source)
+			: id_(0)
+		{
+			Compile(type, source);
+		}
+
+		RHIShader::~RHIShader()
+		{}
+
+		bool RHIShader::CompileFromFile(ShaderType type, const string& filename)
+		{
+			auto stream = VFS::GetVFS().OpenInputStream(filename);
+			auto fsize = stream->GetSize();
+			string source(fsize, '\0');
+			stream->Read((uint8*)&source[0], fsize);
+
+			return Compile(type, source);
+		}
+
+		bool RHIShader::LoadBinaryFromFile(ShaderType type, const string& filename)
+		{
+			auto stream = VFS::GetVFS().OpenInputStream(filename);
+			vector<uint8> byteCode = stream->Read();
+
+			return LoadBinary(type, &byteCode[0], byteCode.size());
+		}
 	}
 }

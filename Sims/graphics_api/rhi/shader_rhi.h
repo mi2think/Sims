@@ -16,25 +16,32 @@
 
 namespace sims
 {
-	class RHIShader
+	namespace rhi
 	{
-	public:
-		RHIShader();
-		RHIShader(ShaderType type, const string& source);
-		virtual ~RHIShader();
+		class RHIShader
+		{
+		public:
+			RHIShader();
+			RHIShader(ShaderType type, const string& source);
+			virtual ~RHIShader();
 
-		const string& GetSource() const { return source_; }
-		ShaderType GetType() const { return type_; }
-		RenderID GetRenderID() const { id_; }
+			const string& GetSource() const { return source_; }
+			ShaderType GetType() const { return type_; }
+			RenderID GetRenderID() const { id_; }
 
-		bool IsValid() const { return id_ != 0; }
+			bool IsValid() const { return id_ != 0; }
 
-		virtual bool Compile(ShaderType type, const string& source) = 0;
-	protected:
-		string source_;
-		ShaderType type_;
-		RenderID id_;
-	};
+			virtual bool Compile(ShaderType type, const string& source) = 0;
+			virtual bool LoadBinary(ShaderType type, uint8* byteCode, uint32 byteCodeLength) = 0;
+
+			bool CompileFromFile(ShaderType type, const string& filename);
+			bool LoadBinaryFromFile(ShaderType type, const string& filename);
+		protected:
+			string source_;
+			ShaderType type_;
+			RenderID id_;
+		};
+	}
 }
 
 #endif
