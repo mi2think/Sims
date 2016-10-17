@@ -159,6 +159,9 @@
     <ClCompile Include="graphics_api\ogl\renderer_caps_ogl.cpp">
       <Filter>graphics_api\ogl</Filter>
     </ClCompile>
+    <ClCompile Include="graphics_api\dx9\renderer_caps_dx9.cpp">
+      <Filter>graphics_api\dx9</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -356,6 +359,9 @@
     </ClInclude>
     <ClInclude Include="graphics_api\ogl\renderer_caps_ogl.h">
       <Filter>graphics_api\ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\dx9\renderer_caps_dx9.h">
+      <Filter>graphics_api\dx9</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

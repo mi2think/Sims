@@ -14,6 +14,7 @@
 
 #include "sims.h"
 #include "common_dx9.h"
+#include "renderer_caps_dx9.h"
 #include "platform/windows/windows_window_base.h"
 
 namespace sims
@@ -27,6 +28,9 @@ namespace sims
 			{
 				SetupD3D();
 				SetupD3DDevice(GetHandle(), width_, height_, wndmode_);
+
+				InitRendererCaps();
+				g_RendererCaps.Dump();
 			}
 
 			virtual void OnDestroy()

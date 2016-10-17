@@ -86,8 +86,6 @@ namespace sims
 			SAFE_RELEASE(g_pD3D);
 		}
 
-
-
 		const char* D3DFormat2String(D3DFORMAT format)
 		{
 			const char* str = "";
@@ -120,23 +118,6 @@ namespace sims
 			D3DDISPLAYMODE dm;
 			CHECK_HR = g_pD3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &dm);
 			LOG_INFO("Width:%d\tHeight:%d\tRefreshRate:%d\tFormat:%s\n", dm.Width, dm.Height, dm.RefreshRate, D3DFormat2String(dm.Format));
-		}
-
-		void PrintAdapterCount()
-		{
-			LOG_INFO("adapter count:%d\n", g_pD3D->GetAdapterCount());
-		}
-
-		void PrintAdapterIdentifier()
-		{
-			D3DADAPTER_IDENTIFIER9 iden;
-			CHECK_HR = g_pD3D->GetAdapterIdentifier(D3DADAPTER_DEFAULT, 0, &iden);
-			LOG_INFO("Adapter info:\nDirver:%s\nDescription:%s", iden.Driver, iden.Description);
-			DWORD Product = HIWORD(iden.DriverVersion.HighPart);
-			DWORD Version = LOWORD(iden.DriverVersion.HighPart);
-			DWORD SubVersion = HIWORD(iden.DriverVersion.LowPart);
-			DWORD Build = LOWORD(iden.DriverVersion.LowPart);
-			LOG_INFO("\t%d.%d.%d.%d\n", Product, Version, SubVersion, Build);
 		}
 
 		D3DFORMAT ToD3DFormat(PixelFormat format)

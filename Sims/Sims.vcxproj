@@ -143,6 +143,7 @@
     <ClCompile Include="font\glyph.cpp" />
     <ClCompile Include="graphics_api\dx11\common_dx11.cpp" />
     <ClCompile Include="graphics_api\dx9\common_dx9.cpp" />
+    <ClCompile Include="graphics_api\dx9\renderer_caps_dx9.cpp" />
     <ClCompile Include="graphics_api\dx9\renderer_dx9.cpp" />
     <ClCompile Include="graphics_api\dx9\xmesh_dx9.cpp" />
     <ClCompile Include="graphics_api\ogl\common_ogl.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="graphics_api\dx11\window_dx11.h" />
     <ClInclude Include="graphics_api\dx9\common_dx9.h" />
     <ClInclude Include="graphics_api\dx9\geometry_def_dx9.h" />
+    <ClInclude Include="graphics_api\dx9\renderer_caps_dx9.h" />
     <ClInclude Include="graphics_api\dx9\renderer_dx9.h" />
     <ClInclude Include="graphics_api\dx9\window_dx9.h" />
     <ClInclude Include="graphics_api\dx9\xmesh_dx9.h" />
