@@ -11,6 +11,7 @@
 *********************************************************************/
 #include "vfs.h"
 #include "path.h"
+#include "platform/platform.h"
 #include "utils/string_utils.h"
 
 namespace sims
@@ -135,7 +136,7 @@ namespace sims
 		{
 			return mount->fs->OpenInputStream(fsPath);
 		}
-		return IInputStreamRef();
+		return Platform::GetFileSystem()->OpenInputStream(fsPath);
 	}
 
 	IOutputStreamRef VFS::OpenOutputStream(const string& path)
@@ -147,7 +148,7 @@ namespace sims
 		{
 			return mount->fs->OpenOutputStream(fsPath);
 		}
-		return IOutputStreamRef();
+		return Platform::GetFileSystem()->OpenOutputStream(fsPath);
 	}
 
 	bool VFS::GetFileInfo(const string& path, FileInfo& fi) const
@@ -159,7 +160,7 @@ namespace sims
 		{
 			return mount->fs->GetFileInfo(fsPath, fi);
 		}
-		return false;
+		return Platform::GetFileSystem()->GetFileInfo(path, fi);
 	}
 
 	bool VFS::DeleteFile(const string& path)
@@ -171,6 +172,6 @@ namespace sims
 		{
 			return mount->fs->DeleteFile(fsPath);
 		}
-		return false;
+		return Platform::GetFileSystem()->DeleteFile(path);
 	}
 }
