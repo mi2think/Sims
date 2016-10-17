@@ -10,6 +10,7 @@
 	purpose:	Window OGL
 *********************************************************************/
 #include "window_ogl.h"
+#include "renderer_caps_ogl.h"
 #include "core/log.h"
 #include "core/key_event.h"
 #include "core/mouse_event.h"
@@ -39,7 +40,10 @@ namespace sims
 			// must be done after glut is initialized
 			GLenum res = glewInit();
 			ASSERT(res == GLEW_OK);
-			LOG_INFO("ogl version:%s", glGetString(GL_VERSION));
+			
+			// ogl caps
+			InitRendererCaps();
+			g_RendererCaps.Dump();
 
 			gl_init_states(0.0f, 0.0f, 0.0f, 0.0f);
 		}

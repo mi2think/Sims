@@ -156,6 +156,9 @@
     <ClCompile Include="core\vfs.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="graphics_api\ogl\renderer_caps_ogl.cpp">
+      <Filter>graphics_api\ogl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -350,6 +353,9 @@
     </ClInclude>
     <ClInclude Include="core\vfs.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\ogl\renderer_caps_ogl.h">
+      <Filter>graphics_api\ogl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
