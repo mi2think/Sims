@@ -47,6 +47,10 @@ namespace sims
 	void str_replace_anychar(string& strDest, const string& strSrc, const string& anychar, const string& strReplace);
 	// string is valid float format
 	bool str_is_valid_float(const string& str);
+	// string is starts with
+	bool str_starts_with(const string& str, const string& pattern);
+	// string is ends with
+	bool str_ends_with(const string& str, const string& pattern);
 }
 
 #endif

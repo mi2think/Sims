@@ -137,6 +137,7 @@
     <ClCompile Include="core\log.cpp" />
     <ClCompile Include="core\path.cpp" />
     <ClCompile Include="core\texture.cpp" />
+    <ClCompile Include="core\vfs.cpp" />
     <ClCompile Include="font\bitmap_font.cpp" />
     <ClCompile Include="font\font.cpp" />
     <ClCompile Include="font\glyph.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="core\ref.h" />
     <ClInclude Include="core\texture.h" />
     <ClInclude Include="core\timer.h" />
+    <ClInclude Include="core\vfs.h" />
     <ClInclude Include="font\bitmap_font.h" />
     <ClInclude Include="font\font.h" />
     <ClInclude Include="font\glyph.h" />

@@ -337,4 +337,18 @@ namespace sims
 
 		return p == begin + str.size();
 	}
+
+	bool str_starts_with(const string& str, const string& pattern)
+	{
+		if (str.size() < pattern.size())
+			return false;
+		return str.substr(0, pattern.size()) == pattern;
+	}
+
+	bool str_ends_with(const string& str, const string& pattern)
+	{
+		if (str.size() < pattern.size())
+			return false;
+		return str.substr(str.size() - pattern.size(), pattern.size()) == pattern;
+	}
 }

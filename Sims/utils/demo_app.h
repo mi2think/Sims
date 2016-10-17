@@ -13,6 +13,7 @@
 #define __DEMO_APP_H__
 
 #include "sims.h"
+#include "core/vfs.h"
 
 namespace sims
 {
@@ -65,6 +66,8 @@ namespace sims
 		void Destroy()
 		{
 			OnDestroy();
+
+			VFS::Shutdown();
 		}
 	protected:
 		void CreateInteral()
@@ -73,6 +76,8 @@ namespace sims
 			width_ = window_->GetWidth();
 			height_ = window_->GetHeight();
 			OnCreate();
+
+			VFS::Init();
 		}
 
 		uint32 width_;
