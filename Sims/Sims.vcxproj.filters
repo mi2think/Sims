@@ -153,6 +153,9 @@
     <ClCompile Include="graphics_api\sims_sdk_rhi.cpp">
       <Filter>graphics_api</Filter>
     </ClCompile>
+    <ClCompile Include="graphics_api\dx9\shader_dx9.cpp">
+      <Filter>graphics_api\dx9</Filter>
+    </ClCompile>
     <ClCompile Include="core\vfs.cpp">
       <Filter>core</Filter>
     </ClCompile>
@@ -353,6 +356,9 @@
     </ClInclude>
     <ClInclude Include="graphics_api\sims_sdk_rhi.h">
       <Filter>graphics_api</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\dx9\shader_dx9.h">
+      <Filter>graphics_api\dx9</Filter>
     </ClInclude>
     <ClInclude Include="core\vfs.h">
       <Filter>core</Filter>

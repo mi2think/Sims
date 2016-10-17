@@ -19,22 +19,21 @@ namespace sims
 {
 	namespace rhi
 	{
+#if SIMS_SDK_IMPL_DX9
 			RHIRenderer* GetRenderer()
 			{
-#if SIMS_SDK_IMPL_DX9
 				static dx9::DX9Renderer s_renderer;
-#endif
 				return &s_renderer;
 			}
 
 			RHIShader* CreateShader()
 			{
-
 			}
 
 			RHIShader* CreateShader(ShaderType type, const string& source)
 			{
 
 			}
+#endif
 	}
 }
