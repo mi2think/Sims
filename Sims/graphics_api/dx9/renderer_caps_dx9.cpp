@@ -20,16 +20,16 @@ namespace sims
 
 		void RendererCaps::Dump()
 		{
-			LOG_INFO("CAPS: -----------------------");
+			LOG_INFO("CAPS: -------------------------------------");
 			LOG_INFO("CAPS:  dx9 renderer caps");
-			LOG_INFO("CAPS: -----------------------");
+			LOG_INFO("CAPS: -------------------------------------");
 			LOG_INFO("CAPS:  Adapter info");
 			LOG_INFO("CAPS:  Count: %d", adpCount);
-			LOG_INFO("CAPS:  Dirver Desc: %s", adpDriverDesc);
-			LOG_INFO("CAPS:  Dirver Version: %s", adpDriverVersion);
-			LOG_INFO("CAPS: -----------------------");
-			LOG_INFO("CAPS:  Vertex Shader Version: %d", VSVersion);
-			LOG_INFO("CAPS:  Pixel Shader Version: %d", PSVersion);
+			LOG_INFO("CAPS:  Dirver Desc: %s", adpDriverDesc.c_str());
+			LOG_INFO("CAPS:  Dirver Version: %s", adpDriverVersion.c_str());
+			LOG_INFO("CAPS: -------------------------------------");
+			LOG_INFO("CAPS:  Vertex Shader Version: %d.%d", D3DSHADER_VERSION_MAJOR(VSVersion), D3DSHADER_VERSION_MINOR(VSVersion));
+			LOG_INFO("CAPS:  Pixel Shader Version: %d.%d", D3DSHADER_VERSION_MAJOR(PSVersion), D3DSHADER_VERSION_MINOR(PSVersion));
 		}
 
 		void InitRendererCaps()
