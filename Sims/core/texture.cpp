@@ -11,7 +11,7 @@
 *********************************************************************/
 #include "texture.h"
 #include "image.h"
-#include "graphics_api/rhi/renderer_rhi.h"
+#include "graphics_api/sims_sdk_rhi.h"
 
 namespace sims
 {
@@ -71,7 +71,7 @@ namespace sims
 		
 		if (!renderID_)
 		{
-			RHIRenderer::GetRenderer()->DeleteTexture(renderID_);
+			rhi::GetRenderer()->DeleteTexture(renderID_);
 		}
 	}
 
@@ -158,6 +158,6 @@ namespace sims
 			return;
 
 		// update texture
-		RHIRenderer::GetRenderer()->UpdateTexture(*this, &regions[0]);
+		rhi::GetRenderer()->UpdateTexture(*this, &regions[0]);
 	}
 }

@@ -30,12 +30,12 @@ namespace sims
 
 		bool DX9Shader::Compile(ShaderType type, const string& source)
 		{
-
+			return true;
 		}
 
 		bool DX9Shader::LoadBinary(ShaderType type, uint8* byteCode, uint32 byteCodeLength)
 		{
-
+			return true;
 		}
 	}
 }

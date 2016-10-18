@@ -28,11 +28,12 @@ namespace sims
 
 			RHIShader* CreateShader()
 			{
+				return nullptr;
 			}
 
 			RHIShader* CreateShader(ShaderType type, const string& source)
 			{
-
+				return nullptr;
 			}
 #endif
 	}

@@ -138,9 +138,6 @@
     <ClCompile Include="graphics_api\dx11\common_dx11.cpp">
       <Filter>graphics_api\dx11</Filter>
     </ClCompile>
-    <ClCompile Include="graphics_api\rhi\renderer_rhi.cpp">
-      <Filter>graphics_api\rhi</Filter>
-    </ClCompile>
     <ClCompile Include="graphics_api\ogl\window_ogl.cpp">
       <Filter>graphics_api\ogl</Filter>
     </ClCompile>
