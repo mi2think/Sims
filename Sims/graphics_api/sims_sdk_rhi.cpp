@@ -13,6 +13,7 @@
 
 #if SIMS_SDK_IMPL_DX9
 #include "dx9/renderer_dx9.h"
+#include "dx9/shader_dx9.h"
 #endif
 
 namespace sims
@@ -28,12 +29,12 @@ namespace sims
 
 			RHIShader* CreateShader()
 			{
-				return nullptr;
+				return new dx9::DX9Shader();
 			}
 
 			RHIShader* CreateShader(ShaderType type, const string& source)
 			{
-				return nullptr;
+				return new dx9::DX9Shader(type, source);
 			}
 #endif
 	}

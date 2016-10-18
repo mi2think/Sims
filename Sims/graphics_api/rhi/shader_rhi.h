@@ -33,6 +33,8 @@ namespace sims
 
 			virtual bool Compile(ShaderType type, const string& source) = 0;
 			virtual bool LoadBinary(ShaderType type, uint8* byteCode, uint32 byteCodeLength) = 0;
+			virtual void Delete() = 0;
+			virtual void Use() = 0;
 
 			bool CompileFromFile(ShaderType type, const string& filename);
 			bool LoadBinaryFromFile(ShaderType type, const string& filename);

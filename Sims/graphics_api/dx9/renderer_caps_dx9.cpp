@@ -30,6 +30,8 @@ namespace sims
 			LOG_INFO("CAPS: -------------------------------------");
 			LOG_INFO("CAPS:  Vertex Shader Version: %d.%d", D3DSHADER_VERSION_MAJOR(VSVersion), D3DSHADER_VERSION_MINOR(VSVersion));
 			LOG_INFO("CAPS:  Pixel Shader Version: %d.%d", D3DSHADER_VERSION_MAJOR(PSVersion), D3DSHADER_VERSION_MINOR(PSVersion));
+			LOG_INFO("CAPS:  Vertex Shader Profile: %s", VSVersionProfile.c_str());
+			LOG_INFO("CAPS:  Pixel Shader Profile: %s", PSVersionProfile.c_str());
 		}
 
 		void InitRendererCaps()
@@ -52,6 +54,8 @@ namespace sims
 
 			caps.VSVersion = dx9caps.VertexShaderVersion;
 			caps.PSVersion = dx9caps.PixelShaderVersion;
+			caps.VSVersionProfile = D3DXGetVertexShaderProfile(g_pD3DD);
+			caps.PSVersionProfile = D3DXGetPixelShaderProfile(g_pD3DD);
 		}
 	}
 }

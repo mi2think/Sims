@@ -13,6 +13,7 @@
 #define __SHADER_DX_H__
 
 #include "sims.h"
+#include "common_dx9.h"
 #include "graphics_api/rhi/shader_rhi.h"
 
 namespace sims
@@ -28,6 +29,12 @@ namespace sims
 
 			virtual bool Compile(ShaderType type, const string& source);
 			virtual bool LoadBinary(ShaderType type, uint8* byteCode, uint32 byteCodeLength);
+			virtual void Delete();
+			virtual void Use();
+		private:
+			bool CreateShader(ShaderType type, uint8* byteCode, uint32);
+
+			ID3DXConstantTable* constTable_;
 		};
 	}
 }

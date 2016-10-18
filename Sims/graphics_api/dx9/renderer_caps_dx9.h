@@ -26,6 +26,11 @@ namespace sims
 
 			uint32 VSVersion;
 			uint32 PSVersion;
+			string VSVersionProfile;
+			string PSVersionProfile;
+
+			const char* GetVSVersionProfile() const { return VSVersionProfile.c_str(); }
+			const char* GetPSVersionProfile() const { return PSVersionProfile.c_str(); }
 
 			void Dump();
 		};
