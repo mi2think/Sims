@@ -12,8 +12,8 @@
 #ifndef __SIMS_SDK_OGL_H__
 #define __SIMS_SDK_OGL_H__
 
-#include "ogl/common_ogl.h"
-#include "ogl/window_ogl.h"
-#include "ogl/renderer_caps_ogl.h"
+#include "ogl/ogl_common.h"
+#include "ogl/ogl_window.h"
+#include "ogl/ogl_renderer_caps.h"
 
 #endif

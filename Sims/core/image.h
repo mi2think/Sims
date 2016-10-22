@@ -12,7 +12,7 @@
 #ifndef __IMAGE_H__
 #define __IMAGE_H__
 
-#include "sims.h"
+#include "graphics/graphics_fwd.h"
 #include "math/rectangle.h"
 
 namespace sims
@@ -47,14 +47,14 @@ namespace sims
 		};
 
 		Image();
-		Image(uint32 width, uint32 height, PixelFormat format);
-		Image(const void* data, uint32 length, PixelFormat format);
+		Image(uint32 width, uint32 height, PixelFormat::Type format);
+		Image(const void* data, uint32 length, PixelFormat::Type format);
 		~Image();
 
 		bool Valid() const { return data_ != nullptr; }
 		uint32 GetWidth() const { return width_; }
 		uint32 GetHeight() const { return height_; }
-		PixelFormat GetFormat() const { return format_; }
+		PixelFormat::Type GetFormat() const { return format_; }
 
 		uint32 GetBytesPerPixel() const { return bytesPerPixel_; }
 		uint32 GetImageDataSize() const { return dataSize_; }
@@ -70,21 +70,21 @@ namespace sims
 		void Unlock(LockedImage* L);
 		const uint8* GetConstData() const { return data_; }
 
-		// image format must be PF_R8G8B8A8
+		// image format must be PixelFormat::R8G8B8A8
 		void SaveTGA(const string& path);
 		// more format
 		void SavePNG(const string& path, bool filpped = false);
 
-		static uint32 GetBytesPerPixel(PixelFormat format);
-		static ImageRef FromFile(const string& path, PixelFormat format = PF_R8G8B8A8);
-		static ImageRef ToPixelFormat(const ImageRef& origin, PixelFormat format);
+		static uint32 GetBytesPerPixel(PixelFormat::Type format);
+		static ImageRef FromFile(const string& path, PixelFormat::Type format = PixelFormat::R8G8B8A8);
+		static ImageRef ToPixelFormat(const ImageRef& origin, PixelFormat::Type format);
 	private:
 		friend class LockedImage;
 		uint8* GetData() { return data_; }
 	private:
 		uint32 width_;
 		uint32 height_;
-		PixelFormat format_;
+		PixelFormat::Type format_;
 		uint32 bytesPerPixel_;
 		uint32 dataSize_;
 		uint8* data_;

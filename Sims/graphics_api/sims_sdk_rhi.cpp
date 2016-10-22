@@ -11,30 +11,32 @@
 *********************************************************************/
 #include "sims_sdk_rhi.h"
 
-#if SIMS_SDK_IMPL_DX9
-#include "dx9/renderer_dx9.h"
-#include "dx9/shader_dx9.h"
+#if SIMS_SDK_IMPL_D3D9
+#include "d3d9/d3d9_renderer.h"
+#include "d3d9/d3d9_shader.h"
 #endif
 
 namespace sims
 {
 	namespace rhi
 	{
-#if SIMS_SDK_IMPL_DX9
+#if SIMS_SDK_IMPL_D3D9
 			RHIRenderer* GetRenderer()
 			{
-				static dx9::DX9Renderer s_renderer;
+				static d3d9::D3D9Renderer s_renderer;
 				return &s_renderer;
 			}
 
 			RHIShader* CreateShader()
 			{
-				return new dx9::DX9Shader();
+				return new d3d9::D3D9Shader();
 			}
 
-			RHIShader* CreateShader(ShaderType type, const string& source)
+			RHIShader* CreateShader(ShaderDomain::Type type, const string& source)
 			{
-				return new dx9::DX9Shader(type, source);
+				RHIShader* p = new d3d9::D3D9Shader();
+				p->Compile(type, source);
+				return p;
 			}
 #endif
 	}

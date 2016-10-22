@@ -3,7 +3,7 @@
 #include "math/matrix44.h"
 #include "utils/geometry_gen.h"
 #include "utils/unit_test.h"
-#include "graphics_api/sims_sdk_dx9.h"
+#include "graphics_api/sims_sdk_d3d9.h"
 using namespace sims;
 
 struct Vertex
@@ -104,16 +104,16 @@ UNIT_TEST(GeometryGen)
 
 
 	{
-		dx9::GeoBase* quad = new dx9::GeoQuad<dx9::VertexN>();
+		d3d9::GeoBase* quad = new d3d9::GeoQuad<d3d9::VertexN>();
 		delete quad;
 
-		dx9::GeoBase* plane = new dx9::GeoPlane<dx9::VertexUVN>();
+		d3d9::GeoBase* plane = new d3d9::GeoPlane<d3d9::VertexUVN>();
 		delete plane;
 
-		dx9::GeoBase* box = new dx9::GeoBox<dx9::Vertex>();
+		d3d9::GeoBase* box = new d3d9::GeoBox<d3d9::Vertex>();
 		delete box;
 
-		dx9::GeoBase* skybox = new dx9::GeoSkyBox<dx9::VertexUVN>();
+		d3d9::GeoBase* skybox = new d3d9::GeoSkyBox<d3d9::VertexUVN>();
 		delete skybox;
 	}
 }

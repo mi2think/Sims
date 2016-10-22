@@ -96,7 +96,7 @@ void I_SimpleGlyphLoading()
 			buff -= bitmap.rows * bitmap.pitch;
 		}
 
-		ImageRef image(new Image(256, 256, PF_R8G8B8A8));
+		ImageRef image(new Image(256, 256, PixelFormat::R8G8B8A8));
 		auto L = image->Lock(Image::LockWrite);
 		uint8* dest = L->GetData();
 		for (int i = 0; i < bitmap.rows; ++i)

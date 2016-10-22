@@ -11,12 +11,11 @@
 *********************************************************************/
 #include "bitmap_font.h"
 #include "glyph.h"
-#include "core/image.h"
-#include "core/texture.h"
 #include "core/path.h"
 #include "core/log.h"
 #include "core/file_system.h"
 #include "core/file_input_stream.h"
+#include "graphics/texture.h"
 #include "platform/platform.h"
 #include "utils/xml_utils.h"
 
@@ -82,7 +81,7 @@ namespace sims
 			string imagePath = Path::Join(dir, fileName);
 			if (Path::FileExists(imagePath))
 			{
-				TextureRef texture(new Texture(Image::FromFile(imagePath, PF_A8), Texture::SF_Hardware | Texture::SF_HintDynamic));
+				TextureRef texture(new Texture(Image::FromFile(imagePath, PixelFormat::A8), Texture::SF_Hardware | Texture::SF_HintDynamic));
 				textureMap_[id] = texture;
 			}
 			else

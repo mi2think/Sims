@@ -61,7 +61,7 @@ namespace sims
 	Image::Image()
 		: width_(0)
 		, height_(0)
-		, format_(PF_Unknown)
+		, format_(PixelFormat::Unknown)
 		, bytesPerPixel_(0)
 		, dataSize_(0)
 		, data_(nullptr)
@@ -69,7 +69,7 @@ namespace sims
 	{
 	}
 
-	Image::Image(uint32 width, uint32 height, PixelFormat format)
+	Image::Image(uint32 width, uint32 height, PixelFormat::Type format)
 		: width_(width)
 		, height_(height)
 		, format_(format)
@@ -81,7 +81,7 @@ namespace sims
 		data_ = new uint8[dataSize_];
 	}
 
-	Image::Image(const void* data, uint32 length, PixelFormat format)
+	Image::Image(const void* data, uint32 length, PixelFormat::Type format)
 	{
 		int w = 0;
 		int h = 0;
@@ -110,10 +110,10 @@ namespace sims
 
 	void Image::SaveTGA(const string& path)
 	{
-		// convert to PF_R8G8B8A8
+		// convert to PixelFormat::R8G8B8A8
 		ImageRef origin(this);
 		origin.IncRef();
-		ImageRef image = ToPixelFormat(origin, PF_R8G8B8A8);
+		ImageRef image = ToPixelFormat(origin, PixelFormat::R8G8B8A8);
 
 		// write tga
 		IOutputStreamRef stream = Platform::GetFileSystem()->OpenOutputStream(path);
@@ -182,7 +182,7 @@ namespace sims
 
 	void Image::SavePNG(const string& path, bool filpped)
 	{
-		ASSERT(format_ == PF_A8 || format_ == PF_R8G8B8 || format_ == PF_R8G8B8A8);
+		ASSERT(format_ == PixelFormat::A8 || format_ == PixelFormat::R8G8B8 || format_ == PixelFormat::R8G8B8A8);
 
 		IOutputStreamRef stream = Platform::GetFileSystem()->OpenOutputStream(path);
 		if (!stream)
@@ -220,20 +220,20 @@ namespace sims
 		stbi_image_free((void*)buffer);
 	}
 
-	uint32 Image::GetBytesPerPixel(PixelFormat format)
+	uint32 Image::GetBytesPerPixel(PixelFormat::Type format)
 	{
 		switch (format)
 		{
-		case PF_A8:
+		case PixelFormat::A8:
 			return 1;
-		case PF_R8G8B8:
+		case PixelFormat::R8G8B8:
 			return 3;
-		case PF_R8G8B8A8:
-		case PF_A8R8G8B8:
+		case PixelFormat::R8G8B8A8:
+		case PixelFormat::A8R8G8B8:
 			return 4;
-		case PF_FloatRGB:
+		case PixelFormat::FloatRGB:
 			return 12;
-		case PF_FloatRGBA:
+		case PixelFormat::FloatRGBA:
 			return 16;
 		default:
 			ASSERT(0 && "error: unsupported image format");
@@ -242,7 +242,7 @@ namespace sims
 		return 0;
 	}
 
-	ImageRef Image::FromFile(const string& path, PixelFormat format)
+	ImageRef Image::FromFile(const string& path, PixelFormat::Type format)
 	{
 		IInputStreamRef stream = Platform::GetFileSystem()->OpenInputStream(path);
 		vector<uint8> buffer = stream->Read();
@@ -270,11 +270,11 @@ namespace sims
 		}
 		else
 		{
-			// load PF_R8G8B8A8 data, then convert if need
+			// load PixelFormat::R8G8B8A8 data, then convert if need
 			stbi_data = stbi_load_from_memory(&buffer[0], buffer.size(), &width, &height, &comp, 4);
 			if (stbi_data != nullptr)
 			{
-				ImageRef origin(new Image(width, height, PF_R8G8B8A8));
+				ImageRef origin(new Image(width, height, PixelFormat::R8G8B8A8));
 				void* data = origin->GetData();
 				memcpy(data, stbi_data, origin->GetBytesPerPixel() * width * height);
 				image = ToPixelFormat(origin, format);
@@ -289,12 +289,12 @@ namespace sims
 		return image;
 	}
 
-	ImageRef Image::ToPixelFormat(const ImageRef& origin, PixelFormat format)
+	ImageRef Image::ToPixelFormat(const ImageRef& origin, PixelFormat::Type format)
 	{
 		ASSERT(origin != nullptr);
-		ASSERT(origin->GetFormat() == PF_R8G8B8A8);
+		ASSERT(origin->GetFormat() == PixelFormat::R8G8B8A8);
 
-		PixelFormat pf = origin->GetFormat();
+		PixelFormat::Type pf = origin->GetFormat();
 		int w = origin->GetWidth();
 		int h = origin->GetHeight();
 		auto L = origin->Lock(LockRead);
@@ -308,7 +308,7 @@ namespace sims
 		}
 
 		ImageRef image = new Image(w, h, format);
-		if (format == PF_FloatRGBA)
+		if (format == PixelFormat::FloatRGBA)
 		{
 			const uint8* src = (const uint8*)data;
 			float* dest = (float*)image->GetData();
@@ -325,7 +325,7 @@ namespace sims
 				}
 			}
 		}
-		else if (format == PF_FloatRGB)
+		else if (format == PixelFormat::FloatRGB)
 		{
 			const uint8* src = (const uint8*)data;
 			float* dest = (float*)image->GetData();
@@ -341,7 +341,7 @@ namespace sims
 				}
 			}
 		}
-		else if (format == PF_R8G8B8)
+		else if (format == PixelFormat::R8G8B8)
 		{
 			const uint8* src = (const uint8*)data;
 			uint8* dest = image->GetData();
@@ -357,7 +357,7 @@ namespace sims
 				}
 			}
 		}
-		else if (format == PF_A8R8G8B8)
+		else if (format == PixelFormat::A8R8G8B8)
 		{
 			const uint8* src = (const uint8*)data;
 			uint8* dest = image->GetData();
