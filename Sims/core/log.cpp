@@ -42,12 +42,12 @@ namespace sims
 	{
 		WriteBegin(level);
 	
-		static char buffer[1024];
+		static char buffer[4096];
 		va_list ap;
 		va_start(ap, fmt);
 		vsprintf_s(buffer, fmt, ap);
 		va_end(ap);
-		buffer[1023] = 0;
+		buffer[4095] = 0;
 
 		(*os_) << buffer;
 
