@@ -57,7 +57,7 @@ namespace sims
 
 		va_end(ap);
 
-		(*os_) << buffer;
+		(*os_) << buffer.c_str();
 
 		WriteEnd();
 	}
