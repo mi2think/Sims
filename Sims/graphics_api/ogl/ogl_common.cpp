@@ -10,6 +10,7 @@
 	purpose:	OGL
 *********************************************************************/
 #include "ogl_common.h"
+#include "core/log.h"
 
 namespace sims
 {
@@ -102,6 +103,17 @@ namespace sims
 			glEnable(GL_DEPTH_TEST);
 		}
 
-
+		GLenum gl_check_error(const char* category)
+		{
+			GLenum err = glGetError();
+			if (err != 0)
+			{
+				if (category != nullptr)
+					LOG_ERROR("[%s] gl error:%d", category, err);
+				else
+					LOG_ERROR("gl error:%d", err);
+			}
+			return err;
+		}
 	}
 }

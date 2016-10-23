@@ -25,7 +25,7 @@ namespace sims
 		, wrapS_(TextureWrap::Clamp)
 		, wrapT_(TextureWrap::Clamp)
 		, renderID_(0)
-		, storageFlags_(SF_Local)
+		, storageFlags_(StorageFlags::Local)
 	{
 	}
 
@@ -135,7 +135,7 @@ namespace sims
 
 	void Texture::Invalidate()
 	{
-		if ((storageFlags_ & SF_Hardware) == 0)
+		if ((storageFlags_ & StorageFlags::Hardware) == 0)
 			return;
 
 		// collect invalid region, for update later

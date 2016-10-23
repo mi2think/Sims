@@ -30,13 +30,16 @@ namespace sims
 
 			bool IsValid() const { return id_ != 0; }
 
+			bool CompileFromFile(ShaderDomain::Type type, const string& filename);
+			bool LoadBinaryFromFile(ShaderDomain::Type type, const string& filename);
+
 			virtual bool Compile(ShaderDomain::Type type, const string& source) = 0;
 			virtual bool LoadBinary(ShaderDomain::Type type, uint8* byteCode, uint32 byteCodeLength) = 0;
 			virtual void Delete() = 0;
 			virtual void Use() = 0;
 
-			bool CompileFromFile(ShaderDomain::Type type, const string& filename);
-			bool LoadBinaryFromFile(ShaderDomain::Type type, const string& filename);
+			virtual UniformLoc GetUniformLoc(const char* name) = 0;
+			virtual UniformLoc GetUniformLoc(UniformLoc parent, const char* name) = 0;
 		protected:
 			string source_;
 			ShaderDomain::Type type_;

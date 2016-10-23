@@ -28,6 +28,7 @@ namespace sims
 		bool D3D9Shader::Compile(ShaderDomain::Type type, const string& source)
 		{
 			ASSERT(type == ShaderDomain::Vertex || type == ShaderDomain::Fragment);
+			ASSERT(!IsValid());
 
 			type_ = type;
 			source_ = source;
@@ -129,6 +130,17 @@ namespace sims
 				IDirect3DPixelShader9* pixelShader = (IDirect3DPixelShader9*)id_;
 				CHECK_HR = g_pD3DD->SetPixelShader(pixelShader);
 			}
+		}
+
+		UniformLoc D3D9Shader::GetUniformLoc(const char* name)
+		{
+			return GetUniformLoc(0, name);
+		}
+
+		UniformLoc D3D9Shader::GetUniformLoc(UniformLoc parent, const char* name)
+		{
+			D3DXHANDLE h = constTable_->GetConstantByName((D3DXHANDLE)parent, name);
+			return (UniformLoc)h;
 		}
 	}
 }

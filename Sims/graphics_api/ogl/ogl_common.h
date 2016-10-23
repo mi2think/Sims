@@ -69,6 +69,9 @@ namespace sims
 		//    depth test: GL_LESS
 		//    cull face: GL_BACK
 		void gl_init_states(float r, float g, float b, float a);
+
+		// check error
+		GLenum gl_check_error(const char* category = nullptr);
 	}
 }
 

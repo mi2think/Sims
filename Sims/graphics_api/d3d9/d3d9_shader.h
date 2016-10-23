@@ -13,8 +13,8 @@
 #define __SHADER_DX_H__
 
 #include "graphics/graphics_fwd.h"
-#include "d3d9_common.h"
 #include "graphics_api/rhi/rhi_shader.h"
+#include "d3d9_common.h"
 
 namespace sims
 {
@@ -30,6 +30,9 @@ namespace sims
 			virtual bool LoadBinary(ShaderDomain::Type type, uint8* byteCode, uint32 byteCodeLength);
 			virtual void Delete();
 			virtual void Use();
+
+			virtual UniformLoc GetUniformLoc(const char* name);
+			virtual UniformLoc GetUniformLoc(UniformLoc parent, const char* name);
 		private:
 			bool CreateShader(ShaderDomain::Type type, uint8* byteCode, uint32);
 

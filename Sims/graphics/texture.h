@@ -21,18 +21,10 @@ namespace sims
 	class Texture
 	{
 	public:
-		enum StorageFlags
-		{
-			SF_Local		= BIT(0),
-			SF_Hardware		= BIT(1),
-			// hint for hardware, only valid if SF_Hardware set
-			SF_HintDynamic	= BIT(2)
-		};
-
 		Texture();
-		Texture(uint32 width, uint32 height, PixelFormat::Type format, uint32 storgeFlags = SF_Local);
-		Texture(const string& path, PixelFormat::Type format, uint32 storgeFlags = SF_Local);
-		Texture(const ImageRef& image, uint32 storgeFlags = SF_Local);
+		Texture(uint32 width, uint32 height, PixelFormat::Type format, uint32 storgeFlags = StorageFlags::Local);
+		Texture(const string& path, PixelFormat::Type format, uint32 storgeFlags = StorageFlags::Local);
+		Texture(const ImageRef& image, uint32 storgeFlags = StorageFlags::Local);
 		~Texture();
 
 		const string& GetName() const { return name_; }

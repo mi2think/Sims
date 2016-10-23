@@ -50,7 +50,14 @@ namespace sims
 		Fragment
 	END_DECLARE_ENUM()
 
-	typedef void* RenderID; // generic, platform independent
+	DECLARE_ENUM(StorageFlags)
+		Local       = BIT(0),
+		Hardware    = BIT(1),
+		HintDynamic = BIT(2) // hint for hardware, only valid if Hardware set
+	END_DECLARE_ENUM()
+
+	typedef void* RenderID;		// generic, platform independent
+	typedef void* UniformLoc;	// generic, platform independent
 }
 
 #endif

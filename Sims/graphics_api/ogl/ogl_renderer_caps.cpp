@@ -20,12 +20,15 @@ namespace sims
 
 		void RendererCaps::Dump()
 		{
-			LOG_INFO("CAPS: -----------------------");
+			LOG_INFO("CAPS: -------------------------------------");
 			LOG_INFO("CAPS:  ogl renderer caps");
 			LOG_INFO("CAPS:  Vendor: %s", vendor);
 			LOG_INFO("CAPS:  Renderer: %s", renderer);
 			LOG_INFO("CAPS:  Version: %s", version);
 			LOG_INFO("CAPS:  GLSLVersion: %s", glslVersion);
+			LOG_INFO("CAPS: -------------------------------------");
+			LOG_INFO("CAPS:  ogl extensions:");
+			LOG_INFO("CAPS:  %s", extensions);
 		}
 
 		void InitRendererCaps()
@@ -38,7 +41,7 @@ namespace sims
 			if (!caps.vendor)
 				caps.vendor = "<undefined>";
 
-			caps.renderer = (const char*)glGetString(GL_RENDER);
+			caps.renderer = (const char*)glGetString(GL_RENDERER);
 			if (!caps.renderer)
 				caps.renderer = "<undefined>";
 
@@ -49,6 +52,10 @@ namespace sims
 			caps.glslVersion = (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
 			if (!caps.glslVersion)
 				caps.glslVersion = "<undefined>";
+
+			caps.extensions = (const char*)glGetString(GL_EXTENSIONS);
+			if (!caps.extensions)
+				caps.extensions = "no extensions";
 		}
 	}
 }

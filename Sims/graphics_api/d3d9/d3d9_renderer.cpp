@@ -53,7 +53,7 @@ namespace sims
 			{
 				D3DFORMAT format = ToD3DFormat(texture.GetFormat());
 				D3DPOOL pool = D3DPOOL_MANAGED;
-				if ((texture.GetStorageFlags() & Texture::SF_HintDynamic) != 0)
+				if ((texture.GetStorageFlags() & StorageFlags::HintDynamic) != 0)
 					pool = D3DPOOL_DEFAULT;
 
 				CHECK_HR = g_pD3DD->CreateTexture(image->GetWidth(),
@@ -72,7 +72,7 @@ namespace sims
 
 			// pool is D3DPOOL_DEFAULT. can't lock directly, 
 			// create a system memory texture
-			if ((texture.GetStorageFlags() & Texture::SF_HintDynamic) != 0)
+			if ((texture.GetStorageFlags() & StorageFlags::HintDynamic) != 0)
 			{
 				D3DFORMAT format = ToD3DFormat(texture.GetFormat());
 				CHECK_HR = g_pD3DD->CreateTexture(image->GetWidth(),

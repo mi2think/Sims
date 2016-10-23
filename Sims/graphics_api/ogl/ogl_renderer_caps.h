@@ -25,6 +25,8 @@ namespace sims
 			const char* version;
 			const char* glslVersion;
 
+			const char* extensions;
+
 			void Dump();
 		};
 
