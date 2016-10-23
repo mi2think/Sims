@@ -13,6 +13,7 @@
 
 #include <windows.h>
 #include <cstdarg>
+#include <string>
 
 namespace sims
 {
@@ -42,12 +43,19 @@ namespace sims
 	{
 		WriteBegin(level);
 	
-		static char buffer[4096];
+		static std::string buffer(1024, '\0');
+
 		va_list ap;
 		va_start(ap, fmt);
-		vsprintf_s(buffer, fmt, ap);
+
+		// return require length
+		int len = vsnprintf(nullptr, 0, fmt, ap);
+		if (len > (int)buffer.size())
+			buffer.resize(len);
+		len = vsnprintf(&buffer[0], buffer.size(), fmt, ap);
+		buffer[len] = 0;
+
 		va_end(ap);
-		buffer[4095] = 0;
 
 		(*os_) << buffer;
 
