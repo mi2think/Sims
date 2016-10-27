@@ -168,6 +168,9 @@
     <ClCompile Include="graphics_api\ogl\ogl_shader.cpp">
       <Filter>graphics_api\ogl</Filter>
     </ClCompile>
+    <ClCompile Include="graphics_api\ogl\ogl_renderer.cpp">
+      <Filter>graphics_api\ogl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -376,6 +379,9 @@
       <Filter>graphics_api\rhi</Filter>
     </ClInclude>
     <ClInclude Include="graphics_api\ogl\ogl_shader.h">
+      <Filter>graphics_api\ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\ogl\ogl_renderer.h">
       <Filter>graphics_api\ogl</Filter>
     </ClInclude>
   </ItemGroup>

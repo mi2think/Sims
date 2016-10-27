@@ -94,6 +94,11 @@ namespace sims
 			glutIdleFunc(IdleFunc);
 		}
 
+		void glut_swap_buffers()
+		{
+			glutSwapBuffers();
+		}
+
 		void gl_init_states(float r, float g, float b, float a)
 		{
 			glClearColor(r, g, b, a);
@@ -114,6 +119,39 @@ namespace sims
 					LOG_ERROR("gl error:%d", err);
 			}
 			return err;
+		}
+
+		GLenum ToGLTextureFilterType(TextureFilter::Type filter)
+		{
+			switch (filter)
+			{
+			case TextureFilter::Point:
+				return GL_NEAREST;
+			case TextureFilter::Linear:
+			case TextureFilter::Anisotropic:
+				return GL_LINEAR;
+			default:
+				break;
+			}
+			return GL_LINEAR;
+		}
+
+		GLenum ToGLTextureWrapType(TextureWrap::Type wrap)
+		{
+			switch (wrap)
+			{
+			case TextureWrap::Reapeat:
+				return GL_REPEAT;
+			case TextureWrap::Mirror:
+				return GL_MIRRORED_REPEAT;
+			case TextureWrap::Clamp:
+				return GL_CLAMP_TO_EDGE;
+			case TextureWrap::Border:
+				return GL_CLAMP_TO_BORDER;
+			default:
+				break;
+			}
+			return GL_REPEAT;
 		}
 	}
 }

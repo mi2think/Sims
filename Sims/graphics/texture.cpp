@@ -70,7 +70,7 @@ namespace sims
 		
 		if (!renderID_)
 		{
-			rhi::GetRenderer()->DeleteTexture(renderID_);
+			rhi::GetRenderer()->DeleteTexture(*this);
 		}
 	}
 

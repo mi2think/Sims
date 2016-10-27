@@ -18,7 +18,7 @@
 #define FREEGLUT_STATIC // defined so you can link to freeglut_static.lib when compiling
 #define GLEW_STATIC     // defined so you can link to glew's static .lib when compiling
 
-#include "sims.h"
+#include "graphics/graphics_fwd.h"
 
 #include <glew.h>
 #include <freeglut.h>
@@ -64,6 +64,8 @@ namespace sims
 		// enter main loop
 		void glut_main_loop();
 
+		void glut_swap_buffers();
+
 		// init gl states:
 		//    clear color, depth & stencil
 		//    depth test: GL_LESS
@@ -72,6 +74,10 @@ namespace sims
 
 		// check error
 		GLenum gl_check_error(const char* category = nullptr);
+
+
+		GLenum ToGLTextureFilterType(TextureFilter::Type filter);
+		GLenum ToGLTextureWrapType(TextureWrap::Type wrap);
 	}
 }
 

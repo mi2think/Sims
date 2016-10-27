@@ -29,7 +29,7 @@ namespace sims
 			virtual void PresentFrame() = 0;
 
 			virtual void UpdateTexture(Texture& texture, Recti* regions) = 0;
-			virtual void BindTexture(const Texture& texture, uint32 textureUnit) = 0;
+			virtual void BindTexture(Texture& texture, uint32 textureUnit) = 0;
 			virtual void DeleteTexture(Texture& texture) = 0;
 		};
 	}

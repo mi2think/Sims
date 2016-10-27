@@ -14,6 +14,7 @@
 
 #include "sims.h"
 #include "math/rectangle.h"
+#include "graphics/texture.h"
 
 namespace sims
 {

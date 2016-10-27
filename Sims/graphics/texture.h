@@ -38,7 +38,7 @@ namespace sims
 		uint32 GetHeight() const { return height_; }
 		PixelFormat::Type GetFormat() const { return format_; }
 
-		int GetMipmapCount() const { return mipmapCount_; }
+		uint32 GetMipmapCount() const { return mipmapCount_; }
 		bool HasMips() const { return mipmapCount_ > 1; }
 		ImageRef GetImage(uint32 level) const;
 

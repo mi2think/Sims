@@ -69,8 +69,9 @@ namespace sims
 			return true;
 		}
 
-		bool OGLShader::LoadBinary(ShaderDomain::Type type, uint8* byteCode, uint32 byteCodeLength)
+		bool OGLShader::LoadBinary(ShaderDomain::Type, uint8*, uint32)
 		{
+			ASSERT(false && "we won't load separate shader program in ogl");
 			return false;
 		}
 
