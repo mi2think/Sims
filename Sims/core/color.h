@@ -13,6 +13,7 @@
 #define __COLOR_H__
 
 #include "sims.h"
+#include "math/vector4.h"
 
 namespace sims
 {
@@ -57,14 +58,19 @@ namespace sims
 			return *this;
 		}
 
-		Color ToPackedARGB() const
+		Color GetPackedARGB() const
 		{
 			return Color((a << 24) | (r << 16) | (g << 8) | b);
 		}
 
-		Color ToPackedRGBA() const
+		Color GetPackedRGBA() const
 		{
 			return Color((r << 24) | (g << 16) | (b << 8) | a);
+		}
+
+		Vector4f GetRGBAVector4() const
+		{
+			return Vector4f(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
 		}
 
 		static const Color c_white;
