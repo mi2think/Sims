@@ -34,8 +34,8 @@ namespace sims
 		void SavePNG(const string& path, uint32 level = 0, bool filpped = false);
 		void Clear();
 
-		int GetWidth() const { return width_; }
-		int GetHeight() const { return height_; }
+		uint32 GetWidth() const { return width_; }
+		uint32 GetHeight() const { return height_; }
 		PixelFormat::Type GetFormat() const { return format_; }
 
 		int GetMipmapCount() const { return mipmapCount_; }
@@ -73,19 +73,21 @@ namespace sims
 		uint32 width_;
 		uint32 height_;
 		PixelFormat::Type format_;
-		
-		Color borderColor_;
-		TextureFilter::Type filterMin_;
-		TextureFilter::Type filterMag_;
-		TextureFilter::Type filterMip_;
-		TextureWrap::Type wrapS_;
-		TextureWrap::Type wrapT_;
 
 		uint32 mipmapCount_;
 		vector<ImageRef> mipmaps_;
 
 		uint32 storageFlags_;
 		RenderID renderID_;
+
+		// texture sampler paramters
+		// no need to upload to GPU if changes, it will bind when use
+		Color borderColor_;
+		TextureFilter::Type filterMin_;
+		TextureFilter::Type filterMag_;
+		TextureFilter::Type filterMip_;
+		TextureWrap::Type wrapS_;
+		TextureWrap::Type wrapT_;
 	};
 }
 

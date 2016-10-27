@@ -12,7 +12,6 @@
 #ifndef __RENDERER_DX9_H__
 #define __RENDERER_DX9_H__
 
-#include "sims.h"
 #include "graphics_api/rhi/rhi_renderer.h"
 
 namespace sims
@@ -27,7 +26,8 @@ namespace sims
 			virtual void PresentFrame();
 
 			virtual void UpdateTexture(Texture& texture, Recti* regions);
-			virtual void DeleteTexture(RenderID id);
+			virtual void BindTexture(Texture& texture, uint32 textureUnit);
+			virtual void DeleteTexture(Texture& texture);
 		};
 	}
 }

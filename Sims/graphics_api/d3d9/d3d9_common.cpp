@@ -133,10 +133,46 @@ namespace sims
 			case PixelFormat::A8R8G8B8:
 				return D3DFMT_A8R8G8B8;
 			default:
-				ASSERT(false);
+				LOG_WARN("Using default format: A8R8G8B8");
 				break;
 			}
 			return D3DFMT_A8R8G8B8;
+		}
+
+		D3DTEXTUREFILTERTYPE ToD3DTextureFilterType(TextureFilter::Type filter)
+		{
+			switch (filter)
+			{
+			case TextureFilter::Point:
+				return D3DTEXF_POINT;
+			case TextureFilter::Linear:
+				return D3DTEXF_LINEAR;
+			case TextureFilter::Anisotropic:
+				return D3DTEXF_ANISOTROPIC;
+			default:
+				LOG_WARN("Using default filter: Linear");
+				break;
+			}
+			return D3DTEXF_LINEAR;
+		}
+
+		D3DTEXTUREADDRESS ToD3DTextureAddress(TextureWrap::Type wrap)
+		{
+			switch (wrap)
+			{
+			case TextureWrap::Reapeat:
+				return D3DTADDRESS_WRAP;
+			case TextureWrap::Mirror:
+				return D3DTADDRESS_MIRROR;
+			case TextureWrap::Clamp:
+				return D3DTADDRESS_CLAMP;
+			case TextureWrap::Border:
+				return D3DTADDRESS_BORDER;
+			default:
+				LOG_WARN("Using default filter: Reapeat");
+				break;
+			}
+			return D3DTADDRESS_WRAP;
 		}
 	}
 }

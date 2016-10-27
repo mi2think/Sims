@@ -11,10 +11,7 @@
 *********************************************************************/
 #include "image.h"
 #include "Color.h"
-#include "input_stream.h"
-#include "output_stream.h"
-#include "file_system.h"
-#include "platform/platform.h"
+#include "vfs.h"
 
 #include "stb_image.h"
 #include "stb_image_write.h"
@@ -116,7 +113,7 @@ namespace sims
 		ImageRef image = ToPixelFormat(origin, PixelFormat::R8G8B8A8);
 
 		// write tga
-		IOutputStreamRef stream = Platform::GetFileSystem()->OpenOutputStream(path);
+		IOutputStreamRef stream = VFS::GetVFS().OpenOutputStream(path);
 		if (!stream)
 		{
 			LOG_ERROR("open file '%s' for write failed!", path.c_str());
@@ -184,7 +181,7 @@ namespace sims
 	{
 		ASSERT(format_ == PixelFormat::A8 || format_ == PixelFormat::R8G8B8 || format_ == PixelFormat::R8G8B8A8);
 
-		IOutputStreamRef stream = Platform::GetFileSystem()->OpenOutputStream(path);
+		IOutputStreamRef stream = VFS::GetVFS().OpenOutputStream(path);
 		if (!stream)
 		{
 			LOG_ERROR("open file '%s' for write failed!", path.c_str());
@@ -244,7 +241,7 @@ namespace sims
 
 	ImageRef Image::FromFile(const string& path, PixelFormat::Type format)
 	{
-		IInputStreamRef stream = Platform::GetFileSystem()->OpenInputStream(path);
+		IInputStreamRef stream = VFS::GetVFS().OpenInputStream(path);
 		vector<uint8> buffer = stream->Read();
 
 		ImageRef image;
@@ -365,7 +362,7 @@ namespace sims
 			{
 				for (int x = 0; x < w; ++x)
 				{
-					*((Color*)dest) = Color(src[0], src[1], src[2], src[3]).ToPackedARGB();
+					*((Color*)dest) = Color(src[0], src[1], src[2], src[3]).GetPackedARGB();
 					dest += 4;
 					src += 4;
 				}

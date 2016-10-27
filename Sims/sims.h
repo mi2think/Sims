@@ -79,7 +79,6 @@ namespace sims
 	typedef Ref<Glyph> GlyphRef;
 	typedef Ref<Event> EventRef;
 	typedef Ref<Image> ImageRef;
-	typedef Ref<Texture> TextureRef;
 	typedef Ref<IInputStream> IInputStreamRef;
 	typedef Ref<IOutputStream> IOutputStreamRef;
 	typedef Ref<IFileSystem> IFileSystemRef;

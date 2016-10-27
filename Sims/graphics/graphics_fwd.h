@@ -58,6 +58,8 @@ namespace sims
 
 	typedef void* RenderID;		// generic, platform independent
 	typedef void* UniformLoc;	// generic, platform independent
+
+	typedef Ref<Texture> TextureRef;
 }
 
 #endif

@@ -11,7 +11,6 @@
 *********************************************************************/
 #include "d3d9_renderer.h"
 #include "d3d9_common.h"
-#include "core/log.h"
 #include "graphics/texture.h"
 
 namespace sims
@@ -28,17 +27,18 @@ namespace sims
 			if ((clearFlags & ClearFlags::Stencil) != 0)
 				flags |= D3DCLEAR_STENCIL;
 
-			CHECK_HR = d3d9::g_pD3DD->Clear(0, 0, flags, color.value, depth, stencil);
+			CHECK_HR = g_pD3DD->Clear(0, 0, flags, color.value, depth, stencil);
+			CHECK_HR = g_pD3DD->BeginScene();
 		}
 
 		void D3D9Renderer::EndFrame()
 		{
-			CHECK_HR = d3d9::g_pD3DD->EndScene();
+			CHECK_HR = g_pD3DD->EndScene();
 		}
 
 		void D3D9Renderer::PresentFrame()
 		{
-			CHECK_HR = d3d9::g_pD3DD->Present(0, 0, 0, 0);
+			CHECK_HR = g_pD3DD->Present(0, 0, 0, 0);
 		}
 
 		void D3D9Renderer::UpdateTexture(Texture& texture, Recti* regions)
@@ -117,10 +117,28 @@ namespace sims
 			}
 		}
 
-		void D3D9Renderer::DeleteTexture(RenderID id)
+		void D3D9Renderer::BindTexture(Texture& texture, uint32 textureUnit)
 		{
-			IDirect3DTexture9* tex = (IDirect3DTexture9*)id;
+			IDirect3DTexture9* tex = (IDirect3DTexture9*)texture.GetRenderID();
+			ASSERT(tex != nullptr);
+
+			CHECK_HR = g_pD3DD->SetTexture(textureUnit, tex);
+			// filter
+			CHECK_HR = g_pD3DD->SetSamplerState(textureUnit, D3DSAMP_MAGFILTER, ToD3DTextureFilterType(texture.GetFilterMag()));
+			CHECK_HR = g_pD3DD->SetSamplerState(textureUnit, D3DSAMP_MINFILTER, ToD3DTextureFilterType(texture.GetFilterMin()));
+			CHECK_HR = g_pD3DD->SetSamplerState(textureUnit, D3DSAMP_MIPFILTER, ToD3DTextureFilterType(texture.GetFilterMip()));
+			// wrap
+			CHECK_HR = g_pD3DD->SetSamplerState(textureUnit, D3DSAMP_ADDRESSU, ToD3DTextureAddress(texture.GetWrapS()));
+			CHECK_HR = g_pD3DD->SetSamplerState(textureUnit, D3DSAMP_ADDRESSV, ToD3DTextureAddress(texture.GetWrapT()));
+			CHECK_HR = g_pD3DD->SetSamplerState(textureUnit, D3DSAMP_BORDERCOLOR, texture.GetBorderColor().value);
+		}
+
+		void D3D9Renderer::DeleteTexture(Texture& texture)
+		{
+			IDirect3DTexture9* tex = (IDirect3DTexture9*)texture.GetRenderID();
+			ASSERT(tex != nullptr);
 			SAFE_RELEASE(tex);
+			texture.SetRenderID(0);
 		}
 	}
 }

@@ -61,6 +61,8 @@ namespace sims
 		void PrintDisplayMode();
 
 		D3DFORMAT ToD3DFormat(PixelFormat::Type format);
+		D3DTEXTUREFILTERTYPE ToD3DTextureFilterType(TextureFilter::Type filter);
+		D3DTEXTUREADDRESS ToD3DTextureAddress(TextureWrap::Type wrap);
 
 		// vertex define
 		struct Vertex
