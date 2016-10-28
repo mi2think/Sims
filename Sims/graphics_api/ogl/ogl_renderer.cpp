@@ -19,19 +19,24 @@ namespace sims
 	{
 		void OGLRenderer::BeginFrame(uint32 clearFlags, Color color, float depth, uint32 stencil)
 		{
+			uint32 flags = 0;
 			if ((clearFlags & ClearFlags::Color) != 0)
 			{
 				auto c = color.GetRGBAVector4();
 				glClearColor(c.x, c.y, c.z, c.w);
+				flags |= GL_COLOR_BUFFER_BIT;
 			}
 			if ((clearFlags & ClearFlags::Depth) != 0)
 			{
 				glClearDepth(depth);
+				flags |= GL_DEPTH_BUFFER_BIT;
 			}
 			if ((clearFlags & ClearFlags::Stencil) != 0)
 			{
 				glClearStencil(stencil);
+				flags |= GL_STENCIL_BUFFER_BIT;
 			}
+			glClear(flags);
 		}
 
 		void OGLRenderer::EndFrame()
