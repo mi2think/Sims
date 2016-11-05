@@ -57,5 +57,28 @@ namespace sims
 			if (!caps.extensions)
 				caps.extensions = "no extensions";
 		}
+
+		bool HasExtension(const char* extension)
+		{
+			if (!g_RendererCaps.extensions)
+				return false;
+
+			// extension is a space-separated list of tokens
+			const char* p = extension;
+			for (const char* q = p; *q;)
+			{
+				while (*q != 0 && *q != ' ')
+					++q;
+
+				// if this match token
+				if (q != p && strncmp(extension, p, q - p) == 0)
+					return true;
+
+				// start on next token, if any
+				p = *q ? q + 1 : q;
+			}
+
+			return false;
+		}
 	}
 }

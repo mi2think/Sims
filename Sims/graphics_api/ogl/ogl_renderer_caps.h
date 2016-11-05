@@ -33,6 +33,8 @@ namespace sims
 		extern RendererCaps g_RendererCaps;
 
 		void InitRendererCaps();
+
+		bool HasExtension(const char* extension);
 	}
 }
 
