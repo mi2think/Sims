@@ -21,8 +21,10 @@ namespace sims
 	{
 	public:
 		Program();
-		~Program();
+		virtual ~Program();
 
+		virtual void HWAttachShader(const ShaderRef&) {}
+		virtual void HWBindProgram() {}
 	private:
 		ShaderRef shaders_[ShaderDomain::Max];
 	};

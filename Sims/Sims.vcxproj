@@ -156,7 +156,6 @@
     <ClCompile Include="graphics_api\ogl\ogl_shader.cpp" />
     <ClCompile Include="graphics_api\ogl\ogl_texture.cpp" />
     <ClCompile Include="graphics_api\ogl\ogl_window.cpp" />
-    <ClCompile Include="graphics_api\ogl\Source.cpp" />
     <ClCompile Include="graphics_api\sims_sdk_rhi.cpp" />
     <ClCompile Include="math\bbox.cpp" />
     <ClCompile Include="math\math.cpp" />
