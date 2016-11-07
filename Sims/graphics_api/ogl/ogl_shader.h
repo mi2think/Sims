@@ -12,20 +12,20 @@
 #ifndef __OGL_SHADER_H__
 #define __OGL_SHADER_H__
 
-#include "graphics/graphics_fwd.h"
-#include "graphics_api/rhi/rhi_shader.h"
+#include "graphics/shader.h"
 #include "ogl_common.h"
 
 namespace sims
 {
 	namespace ogl
 	{
-		class OGLShader : public rhi::RHIShader
+		class OGLShader : public Shader
 		{
 		public:
 			OGLShader();
 			~OGLShader();
 
+			virtual bool IsValid() const;
 			virtual bool Compile(ShaderDomain::Type type, const string& source);
 			virtual bool LoadBinary(ShaderDomain::Type type, uint8* byteCode, uint32 byteCodeLength);
 			virtual void Delete();
@@ -33,6 +33,8 @@ namespace sims
 
 			virtual UniformLoc GetUniformLoc(const char* name);
 			virtual UniformLoc GetUniformLoc(UniformLoc parent, const char* name);
+		private:
+			GLuint so_; // shader object
 		};
 	}
 }

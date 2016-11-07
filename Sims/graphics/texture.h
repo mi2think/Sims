@@ -13,7 +13,7 @@
 #define __TEXTURE_H__
 
 #include "graphics_fwd.h"
-#include "core/color.h"
+#include "texture_sampler_status.h"
 #include "core/image.h"
 
 namespace sims
@@ -25,47 +25,37 @@ namespace sims
 		Texture(uint32 width, uint32 height, PixelFormat::Type format, uint32 storgeFlags = StorageFlags::Local);
 		Texture(const string& path, PixelFormat::Type format, uint32 storgeFlags = StorageFlags::Local);
 		Texture(const ImageRef& image, uint32 storgeFlags = StorageFlags::Local);
-		~Texture();
+		virtual ~Texture();
 
 		const string& GetName() const { return name_; }
-		void SetImage(const ImageRef& image);
 		void Load(const string& path, PixelFormat::Type format);
 		void SaveTGA(const string& path, uint32 level = 0);
 		void SavePNG(const string& path, uint32 level = 0, bool filpped = false);
 		void Clear();
 
+		ImageRef GetImage(uint32 level) const;
 		uint32 GetWidth() const { return width_; }
 		uint32 GetHeight() const { return height_; }
 		PixelFormat::Type GetFormat() const { return format_; }
 
 		uint32 GetMipmapCount() const { return mipmapCount_; }
 		bool HasMips() const { return mipmapCount_ > 1; }
-		ImageRef GetImage(uint32 level) const;
-
-		TextureFilter::Type GetFilterMin() const { return filterMin_; }
-		TextureFilter::Type GetFilterMag() const { return filterMag_; }
-		TextureFilter::Type GetFilterMip() const { return filterMip_; }
-		void SetFilterMin(TextureFilter::Type filter) { filterMin_ = filter; }
-		void SetFilterMag(TextureFilter::Type filter) { filterMag_ = filter; }
-		void SetFilterMip(TextureFilter::Type filter) { filterMip_ = filter; }
-
-		TextureWrap::Type GetWrapS() const { return wrapS_; }
-		TextureWrap::Type GetWrapT() const { return wrapT_; }
-		Color GetBorderColor() const { return borderColor_; }
-		void SetWrapS(TextureWrap::Type wrap) { wrapS_ = wrap; }
-		void SetWrapT(TextureWrap::Type wrap) { wrapT_ = wrap; }
-		void SetBorderColor(const Color& c) { borderColor_ = c; }
-
-		RenderID GetRenderID() const { return renderID_; }
-		void SetRenderID(RenderID id) { renderID_ = id; }
+		void SetImage(const ImageRef& image);
 
 		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
 		uint32 GetStorageFlags() const { return storageFlags_; }
+
+		void SetSamplerStatus(const TextureSamplerStatus& status) { samplerStatus_ = status; }
+		const TextureSamplerStatus& GetSamplerStatus() const { return samplerStatus_; }
 
 		// propagates changes on the texture and its mipmap images to the renderer.
 		//   you must call invalidate after modifying any texture paramters or image data,
 		//   for it to be uploaded to GPU.
 		void Invalidate();
+
+		virtual void HWUpdateTexture(Recti* regions) {}
+		virtual void HWBindTexture(uint32 textureUnit) {}
+		virtual void HWDeleteTexture() {}
 	protected:
 		void GenMipmaps(ImageRef image);
 
@@ -82,12 +72,7 @@ namespace sims
 
 		// texture sampler paramters
 		// no need to upload to GPU if changes, it will bind when use
-		Color borderColor_;
-		TextureFilter::Type filterMin_;
-		TextureFilter::Type filterMag_;
-		TextureFilter::Type filterMip_;
-		TextureWrap::Type wrapS_;
-		TextureWrap::Type wrapT_;
+		TextureSamplerStatus samplerStatus_;
 	};
 }
 

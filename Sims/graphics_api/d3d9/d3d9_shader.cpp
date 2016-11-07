@@ -17,12 +17,19 @@ namespace sims
 	namespace d3d9
 	{
 		D3D9Shader::D3D9Shader()
-			: RHIShader()
+			: Shader()
+			, so_(nullptr)
 			, constTable_(nullptr)
 		{}
 
 		D3D9Shader::~D3D9Shader()
 		{
+		}
+
+
+		bool D3D9Shader::IsValid() const
+		{
+			return so_ != nullptr;
 		}
 
 		bool D3D9Shader::Compile(ShaderDomain::Type type, const string& source)
@@ -90,15 +97,15 @@ namespace sims
 			{
 				IDirect3DVertexShader9* vertexShader = nullptr;
 				CHECK_HR = g_pD3DD->CreateVertexShader((DWORD*)byteCode, &vertexShader);
-				id_ = vertexShader;
-				return id_ != nullptr;
+				so_ = vertexShader;
+				return so_ != nullptr;
 			}
 			else if (type == ShaderDomain::Fragment)
 			{
 				IDirect3DPixelShader9* pixelShader = nullptr;
 				CHECK_HR = g_pD3DD->CreatePixelShader((DWORD*)byteCode, &pixelShader);
-				id_ = pixelShader;
-				return id_ != nullptr;
+				so_ = pixelShader;
+				return so_ != nullptr;
 			}
 			return false;
 		}
@@ -108,12 +115,12 @@ namespace sims
 			SAFE_RELEASE(constTable_);
 			if (type_ == ShaderDomain::Vertex)
 			{
-				IDirect3DVertexShader9* vertexShader = (IDirect3DVertexShader9*)id_;
+				IDirect3DVertexShader9* vertexShader = (IDirect3DVertexShader9*)so_;
 				SAFE_RELEASE(vertexShader);
 			}
 			else if (type_ == ShaderDomain::Fragment)
 			{
-				IDirect3DPixelShader9* pixelShader = (IDirect3DPixelShader9*)id_;
+				IDirect3DPixelShader9* pixelShader = (IDirect3DPixelShader9*)so_;
 				SAFE_RELEASE(pixelShader);
 			}
 		}
@@ -122,12 +129,12 @@ namespace sims
 		{
 			if (type_ == ShaderDomain::Vertex)
 			{
-				IDirect3DVertexShader9* vertexShader = (IDirect3DVertexShader9*)id_;
+				IDirect3DVertexShader9* vertexShader = (IDirect3DVertexShader9*)so_;
 				CHECK_HR = g_pD3DD->SetVertexShader(vertexShader);
 			}
 			else if (type_ == ShaderDomain::Fragment)
 			{
-				IDirect3DPixelShader9* pixelShader = (IDirect3DPixelShader9*)id_;
+				IDirect3DPixelShader9* pixelShader = (IDirect3DPixelShader9*)so_;
 				CHECK_HR = g_pD3DD->SetPixelShader(pixelShader);
 			}
 		}

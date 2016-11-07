@@ -19,12 +19,6 @@ namespace sims
 		, height_(0)
 		, format_(PixelFormat::Unknown)
 		, mipmapCount_(0)
-		, filterMin_(TextureFilter::Linear)
-		, filterMag_(TextureFilter::Linear)
-		, filterMip_(TextureFilter::Linear)
-		, wrapS_(TextureWrap::Clamp)
-		, wrapT_(TextureWrap::Clamp)
-		, renderID_(0)
 		, storageFlags_(StorageFlags::Local)
 	{
 	}
@@ -33,13 +27,7 @@ namespace sims
 		: width_(width)
 		, height_(height)
 		, format_(format)
-		, filterMin_(TextureFilter::Linear)
-		, filterMag_(TextureFilter::Linear)
-		, filterMip_(TextureFilter::Linear)
-		, wrapS_(TextureWrap::Clamp)
-		, wrapT_(TextureWrap::Clamp)
 		, mipmapCount_(1)
-		, renderID_(0)
 		, storageFlags_(storgeFlags)
 	{
 		ImageRef image(new Image(width, height, format));
@@ -47,13 +35,7 @@ namespace sims
 	}
 
 	Texture::Texture(const string& path, PixelFormat::Type format, uint32 storgeFlags)
-		: filterMin_(TextureFilter::Linear)
-		, filterMag_(TextureFilter::Linear)
-		, filterMip_(TextureFilter::Linear)
-		, wrapS_(TextureWrap::Clamp)
-		, wrapT_(TextureWrap::Clamp)
-		, renderID_(0)
-		, storageFlags_(storgeFlags)
+		: storageFlags_(storgeFlags)
 	{
 		Load(path, format);
 	}
@@ -67,11 +49,6 @@ namespace sims
 	Texture::~Texture()
 	{
 		Clear();
-		
-		if (!renderID_)
-		{
-			rhi::GetRenderer()->DeleteTexture(*this);
-		}
 	}
 
 	void Texture::SetImage(const ImageRef& image)
@@ -80,11 +57,6 @@ namespace sims
 		height_ = image->GetHeight();
 		format_ = image->GetFormat();
 		mipmapCount_ = 1;
-		filterMin_ = TextureFilter::Linear;
-		filterMag_ = TextureFilter::Linear;
-		filterMip_ = TextureFilter::Linear;
-		wrapS_ = TextureWrap::Clamp;
-		wrapT_ = TextureWrap::Clamp;
 		mipmaps_.push_back(image);
 	}
 
@@ -157,6 +129,6 @@ namespace sims
 			return;
 
 		// update texture
-		rhi::GetRenderer()->UpdateTexture(*this, &regions[0]);
+		HWUpdateTexture(&regions[0]);
 	}
 }

@@ -70,7 +70,6 @@ namespace sims
 	class Glyph;
 	class Event;
 	class Image;
-	class Texture;
 	class IInputStream;
 	class IOutputStream;
 	class IFileSystem;

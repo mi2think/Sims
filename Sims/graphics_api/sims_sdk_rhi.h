@@ -13,7 +13,6 @@
 #define __SIMS_SDK_RHI_H__
 
 #include "rhi/rhi_renderer.h"
-#include "rhi/rhi_shader.h"
 
 // rhi implement by ?
 #define SIMS_SDK_IMPL_D3D9 1
@@ -25,8 +24,8 @@ namespace sims
 		// renderer
 		RHIRenderer* GetRenderer();
 		// shader
-		RHIShader* CreateShader();
-		RHIShader* CreateShader(ShaderDomain::Type type, const string& source);
+		//RHIShader* CreateShader();
+		//RHIShader* CreateShader(ShaderDomain::Type type, const string& source);
 	}
 }
 

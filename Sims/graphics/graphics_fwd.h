@@ -13,6 +13,7 @@
 #define __GRAPHICS_FWD_H__
 
 #include "sims.h"
+#include "core/color.h"
 
 namespace sims
 {
@@ -59,7 +60,13 @@ namespace sims
 	typedef void* RenderID;		// generic, platform independent
 	typedef void* UniformLoc;	// generic, platform independent
 
+	class Texture;
+	class Shader;
+	class Program;
+
 	typedef Ref<Texture> TextureRef;
+	typedef Ref<Program> ProgramRef;
+	typedef Ref<Shader>  ShaderRef;
 }
 
 #endif

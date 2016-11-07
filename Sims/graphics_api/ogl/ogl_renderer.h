@@ -24,10 +24,6 @@ namespace sims
 			virtual void BeginFrame(uint32 clearFlags, Color color, float depth, uint32 stencil);
 			virtual void EndFrame();
 			virtual void PresentFrame();
-
-			virtual void UpdateTexture(Texture& texture, Recti* regions);
-			virtual void BindTexture(Texture& texture, uint32 textureUnit);
-			virtual void DeleteTexture(Texture& texture);
 		};
 	}
 }

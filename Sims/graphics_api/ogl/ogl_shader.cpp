@@ -16,10 +16,17 @@ namespace sims
 	namespace ogl
 	{
 		OGLShader::OGLShader()
+			: Shader()
+			, so_(0)
 		{}
 
 		OGLShader::~OGLShader()
 		{}
+
+		bool OGLShader::IsValid() const
+		{
+			return so_ != 0;
+		}
 
 		bool OGLShader::Compile(ShaderDomain::Type type, const string& source)
 		{
@@ -65,7 +72,7 @@ namespace sims
 				}
 			}
 
-			id_ = (RenderID)so;
+			so_ = so;
 			return true;
 		}
 
@@ -77,10 +84,10 @@ namespace sims
 
 		void OGLShader::Delete()
 		{
-			if (id_ != 0)
+			if (so_ != 0)
 			{
-				glDeleteShader((GLuint)id_);
-				id_ = 0;
+				glDeleteShader(so_);
+				so_ = 0;
 			}
 		}
 

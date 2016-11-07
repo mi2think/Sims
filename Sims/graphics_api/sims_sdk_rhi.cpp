@@ -27,17 +27,17 @@ namespace sims
 				return &s_renderer;
 			}
 
-			RHIShader* CreateShader()
-			{
-				return new d3d9::D3D9Shader();
-			}
+			//RHIShader* CreateShader()
+			//{
+			//	return new d3d9::D3D9Shader();
+			//}
 
-			RHIShader* CreateShader(ShaderDomain::Type type, const string& source)
-			{
-				RHIShader* p = new d3d9::D3D9Shader();
-				p->Compile(type, source);
-				return p;
-			}
+			//RHIShader* CreateShader(ShaderDomain::Type type, const string& source)
+			//{
+			//	RHIShader* p = new d3d9::D3D9Shader();
+			//	p->Compile(type, source);
+			//	return p;
+			//}
 #endif
 	}
 }

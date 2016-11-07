@@ -12,20 +12,20 @@
 #ifndef __SHADER_DX_H__
 #define __SHADER_DX_H__
 
-#include "graphics/graphics_fwd.h"
-#include "graphics_api/rhi/rhi_shader.h"
+#include "graphics/shader.h"
 #include "d3d9_common.h"
 
 namespace sims
 {
 	namespace d3d9
 	{
-		class D3D9Shader : public rhi::RHIShader
+		class D3D9Shader : public Shader
 		{
 		public:
 			D3D9Shader();
 			~D3D9Shader();
 
+			virtual bool IsValid() const;
 			virtual bool Compile(ShaderDomain::Type type, const string& source);
 			virtual bool LoadBinary(ShaderDomain::Type type, uint8* byteCode, uint32 byteCodeLength);
 			virtual void Delete();
@@ -36,6 +36,7 @@ namespace sims
 		private:
 			bool CreateShader(ShaderDomain::Type type, uint8* byteCode, uint32);
 
+			void* so_; // shader object;
 			ID3DXConstantTable* constTable_;
 		};
 	}
