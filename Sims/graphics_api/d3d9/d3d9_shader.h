@@ -26,6 +26,7 @@ namespace sims
 			~D3D9Shader();
 
 			void* GetShaderObj() const { return so_; }
+			ID3DXConstantTable* GetConstTable() const { return table_; }
 
 			virtual bool IsValid() const;
 			virtual bool Compile(ShaderDomain::Type type, const string& source);

@@ -30,11 +30,14 @@ namespace sims
 			virtual void BindProgram();
 			virtual void DeleteProgram();
 
-			virtual UniformLoc VSGetUniformLoc(const char* name, UniformLoc parent = nullptr);
-			virtual UniformLoc FSGetUniformLoc(const char* name, UniformLoc parent = nullptr);
-			virtual void VSSetUniforam(UniformLoc loc, const void* data, uint32 count, DataType::Type type);
-			virtual void FSSetUniforam(UniformLoc loc, const void* data, uint32 count, DataType::Type type);
+			virtual UniformLoc VSGetUniformLoc(const char* name, UniformLoc parent = nullptr) const;
+			virtual UniformLoc FSGetUniformLoc(const char* name, UniformLoc parent = nullptr) const;
+			virtual void VSBindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type);
+			virtual void FSBindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type);
 		private:
+			UniformLoc GetUniformLoc(const char* name) const;
+			void BindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type);
+
 			GLuint prog_;
 		};
 	}

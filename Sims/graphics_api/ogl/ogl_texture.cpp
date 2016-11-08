@@ -91,8 +91,8 @@ namespace sims
 			glActiveTexture(textureUnit);
 			glBindTexture(GL_TEXTURE_2D, tex_);
 
-			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, ToGLTextureFilterType(samplerStatus_.GetFilterMin()));
-			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, ToGLTextureFilterType(samplerStatus_.GetFilterMin()));
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, ToGLTextureFilterType(samplerStatus_.GetFilterMin()));
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, ToGLTextureFilterType(samplerStatus_.GetFilterMin()));
 
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, ToGLTextureWrapType(samplerStatus_.GetWrapS()));
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, ToGLTextureWrapType(samplerStatus_.GetWrapT()));

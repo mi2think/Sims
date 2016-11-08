@@ -29,10 +29,10 @@ namespace sims
 		virtual void DeleteProgram() = 0;
 
 		// uniforms
-		virtual UniformLoc VSGetUniformLoc(const char* name, UniformLoc parent = nullptr) = 0;
-		virtual UniformLoc FSGetUniformLoc(const char* name, UniformLoc parent = nullptr) = 0;
-		virtual void VSSetUniforam(UniformLoc loc, const void* data, uint32 count, DataType::Type type) = 0;
-		virtual void FSSetUniforam(UniformLoc loc, const void* data, uint32 count, DataType::Type type) = 0;
+		virtual UniformLoc VSGetUniformLoc(const char* name, UniformLoc parent = nullptr) const = 0;
+		virtual UniformLoc FSGetUniformLoc(const char* name, UniformLoc parent = nullptr) const = 0;
+		virtual void VSBindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type) = 0;
+		virtual void FSBindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type) = 0;
 	protected:
 		ShaderRef shaders_[ShaderDomain::Max];
 	};
