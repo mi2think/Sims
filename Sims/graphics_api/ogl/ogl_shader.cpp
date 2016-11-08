@@ -21,7 +21,9 @@ namespace sims
 		{}
 
 		OGLShader::~OGLShader()
-		{}
+		{
+			DeleteInternal();
+		}
 
 		bool OGLShader::IsValid() const
 		{
@@ -84,6 +86,11 @@ namespace sims
 
 		void OGLShader::Delete()
 		{
+			DeleteInternal();
+		}
+
+		void OGLShader::DeleteInternal()
+		{
 			if (so_ != 0)
 			{
 				glDeleteShader(so_);
@@ -91,12 +98,12 @@ namespace sims
 			}
 		}
 
-		void OGLShader::Use()
+		void OGLShader::Bind()
 		{
 			ASSERT(false && "we won't use separate shader program in ogl");
 		}
 
-		UniformLoc OGLShader::GetUniformLoc(const char* name, UniformLoc parent)
+		UniformLoc OGLShader::GetUniformLoc(const char*, UniformLoc)
 		{
 			ASSERT(false && "we won't use separate shader program in ogl");
 			return 0;

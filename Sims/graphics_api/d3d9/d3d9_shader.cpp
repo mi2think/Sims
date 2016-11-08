@@ -24,8 +24,8 @@ namespace sims
 
 		D3D9Shader::~D3D9Shader()
 		{
+			DeleteInternal();
 		}
-
 
 		bool D3D9Shader::IsValid() const
 		{
@@ -112,20 +112,29 @@ namespace sims
 
 		void D3D9Shader::Delete()
 		{
+			DeleteInternal();
+		}
+
+		void D3D9Shader::DeleteInternal()
+		{
 			SAFE_RELEASE(table_);
-			if (type_ == ShaderDomain::Vertex)
+			if (so_)
 			{
-				IDirect3DVertexShader9* vertexShader = (IDirect3DVertexShader9*)so_;
-				SAFE_RELEASE(vertexShader);
-			}
-			else if (type_ == ShaderDomain::Fragment)
-			{
-				IDirect3DPixelShader9* pixelShader = (IDirect3DPixelShader9*)so_;
-				SAFE_RELEASE(pixelShader);
+				if (type_ == ShaderDomain::Vertex)
+				{
+					IDirect3DVertexShader9* vertexShader = (IDirect3DVertexShader9*)so_;
+					SAFE_RELEASE(vertexShader);
+				}
+				else if (type_ == ShaderDomain::Fragment)
+				{
+					IDirect3DPixelShader9* pixelShader = (IDirect3DPixelShader9*)so_;
+					SAFE_RELEASE(pixelShader);
+				}
+				so_ = nullptr;
 			}
 		}
 
-		void D3D9Shader::Use()
+		void D3D9Shader::Bind()
 		{
 			if (type_ == ShaderDomain::Vertex)
 			{

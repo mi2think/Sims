@@ -35,6 +35,7 @@ namespace sims
 			virtual void VSBindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type);
 			virtual void FSBindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type);
 		private:
+			void DeleteProgramInternal();
 			UniformLoc GetUniformLoc(const char* name) const;
 			void BindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type);
 

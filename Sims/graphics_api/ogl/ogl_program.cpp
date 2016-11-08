@@ -24,11 +24,7 @@ namespace sims
 
 		OGLProgram::~OGLProgram()
 		{
-			if (prog_)
-			{
-				glDeleteProgram(prog_);
-				prog_ = 0;
-			}
+			DeleteProgramInternal();
 		}
 
 		void OGLProgram::AttachShader(const ShaderRef& shader)
@@ -98,6 +94,16 @@ namespace sims
 
 		void OGLProgram::DeleteProgram()
 		{
+			DeleteProgramInternal();
+		}
+
+		void OGLProgram::DeleteProgramInternal()
+		{
+			for (auto& so : shaders_)
+			{
+				so = nullptr;
+			}
+
 			if (prog_)
 			{
 				glDeleteProgram(prog_);
@@ -105,12 +111,12 @@ namespace sims
 			}
 		}
 
-		UniformLoc OGLProgram::VSGetUniformLoc(const char* name, UniformLoc parent) const
+		UniformLoc OGLProgram::VSGetUniformLoc(const char* name, UniformLoc) const
 		{
 			return GetUniformLoc(name);
 		}
 
-		UniformLoc OGLProgram::FSGetUniformLoc(const char* name, UniformLoc parent) const
+		UniformLoc OGLProgram::FSGetUniformLoc(const char* name, UniformLoc) const
 		{
 			return GetUniformLoc(name);
 		}
@@ -170,15 +176,15 @@ namespace sims
 			case DataType::Mat4:
 				glUniformMatrix4fv(location, count, GL_FALSE, (const GLfloat*)data);
 				break;
-			case DataType::Sampler2D:
-				break;
 			case DataType::Color:
 				{
+					ASSERT(count == 1);
 					const Color& c = *(const Color*)data;
 					auto v = c.GetRGBAVector4();
 					glUniform4f(location, v.x, v.y, v.z, v.w);
 				}
 				break;
+			case DataType::Sampler2D:
 			case DataType::Unknown:
 			default:
 				ASSERT(false && "Unspported uniform type");

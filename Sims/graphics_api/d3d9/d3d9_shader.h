@@ -32,11 +32,12 @@ namespace sims
 			virtual bool Compile(ShaderDomain::Type type, const string& source);
 			virtual bool LoadBinary(ShaderDomain::Type type, uint8* byteCode, uint32 byteCodeLength);
 			virtual void Delete();
-			virtual void Use();
+			virtual void Bind();
 
 			virtual UniformLoc GetUniformLoc(const char* name, UniformLoc parent = nullptr);
 		private:
 			bool CreateShaderObj(ShaderDomain::Type type, uint8* byteCode, uint32);
+			void DeleteInternal();
 
 			void* so_; // shader object;
 			ID3DXConstantTable* table_;

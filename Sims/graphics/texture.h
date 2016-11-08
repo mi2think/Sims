@@ -53,8 +53,8 @@ namespace sims
 		//   for it to be uploaded to GPU.
 		void Invalidate();
 
-		virtual void HWUpdateTexture(Recti* regions) {}
-		virtual void HWBindTexture(uint32 textureUnit) {}
+		virtual void HWUpdateTexture(Recti*) {} // regions
+		virtual void HWBindTexture(uint32) {} // textureUnit
 		virtual void HWDeleteTexture() {}
 	protected:
 		void GenMipmaps(ImageRef image);
