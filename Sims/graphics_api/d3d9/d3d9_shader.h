@@ -25,19 +25,20 @@ namespace sims
 			D3D9Shader();
 			~D3D9Shader();
 
+			void* GetShaderObj() const { return so_; }
+
 			virtual bool IsValid() const;
 			virtual bool Compile(ShaderDomain::Type type, const string& source);
 			virtual bool LoadBinary(ShaderDomain::Type type, uint8* byteCode, uint32 byteCodeLength);
 			virtual void Delete();
 			virtual void Use();
 
-			virtual UniformLoc GetUniformLoc(const char* name);
-			virtual UniformLoc GetUniformLoc(UniformLoc parent, const char* name);
+			virtual UniformLoc GetUniformLoc(const char* name, UniformLoc parent = nullptr);
 		private:
-			bool CreateShader(ShaderDomain::Type type, uint8* byteCode, uint32);
+			bool CreateShaderObj(ShaderDomain::Type type, uint8* byteCode, uint32);
 
 			void* so_; // shader object;
-			ID3DXConstantTable* constTable_;
+			ID3DXConstantTable* table_;
 		};
 	}
 }

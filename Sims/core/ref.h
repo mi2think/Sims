@@ -126,7 +126,7 @@ namespace sims
 		Ref<U> As() const
 		{
 			U* p = dynamic_cast<U*>(ptr);
-			return Ref<U>(p, (p ? counter : 0));
+			return Ref<U>(p, (p ? counter : 0)); // ctor would inc count
 		}
 
 		bool operator==(const Ref<T>& r) const
@@ -188,6 +188,12 @@ namespace sims
 		Deleter del;
 		mutable int* counter;
 	};
+
+	template<typename T, typename U>
+	Ref<T> ref_cast(const Ref<U>& r)
+	{
+		return r.As<T>();
+	}
 }
 
 #endif

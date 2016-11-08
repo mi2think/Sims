@@ -96,13 +96,7 @@ namespace sims
 			ASSERT(false && "we won't use separate shader program in ogl");
 		}
 
-		UniformLoc OGLShader::GetUniformLoc(const char*)
-		{
-			ASSERT(false && "we won't use separate shader program in ogl");
-			return 0;
-		}
-
-		UniformLoc OGLShader::GetUniformLoc(UniformLoc, const char*)
+		UniformLoc OGLShader::GetUniformLoc(const char* name, UniformLoc parent)
 		{
 			ASSERT(false && "we won't use separate shader program in ogl");
 			return 0;

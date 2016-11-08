@@ -19,7 +19,7 @@ namespace sims
 		D3D9Shader::D3D9Shader()
 			: Shader()
 			, so_(nullptr)
-			, constTable_(nullptr)
+			, table_(nullptr)
 		{}
 
 		D3D9Shader::~D3D9Shader()
@@ -59,7 +59,7 @@ namespace sims
 					flags,
 					&shaderBuffer,
 					&errorBuffer,
-					&constTable_);
+					&table_);
 			}
 			else if (type == ShaderDomain::Fragment)
 			{
@@ -72,7 +72,7 @@ namespace sims
 					flags,
 					&shaderBuffer,
 					&errorBuffer,
-					&constTable_);
+					&table_);
 			}
 
 			if (errorBuffer != nullptr)
@@ -83,15 +83,15 @@ namespace sims
 			}
 
 			// create shader
-			return CreateShader(type, (uint8*)shaderBuffer->GetBufferPointer(), shaderBuffer->GetBufferSize());
+			return CreateShaderObj(type, (uint8*)shaderBuffer->GetBufferPointer(), shaderBuffer->GetBufferSize());
 		}
 
 		bool D3D9Shader::LoadBinary(ShaderDomain::Type type, uint8* byteCode, uint32 byteCodeLength)
 		{
-			return CreateShader(type, byteCode, byteCodeLength);
+			return CreateShaderObj(type, byteCode, byteCodeLength);
 		}
 
-		bool D3D9Shader::CreateShader(ShaderDomain::Type type, uint8* byteCode, uint32)
+		bool D3D9Shader::CreateShaderObj(ShaderDomain::Type type, uint8* byteCode, uint32)
 		{
 			if (type == ShaderDomain::Vertex)
 			{
@@ -112,7 +112,7 @@ namespace sims
 
 		void D3D9Shader::Delete()
 		{
-			SAFE_RELEASE(constTable_);
+			SAFE_RELEASE(table_);
 			if (type_ == ShaderDomain::Vertex)
 			{
 				IDirect3DVertexShader9* vertexShader = (IDirect3DVertexShader9*)so_;
@@ -139,14 +139,9 @@ namespace sims
 			}
 		}
 
-		UniformLoc D3D9Shader::GetUniformLoc(const char* name)
+		UniformLoc D3D9Shader::GetUniformLoc(const char* name, UniformLoc parent)
 		{
-			return GetUniformLoc(0, name);
-		}
-
-		UniformLoc D3D9Shader::GetUniformLoc(UniformLoc parent, const char* name)
-		{
-			D3DXHANDLE h = constTable_->GetConstantByName((D3DXHANDLE)parent, name);
+			D3DXHANDLE h = table_->GetConstantByName((D3DXHANDLE)parent, name);
 			return (UniformLoc)h;
 		}
 	}

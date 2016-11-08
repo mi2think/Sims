@@ -34,8 +34,7 @@ namespace sims
 		virtual void Delete() = 0;
 		virtual void Bind() = 0;
 
-		virtual UniformLoc GetUniformLoc(const char* name) = 0;
-		virtual UniformLoc GetUniformLoc(UniformLoc parent, const char* name) = 0;
+		virtual UniformLoc GetUniformLoc(const char* name, UniformLoc parent = nullptr) = 0;
 	protected:
 		string source_;
 		ShaderDomain::Type type_;

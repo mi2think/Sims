@@ -23,9 +23,17 @@ namespace sims
 		Program();
 		virtual ~Program();
 
-		virtual void HWAttachShader(const ShaderRef&) {}
-		virtual void HWBindProgram() {}
-	private:
+		virtual void AttachShader(const ShaderRef& shader);
+		virtual void EndAttachShader();
+		virtual void BindProgram() = 0;
+		virtual void DeleteProgram() = 0;
+
+		// uniforms
+		virtual UniformLoc VSGetUniformLoc(const char* name, UniformLoc parent = nullptr) = 0;
+		virtual UniformLoc FSGetUniformLoc(const char* name, UniformLoc parent = nullptr) = 0;
+		virtual void VSSetUniforam(UniformLoc loc, const void* data, uint32 count, DataType::Type type) = 0;
+		virtual void FSSetUniforam(UniformLoc loc, const void* data, uint32 count, DataType::Type type) = 0;
+	protected:
 		ShaderRef shaders_[ShaderDomain::Max];
 	};
 }

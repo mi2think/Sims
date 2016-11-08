@@ -20,4 +20,13 @@ namespace sims
 	Program::~Program()
 	{
 	}
+
+	void Program::AttachShader(const ShaderRef& shader)
+	{
+		shaders_[shader->GetType()] = shader;
+	}
+
+	void Program::EndAttachShader()
+	{
+	}
 }

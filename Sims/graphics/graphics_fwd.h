@@ -41,14 +41,35 @@ namespace sims
 	END_DECLARE_ENUM()
 
 	DECLARE_ENUM(ClearFlags)
-		Color,
-		Depth,
-		Stencil
+		Color	= BIT(0),
+		Depth	= BIT(1),
+		Stencil	= BIT(2)
 	END_DECLARE_ENUM()
 
 	DECLARE_ENUM(ShaderDomain)
 		Vertex,
 		Fragment
+	END_DECLARE_ENUM()
+
+	DECLARE_ENUM(DataType)
+		Unknown,
+
+		Int,
+		Int2,
+		Int3,
+		Int4,
+
+		F32,
+		Vec2,
+		Vec3,
+		Vec4,
+
+		Mat3,
+		Mat4,
+		
+		Sampler2D,
+
+		Color
 	END_DECLARE_ENUM()
 
 	DECLARE_ENUM(StorageFlags)

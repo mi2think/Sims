@@ -68,7 +68,6 @@ namespace sims
 		vector<ImageRef> mipmaps_;
 
 		uint32 storageFlags_;
-		RenderID renderID_;
 
 		// texture sampler paramters
 		// no need to upload to GPU if changes, it will bind when use
