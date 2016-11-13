@@ -48,6 +48,8 @@ namespace sims
 	class Ray;
 	class BBox;
 	class Sphere;
+	class Plane;
+	class Frustum;
 
 #define isnan _isnan
 #define isinf(f) (!_finite((f)))

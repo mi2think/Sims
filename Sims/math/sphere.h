@@ -31,7 +31,7 @@ namespace sims
 		float radius_;
 	};
 
-	inline bool Intersect(const Ray& ray, const Sphere& sphere, float& t)
+	inline bool Intersect(const Sphere& sphere, const Ray& ray, float& t)
 	{
 		// compute quadratic sphere coefficients
 		const auto& o = ray.origin_;

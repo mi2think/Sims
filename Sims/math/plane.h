@@ -14,6 +14,7 @@
 
 #include "math_fwd.h"
 #include "vector3.h"
+#include "ray.h"
 
 namespace sims
 {
@@ -46,6 +47,8 @@ namespace sims
 
 	// transform plane by matrix
 	Plane TransformPlane(const Plane& plane, const Matrix44f& m);
+
+	bool Intersect(const Plane& plane, const Ray& ray, float& t);
 }
 
 #endif

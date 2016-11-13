@@ -72,4 +72,24 @@ namespace sims
 		v *= m;
 		return Plane(Vector3f(v.x, v.y, v.z), v.w);
 	}
+
+	bool Intersect(const Plane& plane, const Ray& ray, float& t)
+	{
+		//see formula in page 99
+		float dp = DotProduct(plane.n_, ray.direction_);
+		if (equal_t(dp, 0.0f))
+		{
+			// ray is parallel to plane
+			// may the ray lies in the plane if DotProduct(plane.n_, ray.pt_) + plane.d_ == 0
+			// we treat this as not intersect yet.
+			return false;
+		}
+
+		float k = DotProduct(plane.n_, ray.origin_);
+		float t0 = -(k + plane.d_) / dp;
+		if (t0 < 0)
+			return false;
+		t = t0;
+		return true;
+	}
 }

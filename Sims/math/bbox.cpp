@@ -76,7 +76,7 @@ namespace sims
 		return *this;
 	}
 
-	bool Intersect(const Ray& ray, const BBox& bbox, float& t)
+	bool Intersect(const BBox& bbox, const Ray& ray, float& t)
 	{
 		float t0 = ray.mint_;
 		float t1 = ray.maxt_;

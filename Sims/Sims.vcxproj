@@ -160,6 +160,7 @@
     <ClCompile Include="graphics_api\ogl\ogl_window.cpp" />
     <ClCompile Include="graphics_api\sims_sdk_rhi.cpp" />
     <ClCompile Include="math\bbox.cpp" />
+    <ClCompile Include="math\frustum.cpp" />
     <ClCompile Include="math\math.cpp" />
     <ClCompile Include="math\plane.cpp" />
     <ClCompile Include="math\ray.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="graphics_api\sims_sdk_ogl.h" />
     <ClInclude Include="graphics_api\sims_sdk_rhi.h" />
     <ClInclude Include="math\bbox.h" />
+    <ClInclude Include="math\frustum.h" />
     <ClInclude Include="math\math_fwd.h" />
     <ClInclude Include="math\matrix33.h" />
     <ClInclude Include="math\matrix44.h" />

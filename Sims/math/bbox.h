@@ -79,7 +79,7 @@ namespace sims
 		BBox& Transform(const Matrix44f& m);
 	};
 
-	bool Intersect(const Ray& ray, const BBox& bbox, float& t);
+	bool Intersect(const BBox& bbox, const Ray& ray, float& t);
 }
 
 #endif
