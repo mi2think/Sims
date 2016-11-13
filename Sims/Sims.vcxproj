@@ -161,6 +161,7 @@
     <ClCompile Include="graphics_api\sims_sdk_rhi.cpp" />
     <ClCompile Include="math\bbox.cpp" />
     <ClCompile Include="math\math.cpp" />
+    <ClCompile Include="math\plane.cpp" />
     <ClCompile Include="math\ray.cpp" />
     <ClCompile Include="math\rng.cpp" />
     <ClCompile Include="platform\windows\windows_file_system.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="math\math_fwd.h" />
     <ClInclude Include="math\matrix33.h" />
     <ClInclude Include="math\matrix44.h" />
+    <ClInclude Include="math\plane.h" />
     <ClInclude Include="math\quat.h" />
     <ClInclude Include="math\ray.h" />
     <ClInclude Include="math\rectangle.h" />

@@ -186,6 +186,9 @@
     <ClCompile Include="graphics_api\d3d9\d3d9_program.cpp">
       <Filter>graphics_api\d3d9</Filter>
     </ClCompile>
+    <ClCompile Include="math\plane.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -416,6 +419,9 @@
     </ClInclude>
     <ClInclude Include="graphics_api\d3d9\d3d9_program.h">
       <Filter>graphics_api\d3d9</Filter>
+    </ClInclude>
+    <ClInclude Include="math\plane.h">
+      <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
