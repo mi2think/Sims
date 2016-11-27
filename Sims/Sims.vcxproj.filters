@@ -192,6 +192,9 @@
     <ClCompile Include="math\frustum.cpp">
       <Filter>math</Filter>
     </ClCompile>
+    <ClCompile Include="graphics\vertex_stream.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -428,6 +431,9 @@
     </ClInclude>
     <ClInclude Include="math\frustum.h">
       <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\vertex_stream.h">
+      <Filter>graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

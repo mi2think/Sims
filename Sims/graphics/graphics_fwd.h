@@ -72,6 +72,23 @@ namespace sims
 		Color
 	END_DECLARE_ENUM()
 
+	DECLARE_ENUM(VertexStreamElementType)
+		S8,
+		U8,
+		S16,
+		U16,
+		S32,
+		U32,
+		F32
+	END_DECLARE_ENUM()
+
+	DECLARE_ENUM(VertexStreamUsage)
+		Position,
+		Normal,
+		TexCoord,
+		Color
+	END_DECLARE_ENUM()
+
 	DECLARE_ENUM(StorageFlags)
 		Local       = BIT(0),
 		Hardware    = BIT(1),
@@ -84,6 +101,7 @@ namespace sims
 	class Texture;
 	class Shader;
 	class Program;
+	class VertexStream;
 
 	typedef Ref<Texture> TextureRef;
 	typedef Ref<Program> ProgramRef;
