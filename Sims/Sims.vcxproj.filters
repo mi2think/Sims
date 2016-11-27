@@ -435,5 +435,8 @@
     <ClInclude Include="graphics\vertex_stream.h">
       <Filter>graphics</Filter>
     </ClInclude>
+    <ClInclude Include="graphics\vertex_declaration.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

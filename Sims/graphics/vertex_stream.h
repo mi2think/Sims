@@ -27,11 +27,20 @@ namespace sims
 		uint32 GetElementSize() const;
 
 		uint32 GetSize() const;
+
+		uint32 GetAlign() const;
+		uint32 GetOffset() const { return offset_; }
 	private:
+		friend class VertexDeclaration;
+		void SetOffset(uint32 offset);
+
 		VertexStreamUsage::Type usage_;
 		uint32 index_;
 		VertexStreamElementType::Type elementType_;
 		uint32 elementCount_;
+
+		// offset in vertex declaration
+		uint32 offset_;
 	};
 }
 

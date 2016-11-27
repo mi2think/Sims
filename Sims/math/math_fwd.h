@@ -20,6 +20,28 @@
 #include <string> //for ToString
 #include <sstream>
 
+#define isnan _isnan
+#define isinf(f) (!_finite((f)))
+
+#define M_PI	3.14159265358979323846f
+#define INV_PI	0.31830988618379067154f
+
+#define EPSILON_E3 (float)(1E-3)
+#define EPSILON_E5 (float)(1E-5)
+#define ABS(a) (fabs(a))
+#define FCMP(a,b) ( (fabs(a-b) < EPSILON_E3) ? true : false)
+
+#define MAX(a,b)    (((a) > (b)) ? (a) : (b))
+#define MIN(a,b)    (((a) < (b)) ? (a) : (b))
+
+#define angle2radian(a) (float)((a) * M_PI / 180)
+#define radian2angle(r) (float)((r) * 180 / M_PI)
+
+#define floor2int(a) (int)(std::floor((a)))
+#define ceil2int(a)  (int)(std::ceil((a))
+
+#define NOISE_PERM_SIZE 256
+
 namespace sims
 {
 	using std::string;
@@ -51,26 +73,6 @@ namespace sims
 	class Plane;
 	class Frustum;
 
-#define isnan _isnan
-#define isinf(f) (!_finite((f)))
-
-#define M_PI	3.14159265358979323846f
-#define INV_PI	0.31830988618379067154f
-
-#define EPSILON_E3 (float)(1E-3)
-#define EPSILON_E5 (float)(1E-5)
-#define ABS(a) (fabs(a))
-#define FCMP(a,b) ( (fabs(a-b) < EPSILON_E3) ? true : false)
-
-#define MAX(a,b)    (((a) > (b)) ? (a) : (b))
-#define MIN(a,b)    (((a) < (b)) ? (a) : (b))
-
-#define angle2radian(a) (float)((a) * M_PI / 180)
-#define radian2angle(r) (float)((r) * 180 / M_PI)
-
-#define floor2int(a) (int)(std::floor((a)))
-#define ceil2int(a)  (int)(std::ceil((a))
-
 	// lerp, t:[0, 1]
 	template<typename T>
 	inline T lerp_t(float t, const T& v1, const T& v2) { return (1.0f - t) * v1 + t * v2; }
@@ -90,16 +92,13 @@ namespace sims
 		return lerp_t(remap_t, v1, v2);
 	}
 
-	// swap
 	template<typename T>
 	inline void swap_t(T& a, T& b) { T t = a; a = b; b = t; }
 
-	// equal
 	template<typename T>
 	inline bool equal_t(const T& a, const T& b) { return a == b; }
 	inline bool equal_t(const float& a, const float& b) { return ABS(a - b) < EPSILON_E5; }
 
-	// clamp
 	template <typename T>
 	inline T clamp_t(const T& val, const T& minVal, const T& maxVal)
 	{
@@ -110,6 +109,12 @@ namespace sims
 	{
 		sin_t = sinf(radian);
 		cos_t = cosf(radian);
+	}
+
+	inline uint32 align(uint32 bytes, uint32 alignN)
+	{
+		// e.g. (bytes + (alignN - (bytes % alignN)) % alignN);
+		return (bytes + alignN - 1) & ~(alignN - 1);
 	}
 
 	inline float safe_acos(float f)
@@ -127,7 +132,7 @@ namespace sims
 		// for equation A * t^2 + B * t + C = 0, slove for t values may two possible solutions:
 		// t0 = (-B - sqrt(B^2 - 4AC)) / (2A)
 		// t1 = (-B + sqrt(B^2 - 4AC)) / (2A)
-		// but here in pbrt, it use another way for avoid cancellation error
+		// but here in PBRT, it use another way for avoid cancellation error
 		// (if B Approximately equal to +-sqrt(B^2 - 4AC)).
 
 		// find quadratic discriminant
@@ -146,7 +151,6 @@ namespace sims
 	}
 
 	// Perlin noise data
-#define NOISE_PERM_SIZE 256
 	extern const int NoisePerm[NOISE_PERM_SIZE * 2];
 }
 

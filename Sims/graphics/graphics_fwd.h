@@ -102,6 +102,7 @@ namespace sims
 	class Shader;
 	class Program;
 	class VertexStream;
+	class VertexDeclaration;
 
 	typedef Ref<Texture> TextureRef;
 	typedef Ref<Program> ProgramRef;

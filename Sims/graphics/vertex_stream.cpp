@@ -49,4 +49,14 @@ namespace sims
 	{
 		return elementCount_ * GetElementSize();
 	}
+
+	uint32 VertexStream::GetAlign() const
+	{
+		return 4; // default
+	}
+
+	void VertexStream::SetOffset(uint32 offset)
+	{
+		offset_ = offset;
+	}
 }
