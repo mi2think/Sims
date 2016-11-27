@@ -31,8 +31,8 @@ namespace sims
 		// uniforms
 		virtual UniformLoc VSGetUniformLoc(const char* name, UniformLoc parent = nullptr) const = 0;
 		virtual UniformLoc FSGetUniformLoc(const char* name, UniformLoc parent = nullptr) const = 0;
-		virtual void VSBindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type) = 0;
-		virtual void FSBindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type) = 0;
+		virtual void VSBindUniform(UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type) = 0;
+		virtual void FSBindUniform(UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type) = 0;
 	protected:
 		ShaderRef shaders_[ShaderDomain::Max];
 	};

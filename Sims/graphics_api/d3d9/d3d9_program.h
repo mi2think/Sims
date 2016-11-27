@@ -30,11 +30,11 @@ namespace sims
 
 			virtual UniformLoc VSGetUniformLoc(const char* name, UniformLoc parent = nullptr) const;
 			virtual UniformLoc FSGetUniformLoc(const char* name, UniformLoc parent = nullptr) const;
-			virtual void VSBindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type);
-			virtual void FSBindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type);
+			virtual void VSBindUniform(UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type);
+			virtual void FSBindUniform(UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type);
 		private:
 			void DeleteProgramInternal();
-			void BindUniform(ID3DXConstantTable* table, UniformLoc loc, const void* data, uint32 count, DataType::Type type);
+			void BindUniform(ID3DXConstantTable* table, UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type);
 		};
 	}
 }

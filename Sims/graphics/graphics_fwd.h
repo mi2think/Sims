@@ -51,7 +51,7 @@ namespace sims
 		Fragment
 	END_DECLARE_ENUM()
 
-	DECLARE_ENUM(DataType)
+	DECLARE_ENUM(UniformDataType)
 		Unknown,
 
 		Int,

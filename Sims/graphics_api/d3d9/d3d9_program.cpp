@@ -71,53 +71,53 @@ namespace sims
 			return shaders_[ShaderDomain::Fragment] ? shaders_[ShaderDomain::Fragment]->GetUniformLoc(name, parent) : 0;
 		}
 
-		void D3D9Program::VSBindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type)
+		void D3D9Program::VSBindUniform(UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type)
 		{
 			auto d3d9Shader = shaders_[ShaderDomain::Vertex].As<D3D9Shader>();
 			ASSERT(d3d9Shader);
 			BindUniform(d3d9Shader->GetConstTable(), loc, data, count, type);
 		}
 
-		void D3D9Program::FSBindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type)
+		void D3D9Program::FSBindUniform(UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type)
 		{
 			auto d3d9Shader = shaders_[ShaderDomain::Fragment].As<D3D9Shader>();
 			ASSERT(d3d9Shader);
 			BindUniform(d3d9Shader->GetConstTable(), loc, data, count, type);
 		}
 
-		void D3D9Program::BindUniform(ID3DXConstantTable* table, UniformLoc loc, const void* data, uint32 count, DataType::Type type)
+		void D3D9Program::BindUniform(ID3DXConstantTable* table, UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type)
 		{
 			D3DXHANDLE location = (D3DXHANDLE)loc;
 			switch (type)
 			{
-			case DataType::Int:
+			case UniformDataType::Int:
 				table->SetIntArray(g_pD3DD, location, (const int*)data, count);
 				break;
-			case DataType::Int2:
+			case UniformDataType::Int2:
 				table->SetIntArray(g_pD3DD, location, (const int*)data, count * 2);
 				break;
-			case DataType::Int3:
+			case UniformDataType::Int3:
 				table->SetIntArray(g_pD3DD, location, (const int*)data, count * 3);
 				break;
-			case DataType::Int4:
+			case UniformDataType::Int4:
 				table->SetIntArray(g_pD3DD, location, (const int*)data, count * 4);
 				break;
-			case DataType::F32:
+			case UniformDataType::F32:
 				table->SetFloatArray(g_pD3DD, location, (const float*)data, count);
 				break;
-			case DataType::Vec2:
+			case UniformDataType::Vec2:
 				table->SetFloatArray(g_pD3DD, location, (const float*)data, count * 2);
 				break;
-			case DataType::Vec3:
+			case UniformDataType::Vec3:
 				table->SetFloatArray(g_pD3DD, location, (const float*)data, count * 3);
 				break;
-			case DataType::Vec4:
+			case UniformDataType::Vec4:
 				table->SetVectorArray(g_pD3DD, location, (const D3DXVECTOR4*)data, count);
 				break;
-			case DataType::Mat4:
+			case UniformDataType::Mat4:
 				table->SetMatrixArray(g_pD3DD, location, (const D3DXMATRIX*)data, count);
 				break;
-			case DataType::Color:
+			case UniformDataType::Color:
 				{
 					ASSERT(count == 1);
 					const Color& c = *(const Color*)data;
@@ -125,9 +125,9 @@ namespace sims
 					table->SetVector(g_pD3DD, location, (const D3DXVECTOR4*)&v);
 				}
 				break;
-			case DataType::Sampler2D:
-			case DataType::Mat3:
-			case DataType::Unknown:
+			case UniformDataType::Sampler2D:
+			case UniformDataType::Mat3:
+			case UniformDataType::Unknown:
 			default:
 				ASSERT(false && "Unspported uniform type");
 				break;
