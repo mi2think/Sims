@@ -131,52 +131,52 @@ namespace sims
 			return (UniformLoc)loc;
 		}
 
-		void OGLProgram::VSBindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type)
+		void OGLProgram::VSBindUniform(UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type)
 		{
 			return BindUniform(loc, data, count, type);
 		}
 
-		void OGLProgram::FSBindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type)
+		void OGLProgram::FSBindUniform(UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type)
 		{
 			return BindUniform(loc, data, count, type);
 		}
 
-		void OGLProgram::BindUniform(UniformLoc loc, const void* data, uint32 count, DataType::Type type)
+		void OGLProgram::BindUniform(UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type)
 		{
 			GLint location = (GLint)loc;
 			switch (type)
 			{
-			case DataType::Int:
+			case UniformDataType::Int:
 				glUniform1iv(location, count, (const GLint*)data);
 				break;
-			case DataType::Int2:
+			case UniformDataType::Int2:
 				glUniform2iv(location, count, (const GLint*)data);
 				break;
-			case DataType::Int3:
+			case UniformDataType::Int3:
 				glUniform3iv(location, count, (const GLint*)data);
 				break;
-			case DataType::Int4:
+			case UniformDataType::Int4:
 				glUniform4iv(location, count, (const GLint*)data);
 				break;
-			case DataType::F32:
+			case UniformDataType::F32:
 				glUniform1fv(location, count, (const GLfloat*)data);
 				break;
-			case DataType::Vec2:
+			case UniformDataType::Vec2:
 				glUniform2fv(location, count, (const GLfloat*)data);
 				break;
-			case DataType::Vec3:
+			case UniformDataType::Vec3:
 				glUniform3fv(location, count, (const GLfloat*)data);
 				break;
-			case DataType::Vec4:
+			case UniformDataType::Vec4:
 				glUniform4fv(location, count, (const GLfloat*)data);
 				break;
-			case DataType::Mat3:
+			case UniformDataType::Mat3:
 				glUniformMatrix3fv(location, count, GL_FALSE, (const GLfloat*)data);
 				break;
-			case DataType::Mat4:
+			case UniformDataType::Mat4:
 				glUniformMatrix4fv(location, count, GL_FALSE, (const GLfloat*)data);
 				break;
-			case DataType::Color:
+			case UniformDataType::Color:
 				{
 					ASSERT(count == 1);
 					const Color& c = *(const Color*)data;
@@ -184,8 +184,8 @@ namespace sims
 					glUniform4f(location, v.x, v.y, v.z, v.w);
 				}
 				break;
-			case DataType::Sampler2D:
-			case DataType::Unknown:
+			case UniformDataType::Sampler2D:
+			case UniformDataType::Unknown:
 			default:
 				ASSERT(false && "Unspported uniform type");
 				break;
