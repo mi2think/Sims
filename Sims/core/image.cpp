@@ -55,6 +55,11 @@ namespace sims
 		return image_->GetImageDataSize();
 	}
 
+	uint32 LockedImage::GetLockFlags() const
+	{
+		return lockFlags_;
+	}
+
 	Image::Image()
 		: width_(0)
 		, height_(0)
@@ -62,7 +67,7 @@ namespace sims
 		, bytesPerPixel_(0)
 		, dataSize_(0)
 		, data_(nullptr)
-		, isLocked_(false)
+		, lockedCount_(0)
 	{
 	}
 
@@ -70,7 +75,7 @@ namespace sims
 		: width_(width)
 		, height_(height)
 		, format_(format)
-		, isLocked_(false)
+		, lockedCount_(0)
 		, invalidRegion_(0, 0, width, height)
 	{
 		bytesPerPixel_ = Image::GetBytesPerPixel(format_);
@@ -95,7 +100,7 @@ namespace sims
 			data_ = new uint8[dataSize_];
 			memcpy(data_, data, dataSize_);
 			bytesPerPixel_ = Image::GetBytesPerPixel(format_);
-			isLocked_ = false;
+			lockedCount_ = 0;
 		}
 		invalidRegion_.SetRect(0, 0, w, h);
 	}
@@ -390,7 +395,7 @@ namespace sims
 
 	LockedImage* Image::Lock(uint32 lockFlags)
 	{
-		if (isLocked_)
+		if (lockedCount_ > 0)
 		{
 			// read is ok if pre-lock is read
 			if ((lockFlags & LockWrite) != 0 ||
@@ -406,7 +411,7 @@ namespace sims
 			ASSERT(false && "image has no data");
 			return nullptr;
 		}
-		isLocked_ = true;
+		++lockedCount_;
 		lockedImage_.Init(this, lockFlags);
 		return &lockedImage_;
 	}
@@ -419,7 +424,10 @@ namespace sims
 			return;
 		}
 
-		isLocked_ = false;
-		L->Clear();
+		--lockedCount_;
+		if (lockedCount_ == 0)
+			L->Clear();
+		else
+			ASSERT(L->GetLockFlags() == LockRead && "multi-lock must be read");
 	}
 }

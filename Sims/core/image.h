@@ -29,6 +29,7 @@ namespace sims
 		uint8* GetData();
 		const uint8* GetData() const;
 		uint32 GetImageDataSize() const;
+		uint32 GetLockFlags() const;
 	private:
 		friend class Image;
 		Image* image_;
@@ -89,7 +90,7 @@ namespace sims
 		uint32 dataSize_;
 		uint8* data_;
 
-		bool isLocked_;
+		int32 lockedCount_;
 		LockedImage lockedImage_;
 		// mark for update later, e.g. for dynamic texture
 		Recti invalidRegion_;
