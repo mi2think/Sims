@@ -26,16 +26,16 @@
 #include <cassert>
 #include <cstdlib>
 
-namespace sims
-{
-	// macros
 #define SAFE_DELETE(p)		do { if (p != nullptr) { delete p; p = nullptr; } } while(0)
 #define SAFE_DELETEARRAY(p) do { if (p != nullptr) { delete[] p; p = nullptr; } } while(0)
 #define SAFE_RELEASE(p)		do { if (p != nullptr) { p->Release(); p = nullptr; } } while(0)
 
 #define ASSERT	assert
 #define BIT(x)	(1<<(x))
+#define count_of(_Array) (sizeof(_Array) / sizeof(_Array[0]))
 
+namespace sims
+{
 #define DECLARE_ENUM(name) \
 		namespace name { \
 			enum Type {

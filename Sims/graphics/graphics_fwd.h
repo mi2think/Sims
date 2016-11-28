@@ -103,11 +103,13 @@ namespace sims
 	class Program;
 	class VertexStream;
 	class VertexDeclaration;
+	class VertexBuffer;
 
 	typedef Ref<Texture> TextureRef;
 	typedef Ref<Program> ProgramRef;
 	typedef Ref<Shader>  ShaderRef;
 	typedef Ref<VertexDeclaration> VertexDeclarationRef;
+	typedef Ref<VertexBuffer> VertexBufferRef;
 }
 
 #endif
