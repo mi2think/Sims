@@ -111,7 +111,7 @@ namespace sims
 		cos_t = cosf(radian);
 	}
 
-	inline uint32 align(uint32 bytes, uint32 alignN)
+	inline unsigned int align(unsigned int bytes, unsigned int alignN)
 	{
 		// e.g. (bytes + (alignN - (bytes % alignN)) % alignN);
 		return (bytes + alignN - 1) & ~(alignN - 1);

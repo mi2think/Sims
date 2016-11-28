@@ -19,11 +19,18 @@ namespace sims
 	class VertexDeclaration
 	{
 	public:
-		VertexDeclaration();
+		static VertexDeclarationRef Get(const VertexStream* streams, uint32 streamCount);
 		~VertexDeclaration();
 
+		const VertexStream* GetStreams() const { return streams_; }
+		uint32 GetStreamCount() const { return streamCount_; }
+		uint32 GetStride() const { return stride_; }
 	private:
+		// stride computed by steams
+		VertexDeclaration(VertexStream* streams, uint32 streamCount, uint32 stride);
+
 		VertexStream* streams_;
 		uint32 streamCount_;
+		uint32 stride_;
 	};
 }

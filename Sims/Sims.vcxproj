@@ -143,6 +143,7 @@
     <ClCompile Include="graphics\program.cpp" />
     <ClCompile Include="graphics\shader.cpp" />
     <ClCompile Include="graphics\texture.cpp" />
+    <ClCompile Include="graphics\vertex_declaration.cpp" />
     <ClCompile Include="graphics\vertex_stream.cpp" />
     <ClCompile Include="graphics_api\d3d11\d3d11_common.cpp" />
     <ClCompile Include="graphics_api\d3d9\d3d9_common.cpp" />

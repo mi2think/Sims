@@ -107,6 +107,7 @@ namespace sims
 	typedef Ref<Texture> TextureRef;
 	typedef Ref<Program> ProgramRef;
 	typedef Ref<Shader>  ShaderRef;
+	typedef Ref<VertexDeclaration> VertexDeclarationRef;
 }
 
 #endif

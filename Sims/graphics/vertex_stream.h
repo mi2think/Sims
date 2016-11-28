@@ -15,9 +15,11 @@
 
 namespace sims
 {
+	// POD
 	class VertexStream
 	{
 	public:
+		VertexStream() = default;
 		VertexStream(VertexStreamUsage::Type usage, uint32 index, VertexStreamElementType::Type type, uint32 elementCount);
 
 		VertexStreamUsage::Type GetUsage() const { return usage_; }
