@@ -23,9 +23,9 @@ namespace sims
 		{
 		public:
 			D3D9Texture();
-			D3D9Texture(uint32 width, uint32 height, PixelFormat::Type format, uint32 storgeFlags);
-			D3D9Texture(const string& path, PixelFormat::Type format, uint32 storgeFlags);
-			D3D9Texture(const ImageRef& image, uint32 storgeFlags);
+			D3D9Texture(uint32 width, uint32 height, PixelFormat::Type format);
+			D3D9Texture(const string& path, PixelFormat::Type format);
+			D3D9Texture(const ImageRef& image);
 			~D3D9Texture();
 
 			virtual void HWUpdateTexture(Recti* regions);

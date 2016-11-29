@@ -21,20 +21,20 @@ namespace sims
 		{
 		}
 
-		OGLTexture::OGLTexture(uint32 width, uint32 height, PixelFormat::Type format, uint32 storgeFlags)
-			: Texture(width, height, format, storgeFlags)
+		OGLTexture::OGLTexture(uint32 width, uint32 height, PixelFormat::Type format)
+			: Texture(width, height, format)
 			, tex_(GL_INVALID_VALUE)
 		{
 		}
 
-		OGLTexture::OGLTexture(const string& path, PixelFormat::Type format, uint32 storgeFlags)
-			: Texture(path, format, storgeFlags)
+		OGLTexture::OGLTexture(const string& path, PixelFormat::Type format)
+			: Texture(path, format)
 			, tex_(GL_INVALID_VALUE)
 		{
 		}
 
-		OGLTexture::OGLTexture(const ImageRef& image, uint32 storgeFlags)
-			: Texture(image, storgeFlags)
+		OGLTexture::OGLTexture(const ImageRef& image)
+			: Texture(image)
 			, tex_(GL_INVALID_VALUE)
 		{
 		}

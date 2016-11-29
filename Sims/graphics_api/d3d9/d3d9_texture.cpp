@@ -21,20 +21,20 @@ namespace sims
 		{
 		}
 
-		D3D9Texture::D3D9Texture(uint32 width, uint32 height, PixelFormat::Type format, uint32 storgeFlags)
-			: Texture(width, height, format, storgeFlags)
+		D3D9Texture::D3D9Texture(uint32 width, uint32 height, PixelFormat::Type format)
+			: Texture(width, height, format)
 			, tex_(nullptr)
 		{
 		}
 
-		D3D9Texture::D3D9Texture(const string& path, PixelFormat::Type format, uint32 storgeFlags)
-			: Texture(path, format, storgeFlags)
+		D3D9Texture::D3D9Texture(const string& path, PixelFormat::Type format)
+			: Texture(path, format)
 			, tex_(nullptr)
 		{
 		}
 
-		D3D9Texture::D3D9Texture(const ImageRef& image, uint32 storgeFlags)
-			: Texture(image, storgeFlags)
+		D3D9Texture::D3D9Texture(const ImageRef& image)
+			: Texture(image)
 			, tex_(nullptr)
 		{
 		}

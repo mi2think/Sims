@@ -23,25 +23,25 @@ namespace sims
 	{
 	}
 
-	Texture::Texture(uint32 width, uint32 height, PixelFormat::Type format, uint32 storgeFlags)
+	Texture::Texture(uint32 width, uint32 height, PixelFormat::Type format)
 		: width_(width)
 		, height_(height)
 		, format_(format)
 		, mipmapCount_(1)
-		, storageFlags_(storgeFlags)
+		, storageFlags_(StorageFlags::Local)
 	{
 		ImageRef image(new Image(width, height, format));
 		mipmaps_.push_back(image);
 	}
 
-	Texture::Texture(const string& path, PixelFormat::Type format, uint32 storgeFlags)
-		: storageFlags_(storgeFlags)
+	Texture::Texture(const string& path, PixelFormat::Type format)
+		: storageFlags_(StorageFlags::Local)
 	{
 		Load(path, format);
 	}
 
-	Texture::Texture(const ImageRef& image, uint32 storgeFlags)
-		: storageFlags_(storgeFlags)
+	Texture::Texture(const ImageRef& image)
+		: storageFlags_(StorageFlags::Local)
 	{
 		SetImage(image);
 	}

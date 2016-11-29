@@ -81,7 +81,8 @@ namespace sims
 			string imagePath = Path::Join(dir, fileName);
 			if (Path::FileExists(imagePath))
 			{
-				TextureRef texture(new Texture(Image::FromFile(imagePath, PixelFormat::A8), StorageFlags::Hardware | StorageFlags::HintDynamic));
+				TextureRef texture(new Texture(Image::FromFile(imagePath, PixelFormat::A8)));
+				texture->SetStorageFlags(StorageFlags::Hardware | StorageFlags::HintDynamic);
 				textureMap_[id] = texture;
 			}
 			else

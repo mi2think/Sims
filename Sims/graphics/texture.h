@@ -22,9 +22,9 @@ namespace sims
 	{
 	public:
 		Texture();
-		Texture(uint32 width, uint32 height, PixelFormat::Type format, uint32 storgeFlags = StorageFlags::Local);
-		Texture(const string& path, PixelFormat::Type format, uint32 storgeFlags = StorageFlags::Local);
-		Texture(const ImageRef& image, uint32 storgeFlags = StorageFlags::Local);
+		Texture(uint32 width, uint32 height, PixelFormat::Type format);
+		Texture(const string& path, PixelFormat::Type format);
+		Texture(const ImageRef& image);
 		virtual ~Texture();
 
 		const string& GetName() const { return name_; }

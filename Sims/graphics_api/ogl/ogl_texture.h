@@ -23,9 +23,9 @@ namespace sims
 		{
 		public:
 			OGLTexture();
-			OGLTexture(uint32 width, uint32 height, PixelFormat::Type format, uint32 storgeFlags);
-			OGLTexture(const string& path, PixelFormat::Type format, uint32 storgeFlags);
-			OGLTexture(const ImageRef& image, uint32 storgeFlags);
+			OGLTexture(uint32 width, uint32 height, PixelFormat::Type format);
+			OGLTexture(const string& path, PixelFormat::Type format);
+			OGLTexture(const ImageRef& image);
 			~OGLTexture();
 
 			virtual void HWUpdateTexture(Recti* regions);
