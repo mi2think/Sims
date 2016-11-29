@@ -182,6 +182,7 @@
     <ClInclude Include="..\Vendor\rapidxml\rapidxml_utils.hpp" />
     <ClInclude Include="..\Vendor\stb\stb_image.h" />
     <ClInclude Include="..\Vendor\stb\stb_image_write.h" />
+    <ClInclude Include="core\buffer.h" />
     <ClInclude Include="core\color.h" />
     <ClInclude Include="core\event.h" />
     <ClInclude Include="core\file_input_stream.h" />
@@ -198,6 +199,7 @@
     <ClInclude Include="core\path.h" />
     <ClInclude Include="core\ref.h" />
     <ClInclude Include="core\timer.h" />
+    <ClInclude Include="core\core.h" />
     <ClInclude Include="core\vfs.h" />
     <ClInclude Include="font\bitmap_font.h" />
     <ClInclude Include="font\font.h" />

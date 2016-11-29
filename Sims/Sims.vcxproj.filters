@@ -447,5 +447,11 @@
     <ClInclude Include="graphics\vertex_buffer.h">
       <Filter>graphics</Filter>
     </ClInclude>
+    <ClInclude Include="core\buffer.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\core.h">
+      <Filter>core</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

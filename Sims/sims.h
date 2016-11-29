@@ -13,8 +13,10 @@
 #define __SIMS_H__
 
 #include "math/math_fwd.h"
+#include "core/core.h"
 #include "core/log.h"
 #include "core/ref.h"
+#include "core/buffer.h"
 #include "utils/string_utils.h"
 
 #include <sstream>
@@ -23,16 +25,7 @@
 #include <list>
 #include <map>
 #include <algorithm>
-#include <cassert>
 #include <cstdlib>
-
-#define SAFE_DELETE(p)		do { if (p != nullptr) { delete p; p = nullptr; } } while(0)
-#define SAFE_DELETEARRAY(p) do { if (p != nullptr) { delete[] p; p = nullptr; } } while(0)
-#define SAFE_RELEASE(p)		do { if (p != nullptr) { p->Release(); p = nullptr; } } while(0)
-
-#define ASSERT	assert
-#define BIT(x)	(1<<(x))
-#define count_of(_Array) (sizeof(_Array) / sizeof(_Array[0]))
 
 namespace sims
 {
@@ -51,15 +44,6 @@ namespace sims
 		ST_Current = SEEK_CUR,
 		ST_End = SEEK_END
 	};
-
-	typedef unsigned char		uint8;
-	typedef unsigned short int	uint16;
-	typedef unsigned int		uint32;
-	typedef unsigned long long	uint64;
-	typedef signed char			int8;
-	typedef signed short int	int16;
-	typedef signed int			int32;
-	typedef signed long long	int64;
 
 	using std::vector;
 	using std::map;
