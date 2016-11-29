@@ -26,8 +26,8 @@ namespace sims
 		void Clear();
 		void Init(Image* image, uint32 lockFlags);
 
-		uint8* GetData();
-		const uint8* GetData() const;
+		char* GetData();
+		const char* GetData() const;
 		uint32 GetImageDataSize() const;
 		uint32 GetLockFlags() const;
 	private:
@@ -69,7 +69,7 @@ namespace sims
 		// lock image
 		LockedImage* Lock(uint32 lockFlags);
 		void Unlock(LockedImage* L);
-		const uint8* GetConstData() const { return data_; }
+		const char* GetConstData() const { return data_; }
 
 		// image format must be PixelFormat::R8G8B8A8
 		void SaveTGA(const string& path);
@@ -81,14 +81,14 @@ namespace sims
 		static ImageRef ToPixelFormat(const ImageRef& origin, PixelFormat::Type format);
 	private:
 		friend class LockedImage;
-		uint8* GetData() { return data_; }
+		char* GetData() { return data_; }
 	private:
 		uint32 width_;
 		uint32 height_;
 		PixelFormat::Type format_;
 		uint32 bytesPerPixel_;
 		uint32 dataSize_;
-		uint8* data_;
+		char* data_;
 
 		int32 lockedCount_;
 		LockedImage lockedImage_;

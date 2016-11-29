@@ -30,13 +30,13 @@ namespace sims
 
 			virtual bool IsValid() const;
 			virtual bool Compile(ShaderDomain::Type type, const string& source);
-			virtual bool LoadBinary(ShaderDomain::Type type, uint8* byteCode, uint32 byteCodeLength);
+			virtual bool LoadBinary(ShaderDomain::Type type, char* byteCode, uint32 byteCodeLength);
 			virtual void Delete();
 			virtual void Bind();
 
 			virtual UniformLoc GetUniformLoc(const char* name, UniformLoc parent = nullptr);
 		private:
-			bool CreateShaderObj(ShaderDomain::Type type, uint8* byteCode, uint32);
+			bool CreateShaderObj(ShaderDomain::Type type, char* byteCode, uint32);
 			void DeleteInternal();
 
 			void* so_; // shader object;

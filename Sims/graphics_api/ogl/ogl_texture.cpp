@@ -64,7 +64,7 @@ namespace sims
 					continue;
 				uint32 width = image->GetWidth();
 				uint32 height = image->GetHeight();
-				const uint8* src = image->GetConstData();
+				const char* src = image->GetConstData();
 
 				//TODO: support more pixel format & region
 				auto format = image->GetFormat();

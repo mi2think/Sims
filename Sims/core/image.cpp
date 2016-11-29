@@ -40,12 +40,12 @@ namespace sims
 		lockFlags_ = 0;
 	}
 
-	uint8* LockedImage::GetData()
+	char* LockedImage::GetData()
 	{
 		return image_->GetData();
 	}
 
-	const uint8* LockedImage::GetData() const
+	const char* LockedImage::GetData() const
 	{
 		return image_->GetData();
 	}
@@ -80,7 +80,7 @@ namespace sims
 	{
 		bytesPerPixel_ = Image::GetBytesPerPixel(format_);
 		dataSize_ = width_ * height_ * bytesPerPixel_;
-		data_ = new uint8[dataSize_];
+		data_ = new char[dataSize_];
 	}
 
 	Image::Image(const void* data, uint32 length, PixelFormat::Type format)
@@ -97,7 +97,7 @@ namespace sims
 			height_ = h;
 			dataSize_ = length;
 			format_ = format;
-			data_ = new uint8[dataSize_];
+			data_ = new char[dataSize_];
 			memcpy(data_, data, dataSize_);
 			bytesPerPixel_ = Image::GetBytesPerPixel(format_);
 			lockedCount_ = 0;
@@ -149,30 +149,30 @@ namespace sims
 		header.bitsperpixel = 32;
 
 		// write out the TGA header
-		stream->Write((uint8*)&header.idlength, 1);
-		stream->Write((uint8*)&header.colourmaptype, 1);
-		stream->Write((uint8*)&header.datatypecode, 1);
-		stream->Write((uint8*)&header.colourmapOrigin, 2);
-		stream->Write((uint8*)&header.colourmapLength, 2);
-		stream->Write((uint8*)&header.colourmapDepth, 1);
-		stream->Write((uint8*)&header.x_origin, 2);
-		stream->Write((uint8*)&header.y_origin, 2);
-		stream->Write((uint8*)&header.width, 2);
-		stream->Write((uint8*)&header.height, 2);
-		stream->Write((uint8*)&header.bitsperpixel, 1);
-		stream->Write((uint8*)&header.imagedescriptor, 1);
+		stream->Write((char*)&header.idlength, 1);
+		stream->Write((char*)&header.colourmaptype, 1);
+		stream->Write((char*)&header.datatypecode, 1);
+		stream->Write((char*)&header.colourmapOrigin, 2);
+		stream->Write((char*)&header.colourmapLength, 2);
+		stream->Write((char*)&header.colourmapDepth, 1);
+		stream->Write((char*)&header.x_origin, 2);
+		stream->Write((char*)&header.y_origin, 2);
+		stream->Write((char*)&header.width, 2);
+		stream->Write((char*)&header.height, 2);
+		stream->Write((char*)&header.bitsperpixel, 1);
+		stream->Write((char*)&header.imagedescriptor, 1);
 
 		auto L = image->Lock(LockRead);
-		const uint8* src = L->GetData();
+		const char* src = L->GetData();
 		for (int y = height_ - 1; y >= 0; --y)
 		{
-			const uint8* row = src + y * width_ * 4;
+			const char* row = src + y * width_ * 4;
 			for (int x = 0; x < (int)width_ * 4; x += 4)
 			{
-				uint8 r = row[x];
-				uint8 g = row[x + 1];
-				uint8 b = row[x + 2];
-				uint8 a = row[x + 3];
+				char r = row[x];
+				char g = row[x + 1];
+				char b = row[x + 2];
+				char a = row[x + 3];
 				stream->Write(&b, 1);
 				stream->Write(&g, 1);
 				stream->Write(&r, 1);
@@ -195,11 +195,11 @@ namespace sims
 
 		int len = 0;
 		auto L = Lock(LockRead);
-		const uint8* buffer = nullptr;
+		const char* buffer = nullptr;
 		if (filpped)
 		{
 			int pitch = width_ * bytesPerPixel_;
-			buffer = (const uint8*)stbi_write_png_to_mem((unsigned char*)L->GetData() + (height_ - 1) * pitch, 
+			buffer = (const char*)stbi_write_png_to_mem((unsigned char*)L->GetData() + (height_ - 1) * pitch, 
 				-pitch, 
 				width_, 
 				height_, 
@@ -208,7 +208,7 @@ namespace sims
 		}
 		else
 		{
-			buffer = (const uint8*)stbi_write_png_to_mem((unsigned char*)L->GetData(),
+			buffer = (const char*)stbi_write_png_to_mem((unsigned char*)L->GetData(),
 				width_ * bytesPerPixel_,
 				width_,
 				height_,
@@ -247,7 +247,7 @@ namespace sims
 	ImageRef Image::FromFile(const string& path, PixelFormat::Type format)
 	{
 		IInputStreamRef stream = VFS::GetVFS().OpenInputStream(path);
-		vector<uint8> buffer = stream->Read();
+		Buffer buffer = stream->Read();
 
 		ImageRef image;
 
@@ -260,7 +260,7 @@ namespace sims
 		if (bytesPerPixel == 1)
 		{
 			// load gray(may be use as alpha)
-			stbi_data = stbi_load_from_memory(&buffer[0], buffer.size(), &width, &height, &comp, 1);
+			stbi_data = stbi_load_from_memory((const stbi_uc*)buffer.GetData(), buffer.GetSize(), &width, &height, &comp, 1);
 			ASSERT(comp == 1);
 			if (stbi_data != nullptr)
 			{
@@ -273,7 +273,7 @@ namespace sims
 		else
 		{
 			// load PixelFormat::R8G8B8A8 data, then convert if need
-			stbi_data = stbi_load_from_memory(&buffer[0], buffer.size(), &width, &height, &comp, 4);
+			stbi_data = stbi_load_from_memory((const stbi_uc*)buffer.GetData(), buffer.GetSize(), &width, &height, &comp, 4);
 			if (stbi_data != nullptr)
 			{
 				ImageRef origin(new Image(width, height, PixelFormat::R8G8B8A8));
@@ -300,7 +300,7 @@ namespace sims
 		int w = origin->GetWidth();
 		int h = origin->GetHeight();
 		auto L = origin->Lock(LockRead);
-		const uint8* data = L->GetData();
+		const char* data = L->GetData();
 
 		// same format
 		if (format == pf)
@@ -312,7 +312,7 @@ namespace sims
 		ImageRef image = new Image(w, h, format);
 		if (format == PixelFormat::FloatRGBA)
 		{
-			const uint8* src = (const uint8*)data;
+			const char* src = data;
 			float* dest = (float*)image->GetData();
 			for (int y = 0; y < h; ++y)
 			{
@@ -329,7 +329,7 @@ namespace sims
 		}
 		else if (format == PixelFormat::FloatRGB)
 		{
-			const uint8* src = (const uint8*)data;
+			const char* src = data;
 			float* dest = (float*)image->GetData();
 			for (int y = 0; y < h; ++y)
 			{
@@ -345,8 +345,8 @@ namespace sims
 		}
 		else if (format == PixelFormat::R8G8B8)
 		{
-			const uint8* src = (const uint8*)data;
-			uint8* dest = image->GetData();
+			const char* src = data;
+			char* dest = image->GetData();
 			for (int y = 0; y < h; ++y)
 			{
 				for (int x = 0; x < w; ++x)
@@ -361,8 +361,8 @@ namespace sims
 		}
 		else if (format == PixelFormat::A8R8G8B8)
 		{
-			const uint8* src = (const uint8*)data;
-			uint8* dest = image->GetData();
+			const char* src = data;
+			char* dest = image->GetData();
 			for (int y = 0; y < h; ++y)
 			{
 				for (int x = 0; x < w; ++x)

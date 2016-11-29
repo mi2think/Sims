@@ -25,11 +25,11 @@ namespace sims
 		virtual uint32 GetSize() const = 0;
 
 		// read size bytes into buffer, return actually read size
-		virtual uint32 Read(uint8* buffer, uint32 size) = 0;
+		virtual uint32 Read(char* buffer, uint32 size) = 0;
 
 		// read the entire stream
-		virtual vector<uint8> Read();
-		virtual void Read(vector<uint8>& buffer);
+		virtual Buffer Read();
+		virtual void Read(Buffer& buffer);
 
 		// get current read position in bytes from beginning of stream, return -1 if not supported
 		virtual uint32 GetPosition() const = 0;

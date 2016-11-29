@@ -41,12 +41,12 @@ namespace sims
 		}
 		auto stream = fs->OpenInputStream(path);
 		auto fsize = stream->GetSize();
-		vector<uint8> buffer(fsize + 1);
-		stream->Read(&buffer[0], fsize);
+		Buffer buffer(fsize + 1);
+		stream->Read(buffer.GetData(), fsize);
 		buffer[fsize] = 0;
 
 		xml_document<> doc;
-		doc.parse<0>((char*)&buffer[0]);
+		doc.parse<0>(buffer.GetData());
 		// root
 		auto font_node = doc.first_node("font");
 		ASSERT(font_node);

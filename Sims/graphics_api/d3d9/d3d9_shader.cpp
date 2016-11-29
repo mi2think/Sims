@@ -83,15 +83,15 @@ namespace sims
 			}
 
 			// create shader
-			return CreateShaderObj(type, (uint8*)shaderBuffer->GetBufferPointer(), shaderBuffer->GetBufferSize());
+			return CreateShaderObj(type, (char*)shaderBuffer->GetBufferPointer(), shaderBuffer->GetBufferSize());
 		}
 
-		bool D3D9Shader::LoadBinary(ShaderDomain::Type type, uint8* byteCode, uint32 byteCodeLength)
+		bool D3D9Shader::LoadBinary(ShaderDomain::Type type, char* byteCode, uint32 byteCodeLength)
 		{
 			return CreateShaderObj(type, byteCode, byteCodeLength);
 		}
 
-		bool D3D9Shader::CreateShaderObj(ShaderDomain::Type type, uint8* byteCode, uint32)
+		bool D3D9Shader::CreateShaderObj(ShaderDomain::Type type, char* byteCode, uint32)
 		{
 			if (type == ShaderDomain::Vertex)
 			{

@@ -25,7 +25,7 @@ namespace sims
 		auto stream = VFS::GetVFS().OpenInputStream(filename);
 		auto fsize = stream->GetSize();
 		string source(fsize, '\0');
-		stream->Read((uint8*)&source[0], fsize);
+		stream->Read(&source[0], fsize);
 
 		return Compile(type, source);
 	}
@@ -33,8 +33,8 @@ namespace sims
 	bool Shader::LoadBinaryFromFile(ShaderDomain::Type type, const string& filename)
 	{
 		auto stream = VFS::GetVFS().OpenInputStream(filename);
-		vector<uint8> byteCode = stream->Read();
+		Buffer byteCode = stream->Read();
 
-		return LoadBinary(type, &byteCode[0], byteCode.size());
+		return LoadBinary(type, byteCode.GetData(), byteCode.GetSize());
 	}
 }

@@ -13,22 +13,22 @@
 
 namespace sims
 {
-	vector<uint8> IInputStream::Read()
+	Buffer IInputStream::Read()
 	{
-		vector<uint8> buffer;
+		Buffer buffer;
 		Read(buffer);
 		return buffer;
 	}
 
-	void IInputStream::Read(vector<uint8>& buffer)
+	void IInputStream::Read(Buffer& buffer)
 	{
 		uint32 size = GetSize();
 		uint32 position = GetPosition();
 		if (size != -1 && position != -1)
 		{
 			// read it once
-			buffer.resize(size - position);
-			Read(&buffer[0], size - position);
+			buffer.Resize(size - position);
+			Read(buffer.GetData(), size - position);
 		}
 		else
 		{
@@ -38,12 +38,11 @@ namespace sims
 			do 
 			{
 				blockSize += blockSize;
-				buffer.resize(buffer.size() + blockSize);
-				readSize = Read(&buffer[buffer.size() - blockSize], blockSize);
+				buffer.Resize(buffer.GetSize() + blockSize);
+				readSize = Read(&buffer[buffer.GetSize() - blockSize], blockSize);
 			} while (readSize == blockSize);
 
-			buffer.resize(buffer.size() - (blockSize - readSize));
-			buffer.shrink_to_fit();
+			buffer.Resize(buffer.GetSize() - (blockSize - readSize));
 		}
 	}
 }

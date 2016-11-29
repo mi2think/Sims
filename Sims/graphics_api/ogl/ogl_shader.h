@@ -29,7 +29,7 @@ namespace sims
 
 			virtual bool IsValid() const;
 			virtual bool Compile(ShaderDomain::Type type, const string& source);
-			virtual bool LoadBinary(ShaderDomain::Type type, uint8* byteCode, uint32 byteCodeLength);
+			virtual bool LoadBinary(ShaderDomain::Type type, char* byteCode, uint32 byteCodeLength);
 			virtual void Delete();
 			virtual void Bind();
 

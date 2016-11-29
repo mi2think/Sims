@@ -26,7 +26,7 @@ namespace sims
 		virtual uint32 GetSize() const { return size_; }
 
 		// read size bytes into buffer, return actually read size
-		virtual uint32 Read(uint8* buffer, uint32 size);
+		virtual uint32 Read(char* buffer, uint32 size);
 
 		// get current read position in bytes from beginning of stream, return -1 if not supported
 		virtual uint32 GetPosition() const;

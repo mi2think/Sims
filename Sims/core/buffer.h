@@ -94,10 +94,32 @@ namespace sims
 		const T* GetData() const { return data_; }
 		T* GetData() { return data_; }
 
+		T& operator[](uint32 index)
+		{
+			return data_[index];
+		}
+		const T& operator[](uint32 index) const
+		{
+			return data_[index];
+		}
+
 		void Clear()
 		{
 			SAFE_DELETEARRAY(data_);
 			size_ = capacity_ = 0;
+		}
+
+		void Resize(uint32 size)
+		{
+			if (size > capacity_)
+			{
+				T* data = data_;
+				capacity_ = size;
+				data_ = new T[capacity_];
+				memcpy(data_, data, size_ * sizeof(T));
+				SAFE_DELETEARRAY(data);
+			}
+			size_ = size;
 		}
 	private:
 		uint32 size_;

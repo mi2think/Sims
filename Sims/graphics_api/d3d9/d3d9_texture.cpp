@@ -94,7 +94,7 @@ namespace sims
 				image = GetImage(i);
 				uint32 width = image->GetWidth();
 				uint32 height = image->GetHeight();
-				const uint8* src = image->GetConstData();
+				const char* src = image->GetConstData();
 
 				D3DLOCKED_RECT lockedRect;
 				CHECK_HR = surface->LockRect(&lockedRect, (RECT*)&regions[i], D3DLOCK_NOOVERWRITE);

@@ -23,7 +23,7 @@ namespace sims
 		fclose(fp_);
 	}
 
-	uint32 FileInputStream::Read(uint8* buffer, uint32 size)
+	uint32 FileInputStream::Read(char* buffer, uint32 size)
 	{
 		return fread(buffer, 1, size, fp_);
 	}

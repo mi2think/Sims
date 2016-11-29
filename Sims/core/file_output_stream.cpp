@@ -24,7 +24,7 @@ namespace sims
 			Close();
 	}
 
-	uint32 FileOutputStream::Write(const uint8* buffer, uint32 size)
+	uint32 FileOutputStream::Write(const char* buffer, uint32 size)
 	{
 		uint32 result = fwrite(buffer, 1, size, fp_);
 		if (result != size)
