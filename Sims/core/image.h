@@ -52,13 +52,13 @@ namespace sims
 		Image(const void* data, uint32 length, PixelFormat::Type format);
 		~Image();
 
-		bool Valid() const { return data_ != nullptr; }
+		bool Valid() const { return data_.GetData() != nullptr; }
 		uint32 GetWidth() const { return width_; }
 		uint32 GetHeight() const { return height_; }
 		PixelFormat::Type GetFormat() const { return format_; }
 
 		uint32 GetBytesPerPixel() const { return bytesPerPixel_; }
-		uint32 GetImageDataSize() const { return dataSize_; }
+		uint32 GetImageDataSize() const { return data_.GetSize(); }
 
 		// mutable image data, i.e., not loaded from an asset
 		void Invalidate();
@@ -69,7 +69,7 @@ namespace sims
 		// lock image
 		LockedImage* Lock(uint32 lockFlags);
 		void Unlock(LockedImage* L);
-		const char* GetConstData() const { return data_; }
+		const char* GetConstData() const { return data_.GetData(); }
 
 		// image format must be PixelFormat::R8G8B8A8
 		void SaveTGA(const string& path);
@@ -81,14 +81,13 @@ namespace sims
 		static ImageRef ToPixelFormat(const ImageRef& origin, PixelFormat::Type format);
 	private:
 		friend class LockedImage;
-		char* GetData() { return data_; }
+		char* GetData() { return data_.GetData(); }
 	private:
 		uint32 width_;
 		uint32 height_;
 		PixelFormat::Type format_;
 		uint32 bytesPerPixel_;
-		uint32 dataSize_;
-		char* data_;
+		Buffer data_;
 
 		int32 lockedCount_;
 		LockedImage lockedImage_;

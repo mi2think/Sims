@@ -65,8 +65,6 @@ namespace sims
 		, height_(0)
 		, format_(PixelFormat::Unknown)
 		, bytesPerPixel_(0)
-		, dataSize_(0)
-		, data_(nullptr)
 		, lockedCount_(0)
 	{
 	}
@@ -79,8 +77,8 @@ namespace sims
 		, invalidRegion_(0, 0, width, height)
 	{
 		bytesPerPixel_ = Image::GetBytesPerPixel(format_);
-		dataSize_ = width_ * height_ * bytesPerPixel_;
-		data_ = new char[dataSize_];
+		uint32 dataSize = width_ * height_ * bytesPerPixel_;
+		data_.Resize(dataSize);
 	}
 
 	Image::Image(const void* data, uint32 length, PixelFormat::Type format)
@@ -95,10 +93,9 @@ namespace sims
 		{
 			width_ = w;
 			height_ = h;
-			dataSize_ = length;
 			format_ = format;
-			data_ = new char[dataSize_];
-			memcpy(data_, data, dataSize_);
+			data_.Resize(length);
+			memcpy(data_.GetData(), data, length);
 			bytesPerPixel_ = Image::GetBytesPerPixel(format_);
 			lockedCount_ = 0;
 		}
@@ -107,7 +104,6 @@ namespace sims
 
 	Image::~Image()
 	{
-		SAFE_DELETEARRAY(data_);
 	}
 
 	void Image::SaveTGA(const string& path)
