@@ -402,11 +402,6 @@ namespace sims
 			}
 		}
 
-		if (!Valid())
-		{
-			ASSERT(false && "image has no data");
-			return nullptr;
-		}
 		++lockedCount_;
 		lockedImage_.Init(this, lockFlags);
 		return &lockedImage_;

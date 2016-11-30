@@ -73,16 +73,11 @@ namespace sims
 			if ((lockFlags & LockFlags::LockWrite) != 0 ||
 				(lockedVB_.lockFlags_ & LockFlags::LockWrite) != 0)
 			{
-				ASSERT(false && "lock locked image");
+				ASSERT(false && "lock locked vertex buffer");
 				return nullptr;
 			}
 		}
 
-		if (!Valid())
-		{
-			ASSERT(false && "vertex buffer has no data");
-			return nullptr;
-		}
 		if (count == 0)
 			count = vertexCount_ - offset;
 		if (offset + count > vertexCount_)

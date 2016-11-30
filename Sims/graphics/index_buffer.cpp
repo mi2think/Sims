@@ -71,5 +71,53 @@ namespace sims
 	{
 	}
 
+	LockedIndexBuffer* IndexBuffer::Lock(uint32 lockFlags, uint32 offset, uint32 count)
+	{
+		if (lockedCount_ > 0)
+		{
+			// read is ok if pre-lock is read
+			if ((lockFlags & LockFlags::LockWrite) != 0 ||
+				(lockedIB_.lockFlags_ & LockFlags::LockWrite) != 0)
+			{
+				ASSERT(false && "lock locked index buffer");
+				return nullptr;
+			}
+		}
 
+		if (count == 0)
+			count = indexCount_ - offset;
+		if (offset + count > indexCount_)
+		{
+			ASSERT(false && "over range of index buffer");
+			return nullptr;
+		}
+
+		++lockedCount_;
+		lockedIB_.Init(this, lockFlags, offset, count);
+		return &lockedIB_;
+	}
+
+	void IndexBuffer::Unlock(LockedIndexBuffer* L)
+	{
+		if (!L || L->indexBuffer_ != this)
+		{
+			ASSERT(false && "can not unlock index buffer");
+			return;
+		}
+
+		--lockedCount_;
+		if (lockedCount_ == 0)
+			L->Clear();
+		else
+			ASSERT(L->GetLockFlags() == LockFlags::LockRead && "multi-lock must be read");
+	}
+
+	void IndexBuffer::Invalidate()
+	{
+		if ((storageFlags_ & StorageFlags::Hardware) == 0)
+			return;
+
+		// update index buffer
+		HWUpdateIndexBuffer();
+	}
 }

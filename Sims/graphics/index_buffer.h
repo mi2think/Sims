@@ -53,6 +53,19 @@ namespace sims
 
 		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
 		uint32 GetStorageFlags() const { return storageFlags_; }
+
+		// count 0 for lock total buffer
+		LockedIndexBuffer* Lock(uint32 lockFlags, uint32 offset = 0, uint32 count = 0);
+		void Unlock(LockedIndexBuffer* L);
+
+		// propagates changes on the index buffer to the renderer.
+		//   you must call invalidate after modifying index buffer data,
+		//   for it to be uploaded to GPU.
+		void Invalidate();
+
+		virtual void HWUpdateIndexBuffer() {}
+		virtual void HWBindIndexBuffer() {}
+		virtual void HWDeleteIndexBuffer() {}
 	private:
 		friend class LockedIndexBuffer;
 		TBuffer<uint16>* GetIndexData() { return &indexData_; }
