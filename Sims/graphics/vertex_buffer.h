@@ -28,8 +28,8 @@ namespace sims
 		uint32 GetCount() const { return count_; }
 
 		const VertexDeclarationRef& GetVertexDeclaration() const;
-		void* GetData();
-		const void* GetData() const;
+		void* GetData() { return vertexData_->GetData(); }
+		const void* GetData() const { return vertexData_->GetData(); }
 
 		void Init(VertexBuffer* vertexBuffer, uint32 lockFlags, uint32 offset, uint32 count);
 		void Clear();

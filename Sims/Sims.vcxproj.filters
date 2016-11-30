@@ -201,6 +201,9 @@
     <ClCompile Include="graphics\vertex_buffer.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
+    <ClCompile Include="graphics\index_buffer.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -452,6 +455,9 @@
     </ClInclude>
     <ClInclude Include="core\core.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\index_buffer.h">
+      <Filter>graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

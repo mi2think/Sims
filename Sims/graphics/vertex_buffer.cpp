@@ -22,20 +22,10 @@ namespace sims
 	{
 		Init(vertexBuffer, lockFlags, offset, count);
 	}
-
+	
 	const VertexDeclarationRef& LockedVertexBuffer::GetVertexDeclaration() const
 	{
 		return vertexBuffer_->GetVertexDeclaration();
-	}
-
-	void* LockedVertexBuffer::GetData()
-	{
-		return vertexData_->GetData();
-	}
-
-	const void* LockedVertexBuffer::GetData() const
-	{
-		return vertexData_->GetData();
 	}
 
 	void LockedVertexBuffer::Clear()

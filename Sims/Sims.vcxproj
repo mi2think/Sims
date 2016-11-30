@@ -140,6 +140,7 @@
     <ClCompile Include="font\bitmap_font.cpp" />
     <ClCompile Include="font\font.cpp" />
     <ClCompile Include="font\glyph.cpp" />
+    <ClCompile Include="graphics\index_buffer.cpp" />
     <ClCompile Include="graphics\program.cpp" />
     <ClCompile Include="graphics\shader.cpp" />
     <ClCompile Include="graphics\texture.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="font\font.h" />
     <ClInclude Include="font\glyph.h" />
     <ClInclude Include="graphics\graphics_fwd.h" />
+    <ClInclude Include="graphics\index_buffer.h" />
     <ClInclude Include="graphics\program.h" />
     <ClInclude Include="graphics\shader.h" />
     <ClInclude Include="graphics\texture.h" />

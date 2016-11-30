@@ -116,7 +116,8 @@ namespace sims
 				T* data = data_;
 				capacity_ = size;
 				data_ = new T[capacity_];
-				memcpy(data_, data, size_ * sizeof(T));
+				if (size_ > 0)
+					memcpy(data_, data, size_ * sizeof(T));
 				SAFE_DELETEARRAY(data);
 			}
 			size_ = size;
