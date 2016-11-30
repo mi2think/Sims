@@ -42,7 +42,7 @@ namespace sims
 	{
 		vertexBuffer_ = nullptr;
 		offset_ = count_ = 0;
-		lockFlags_ = VertexBuffer::LockRead;
+		lockFlags_ = LockFlags::LockRead;
 		vertexData_ = nullptr;
 	}
 
@@ -80,8 +80,8 @@ namespace sims
 		if (lockedCount_ > 0)
 		{
 			// read is ok if pre-lock is read
-			if ((lockFlags & LockWrite) != 0 ||
-				(lockedVB_.lockFlags_ & LockWrite) != 0)
+			if ((lockFlags & LockFlags::LockWrite) != 0 ||
+				(lockedVB_.lockFlags_ & LockFlags::LockWrite) != 0)
 			{
 				ASSERT(false && "lock locked image");
 				return nullptr;
@@ -118,7 +118,7 @@ namespace sims
 		if (lockedCount_ == 0)
 			L->Clear();
 		else
-			ASSERT(L->GetLockFlags() == LockRead && "multi-lock must be read");
+			ASSERT(L->GetLockFlags() == LockFlags::LockRead && "multi-lock must be read");
 	}
 
 	void VertexBuffer::Invalidate()

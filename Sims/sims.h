@@ -38,6 +38,12 @@ namespace sims
 			}; \
 		}
 	
+	DECLARE_ENUM(LockFlags)
+		LockRead    = BIT(0),
+		LockWrite   = BIT(1),
+		LockRW      = LockRead | LockWrite
+	END_DECLARE_ENUM()
+
 	enum SeekType
 	{
 		ST_Start = SEEK_SET,

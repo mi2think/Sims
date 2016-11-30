@@ -46,13 +46,6 @@ namespace sims
 	class VertexBuffer
 	{
 	public:
-		enum VertexBufferLockFlags
-		{
-			LockRead = BIT(0),
-			LockWrite = BIT(1),
-			LockRW = LockRead | LockWrite
-		};
-
 		VertexBuffer();
 		VertexBuffer(const VertexDeclarationRef& vertexDecl, uint32 vertexCount);
 		virtual ~VertexBuffer();

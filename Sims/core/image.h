@@ -40,13 +40,6 @@ namespace sims
 	class Image : public NonCopyable
 	{
 	public:
-		enum ImageLockFlags
-		{
-			LockRead    = BIT(0),
-			LockWrite   = BIT(1),
-			LockRW      = LockRead | LockWrite
-		};
-
 		Image();
 		Image(uint32 width, uint32 height, PixelFormat::Type format);
 		Image(const void* data, uint32 length, PixelFormat::Type format);

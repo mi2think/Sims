@@ -158,7 +158,7 @@ namespace sims
 		stream->Write((char*)&header.bitsperpixel, 1);
 		stream->Write((char*)&header.imagedescriptor, 1);
 
-		auto L = image->Lock(LockRead);
+		auto L = image->Lock(LockFlags::LockRead);
 		const char* src = L->GetData();
 		for (int y = height_ - 1; y >= 0; --y)
 		{
@@ -190,7 +190,7 @@ namespace sims
 		}
 
 		int len = 0;
-		auto L = Lock(LockRead);
+		auto L = Lock(LockFlags::LockRead);
 		const char* buffer = nullptr;
 		if (filpped)
 		{
@@ -295,7 +295,7 @@ namespace sims
 		PixelFormat::Type pf = origin->GetFormat();
 		int w = origin->GetWidth();
 		int h = origin->GetHeight();
-		auto L = origin->Lock(LockRead);
+		auto L = origin->Lock(LockFlags::LockRead);
 		const char* data = L->GetData();
 
 		// same format
@@ -394,8 +394,8 @@ namespace sims
 		if (lockedCount_ > 0)
 		{
 			// read is ok if pre-lock is read
-			if ((lockFlags & LockWrite) != 0 ||
-				(lockedImage_.lockFlags_ & LockWrite) != 0)
+			if ((lockFlags & LockFlags::LockWrite) != 0 ||
+				(lockedImage_.lockFlags_ & LockFlags::LockWrite) != 0)
 			{
 				ASSERT(false && "lock locked image");
 				return nullptr;
@@ -424,6 +424,6 @@ namespace sims
 		if (lockedCount_ == 0)
 			L->Clear();
 		else
-			ASSERT(L->GetLockFlags() == LockRead && "multi-lock must be read");
+			ASSERT(L->GetLockFlags() == LockFlags::LockRead && "multi-lock must be read");
 	}
 }
