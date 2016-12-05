@@ -22,6 +22,7 @@ namespace sims
 		static VertexDeclarationRef Get(const VertexStream* streams, uint32 streamCount);
 		~VertexDeclaration();
 
+		const VertexStream* GetStream(uint32 index) const { ASSERT(index < streamCount_); return &streams_[index]; }
 		const VertexStream* GetStreams() const { return streams_; }
 		uint32 GetStreamCount() const { return streamCount_; }
 		uint32 GetStride() const { return stride_; }

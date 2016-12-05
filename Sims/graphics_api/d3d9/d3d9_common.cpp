@@ -12,6 +12,7 @@
 #include "d3d9_common.h"
 #include "d3d9_renderer.h"
 #include "core/log.h"
+#include "graphics/vertex_stream.h"
 
 #include <DxErr.h>
 
@@ -173,6 +174,72 @@ namespace sims
 				break;
 			}
 			return D3DTADDRESS_WRAP;
+		}
+
+		void FillD3DVertexElement(D3DVERTEXELEMENT9* vertexElement, const VertexStream* vertexStream)
+		{
+			// vertex usage
+			auto usage = vertexStream->GetUsage();
+			switch (usage)
+			{
+			case VertexStreamUsage::Position:
+				vertexElement->Usage = D3DDECLUSAGE_POSITION;
+				break;
+			case VertexStreamUsage::Normal:
+				vertexElement->Usage = D3DDECLUSAGE_NORMAL;
+				break;
+			case VertexStreamUsage::TexCoord:
+				vertexElement->Usage = D3DDECLUSAGE_TEXCOORD;
+				break;
+			case VertexStreamUsage::Color:
+				vertexElement->Usage = D3DDECLUSAGE_COLOR;
+				break;
+			default:
+				ASSERT(false && "unsupport usage type!");
+				break;
+			}
+
+			// vertex data type
+			auto type = vertexStream->GetElementType();
+			auto count = vertexStream->GetElementCount();
+			if (type == VertexStreamElementType::F32)
+			{
+				switch (count)
+				{
+				case 1: vertexElement->Type = D3DDECLTYPE_FLOAT1; break;
+				case 2: vertexElement->Type = D3DDECLTYPE_FLOAT2; break;
+				case 3: vertexElement->Type = D3DDECLTYPE_FLOAT3; break;
+				case 4: vertexElement->Type = D3DDECLTYPE_FLOAT4; break;
+				default:
+					ASSERT(false && "unsupport data type!");
+					break;
+				}
+			}
+			else if (type == VertexStreamElementType::U8)
+			{
+				if (count == 4)
+				{
+					if (usage == VertexStreamUsage::Color)
+						vertexElement->Type = D3DDECLTYPE_D3DCOLOR;
+					else
+						vertexElement->Type = D3DDECLTYPE_UBYTE4;
+				}
+				else
+					ASSERT(false && "unsupport data type!");
+			}
+			else if (type == VertexStreamElementType::S16)
+			{
+				if (count == 2)
+					vertexElement->Type = D3DDECLTYPE_SHORT2;
+				else if (count == 4)
+					vertexElement->Type = D3DDECLTYPE_SHORT4;
+				else
+					ASSERT(false && "unsupport data type!");
+			}
+
+			vertexElement->UsageIndex = (BYTE)vertexStream->GetIndex();
+			vertexElement->Offset = (WORD)vertexStream->GetOffset();
+			vertexElement->Method = D3DDECLMETHOD_DEFAULT;
 		}
 	}
 }
