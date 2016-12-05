@@ -56,7 +56,7 @@ namespace sims
 		indexData_.Resize(indexCount);
 	}
 
-	IndexBuffer::IndexBuffer(uint32 indexCount, uint16* data)
+	IndexBuffer::IndexBuffer(uint32 indexCount, IndexType* data)
 		: indexCount_(indexCount)
 		, storageFlags_(LockFlags::LockRead)
 		, lockedCount_(0)
@@ -64,7 +64,7 @@ namespace sims
 		ASSERT(indexCount > 0);
 
 		indexData_.Resize(indexCount);
-		memcpy(indexData_.GetData(), data, sizeof(uint16) * indexCount);
+		memcpy(indexData_.GetData(), data, sizeof(IndexType) * indexCount);
 	}
 
 	IndexBuffer::~IndexBuffer()

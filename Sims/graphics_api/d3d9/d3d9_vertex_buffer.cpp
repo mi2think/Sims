@@ -49,23 +49,41 @@ namespace sims
 			}
 			if (!vb_)
 			{
+				D3DPOOL pool = D3DPOOL_MANAGED;
+				if ((storageFlags_ & StorageFlags::HintDynamic) != 0)
+					pool = D3DPOOL_DEFAULT;
+
 				CHECK_HR = g_pD3DD->CreateVertexBuffer(vertexCount_ * vertexDecl_->GetStride(),
 					D3DUSAGE_WRITEONLY,
 					0, // using vertex decl
-					D3DPOOL_MANAGED,
+					pool,
 					&vb_,
 					0);
 			}
+
+			// update vertex buffer
+			void* vertices = nullptr;
+			CHECK_HR = vb_->Lock(
+				0,
+				0,
+				&vertices,
+				D3DLOCK_DISCARD); // discard for update entire vertex buffer
+			memcpy(vertices, vertexData_.GetData(), vertexCount_ * vertexDecl_->GetStride());
+			CHECK_HR = vb_->Unlock();
 		}
 
 		void D3D9VertexBuffer::HWBindVertexBuffer()
 		{
+			ASSERT(decl_ && vb_);
 
+			CHECK_HR = g_pD3DD->SetVertexDeclaration(decl_);
+			CHECK_HR = g_pD3DD->SetStreamSource(0, vb_, 0, vertexDecl_->GetStride());
 		}
 
 		void D3D9VertexBuffer::HWDeleteVertexBuffer()
 		{
-
+			SAFE_RELEASE(decl_);
+			SAFE_RELEASE(vb_);
 		}
 	}
 }

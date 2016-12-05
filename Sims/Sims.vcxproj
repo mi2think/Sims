@@ -149,6 +149,7 @@
     <ClCompile Include="graphics\vertex_stream.cpp" />
     <ClCompile Include="graphics_api\d3d11\d3d11_common.cpp" />
     <ClCompile Include="graphics_api\d3d9\d3d9_common.cpp" />
+    <ClCompile Include="graphics_api\d3d9\d3d9_index_buffer.cpp" />
     <ClCompile Include="graphics_api\d3d9\d3d9_program.cpp" />
     <ClCompile Include="graphics_api\d3d9\d3d9_renderer_caps.cpp" />
     <ClCompile Include="graphics_api\d3d9\d3d9_renderer.cpp" />
@@ -220,6 +221,7 @@
     <ClInclude Include="graphics_api\d3d11\d3d11_window.h" />
     <ClInclude Include="graphics_api\d3d9\d3d9_common.h" />
     <ClInclude Include="graphics_api\d3d9\d3d9_geometry_def.h" />
+    <ClInclude Include="graphics_api\d3d9\d3d9_index_buffer.h" />
     <ClInclude Include="graphics_api\d3d9\d3d9_program.h" />
     <ClInclude Include="graphics_api\d3d9\d3d9_renderer_caps.h" />
     <ClInclude Include="graphics_api\d3d9\d3d9_renderer.h" />

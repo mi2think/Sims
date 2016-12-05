@@ -15,6 +15,8 @@
 
 namespace sims
 {
+	typedef uint16 IndexType;
+
 	class LockedIndexBuffer
 	{
 	public:
@@ -25,8 +27,8 @@ namespace sims
 		uint32 GetOffset() const { return offset_; }
 		uint32 GetCount() const { return count_; }
 
-		uint16* GetData() { return indexData_->GetData(); }
-		const uint16* GetData() const { return indexData_->GetData(); }
+		IndexType* GetData() { return indexData_->GetData(); }
+		const IndexType* GetData() const { return indexData_->GetData(); }
 
 		void Init(IndexBuffer* indexBuffer, uint32 lockFlags, uint32 offset, uint32 count);
 		void Clear();
@@ -37,7 +39,7 @@ namespace sims
 		uint32 offset_;
 		uint32 count_;
 		uint32 lockFlags_;
-		TBuffer<uint16>* indexData_;
+		TBuffer<IndexType>* indexData_;
 	};
 
 	class IndexBuffer
@@ -45,7 +47,7 @@ namespace sims
 	public:
 		IndexBuffer();
 		IndexBuffer(uint32 indexCount);
-		IndexBuffer(uint32 indexCount, uint16* data);
+		IndexBuffer(uint32 indexCount, IndexType* data);
 		virtual ~IndexBuffer();
 
 		bool Valid() const { return indexData_.GetData() != nullptr; }
@@ -68,10 +70,10 @@ namespace sims
 		virtual void HWDeleteIndexBuffer() {}
 	private:
 		friend class LockedIndexBuffer;
-		TBuffer<uint16>* GetIndexData() { return &indexData_; }
+		TBuffer<IndexType>* GetIndexData() { return &indexData_; }
 	protected:
 		uint32 indexCount_;
-		TBuffer<uint16> indexData_;
+		TBuffer<IndexType> indexData_;
 		uint32 storageFlags_;
 
 		LockedIndexBuffer lockedIB_;
