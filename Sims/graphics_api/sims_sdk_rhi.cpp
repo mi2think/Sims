@@ -12,8 +12,7 @@
 #include "sims_sdk_rhi.h"
 
 #if SIMS_SDK_IMPL_D3D9
-#include "d3d9/d3d9_renderer.h"
-#include "d3d9/d3d9_shader.h"
+#include "sims_sdk_d3d9.h"
 #endif
 
 namespace sims
@@ -38,6 +37,21 @@ namespace sims
 			//	p->Compile(type, source);
 			//	return p;
 			//}
+
+			template<> TextureResource* CreateResource<TextureResource>()
+			{
+				return new d3d9::D3DTextureResource();
+			}
+
+			template<> VertexBufferResource* CreateResource<VertexBufferResource>()
+			{
+				return new d3d9::D3D9VertexBufferResource();
+			}
+
+			template<> IndexBufferResource* CreateResource<IndexBufferResource>()
+			{
+				return new d3d9::D3D9IndexBufferResource();
+			}
 #endif
 	}
 }

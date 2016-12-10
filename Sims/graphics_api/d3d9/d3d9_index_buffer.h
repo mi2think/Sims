@@ -11,24 +11,22 @@
 *********************************************************************/
 #pragma once
 
-#include "graphics/index_buffer.h"
+#include "graphics/render_resource.h"
 #include "d3d9_common.h"
 
 namespace sims
 {
 	namespace d3d9
 	{
-		class D3D9IndexBuffer : public IndexBuffer
+		class D3D9IndexBufferResource : public IndexBufferResource
 		{
 		public:
-			D3D9IndexBuffer();
-			D3D9IndexBuffer(uint32 indexCount);
-			D3D9IndexBuffer(uint32 indexCount, IndexType* data);
-			~D3D9IndexBuffer();
+			D3D9IndexBufferResource();
+			~D3D9IndexBufferResource();
 
-			virtual void HWUpdateIndexBuffer();
-			virtual void HWBindIndexBuffer();
-			virtual void HWDeleteIndexBuffer();
+			virtual void UpdateResource();
+			virtual void BindResource();
+			virtual void ReleaseResource();
 		private:
 			IDirect3DIndexBuffer9* ib_;
 		};

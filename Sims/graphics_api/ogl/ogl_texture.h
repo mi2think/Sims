@@ -12,27 +12,24 @@
 #ifndef __OGL_TEXTURE_H__
 #define __OGL_TEXTURE_H__
 
-#include "graphics/texture.h"
+#include "graphics/render_resource.h"
 #include "ogl_common.h"
 
 namespace sims
 {
 	namespace ogl
 	{
-		class OGLTexture : public Texture
+		class OGLTextureResource : public TextureResource
 		{
 		public:
-			OGLTexture();
-			OGLTexture(uint32 width, uint32 height, PixelFormat::Type format);
-			OGLTexture(const string& path, PixelFormat::Type format);
-			OGLTexture(const ImageRef& image);
-			~OGLTexture();
+			OGLTextureResource();
+			~OGLTextureResource();
 
-			virtual void HWUpdateTexture(Recti* regions);
-			virtual void HWBindTexture(uint32 textureUnit);
-			virtual void HWDeleteTexture();
+			virtual void UpdateResource();
+			virtual void BindResource();
+			virtual void ReleaseResource();
 		private:
-			GLuint tex_;
+			GLuint resource_;
 		};
 	}
 }

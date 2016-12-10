@@ -10,94 +10,77 @@
 	purpose:	D3D9 Texture
 *********************************************************************/
 #include "d3d9_texture.h"
+#include "graphics/texture.h"
 
 namespace sims
 {
 	namespace d3d9
 	{
-		D3D9Texture::D3D9Texture()
-			: Texture()
-			, tex_(nullptr)
+		D3DTextureResource::~D3DTextureResource()
 		{
+			ASSERT(! resource_);
 		}
 
-		D3D9Texture::D3D9Texture(uint32 width, uint32 height, PixelFormat::Type format)
-			: Texture(width, height, format)
-			, tex_(nullptr)
-		{
-		}
+		D3DTextureResource::D3DTextureResource()
+			: TextureResource()
+			, resource_(nullptr)
+		{}
 
-		D3D9Texture::D3D9Texture(const string& path, PixelFormat::Type format)
-			: Texture(path, format)
-			, tex_(nullptr)
+		void D3DTextureResource::UpdateResource()
 		{
-		}
-
-		D3D9Texture::D3D9Texture(const ImageRef& image)
-			: Texture(image)
-			, tex_(nullptr)
-		{
-		}
-
-		D3D9Texture::~D3D9Texture()
-		{
-			SAFE_RELEASE(tex_);
-		}
-
-		void D3D9Texture::HWUpdateTexture(Recti* regions)
-		{
-			ImageRef image = GetImage(0);
+			ImageRef image = texture_->GetImage(0);
 			uint32 bytesPerPixel = image->GetBytesPerPixel();
+			uint32 storageFlags = texture_->GetStorageFlags();
 
-			// create texture
-			if (!tex_)
+			// create resource
+			if (!resource_)
 			{
-				D3DFORMAT format = ToD3DFormat(format_);
+				D3DFORMAT format = ToD3DFormat(texture_->GetFormat());
 				D3DPOOL pool = D3DPOOL_MANAGED;
-				if ((storageFlags_ & StorageFlags::HintDynamic) != 0)
+				if ((storageFlags & StorageFlags::HintDynamic) != 0)
 					pool = D3DPOOL_DEFAULT;
 
 				CHECK_HR = g_pD3DD->CreateTexture(image->GetWidth(),
 					image->GetHeight(),
-					mipmapCount_,
+					texture_->GetMipmapCount(),
 					0,
 					format,
 					pool,
-					&tex_,
+					&resource_,
 					0);
 			}
 
 			// update texture
-			IDirect3DTexture9* tempTex = tex_;
+			IDirect3DTexture9* tempResource = resource_;
 
 			// pool is D3DPOOL_DEFAULT. can't lock directly, 
 			// create a system memory texture
-			if ((storageFlags_ & StorageFlags::HintDynamic) != 0)
+			if ((storageFlags & StorageFlags::HintDynamic) != 0)
 			{
-				D3DFORMAT format = ToD3DFormat(format_);
+				D3DFORMAT format = ToD3DFormat(texture_->GetFormat());
 				CHECK_HR = g_pD3DD->CreateTexture(image->GetWidth(),
 					image->GetHeight(),
-					mipmapCount_,
+					texture_->GetMipmapCount(),
 					0,
 					format,
 					D3DPOOL_SYSTEMMEM,
-					&tempTex,
+					&resource_,
 					0);
 			}
 
 			// update each surface by mipmap of image
 			IDirect3DSurface9* surface = nullptr;
-			for (uint32 i = 0; i < tempTex->GetLevelCount(); ++i)
+			for (uint32 i = 0; i < tempResource->GetLevelCount(); ++i)
 			{
-				CHECK_HR = tempTex->GetSurfaceLevel(i, &surface);
+				CHECK_HR = tempResource->GetSurfaceLevel(i, &surface);
 
-				image = GetImage(i);
+				image = texture_->GetImage(i);
 				uint32 width = image->GetWidth();
 				uint32 height = image->GetHeight();
 				const char* src = image->GetConstData();
 
 				D3DLOCKED_RECT lockedRect;
-				CHECK_HR = surface->LockRect(&lockedRect, (RECT*)&regions[i], D3DLOCK_NOOVERWRITE);
+				CHECK_HR = surface->LockRect(&lockedRect, (RECT*)&regions_[i], D3DLOCK_NOOVERWRITE);
 				uint8* dest = (uint8*)lockedRect.pBits;
 				for (uint32 j = 0; j < height; ++j)
 				{
@@ -110,31 +93,33 @@ namespace sims
 				SAFE_RELEASE(surface);
 			}
 
-			if (tempTex != tex_)
+			if (tempResource != resource_)
 			{
-				CHECK_HR = g_pD3DD->UpdateTexture(tempTex, tex_);
-				SAFE_RELEASE(tempTex);
+				CHECK_HR = g_pD3DD->UpdateTexture(tempResource, resource_);
+				SAFE_RELEASE(tempResource);
 			}
 		}
 
-		void D3D9Texture::HWBindTexture(uint32 textureUnit)
+		void D3DTextureResource::BindResource()
 		{
-			ASSERT(tex_ != nullptr);
+			ASSERT(resource_ != nullptr);
 
-			CHECK_HR = g_pD3DD->SetTexture(textureUnit, tex_);
+			const auto& samplerStatus = texture_->GetSamplerStatus();
+
+			CHECK_HR = g_pD3DD->SetTexture(bindStage_, resource_);
 			// filter
-			CHECK_HR = g_pD3DD->SetSamplerState(textureUnit, D3DSAMP_MAGFILTER, ToD3DTextureFilterType(samplerStatus_.GetFilterMag()));
-			CHECK_HR = g_pD3DD->SetSamplerState(textureUnit, D3DSAMP_MINFILTER, ToD3DTextureFilterType(samplerStatus_.GetFilterMin()));
-			CHECK_HR = g_pD3DD->SetSamplerState(textureUnit, D3DSAMP_MIPFILTER, ToD3DTextureFilterType(samplerStatus_.GetFilterMip()));
+			CHECK_HR = g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_MAGFILTER, ToD3DTextureFilterType(samplerStatus.GetFilterMag()));
+			CHECK_HR = g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_MINFILTER, ToD3DTextureFilterType(samplerStatus.GetFilterMin()));
+			CHECK_HR = g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_MIPFILTER, ToD3DTextureFilterType(samplerStatus.GetFilterMip()));
 			// wrap
-			CHECK_HR = g_pD3DD->SetSamplerState(textureUnit, D3DSAMP_ADDRESSU, ToD3DTextureAddress(samplerStatus_.GetWrapS()));
-			CHECK_HR = g_pD3DD->SetSamplerState(textureUnit, D3DSAMP_ADDRESSV, ToD3DTextureAddress(samplerStatus_.GetWrapT()));
-			CHECK_HR = g_pD3DD->SetSamplerState(textureUnit, D3DSAMP_BORDERCOLOR, samplerStatus_.GetBorderColor().value);
+			CHECK_HR = g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_ADDRESSU, ToD3DTextureAddress(samplerStatus.GetWrapS()));
+			CHECK_HR = g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_ADDRESSV, ToD3DTextureAddress(samplerStatus.GetWrapT()));
+			CHECK_HR = g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_BORDERCOLOR, samplerStatus.GetBorderColor().value);
 		}
 
-		void D3D9Texture::HWDeleteTexture()
+		void D3DTextureResource::ReleaseResource()
 		{
-			SAFE_RELEASE(tex_);
+			SAFE_RELEASE(resource_);
 		}
 	}
 }

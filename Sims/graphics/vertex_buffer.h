@@ -14,6 +14,7 @@
 #include "graphics_fwd.h"
 #include "vertex_stream.h"
 #include "vertex_declaration.h"
+#include "render_resource.h"
 
 namespace sims
 {
@@ -66,9 +67,8 @@ namespace sims
 		//   for it to be uploaded to GPU.
 		void Invalidate();
 
-		virtual void HWUpdateVertexBuffer() {}
-		virtual void HWBindVertexBuffer() {}
-		virtual void HWDeleteVertexBuffer() {}
+		// Hardware resource
+		VertexBufferResourceRef& HWResource() { return HWResource_; }
 	private:
 		friend class LockedVertexBuffer;
 		Buffer* GetVertexData() { return &vertexData_; }
@@ -80,6 +80,8 @@ namespace sims
 
 		LockedVertexBuffer lockedVB_;
 		int32 lockedCount_;
+
+		VertexBufferResourceRef HWResource_;
 	};
 }
 

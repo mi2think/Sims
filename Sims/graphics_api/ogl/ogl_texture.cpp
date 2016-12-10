@@ -10,56 +10,36 @@
 	purpose:	OGL Texture
 *********************************************************************/
 #include "ogl_texture.h"
+#include "graphics/texture.h"
 
 namespace sims
 {
 	namespace ogl
 	{
-		OGLTexture::OGLTexture()
-			: Texture()
-			, tex_(GL_INVALID_VALUE)
+		OGLTextureResource::OGLTextureResource()
+			: TextureResource()
+			, resource_(GL_INVALID_VALUE)
 		{
 		}
 
-		OGLTexture::OGLTexture(uint32 width, uint32 height, PixelFormat::Type format)
-			: Texture(width, height, format)
-			, tex_(GL_INVALID_VALUE)
+		OGLTextureResource::~OGLTextureResource()
 		{
+			ASSERT(resource_ == GL_INVALID_VALUE);
 		}
 
-		OGLTexture::OGLTexture(const string& path, PixelFormat::Type format)
-			: Texture(path, format)
-			, tex_(GL_INVALID_VALUE)
-		{
-		}
-
-		OGLTexture::OGLTexture(const ImageRef& image)
-			: Texture(image)
-			, tex_(GL_INVALID_VALUE)
-		{
-		}
-
-		OGLTexture::~OGLTexture()
-		{
-			if (tex_ != GL_INVALID_VALUE)
-			{
-				glDeleteTextures(1, &tex_);
-			}
-		}
-
-		void OGLTexture::HWUpdateTexture(Recti* regions)
+		void OGLTextureResource::UpdateResource()
 		{
 			// generate texture object
-			if (!tex_)
+			if (resource_ == GL_INVALID_VALUE)
 			{
-				glGenTextures(1, &tex_);
+				glGenTextures(1, &resource_);
 			}
 
-			glBindTexture(GL_TEXTURE_2D, tex_);
+			glBindTexture(GL_TEXTURE_2D, resource_);
 
-			for (uint32 i = 0; i < mipmapCount_; ++i)
+			for (uint32 i = 0; i < texture_->GetMipmapCount(); ++i)
 			{
-				ImageRef image = GetImage(i);
+				ImageRef image = texture_->GetImage(i);
 				if (!image)
 					continue;
 				uint32 width = image->GetWidth();
@@ -86,28 +66,30 @@ namespace sims
 			gl_check_error("OGLRenderer::UpdateTexture");
 		}
 
-		void OGLTexture::HWBindTexture(uint32 textureUnit)
+		void OGLTextureResource::BindResource()
 		{
-			glActiveTexture(textureUnit);
-			glBindTexture(GL_TEXTURE_2D, tex_);
+			glActiveTexture(bindStage_);
+			glBindTexture(GL_TEXTURE_2D, resource_);
 
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, ToGLTextureFilterType(samplerStatus_.GetFilterMin()));
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, ToGLTextureFilterType(samplerStatus_.GetFilterMin()));
+			const auto& samplerStatus = texture_->GetSamplerStatus();
 
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, ToGLTextureWrapType(samplerStatus_.GetWrapS()));
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, ToGLTextureWrapType(samplerStatus_.GetWrapT()));
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, ToGLTextureFilterType(samplerStatus.GetFilterMin()));
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, ToGLTextureFilterType(samplerStatus.GetFilterMin()));
 
-			auto color = samplerStatus_.GetBorderColor().GetRGBAVector4();
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, ToGLTextureWrapType(samplerStatus.GetWrapS()));
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, ToGLTextureWrapType(samplerStatus.GetWrapT()));
+
+			auto color = samplerStatus.GetBorderColor().GetRGBAVector4();
 			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, (const GLfloat*)&color);
 
 			gl_check_error("OGLRenderer::BindTexture");
 		}
 
-		void OGLTexture::HWDeleteTexture()
+		void OGLTextureResource::ReleaseResource()
 		{
-			if (tex_ != GL_INVALID_VALUE)
+			if (resource_ != GL_INVALID_VALUE)
 			{
-				glDeleteTextures(1, &tex_);
+				glDeleteTextures(1, &resource_);
 			}
 		}
 	}

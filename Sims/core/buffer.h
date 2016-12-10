@@ -84,7 +84,7 @@ namespace sims
 				if (buffer.size_ > 0)
 					memcpy(data_, buffer.data_, size_ * sizeof(T));
 
-				size = buffer.size_;
+				size_ = buffer.size_;
 			}
 			return *this;
 		}

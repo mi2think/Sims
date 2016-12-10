@@ -10,6 +10,7 @@
 	purpose:	Index Buffer
 *********************************************************************/
 #include "index_buffer.h"
+#include "graphics_api/sims_sdk_rhi.h"
 
 namespace sims
 {
@@ -118,6 +119,10 @@ namespace sims
 			return;
 
 		// update index buffer
-		HWUpdateIndexBuffer();
+		if (!HWResource_)
+			HWResource_ = rhi::CreateResource<IndexBufferResource>();
+
+		HWResource_->Attach(this);
+		HWResource_->UpdateResource();
 	}
 }

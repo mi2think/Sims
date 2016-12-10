@@ -11,23 +11,22 @@
 *********************************************************************/
 #pragma once
 
-#include "graphics/vertex_buffer.h"
+#include "graphics/render_resource.h"
 #include "d3d9_common.h"
 
 namespace sims
 {
 	namespace d3d9
 	{
-		class D3D9VertexBuffer : public VertexBuffer
+		class D3D9VertexBufferResource : public VertexBufferResource
 		{
 		public:
-			D3D9VertexBuffer();
-			D3D9VertexBuffer(const VertexDeclarationRef& vertexDecl, uint32 vertexCount);
-			~D3D9VertexBuffer();
+			D3D9VertexBufferResource();
+			~D3D9VertexBufferResource();
 
-			virtual void HWUpdateVertexBuffer();
-			virtual void HWBindVertexBuffer();
-			virtual void HWDeleteVertexBuffer();
+			virtual void UpdateResource();
+			virtual void BindResource();
+			virtual void ReleaseResource();
 		private:
 			IDirect3DVertexBuffer9* vb_;
 			IDirect3DVertexDeclaration9* decl_;

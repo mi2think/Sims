@@ -12,6 +12,7 @@
 #pragma once
 
 #include "graphics_fwd.h"
+#include "render_resource.h"
 
 namespace sims
 {
@@ -65,9 +66,8 @@ namespace sims
 		//   for it to be uploaded to GPU.
 		void Invalidate();
 
-		virtual void HWUpdateIndexBuffer() {}
-		virtual void HWBindIndexBuffer() {}
-		virtual void HWDeleteIndexBuffer() {}
+		// Hardware resource
+		IndexBufferResourceRef& HWResource() { return HWResource_; }
 	private:
 		friend class LockedIndexBuffer;
 		TBuffer<IndexType>* GetIndexData() { return &indexData_; }
@@ -78,5 +78,7 @@ namespace sims
 
 		LockedIndexBuffer lockedIB_;
 		int32 lockedCount_;
+
+		IndexBufferResourceRef HWResource_;
 	};
 }

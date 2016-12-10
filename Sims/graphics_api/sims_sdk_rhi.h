@@ -12,6 +12,7 @@
 #ifndef __SIMS_SDK_RHI_H__
 #define __SIMS_SDK_RHI_H__
 
+#include "graphics/render_resource.h"
 #include "rhi/rhi_renderer.h"
 
 // rhi implement by ?
@@ -26,6 +27,13 @@ namespace sims
 		// shader
 		//RHIShader* CreateShader();
 		//RHIShader* CreateShader(ShaderDomain::Type type, const string& source);
+
+		template<typename ResourceType>
+		ResourceType* CreateResource() { ASSERT(false && "Unknow resource type!"); return nullptr; }
+
+		template<> TextureResource*         CreateResource<TextureResource>();
+		template<> VertexBufferResource*    CreateResource<VertexBufferResource>();
+		template<> IndexBufferResource*     CreateResource<IndexBufferResource>();
 	}
 }
 

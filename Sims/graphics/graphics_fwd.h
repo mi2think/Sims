@@ -99,19 +99,25 @@ namespace sims
 	typedef void* UniformLoc;	// generic, platform independent
 
 	class Texture;
+	class TextureResource;
 	class Shader;
 	class Program;
 	class VertexStream;
 	class VertexDeclaration;
 	class VertexBuffer;
+	class VertexBufferResource;
 	class IndexBuffer;
+	class IndexBufferResource;
 
 	typedef Ref<Texture> TextureRef;
+	typedef Ref<TextureResource> TextureResourceRef;
 	typedef Ref<Program> ProgramRef;
 	typedef Ref<Shader>  ShaderRef;
 	typedef Ref<VertexDeclaration> VertexDeclarationRef;
 	typedef Ref<VertexBuffer> VertexBufferRef;
+	typedef Ref<VertexBufferResource> VertexBufferResourceRef;
 	typedef Ref<IndexBuffer> IndexBufferRef;
+	typedef Ref<IndexBufferResource> IndexBufferResourceRef;
 }
 
 #endif

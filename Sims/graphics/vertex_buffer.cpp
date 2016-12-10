@@ -10,6 +10,7 @@
 	purpose:	Vertex Buffer
 *********************************************************************/
 #include "vertex_buffer.h"
+#include "graphics_api/sims_sdk_rhi.h"
 
 namespace sims
 {
@@ -62,7 +63,6 @@ namespace sims
 
 	VertexBuffer::~VertexBuffer()
 	{
-
 	}
 
 	LockedVertexBuffer* VertexBuffer::Lock(uint32 lockFlags, uint32 offset, uint32 count)
@@ -112,6 +112,10 @@ namespace sims
 			return;
 
 		// update vertex buffer
-		HWUpdateVertexBuffer();
+		if (!HWResource_)
+			HWResource_ = rhi::CreateResource<VertexBufferResource>();
+		
+		HWResource_->Attach(this);
+		HWResource_->UpdateResource();
 	}
 }

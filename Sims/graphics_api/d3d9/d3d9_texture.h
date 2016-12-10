@@ -12,27 +12,24 @@
 #ifndef __D3D9_TEXTURE_H__
 #define __D3D9_TEXTURE_H__
 
-#include "graphics/texture.h"
+#include "graphics/render_resource.h"
 #include "d3d9_common.h"
 
 namespace sims
 {
 	namespace d3d9
 	{
-		class D3D9Texture : public Texture
+		class D3DTextureResource : public TextureResource
 		{
 		public:
-			D3D9Texture();
-			D3D9Texture(uint32 width, uint32 height, PixelFormat::Type format);
-			D3D9Texture(const string& path, PixelFormat::Type format);
-			D3D9Texture(const ImageRef& image);
-			~D3D9Texture();
+			D3DTextureResource();
+			~D3DTextureResource();
 
-			virtual void HWUpdateTexture(Recti* regions);
-			virtual void HWBindTexture(uint32 textureUnit);
-			virtual void HWDeleteTexture();
+			virtual void UpdateResource();
+			virtual void BindResource();
+			virtual void ReleaseResource();
 		private:
-			IDirect3DTexture9* tex_;
+			IDirect3DTexture9* resource_;
 		};
 	}
 }

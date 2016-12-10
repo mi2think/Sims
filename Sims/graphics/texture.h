@@ -15,6 +15,7 @@
 #include "graphics_fwd.h"
 #include "texture_sampler_status.h"
 #include "core/image.h"
+#include "render_resource.h"
 
 namespace sims
 {
@@ -53,9 +54,8 @@ namespace sims
 		//   for it to be uploaded to GPU.
 		void Invalidate();
 
-		virtual void HWUpdateTexture(Recti*) {} // regions
-		virtual void HWBindTexture(uint32) {} // textureUnit
-		virtual void HWDeleteTexture() {}
+		// Hardware resource
+		TextureResourceRef& HWResource() { return HWResource_; }
 	protected:
 		void GenMipmaps(ImageRef image);
 
@@ -72,6 +72,8 @@ namespace sims
 		// texture sampler paramters
 		// no need to upload to GPU if changes, it will bind when use
 		TextureSamplerStatus samplerStatus_;
+
+		TextureResourceRef HWResource_;
 	};
 }
 

@@ -10,31 +10,24 @@
 	purpose:	D3D9 Vertex Buffer
 *********************************************************************/
 #include "d3d9_vertex_buffer.h"
+#include "graphics/vertex_buffer.h"
 
 namespace sims
 {
 	namespace d3d9
 	{
-		D3D9VertexBuffer::D3D9VertexBuffer()
-			: VertexBuffer()
+		D3D9VertexBufferResource::D3D9VertexBufferResource()
+			: VertexBufferResource()
 			, vb_(nullptr)
 			, decl_(nullptr)
 		{}
 
-		D3D9VertexBuffer::D3D9VertexBuffer(const VertexDeclarationRef& vertexDecl, uint32 vertexCount)
-			: VertexBuffer(vertexDecl, vertexCount)
-			, vb_(nullptr)
-			, decl_(nullptr)
+		D3D9VertexBufferResource::~D3D9VertexBufferResource()
 		{
+			ASSERT(!vb_ && ! decl_);
 		}
 
-		D3D9VertexBuffer::~D3D9VertexBuffer()
-		{
-			SAFE_RELEASE(vb_);
-			SAFE_RELEASE(decl_);
-		}
-
-		void D3D9VertexBuffer::HWUpdateVertexBuffer()
+		void D3D9VertexBufferResource::UpdateResource()
 		{
 			if (!decl_)
 			{
@@ -50,10 +43,10 @@ namespace sims
 			if (!vb_)
 			{
 				D3DPOOL pool = D3DPOOL_MANAGED;
-				if ((storageFlags_ & StorageFlags::HintDynamic) != 0)
+				if ((vertexBuffer_->GetStorageFlags() & StorageFlags::HintDynamic) != 0)
 					pool = D3DPOOL_DEFAULT;
 
-				CHECK_HR = g_pD3DD->CreateVertexBuffer(vertexCount_ * vertexDecl_->GetStride(),
+				CHECK_HR = g_pD3DD->CreateVertexBuffer(vertexBuffer_->GetVertexCount() * vertexDecl_->GetStride(),
 					D3DUSAGE_WRITEONLY,
 					0, // using vertex decl
 					pool,
@@ -62,17 +55,21 @@ namespace sims
 			}
 
 			// update vertex buffer
+			auto L = vertexBuffer_->Lock(LockFlags::LockRead);
+			
 			void* vertices = nullptr;
 			CHECK_HR = vb_->Lock(
 				0,
 				0,
 				&vertices,
 				D3DLOCK_DISCARD); // discard for update entire vertex buffer
-			memcpy(vertices, vertexData_.GetData(), vertexCount_ * vertexDecl_->GetStride());
+			memcpy(vertices, L->GetData(), vertexBuffer_->GetVertexCount() * vertexDecl_->GetStride());
 			CHECK_HR = vb_->Unlock();
+			
+			vertexBuffer_->Unlock(L);
 		}
 
-		void D3D9VertexBuffer::HWBindVertexBuffer()
+		void D3D9VertexBufferResource::BindResource()
 		{
 			ASSERT(decl_ && vb_);
 
@@ -80,7 +77,7 @@ namespace sims
 			CHECK_HR = g_pD3DD->SetStreamSource(0, vb_, 0, vertexDecl_->GetStride());
 		}
 
-		void D3D9VertexBuffer::HWDeleteVertexBuffer()
+		void D3D9VertexBufferResource::ReleaseResource()
 		{
 			SAFE_RELEASE(decl_);
 			SAFE_RELEASE(vb_);

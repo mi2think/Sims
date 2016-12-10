@@ -111,24 +111,29 @@ namespace sims
 			return;
 
 		// collect invalid region, for update later
-		vector<Recti> regions;
+		TBuffer<Recti> regions(mipmapCount_);
 		Recti bbox;
 		for (uint32 i = 0; i < mipmapCount_; ++i)
 		{
 			ImageRef image = GetImage(i);
 			if (image)
 			{
-				regions.push_back(image->GetInvalidRegion());
-				bbox |= regions.back();
+				regions[i] = image->GetInvalidRegion();
+				bbox |= regions[i];
 				image->Validate(); // clear invalidate
 			}
 			else
-				regions.push_back(Recti());
+				regions[i] = Recti();
 		}
 		if (bbox.IsRectEmpty())
 			return;
 
 		// update texture
-		HWUpdateTexture(&regions[0]);
+		if (!HWResource_)
+			HWResource_ = rhi::CreateResource<TextureResource>();
+
+		HWResource_->Attach(this);
+		HWResource_->SetUpdateRegions(regions);
+		HWResource_->UpdateResource();
 	}
 }
