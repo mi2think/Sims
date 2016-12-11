@@ -62,5 +62,15 @@ namespace sims
 	protected:
 		IndexBuffer* indexBuffer_;
 	};
+
+	class ShaderResource : public RenderResource
+	{
+	public:
+		ShaderResource();
+
+		void Attach(void* shader);
+	protected:
+		Shader* shader_;
+	};
 }
 

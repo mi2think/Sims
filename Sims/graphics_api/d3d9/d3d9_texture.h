@@ -19,11 +19,11 @@ namespace sims
 {
 	namespace d3d9
 	{
-		class D3DTextureResource : public TextureResource
+		class D3D9TextureResource : public TextureResource
 		{
 		public:
-			D3DTextureResource();
-			~D3DTextureResource();
+			D3D9TextureResource();
+			~D3D9TextureResource();
 
 			virtual void UpdateResource();
 			virtual void BindResource();

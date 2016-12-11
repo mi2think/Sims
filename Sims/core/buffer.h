@@ -89,6 +89,19 @@ namespace sims
 			return *this;
 		}
 
+		TBuffer& operator=(TBuffer&& buffer)
+		{
+			if (&buffer != this)
+			{
+				Clear();
+				data_ = buffer.data_;
+				size_ = buffer.size_;
+				capacity_ = buffer.capacity_;
+				buffer.data_ = nullptr;
+			}
+			return *this;
+		}
+
 		uint32 GetSize() const { return size_; }
 
 		const T* GetData() const { return data_; }

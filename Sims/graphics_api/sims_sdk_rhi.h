@@ -24,9 +24,6 @@ namespace sims
 	{
 		// renderer
 		RHIRenderer* GetRenderer();
-		// shader
-		//RHIShader* CreateShader();
-		//RHIShader* CreateShader(ShaderDomain::Type type, const string& source);
 
 		template<typename ResourceType>
 		ResourceType* CreateResource() { ASSERT(false && "Unknow resource type!"); return nullptr; }
@@ -34,6 +31,7 @@ namespace sims
 		template<> TextureResource*         CreateResource<TextureResource>();
 		template<> VertexBufferResource*    CreateResource<VertexBufferResource>();
 		template<> IndexBufferResource*     CreateResource<IndexBufferResource>();
+		template<> ShaderResource*          CreateResource<ShaderResource>();
 	}
 }
 

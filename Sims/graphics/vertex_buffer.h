@@ -49,7 +49,7 @@ namespace sims
 	public:
 		VertexBuffer();
 		VertexBuffer(const VertexDeclarationRef& vertexDecl, uint32 vertexCount);
-		virtual ~VertexBuffer();
+		~VertexBuffer();
 
 		bool Valid() const { return vertexData_.GetData() != nullptr; }
 		const VertexDeclarationRef& GetVertexDeclaration() const { return vertexDecl_; }
@@ -63,7 +63,7 @@ namespace sims
 		void Unlock(LockedVertexBuffer* L);
 
 		// propagates changes on the vertex buffer to the renderer.
-		//   you must call invalidate after modifying vertex buffer data,
+		//   you must call invalidate after modifying shader type or source,
 		//   for it to be uploaded to GPU.
 		void Invalidate();
 
@@ -72,7 +72,7 @@ namespace sims
 	private:
 		friend class LockedVertexBuffer;
 		Buffer* GetVertexData() { return &vertexData_; }
-	protected:
+	private:
 		VertexDeclarationRef vertexDecl_;
 		uint32 vertexCount_;
 		Buffer vertexData_;

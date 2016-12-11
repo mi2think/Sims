@@ -16,17 +16,17 @@ namespace sims
 {
 	namespace d3d9
 	{
-		D3DTextureResource::~D3DTextureResource()
+		D3D9TextureResource::~D3D9TextureResource()
 		{
 			ASSERT(! resource_);
 		}
 
-		D3DTextureResource::D3DTextureResource()
+		D3D9TextureResource::D3D9TextureResource()
 			: TextureResource()
 			, resource_(nullptr)
 		{}
 
-		void D3DTextureResource::UpdateResource()
+		void D3D9TextureResource::UpdateResource()
 		{
 			ImageRef image = texture_->GetImage(0);
 			uint32 bytesPerPixel = image->GetBytesPerPixel();
@@ -100,7 +100,7 @@ namespace sims
 			}
 		}
 
-		void D3DTextureResource::BindResource()
+		void D3D9TextureResource::BindResource()
 		{
 			ASSERT(resource_ != nullptr);
 
@@ -117,7 +117,7 @@ namespace sims
 			CHECK_HR = g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_BORDERCOLOR, samplerStatus.GetBorderColor().value);
 		}
 
-		void D3DTextureResource::ReleaseResource()
+		void D3D9TextureResource::ReleaseResource()
 		{
 			SAFE_RELEASE(resource_);
 		}

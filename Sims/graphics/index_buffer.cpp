@@ -44,14 +44,14 @@ namespace sims
 
 	IndexBuffer::IndexBuffer()
 		: indexCount_(0)
-		, storageFlags_(LockFlags::LockRead)
+		, storageFlags_(StorageFlags::Local)
 		, lockedCount_(0)
 	{
 	}
 
 	IndexBuffer::IndexBuffer(uint32 indexCount)
 		: indexCount_(indexCount)
-		, storageFlags_(LockFlags::LockRead)
+		, storageFlags_(StorageFlags::Local)
 		, lockedCount_(0)
 	{
 		indexData_.Resize(indexCount);
@@ -59,7 +59,7 @@ namespace sims
 
 	IndexBuffer::IndexBuffer(uint32 indexCount, IndexType* data)
 		: indexCount_(indexCount)
-		, storageFlags_(LockFlags::LockRead)
+		, storageFlags_(StorageFlags::Local)
 		, lockedCount_(0)
 	{
 		ASSERT(indexCount > 0);

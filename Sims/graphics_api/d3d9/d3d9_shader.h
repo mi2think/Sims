@@ -12,34 +12,24 @@
 #ifndef __SHADER_DX_H__
 #define __SHADER_DX_H__
 
-#include "graphics/shader.h"
+#include "graphics/render_resource.h"
 #include "d3d9_common.h"
 
 namespace sims
 {
 	namespace d3d9
 	{
-		class D3D9Shader : public Shader
+		class D3D9ShaderResource : public ShaderResource
 		{
 		public:
-			D3D9Shader();
-			~D3D9Shader();
+			D3D9ShaderResource();
+			~D3D9ShaderResource();
 
-			void* GetShaderObj() const { return so_; }
-			ID3DXConstantTable* GetConstTable() const { return table_; }
-
-			virtual bool IsValid() const;
-			virtual bool Compile(ShaderDomain::Type type, const string& source);
-			virtual bool LoadBinary(ShaderDomain::Type type, char* byteCode, uint32 byteCodeLength);
-			virtual void Delete();
-			virtual void Bind();
-
-			virtual UniformLoc GetUniformLoc(const char* name, UniformLoc parent = nullptr);
+			virtual void UpdateResource();
+			virtual void BindResource();
+			virtual void ReleaseResource();
 		private:
-			bool CreateShaderObj(ShaderDomain::Type type, char* byteCode, uint32);
-			void DeleteInternal();
-
-			void* so_; // shader object;
+			void* resource_;
 			ID3DXConstantTable* table_;
 		};
 	}

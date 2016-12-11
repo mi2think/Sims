@@ -26,21 +26,9 @@ namespace sims
 				return &s_renderer;
 			}
 
-			//RHIShader* CreateShader()
-			//{
-			//	return new d3d9::D3D9Shader();
-			//}
-
-			//RHIShader* CreateShader(ShaderDomain::Type type, const string& source)
-			//{
-			//	RHIShader* p = new d3d9::D3D9Shader();
-			//	p->Compile(type, source);
-			//	return p;
-			//}
-
 			template<> TextureResource* CreateResource<TextureResource>()
 			{
-				return new d3d9::D3DTextureResource();
+				return new d3d9::D3D9TextureResource();
 			}
 
 			template<> VertexBufferResource* CreateResource<VertexBufferResource>()
@@ -51,6 +39,11 @@ namespace sims
 			template<> IndexBufferResource* CreateResource<IndexBufferResource>()
 			{
 				return new d3d9::D3D9IndexBufferResource();
+			}
+
+			template<> ShaderResource* CreateResource<ShaderResource>()
+			{
+				return new d3d9::D3D9ShaderResource();
 			}
 #endif
 	}

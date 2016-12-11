@@ -11,30 +11,52 @@
 *********************************************************************/
 #include "shader.h"
 #include "core/vfs.h"
+#include "graphics_api/sims_sdk_rhi.h"
 
 namespace sims
 {
 	Shader::Shader()
 	{}
+	Shader::Shader(ShaderDomain::Type type)
+		: type_(type)
+	{}
 
 	Shader::~Shader()
 	{}
 
-	bool Shader::CompileFromFile(ShaderDomain::Type type, const string& filename)
+	void Shader::SetSource(const char* source)
+	{
+		source_ = Buffer(source, strlen(source));
+	}
+
+	void Shader::SetSourceFromFile(const char* filename)
 	{
 		auto stream = VFS::GetVFS().OpenInputStream(filename);
 		auto fsize = stream->GetSize();
-		string source(fsize, '\0');
-		stream->Read(&source[0], fsize);
-
-		return Compile(type, source);
+		source_.Resize(fsize);
+		stream->Read(&source_[0], fsize);
 	}
 
-	bool Shader::LoadBinaryFromFile(ShaderDomain::Type type, const string& filename)
+	void Shader::SetType(ShaderDomain::Type type)
 	{
-		auto stream = VFS::GetVFS().OpenInputStream(filename);
-		Buffer byteCode = stream->Read();
+		type_ = type;
+	}
 
-		return LoadBinary(type, byteCode.GetData(), byteCode.GetSize());
+	void Shader::SetEntryName(const char* entryName)
+	{
+		entryName_ = Buffer(entryName, strlen(entryName));
+	}
+
+	void Shader::Invalidate()
+	{
+		if ((storageFlags_ & StorageFlags::Hardware) == 0)
+			return;
+
+		// update shader
+		if (!HWResource_)
+			HWResource_ = rhi::CreateResource<ShaderResource>();
+
+		HWResource_->Attach(this);
+		HWResource_->UpdateResource();
 	}
 }

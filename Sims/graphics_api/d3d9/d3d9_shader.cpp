@@ -11,38 +11,34 @@
 *********************************************************************/
 #include "d3d9_shader.h"
 #include "d3d9_renderer_caps.h"
+#include "graphics/shader.h"
 
 namespace sims
 {
 	namespace d3d9
 	{
-		D3D9Shader::D3D9Shader()
-			: Shader()
-			, so_(nullptr)
+		D3D9ShaderResource::D3D9ShaderResource()
+			: ShaderResource()
+			, resource_(nullptr)
 			, table_(nullptr)
 		{}
 
-		D3D9Shader::~D3D9Shader()
+		D3D9ShaderResource::~D3D9ShaderResource()
 		{
-			DeleteInternal();
+			ASSERT(!resource_ && !table_);
 		}
 
-		bool D3D9Shader::IsValid() const
+		void D3D9ShaderResource::UpdateResource()
 		{
-			return so_ != nullptr;
-		}
-
-		bool D3D9Shader::Compile(ShaderDomain::Type type, const string& source)
-		{
-			ASSERT(type == ShaderDomain::Vertex || type == ShaderDomain::Fragment);
-			ASSERT(!IsValid());
-
-			type_ = type;
-			source_ = source;
+			ReleaseResource();
 
 			// compile shader
 			ID3DXBuffer* shaderBuffer = nullptr;
 			ID3DXBuffer* errorBuffer = nullptr;
+
+			auto type = shader_->GetType();
+			const auto& source = shader_->GetSource();
+
 			uint32 flags = D3DXSHADER_ENABLE_BACKWARDS_COMPATIBILITY;
 #ifdef _DEBUG
 			flags |= D3DXSHADER_DEBUG;
@@ -50,11 +46,11 @@ namespace sims
 #endif
 			if (type == ShaderDomain::Vertex)
 			{
-				CHECK_HR = D3DXCompileShader(source.c_str(),
-					source.size(),
+				CHECK_HR = D3DXCompileShader(source.GetData(),
+					source.GetSize(),
 					0,
 					0,
-					"main",
+					shader_->GetEntryName().GetData(),
 					g_RendererCaps.GetVSVersionProfile(),
 					flags,
 					&shaderBuffer,
@@ -63,11 +59,11 @@ namespace sims
 			}
 			else if (type == ShaderDomain::Fragment)
 			{
-				CHECK_HR = D3DXCompileShader(source.c_str(),
-					source.size(),
+				CHECK_HR = D3DXCompileShader(source.GetData(),
+					source.GetSize(),
 					0,
 					0,
-					"main",
+					shader_->GetEntryName().GetData(),
 					g_RendererCaps.GetPSVersionProfile(),
 					flags,
 					&shaderBuffer,
@@ -79,79 +75,63 @@ namespace sims
 			{
 				LOG_ERROR("%s", (char*)errorBuffer->GetBufferPointer());
 				SAFE_RELEASE(errorBuffer);
-				return false;
+				return;
 			}
 
-			// create shader
-			return CreateShaderObj(type, (char*)shaderBuffer->GetBufferPointer(), shaderBuffer->GetBufferSize());
-		}
-
-		bool D3D9Shader::LoadBinary(ShaderDomain::Type type, char* byteCode, uint32 byteCodeLength)
-		{
-			return CreateShaderObj(type, byteCode, byteCodeLength);
-		}
-
-		bool D3D9Shader::CreateShaderObj(ShaderDomain::Type type, char* byteCode, uint32)
-		{
 			if (type == ShaderDomain::Vertex)
 			{
 				IDirect3DVertexShader9* vertexShader = nullptr;
-				CHECK_HR = g_pD3DD->CreateVertexShader((DWORD*)byteCode, &vertexShader);
-				so_ = vertexShader;
-				return so_ != nullptr;
+				CHECK_HR = g_pD3DD->CreateVertexShader((DWORD*)shaderBuffer->GetBufferPointer(), &vertexShader);
+				resource_ = vertexShader;
 			}
 			else if (type == ShaderDomain::Fragment)
 			{
 				IDirect3DPixelShader9* pixelShader = nullptr;
-				CHECK_HR = g_pD3DD->CreatePixelShader((DWORD*)byteCode, &pixelShader);
-				so_ = pixelShader;
-				return so_ != nullptr;
-			}
-			return false;
-		}
-
-		void D3D9Shader::Delete()
-		{
-			DeleteInternal();
-		}
-
-		void D3D9Shader::DeleteInternal()
-		{
-			SAFE_RELEASE(table_);
-			if (so_)
-			{
-				if (type_ == ShaderDomain::Vertex)
-				{
-					IDirect3DVertexShader9* vertexShader = (IDirect3DVertexShader9*)so_;
-					SAFE_RELEASE(vertexShader);
-				}
-				else if (type_ == ShaderDomain::Fragment)
-				{
-					IDirect3DPixelShader9* pixelShader = (IDirect3DPixelShader9*)so_;
-					SAFE_RELEASE(pixelShader);
-				}
-				so_ = nullptr;
+				CHECK_HR = g_pD3DD->CreatePixelShader((DWORD*)shaderBuffer->GetBufferPointer(), &pixelShader);
+				resource_ = pixelShader;
 			}
 		}
 
-		void D3D9Shader::Bind()
+		void D3D9ShaderResource::BindResource()
 		{
-			if (type_ == ShaderDomain::Vertex)
+			auto type = shader_->GetType();
+			if (type == ShaderDomain::Vertex)
 			{
-				IDirect3DVertexShader9* vertexShader = (IDirect3DVertexShader9*)so_;
+				IDirect3DVertexShader9* vertexShader = (IDirect3DVertexShader9*)resource_;
 				CHECK_HR = g_pD3DD->SetVertexShader(vertexShader);
 			}
-			else if (type_ == ShaderDomain::Fragment)
+			else if (type == ShaderDomain::Fragment)
 			{
-				IDirect3DPixelShader9* pixelShader = (IDirect3DPixelShader9*)so_;
+				IDirect3DPixelShader9* pixelShader = (IDirect3DPixelShader9*)resource_;
 				CHECK_HR = g_pD3DD->SetPixelShader(pixelShader);
 			}
 		}
 
-		UniformLoc D3D9Shader::GetUniformLoc(const char* name, UniformLoc parent)
+		void D3D9ShaderResource::ReleaseResource()
 		{
-			D3DXHANDLE h = table_->GetConstantByName((D3DXHANDLE)parent, name);
-			return (UniformLoc)h;
+			auto type = shader_->GetType();
+
+			SAFE_RELEASE(table_);
+			if (resource_)
+			{
+				if (type == ShaderDomain::Vertex)
+				{
+					IDirect3DVertexShader9* vertexShader = (IDirect3DVertexShader9*)resource_;
+					SAFE_RELEASE(vertexShader);
+				}
+				else if (type == ShaderDomain::Fragment)
+				{
+					IDirect3DPixelShader9* pixelShader = (IDirect3DPixelShader9*)resource_;
+					SAFE_RELEASE(pixelShader);
+				}
+				resource_ = nullptr;
+			}
 		}
+
+		//UniformLoc D3D9ShaderResource::GetUniformLoc(const char* name, UniformLoc parent)
+		//{
+		//	D3DXHANDLE h = table_->GetConstantByName((D3DXHANDLE)parent, name);
+		//	return (UniformLoc)h;
+		//}
 	}
 }

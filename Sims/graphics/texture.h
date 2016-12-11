@@ -26,7 +26,7 @@ namespace sims
 		Texture(uint32 width, uint32 height, PixelFormat::Type format);
 		Texture(const string& path, PixelFormat::Type format);
 		Texture(const ImageRef& image);
-		virtual ~Texture();
+		~Texture();
 
 		const string& GetName() const { return name_; }
 		void Load(const string& path, PixelFormat::Type format);
@@ -56,7 +56,7 @@ namespace sims
 
 		// Hardware resource
 		TextureResourceRef& HWResource() { return HWResource_; }
-	protected:
+	private:
 		void GenMipmaps(ImageRef image);
 
 		string name_; // file name if load from file

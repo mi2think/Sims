@@ -49,7 +49,7 @@ namespace sims
 		IndexBuffer();
 		IndexBuffer(uint32 indexCount);
 		IndexBuffer(uint32 indexCount, IndexType* data);
-		virtual ~IndexBuffer();
+		~IndexBuffer();
 
 		bool Valid() const { return indexData_.GetData() != nullptr; }
 		uint32 GetIndexCount() const { return indexCount_; }
@@ -71,7 +71,7 @@ namespace sims
 	private:
 		friend class LockedIndexBuffer;
 		TBuffer<IndexType>* GetIndexData() { return &indexData_; }
-	protected:
+	private:
 		uint32 indexCount_;
 		TBuffer<IndexType> indexData_;
 		uint32 storageFlags_;

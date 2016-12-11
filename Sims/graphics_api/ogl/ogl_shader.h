@@ -12,32 +12,24 @@
 #ifndef __OGL_SHADER_H__
 #define __OGL_SHADER_H__
 
-#include "graphics/shader.h"
+#include "graphics/render_resource.h"
 #include "ogl_common.h"
 
 namespace sims
 {
 	namespace ogl
 	{
-		class OGLShader : public Shader
+		class OGLShaderResource : public ShaderResource
 		{
 		public:
-			OGLShader();
-			~OGLShader();
+			OGLShaderResource();
+			~OGLShaderResource();
 
-			GLuint GetShaderObj() const { return so_; }
-
-			virtual bool IsValid() const;
-			virtual bool Compile(ShaderDomain::Type type, const string& source);
-			virtual bool LoadBinary(ShaderDomain::Type type, char* byteCode, uint32 byteCodeLength);
-			virtual void Delete();
-			virtual void Bind();
-
-			virtual UniformLoc GetUniformLoc(const char* name, UniformLoc parent = nullptr);
+			virtual void UpdateResource();
+			virtual void BindResource();
+			virtual void ReleaseResource();
 		private:
-			void DeleteInternal();
-
-			GLuint so_; // shader object
+			GLuint resource_;
 		};
 	}
 }

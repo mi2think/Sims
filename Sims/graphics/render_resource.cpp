@@ -58,4 +58,12 @@ namespace sims
 	{
 		indexBuffer_ = static_cast<IndexBuffer*>(indexBuffer);
 	}
+
+	ShaderResource::ShaderResource()
+	{}
+
+	void ShaderResource::Attach(void* shader)
+	{
+		shader_ = static_cast<Shader*>(shader);
+	}
 }

@@ -13,6 +13,7 @@
 #define __SHADER_H__
 
 #include "graphics_fwd.h"
+#include "render_resource.h"
 
 namespace sims
 {
@@ -20,24 +21,35 @@ namespace sims
 	{
 	public:
 		Shader();
-		virtual ~Shader();
+		Shader(ShaderDomain::Type type);
+		~Shader();
 
-		const string& GetSource() const { return source_; }
+		void SetSource(const char* source);
+		void SetSourceFromFile(const char* filename);
+		void SetType(ShaderDomain::Type type);
+		void SetEntryName(const char* entryName);
+
+		const Buffer& GetSource() const { return source_; }
 		ShaderDomain::Type GetType() const { return type_; }
+		const Buffer& GetEntryName() const { return entryName_; }
 
-		bool CompileFromFile(ShaderDomain::Type type, const string& filename);
-		bool LoadBinaryFromFile(ShaderDomain::Type type, const string& filename);
+		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
+		uint32 GetStorageFlags() const { return storageFlags_; }
 
-		virtual bool IsValid() const = 0;
-		virtual bool Compile(ShaderDomain::Type type, const string& source) = 0;
-		virtual bool LoadBinary(ShaderDomain::Type type, char* byteCode, uint32 byteCodeLength) = 0;
-		virtual void Delete() = 0;
-		virtual void Bind() = 0;
+		// propagates changes on the shader buffer to the renderer.
+		//   you must call invalidate after modifying vertex buffer data,
+		//   for it to be uploaded to GPU.
+		void Invalidate();
 
-		virtual UniformLoc GetUniformLoc(const char* name, UniformLoc parent = nullptr) = 0;
-	protected:
-		string source_;
+		// Hardware resource
+		ShaderResourceRef& HWResource() { return HWResource_; }
+	private:
+		Buffer source_;
+		Buffer entryName_;
 		ShaderDomain::Type type_;
+		uint32 storageFlags_;
+
+		ShaderResourceRef HWResource_;
 	};
 }
 
