@@ -128,6 +128,18 @@ namespace sims
 			}
 		}
 
+		void D3D9ShaderResource::AnalysesConstants()
+		{
+			D3DXCONSTANTTABLE_DESC tableDesc;
+			CHECK_HR = table_->GetDesc(&tableDesc);
+
+		}
+
+		void D3D9ShaderResource::SetConstant(const char* name, const void* data, uint32 dataSize)
+		{
+
+		}
+
 		//UniformLoc D3D9ShaderResource::GetUniformLoc(const char* name, UniformLoc parent)
 		//{
 		//	D3DXHANDLE h = table_->GetConstantByName((D3DXHANDLE)parent, name);

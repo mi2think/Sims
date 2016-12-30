@@ -28,7 +28,11 @@ namespace sims
 			virtual void UpdateResource();
 			virtual void BindResource();
 			virtual void ReleaseResource();
+
+			virtual void SetConstant(const char* name, const void* data, uint32 dataSize);
 		private:
+			void AnalysesConstants();
+
 			void* resource_;
 			ID3DXConstantTable* table_;
 		};

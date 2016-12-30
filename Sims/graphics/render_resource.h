@@ -69,7 +69,14 @@ namespace sims
 		ShaderResource();
 
 		void Attach(void* shader);
+
+		template<typename T>
+		void SetConstant(const char* name, const T& val) { SetConsts(name, &val, sizeof(val); }
+
+		//void SetSampler
 	protected:
+		virtual void SetConstant(const char* name, const void* data, uint32 dataSize) = 0;
+		
 		Shader* shader_;
 	};
 }
