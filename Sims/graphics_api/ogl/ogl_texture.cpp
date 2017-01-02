@@ -61,6 +61,15 @@ namespace sims
 					(const GLvoid *)src);
 			}
 
+			// set sampling params of texture object
+			const auto& samplerStatus = texture_->GetSamplerStatus();
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, ToGLTextureFilterType(samplerStatus.GetFilterMin()));
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, ToGLTextureFilterType(samplerStatus.GetFilterMin()));
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, ToGLTextureWrapType(samplerStatus.GetWrapS()));
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, ToGLTextureWrapType(samplerStatus.GetWrapT()));
+			auto color = samplerStatus.GetBorderColor().GetRGBAVector4();
+			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, (const GLfloat*)&color);
+
 			glBindTexture(GL_TEXTURE_2D, 0);
 
 			gl_check_error("OGLRenderer::UpdateTexture");
@@ -68,20 +77,8 @@ namespace sims
 
 		void OGLTextureResource::BindResource()
 		{
-			glActiveTexture(bindStage_);
+			glActiveTexture(GL_TEXTURE0 + bindStage_);
 			glBindTexture(GL_TEXTURE_2D, resource_);
-
-			const auto& samplerStatus = texture_->GetSamplerStatus();
-
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, ToGLTextureFilterType(samplerStatus.GetFilterMin()));
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, ToGLTextureFilterType(samplerStatus.GetFilterMin()));
-
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, ToGLTextureWrapType(samplerStatus.GetWrapS()));
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, ToGLTextureWrapType(samplerStatus.GetWrapT()));
-
-			auto color = samplerStatus.GetBorderColor().GetRGBAVector4();
-			glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, (const GLfloat*)&color);
-
 			gl_check_error("OGLRenderer::BindTexture");
 		}
 
