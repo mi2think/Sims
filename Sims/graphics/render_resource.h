@@ -36,6 +36,7 @@ namespace sims
 
 		void SetBindStage(uint32 bindStage);
 		void SetUpdateRegions(const TBuffer<Recti>& regions);
+		virtual void OnSamplerStatusUpdated() {}
 	protected:
 		Texture* texture_;
 		uint32 bindStage_;

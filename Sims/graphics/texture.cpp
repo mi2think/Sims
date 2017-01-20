@@ -136,4 +136,14 @@ namespace sims
 		HWResource_->SetUpdateRegions(regions);
 		HWResource_->UpdateResource();
 	}
+
+	void Texture::SetSamplerStatus(const TextureSamplerStatus& status)
+	{
+		samplerStatus_ = status;
+		
+		if ((storageFlags_ & StorageFlags::Hardware) == 0)
+			return;
+		if (HWResource_)
+			HWResource_->OnSamplerStatusUpdated();
+	}
 }

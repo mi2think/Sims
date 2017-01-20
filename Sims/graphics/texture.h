@@ -46,7 +46,7 @@ namespace sims
 		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
 		uint32 GetStorageFlags() const { return storageFlags_; }
 
-		void SetSamplerStatus(const TextureSamplerStatus& status) { samplerStatus_ = status; }
+		void SetSamplerStatus(const TextureSamplerStatus& status);
 		const TextureSamplerStatus& GetSamplerStatus() const { return samplerStatus_; }
 
 		// propagates changes on the texture and its mipmap images to the renderer.
