@@ -79,32 +79,23 @@ namespace sims
 			}
 
 			if (type == ShaderDomain::Vertex)
-			{
-				IDirect3DVertexShader9* vertexShader = nullptr;
-				CHECK_HR = g_pD3DD->CreateVertexShader((DWORD*)shaderBuffer->GetBufferPointer(), &vertexShader);
-				resource_ = vertexShader;
-			}
+				CHECK_HR = g_pD3DD->CreateVertexShader((DWORD*)shaderBuffer->GetBufferPointer(), &vsResource_);
 			else if (type == ShaderDomain::Fragment)
-			{
-				IDirect3DPixelShader9* pixelShader = nullptr;
-				CHECK_HR = g_pD3DD->CreatePixelShader((DWORD*)shaderBuffer->GetBufferPointer(), &pixelShader);
-				resource_ = pixelShader;
-			}
+				CHECK_HR = g_pD3DD->CreatePixelShader((DWORD*)shaderBuffer->GetBufferPointer(), &psResource_);
+
+			AnalyseConstants();
 		}
 
 		void D3D9ShaderResource::BindResource()
 		{
 			auto type = shader_->GetType();
 			if (type == ShaderDomain::Vertex)
-			{
-				IDirect3DVertexShader9* vertexShader = (IDirect3DVertexShader9*)resource_;
-				CHECK_HR = g_pD3DD->SetVertexShader(vertexShader);
-			}
+				CHECK_HR = g_pD3DD->SetVertexShader(vsResource_);
 			else if (type == ShaderDomain::Fragment)
-			{
-				IDirect3DPixelShader9* pixelShader = (IDirect3DPixelShader9*)resource_;
-				CHECK_HR = g_pD3DD->SetPixelShader(pixelShader);
-			}
+				CHECK_HR = g_pD3DD->SetPixelShader(psResource_);
+
+			constants_.clear();
+			samplers_.clear();
 		}
 
 		void D3D9ShaderResource::ReleaseResource()
@@ -115,35 +106,80 @@ namespace sims
 			if (resource_)
 			{
 				if (type == ShaderDomain::Vertex)
-				{
-					IDirect3DVertexShader9* vertexShader = (IDirect3DVertexShader9*)resource_;
-					SAFE_RELEASE(vertexShader);
-				}
+					SAFE_RELEASE(vsResource_);
 				else if (type == ShaderDomain::Fragment)
-				{
-					IDirect3DPixelShader9* pixelShader = (IDirect3DPixelShader9*)resource_;
-					SAFE_RELEASE(pixelShader);
-				}
+					SAFE_RELEASE(psResource_);
+
 				resource_ = nullptr;
 			}
 		}
 
-		void D3D9ShaderResource::AnalysesConstants()
+		void D3D9ShaderResource::AnalyseConstants()
 		{
 			D3DXCONSTANTTABLE_DESC tableDesc;
 			CHECK_HR = table_->GetDesc(&tableDesc);
 
+			D3DXCONSTANT_DESC cDesc;
+			for (uint32 i = 0; i < tableDesc.Constants; ++i)
+			{
+				uint32 count = 1;
+				table_->GetConstantDesc(table_->GetConstant(0, i), &cDesc, &count);
+
+				ConstVar var;
+				var.regIndex = cDesc.RegisterIndex;
+				var.name = cDesc.Name;
+				var.type = cDesc.Type;
+
+				vector<ConstVar>* pV = &constants_;
+				if (cDesc.Type >= D3DXPT_SAMPLER && cDesc.Type <= D3DXPT_SAMPLERCUBE)
+					pV = &samplers_;
+
+				pV->push_back(var);
+			}
 		}
 
 		void D3D9ShaderResource::SetConstant(const char* name, const void* data, uint32 dataSize)
 		{
+			const ConstVar* pVar = nullptr;
+			for (const auto& var : constants_)
+			{
+				if (name == var.name)
+				{
+					pVar = &var;
+				}
+			}
+			ASSERT(pVar != nullptr);
 
+			auto type = shader_->GetType();
+			if (type == ShaderDomain::Vertex)
+			{
+				if (pVar->type == D3DXPT_BOOL)
+					CHECK_HR = g_pD3DD->SetVertexShaderConstantB(pVar->regIndex, (const BOOL*)data, dataSize / sizeof(BOOL));
+				else if (pVar->type == D3DXPT_INT)
+					CHECK_HR = g_pD3DD->SetVertexShaderConstantI(pVar->regIndex, (const int*)data, dataSize / (sizeof(int) * 4));
+				else if (pVar->type == D3DXPT_FLOAT)
+					CHECK_HR = g_pD3DD->SetVertexShaderConstantF(pVar->regIndex, (const float*)data, dataSize / (sizeof(float) * 4));
+			}
+			else if (type == ShaderDomain::Fragment)
+			{
+				if (pVar->type == D3DXPT_BOOL)
+					CHECK_HR = g_pD3DD->SetPixelShaderConstantB(pVar->regIndex, (const BOOL*)data, dataSize / sizeof(BOOL));
+				else if (pVar->type == D3DXPT_INT)
+					CHECK_HR = g_pD3DD->SetPixelShaderConstantI(pVar->regIndex, (const int*)data, dataSize / (sizeof(int) * 4));
+				else if (pVar->type == D3DXPT_FLOAT)
+					CHECK_HR = g_pD3DD->SetPixelShaderConstantF(pVar->regIndex, (const float*)data, dataSize / (sizeof(float) * 4));
+			}
 		}
 
-		//UniformLoc D3D9ShaderResource::GetUniformLoc(const char* name, UniformLoc parent)
-		//{
-		//	D3DXHANDLE h = table_->GetConstantByName((D3DXHANDLE)parent, name);
-		//	return (UniformLoc)h;
-		//}
+		uint32 D3D9ShaderResource::GetSamplerStage(const char* name)
+		{
+			for (const auto& var : samplers_)
+			{
+				if (name == var.name)
+					return var.regIndex;
+			}
+			ASSERT(false && "not find sampler!");
+			return 0;
+		}
 	}
 }

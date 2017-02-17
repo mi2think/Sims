@@ -72,9 +72,14 @@ namespace sims
 		void Attach(void* shader);
 
 		template<typename T>
-		void SetConstant(const char* name, const T& val) { SetConsts(name, &val, sizeof(val); }
+		void SetConstant(const char* name, const T& val) { SetConstant(name, &val, sizeof(val)); }
 
-		//void SetSampler
+		// d3d9 own
+		virtual uint32 GetSamplerStage(const char* name) { ASSERT(false && "d3d9 own"); return 0; }
+
+		// ogl own
+		virtual void SetSamplerUnit(const char* name, uint32 imageUnit) { ASSERT(false && "ogl own"); };
+		virtual uint32 GetSamplerUnit(const char* name) { ASSERT(false && "ogl own"); return 0; };
 	protected:
 		virtual void SetConstant(const char* name, const void* data, uint32 dataSize) = 0;
 		

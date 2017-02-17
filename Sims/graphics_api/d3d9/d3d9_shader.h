@@ -30,11 +30,27 @@ namespace sims
 			virtual void ReleaseResource();
 
 			virtual void SetConstant(const char* name, const void* data, uint32 dataSize);
-		private:
-			void AnalysesConstants();
 
-			void* resource_;
+			virtual uint32 GetSamplerStage(const char* name);
+		private:
+			void AnalyseConstants();
+
+			union 
+			{
+				void* resource_;
+				IDirect3DVertexShader9* vsResource_;
+				IDirect3DPixelShader9*  psResource_;
+			};
 			ID3DXConstantTable* table_;
+
+			struct ConstVar
+			{
+				uint32 regIndex;
+				string name;
+				D3DXPARAMETER_TYPE type;
+			};
+			vector<ConstVar> constants_;
+			vector<ConstVar> samplers_;
 		};
 	}
 }
