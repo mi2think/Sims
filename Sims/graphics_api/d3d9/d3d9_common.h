@@ -48,6 +48,10 @@ namespace sims
 
 #define CHECK_HR DXErrorChecker(__FILE__, __LINE__)
 
+		void VerifyD3DResult(HRESULT hr, const char* API, const char* filename, uint32 line);
+#define VERIFYD3DRESULT(x) { HRESULT hr = x; if (FAILED(hr)) { VerifyD3DResult(hr, #x, __FILE__, __LINE__); }}
+
+
 		extern IDirect3D9* g_pD3D;
 		extern IDirect3DDevice9* g_pD3DD;
 

@@ -44,6 +44,13 @@ namespace sims
 			return *this;
 		}
 
+		void VerifyD3DResult(HRESULT hr, const char* API, const char* filename, uint32 line)
+		{
+			const char* str = str_format("%s(%d):\n %s %s\n", filename, line, API, DXGetErrorDescription(hr));
+			LOG_ERROR(str);
+			MessageBox(NULL, str, "error", MB_OK);
+		}
+
 		//////////////////////////////////////////////////////////////////////////
 		IDirect3D9* g_pD3D = nullptr;
 		IDirect3DDevice9* g_pD3DD = nullptr;
