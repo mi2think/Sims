@@ -74,16 +74,26 @@ namespace sims
 		template<typename T>
 		void SetConstant(const char* name, const T& val) { SetConstant(name, &val, sizeof(val)); }
 
-		// d3d9 own
-		virtual uint32 GetSamplerStage(const char* name) { ASSERT(false && "d3d9 own"); return 0; }
+		// d3d9 only
+		virtual uint32 GetSamplerStage(const char* /* name */) { ASSERT(false && "d3d9 only"); return 0; }
 
-		// ogl own
-		virtual void SetSamplerUnit(const char* name, uint32 imageUnit) { ASSERT(false && "ogl own"); };
-		virtual uint32 GetSamplerUnit(const char* name) { ASSERT(false && "ogl own"); return 0; };
+		// ogl only
+		virtual void SetSamplerUnit(const char* /* name */, uint32 /* imageUnit */) { ASSERT(false && "ogl only"); };
+		virtual uint32 GetSamplerUnit(const char* /* name */) { ASSERT(false && "ogl only"); return 0; };
 	protected:
 		virtual void SetConstant(const char* name, const void* data, uint32 dataSize) = 0;
 		
 		Shader* shader_;
+	};
+
+	class ProgramResource : public RenderResource
+	{
+	public:
+		ProgramResource();
+
+		void Attach(void* program);
+	protected:
+		Program* program_;
 	};
 }
 

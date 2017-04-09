@@ -34,6 +34,7 @@ namespace sims
 			virtual uint32 GetSamplerStage(const char* name);
 		private:
 			void AnalyseConstants();
+			void InternalReleaseResource();
 
 			union 
 			{

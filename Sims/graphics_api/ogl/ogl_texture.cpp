@@ -24,7 +24,7 @@ namespace sims
 
 		OGLTextureResource::~OGLTextureResource()
 		{
-			ASSERT(resource_ == GL_INVALID_VALUE);
+			InternalReleaseResource();
 		}
 
 		void OGLTextureResource::UpdateResource()
@@ -78,9 +78,15 @@ namespace sims
 
 		void OGLTextureResource::ReleaseResource()
 		{
+			InternalReleaseResource();
+		}
+
+		void OGLTextureResource::InternalReleaseResource()
+		{
 			if (resource_ != GL_INVALID_VALUE)
 			{
 				glDeleteTextures(1, &resource_);
+				resource_ = GL_INVALID_VALUE;
 			}
 		}
 

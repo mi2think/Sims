@@ -25,11 +25,10 @@ void I_SimpleGlyphLoading()
 
 	// 3.loading a font face from memory
 	auto inputStream = Platform::GetFileSystem()->OpenInputStream("C:\\Windows\\fonts\\simsun.ttc");
-	vector<uint8> buffer(inputStream->GetSize());
-	inputStream->Read(&buffer[0], buffer.size());
+	Buffer buffer = inputStream->Read();
 	e = FT_New_Memory_Face(library,
-		&buffer[0],
-		buffer.size(),
+		(const FT_Byte*)buffer.GetData(),
+		buffer.GetSize(),
 		0,
 		&face);
 	ASSERT(e == FT_Err_Ok);
@@ -90,15 +89,15 @@ void I_SimpleGlyphLoading()
 	{
 		LOG_INFO("num gray:%d", bitmap.num_grays);
 
-		uint8* buff = (uint8*)bitmap.buffer;
+		char* buff = (char*)bitmap.buffer;
 		if (bitmap.pitch < 0)
 		{
 			buff -= bitmap.rows * bitmap.pitch;
 		}
 
 		ImageRef image(new Image(256, 256, PixelFormat::R8G8B8A8));
-		auto L = image->Lock(Image::LockWrite);
-		uint8* dest = L->GetData();
+		auto L = image->Lock(LockFlags::LockWrite);
+		char* dest = L->GetData();
 		for (int i = 0; i < bitmap.rows; ++i)
 		{
 			for (int j = 0; j < bitmap.width; ++j)
@@ -121,7 +120,7 @@ void I_SimpleGlyphLoading()
 
 void bitmap_font()
 {
-	BitmapFont bmf("../sims/res/fonts_bmp/arial.fnt");
+	BitmapFont bmf("../sims/res/fonts_bmp/arial.fnt"); 
 }
 
 

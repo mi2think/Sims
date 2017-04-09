@@ -19,25 +19,18 @@ namespace sims
 {
 	namespace ogl
 	{
-		class OGLProgram : public Program
+		class OGLProgramResource : public ProgramResource
 		{
 		public:
-			OGLProgram();
-			~OGLProgram();
+			OGLProgramResource();
+			~OGLProgramResource();
 
-			virtual void AttachShader(const ShaderRef& shader);
-			virtual void EndAttachShader();
-			virtual void BindProgram();
-			virtual void DeleteProgram();
+			virtual void UpdateResource();
+			virtual void BindResource();
+			virtual void ReleaseResource();
 
-			virtual UniformLoc VSGetUniformLoc(const char* name, UniformLoc parent = nullptr) const;
-			virtual UniformLoc FSGetUniformLoc(const char* name, UniformLoc parent = nullptr) const;
-			virtual void VSBindUniform(UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type);
-			virtual void FSBindUniform(UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type);
 		private:
-			void DeleteProgramInternal();
-			UniformLoc GetUniformLoc(const char* name) const;
-			void BindUniform(UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type);
+			void InternalReleaseResource();
 
 			GLuint prog_;
 		};

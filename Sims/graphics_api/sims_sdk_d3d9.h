@@ -21,5 +21,6 @@
 #include "d3d9/d3d9_index_buffer.h"
 #include "d3d9/d3d9_texture.h"
 #include "d3d9/d3d9_shader.h"
+#include "d3d9/d3d9_program.h"
 
 #endif

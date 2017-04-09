@@ -12,29 +12,22 @@
 #ifndef __D3D9_PROGRAM_H__
 #define __D3D9_PROGRAM_H__
 
-#include "graphics/program.h"
+#include "graphics/render_resource.h"
 #include "d3d9_common.h"
 
 namespace sims
 {
 	namespace d3d9
 	{
-		class D3D9Program : public Program
+		class D3D9ProgramResource : public ProgramResource
 		{
 		public:
-			D3D9Program();
-			~D3D9Program();
+			D3D9ProgramResource();
+			~D3D9ProgramResource();
 
-			virtual void BindProgram();
-			virtual void DeleteProgram();
-
-			virtual UniformLoc VSGetUniformLoc(const char* name, UniformLoc parent = nullptr) const;
-			virtual UniformLoc FSGetUniformLoc(const char* name, UniformLoc parent = nullptr) const;
-			virtual void VSBindUniform(UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type);
-			virtual void FSBindUniform(UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type);
-		private:
-			void DeleteProgramInternal();
-			void BindUniform(ID3DXConstantTable* table, UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type);
+			virtual void UpdateResource();
+			virtual void BindResource();
+			virtual void ReleaseResource();
 		};
 	}
 }

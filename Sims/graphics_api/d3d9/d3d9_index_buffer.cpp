@@ -28,7 +28,7 @@ namespace sims
 
 		D3D9IndexBufferResource::~D3D9IndexBufferResource()
 		{
-			ASSERT(! ib_);
+			InternalReleaseResource();
 		}
 
 		void D3D9IndexBufferResource::UpdateResource()
@@ -39,24 +39,24 @@ namespace sims
 				if ((indexBuffer_->GetStorageFlags() & StorageFlags::HintDynamic) != 0)
 					pool = D3DPOOL_DEFAULT;
 
-				CHECK_HR = g_pD3DD->CreateIndexBuffer(sizeof(IndexType) * indexBuffer_->GetIndexCount(),
+				VERIFYD3DRESULT(g_pD3DD->CreateIndexBuffer(sizeof(IndexType) * indexBuffer_->GetIndexCount(),
 					D3DUSAGE_WRITEONLY,
 					ToD3DIndexFormat<IndexType>(),
 					pool,
 					&ib_,
-					nullptr);
+					nullptr));
 			}
 
 			// update index buffer
 			auto L = indexBuffer_->Lock(LockFlags::LockRead);
 
 			void* indices = nullptr;
-			CHECK_HR = ib_->Lock(0,
+			VERIFYD3DRESULT(ib_->Lock(0,
 				0,
 				&indices,
-				D3DLOCK_DISCARD); // discard for update entire index buffer
+				D3DLOCK_DISCARD)); // discard for update entire index buffer
 			memcpy(indices, L->GetData(), sizeof(IndexType) * indexBuffer_->GetIndexCount());
-			CHECK_HR = ib_->Unlock();
+			VERIFYD3DRESULT(ib_->Unlock());
 
 			indexBuffer_->Unlock(L);
 		}
@@ -64,12 +64,18 @@ namespace sims
 		void D3D9IndexBufferResource::BindResource()
 		{
 			ASSERT(ib_);
-			CHECK_HR = g_pD3DD->SetIndices(ib_);
+			VERIFYD3DRESULT(g_pD3DD->SetIndices(ib_));
 		}
 
 		void D3D9IndexBufferResource::ReleaseResource()
 		{
+			InternalReleaseResource();
+		}
+
+		void D3D9IndexBufferResource::InternalReleaseResource()
+		{
 			SAFE_RELEASE(ib_);
 		}
+
 	}
 }

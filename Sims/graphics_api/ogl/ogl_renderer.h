@@ -12,13 +12,13 @@
 #ifndef __OGL_RENDERER_H__
 #define __OGL_RENDERER_H__
 
-#include "graphics_api/rhi/rhi_renderer.h"
+#include "graphics_api/hw/hw_renderer.h"
 
 namespace sims
 {
 	namespace ogl
 	{
-		class OGLRenderer : public rhi::RHIRenderer
+		class OGLRenderer : public hw::HWRenderer
 		{
 		public:
 			virtual void BeginFrame(uint32 clearFlags, Color color, float depth, uint32 stencil);

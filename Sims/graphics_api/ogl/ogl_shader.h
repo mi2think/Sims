@@ -28,6 +28,8 @@ namespace sims
 			virtual void UpdateResource();
 			virtual void BindResource();
 			virtual void ReleaseResource();
+
+			GLuint GetResource() const { return resource_; }
 		private:
 			GLuint resource_;
 		};

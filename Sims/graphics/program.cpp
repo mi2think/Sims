@@ -10,23 +10,42 @@
 	purpose:	Program
 *********************************************************************/
 #include "program.h"
+#include "graphics_api/sims_sdk_hw.h"
 
 namespace sims
 {
 	Program::Program()
+		: desc_("<Unknown>")
 	{
 	}
+
+	Program::Program(const string& desc)
+		: desc_(desc)
+	{}
 
 	Program::~Program()
 	{
 	}
 
-	void Program::AttachShader(const ShaderRef& shader)
+	void Program::AddShader(const ShaderRef& shader)
 	{
+		if (shaders_[shader->GetType()] != nullptr)
+			LOG_WARN("Program %s has changed %s", desc_.c_str());
+
 		shaders_[shader->GetType()] = shader;
 	}
 
-	void Program::EndAttachShader()
+	const ShaderRef& Program::GetShader(ShaderDomain::Type type) const
 	{
+		return shaders_[type];
+	}
+
+	void Program::Invalidate()
+	{
+		if (!HWResource_)
+			HWResource_ = hw::CreateResource<ProgramResource>();
+
+		HWResource_->Attach(this);
+		HWResource_->UpdateResource();
 	}
 }

@@ -28,6 +28,8 @@ namespace sims
 			virtual void BindResource();
 			virtual void ReleaseResource();
 		private:
+			void InternalReleaseResource();
+
 			IDirect3DVertexBuffer9* vb_;
 			IDirect3DVertexDeclaration9* decl_;
 		};

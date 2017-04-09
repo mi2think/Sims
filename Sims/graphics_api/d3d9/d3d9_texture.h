@@ -29,6 +29,8 @@ namespace sims
 			virtual void BindResource();
 			virtual void ReleaseResource();
 		private:
+			void InternalReleaseResource();
+
 			IDirect3DTexture9* resource_;
 		};
 	}

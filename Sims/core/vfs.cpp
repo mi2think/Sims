@@ -136,7 +136,7 @@ namespace sims
 		{
 			return mount->fs->OpenInputStream(fsPath);
 		}
-		return Platform::GetFileSystem()->OpenInputStream(fsPath);
+		return Platform::GetFileSystem()->OpenInputStream(vfsPath);
 	}
 
 	IOutputStreamRef VFS::OpenOutputStream(const string& path)
@@ -148,7 +148,7 @@ namespace sims
 		{
 			return mount->fs->OpenOutputStream(fsPath);
 		}
-		return Platform::GetFileSystem()->OpenOutputStream(fsPath);
+		return Platform::GetFileSystem()->OpenOutputStream(vfsPath);
 	}
 
 	bool VFS::GetFileInfo(const string& path, FileInfo& fi) const
@@ -160,7 +160,7 @@ namespace sims
 		{
 			return mount->fs->GetFileInfo(fsPath, fi);
 		}
-		return Platform::GetFileSystem()->GetFileInfo(path, fi);
+		return Platform::GetFileSystem()->GetFileInfo(vfsPath, fi);
 	}
 
 	bool VFS::DeleteFile(const string& path)
@@ -172,6 +172,6 @@ namespace sims
 		{
 			return mount->fs->DeleteFile(fsPath);
 		}
-		return Platform::GetFileSystem()->DeleteFile(path);
+		return Platform::GetFileSystem()->DeleteFile(vfsPath);
 	}
 }

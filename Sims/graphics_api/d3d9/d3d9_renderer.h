@@ -12,13 +12,13 @@
 #ifndef __RENDERER_DX9_H__
 #define __RENDERER_DX9_H__
 
-#include "graphics_api/rhi/rhi_renderer.h"
+#include "graphics_api/hw/hw_renderer.h"
 
 namespace sims
 {
 	namespace d3d9
 	{
-		class D3D9Renderer : public rhi::RHIRenderer
+		class D3D9Renderer : public hw::HWRenderer
 		{
 		public:
 			virtual void BeginFrame(uint32 clearFlags, Color color, float depth, uint32 stencil);

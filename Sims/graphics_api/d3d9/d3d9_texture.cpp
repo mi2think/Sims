@@ -18,7 +18,7 @@ namespace sims
 	{
 		D3D9TextureResource::~D3D9TextureResource()
 		{
-			ASSERT(! resource_);
+			InternalReleaseResource();
 		}
 
 		D3D9TextureResource::D3D9TextureResource()
@@ -40,14 +40,14 @@ namespace sims
 				if ((storageFlags & StorageFlags::HintDynamic) != 0)
 					pool = D3DPOOL_DEFAULT;
 
-				CHECK_HR = g_pD3DD->CreateTexture(image->GetWidth(),
+				VERIFYD3DRESULT(g_pD3DD->CreateTexture(image->GetWidth(),
 					image->GetHeight(),
 					texture_->GetMipmapCount(),
 					0,
 					format,
 					pool,
 					&resource_,
-					0);
+					0));
 			}
 
 			// update texture
@@ -58,21 +58,21 @@ namespace sims
 			if ((storageFlags & StorageFlags::HintDynamic) != 0)
 			{
 				D3DFORMAT format = ToD3DFormat(texture_->GetFormat());
-				CHECK_HR = g_pD3DD->CreateTexture(image->GetWidth(),
+				VERIFYD3DRESULT(g_pD3DD->CreateTexture(image->GetWidth(),
 					image->GetHeight(),
 					texture_->GetMipmapCount(),
 					0,
 					format,
 					D3DPOOL_SYSTEMMEM,
 					&resource_,
-					0);
+					0));
 			}
 
 			// update each surface by mipmap of image
 			IDirect3DSurface9* surface = nullptr;
 			for (uint32 i = 0; i < tempResource->GetLevelCount(); ++i)
 			{
-				CHECK_HR = tempResource->GetSurfaceLevel(i, &surface);
+				VERIFYD3DRESULT(tempResource->GetSurfaceLevel(i, &surface));
 
 				image = texture_->GetImage(i);
 				uint32 width = image->GetWidth();
@@ -80,7 +80,7 @@ namespace sims
 				const char* src = image->GetConstData();
 
 				D3DLOCKED_RECT lockedRect;
-				CHECK_HR = surface->LockRect(&lockedRect, (RECT*)&regions_[i], D3DLOCK_NOOVERWRITE);
+				VERIFYD3DRESULT(surface->LockRect(&lockedRect, (RECT*)&regions_[i], D3DLOCK_NOOVERWRITE));
 				uint8* dest = (uint8*)lockedRect.pBits;
 				for (uint32 j = 0; j < height; ++j)
 				{
@@ -88,14 +88,14 @@ namespace sims
 					src += width * bytesPerPixel;
 					dest += lockedRect.Pitch;
 				}
-				CHECK_HR = surface->UnlockRect();
+				VERIFYD3DRESULT(surface->UnlockRect());
 
 				SAFE_RELEASE(surface);
 			}
 
 			if (tempResource != resource_)
 			{
-				CHECK_HR = g_pD3DD->UpdateTexture(tempResource, resource_);
+				VERIFYD3DRESULT(g_pD3DD->UpdateTexture(tempResource, resource_));
 				SAFE_RELEASE(tempResource);
 			}
 		}
@@ -106,18 +106,23 @@ namespace sims
 
 			const auto& samplerStatus = texture_->GetSamplerStatus();
 
-			CHECK_HR = g_pD3DD->SetTexture(bindStage_, resource_);
+			VERIFYD3DRESULT(g_pD3DD->SetTexture(bindStage_, resource_));
 			// filter
-			CHECK_HR = g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_MAGFILTER, ToD3DTextureFilterType(samplerStatus.GetFilterMag()));
-			CHECK_HR = g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_MINFILTER, ToD3DTextureFilterType(samplerStatus.GetFilterMin()));
-			CHECK_HR = g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_MIPFILTER, ToD3DTextureFilterType(samplerStatus.GetFilterMip()));
+			VERIFYD3DRESULT(g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_MAGFILTER, ToD3DTextureFilterType(samplerStatus.GetFilterMag())));
+			VERIFYD3DRESULT(g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_MINFILTER, ToD3DTextureFilterType(samplerStatus.GetFilterMin())));
+			VERIFYD3DRESULT(g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_MIPFILTER, ToD3DTextureFilterType(samplerStatus.GetFilterMip())));
 			// wrap
-			CHECK_HR = g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_ADDRESSU, ToD3DTextureAddress(samplerStatus.GetWrapS()));
-			CHECK_HR = g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_ADDRESSV, ToD3DTextureAddress(samplerStatus.GetWrapT()));
-			CHECK_HR = g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_BORDERCOLOR, samplerStatus.GetBorderColor().value);
+			VERIFYD3DRESULT(g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_ADDRESSU, ToD3DTextureAddress(samplerStatus.GetWrapS())));
+			VERIFYD3DRESULT(g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_ADDRESSV, ToD3DTextureAddress(samplerStatus.GetWrapT())));
+			VERIFYD3DRESULT(g_pD3DD->SetSamplerState(bindStage_, D3DSAMP_BORDERCOLOR, samplerStatus.GetBorderColor().value));
 		}
 
 		void D3D9TextureResource::ReleaseResource()
+		{
+			InternalReleaseResource();
+		}
+
+		void D3D9TextureResource::InternalReleaseResource()
 		{
 			SAFE_RELEASE(resource_);
 		}

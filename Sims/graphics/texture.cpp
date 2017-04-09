@@ -10,7 +10,7 @@
 	purpose:	Texture
 *********************************************************************/
 #include "texture.h"
-#include "graphics_api/sims_sdk_rhi.h"
+#include "graphics_api/sims_sdk_hw.h"
 
 namespace sims
 {
@@ -130,7 +130,7 @@ namespace sims
 
 		// update texture
 		if (!HWResource_)
-			HWResource_ = rhi::CreateResource<TextureResource>();
+			HWResource_ = hw::CreateResource<TextureResource>();
 
 		HWResource_->Attach(this);
 		HWResource_->SetUpdateRegions(regions);

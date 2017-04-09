@@ -21,20 +21,24 @@ namespace sims
 	{
 	public:
 		Program();
-		virtual ~Program();
+		Program(const string& desc);
+		~Program();
 
-		virtual void AttachShader(const ShaderRef& shader);
-		virtual void EndAttachShader();
-		virtual void BindProgram() = 0;
-		virtual void DeleteProgram() = 0;
+		void AddShader(const ShaderRef& shader);
+		const ShaderRef& GetShader(ShaderDomain::Type type) const;
+		const ShaderRef* GetShaders() const { return shaders_; }
 
-		// uniforms
-		virtual UniformLoc VSGetUniformLoc(const char* name, UniformLoc parent = nullptr) const = 0;
-		virtual UniformLoc FSGetUniformLoc(const char* name, UniformLoc parent = nullptr) const = 0;
-		virtual void VSBindUniform(UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type) = 0;
-		virtual void FSBindUniform(UniformLoc loc, const void* data, uint32 count, UniformDataType::Type type) = 0;
-	protected:
+		// propagates changes on the program to the renderer.
+		//   you must call invalidate after modifying shader by type
+		void Invalidate();
+
+		// Hardware resource
+		ProgramResourceRef& HWResource() { return HWResource_; }
+	private:
+		string desc_;
 		ShaderRef shaders_[ShaderDomain::Max];
+
+		ProgramResourceRef HWResource_;
 	};
 }
 

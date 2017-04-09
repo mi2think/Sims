@@ -100,7 +100,6 @@ namespace sims
 
 	class Texture;
 	class TextureResource;
-	class Program;
 	class VertexStream;
 	class VertexDeclaration;
 	class VertexBuffer;
@@ -109,10 +108,11 @@ namespace sims
 	class IndexBufferResource;
 	class Shader;
 	class ShaderResource;
+	class Program;
+	class ProgramResource;
 
 	typedef Ref<Texture> TextureRef;
 	typedef Ref<TextureResource> TextureResourceRef;
-	typedef Ref<Program> ProgramRef;
 	typedef Ref<VertexDeclaration> VertexDeclarationRef;
 	typedef Ref<VertexBuffer> VertexBufferRef;
 	typedef Ref<VertexBufferResource> VertexBufferResourceRef;
@@ -120,6 +120,8 @@ namespace sims
 	typedef Ref<IndexBufferResource> IndexBufferResourceRef;
 	typedef Ref<Shader>  ShaderRef;
 	typedef Ref<ShaderResource> ShaderResourceRef;
+	typedef Ref<Program> ProgramRef;
+	typedef Ref<ProgramResource> ProgramResourceRef;
 }
 
 #endif

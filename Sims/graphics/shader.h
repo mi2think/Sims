@@ -31,13 +31,14 @@ namespace sims
 
 		const Buffer& GetSource() const { return source_; }
 		ShaderDomain::Type GetType() const { return type_; }
+		const char* GetTypeDesc() const;
 		const Buffer& GetEntryName() const { return entryName_; }
 
 		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
 		uint32 GetStorageFlags() const { return storageFlags_; }
 
-		// propagates changes on the shader buffer to the renderer.
-		//   you must call invalidate after modifying vertex buffer data,
+		// propagates changes on the shader to the renderer.
+		//   you must call invalidate after modifying shader data,
 		//   for it to be uploaded to GPU.
 		void Invalidate();
 

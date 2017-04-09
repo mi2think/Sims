@@ -11,7 +11,7 @@
 *********************************************************************/
 #include "shader.h"
 #include "core/vfs.h"
-#include "graphics_api/sims_sdk_rhi.h"
+#include "graphics_api/sims_sdk_hw.h"
 
 namespace sims
 {
@@ -47,6 +47,16 @@ namespace sims
 		entryName_ = Buffer(entryName, strlen(entryName));
 	}
 
+	const char* Shader::GetTypeDesc() const
+	{
+		if (type_ == ShaderDomain::Vertex)
+			return "vertex shader";
+		else if (type_ == ShaderDomain::Fragment)
+			return "fragment shader";
+
+		return "<Unknown>";
+	}
+
 	void Shader::Invalidate()
 	{
 		if ((storageFlags_ & StorageFlags::Hardware) == 0)
@@ -54,7 +64,7 @@ namespace sims
 
 		// update shader
 		if (!HWResource_)
-			HWResource_ = rhi::CreateResource<ShaderResource>();
+			HWResource_ = hw::CreateResource<ShaderResource>();
 
 		HWResource_->Attach(this);
 		HWResource_->UpdateResource();

@@ -30,6 +30,8 @@ namespace sims
 			virtual void ReleaseResource();
 			virtual void OnSamplerStatusUpdated();
 		private:
+			void InternalReleaseResource();
+
 			GLuint resource_;
 		};
 	}

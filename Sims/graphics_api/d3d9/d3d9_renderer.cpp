@@ -27,18 +27,18 @@ namespace sims
 			if ((clearFlags & ClearFlags::Stencil) != 0)
 				flags |= D3DCLEAR_STENCIL;
 
-			CHECK_HR = g_pD3DD->Clear(0, 0, flags, color.value, depth, stencil);
-			CHECK_HR = g_pD3DD->BeginScene();
+			VERIFYD3DRESULT(g_pD3DD->Clear(0, 0, flags, color.value, depth, stencil));
+			VERIFYD3DRESULT(g_pD3DD->BeginScene());
 		}
 
 		void D3D9Renderer::EndFrame()
 		{
-			CHECK_HR = g_pD3DD->EndScene();
+			VERIFYD3DRESULT(g_pD3DD->EndScene());
 		}
 
 		void D3D9Renderer::PresentFrame()
 		{
-			CHECK_HR = g_pD3DD->Present(0, 0, 0, 0);
+			VERIFYD3DRESULT(g_pD3DD->Present(0, 0, 0, 0));
 		}
 	}
 }

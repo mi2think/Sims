@@ -31,9 +31,6 @@
     <Filter Include="vendor\rapidxml">
       <UniqueIdentifier>{6ee657f6-a16d-483b-9150-bf411d214596}</UniqueIdentifier>
     </Filter>
-    <Filter Include="graphics_api\rhi">
-      <UniqueIdentifier>{8778a5bb-b4a1-4d05-91a8-0e106632d54a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="graphics_api\ogl">
       <UniqueIdentifier>{a0d2cff1-1a6c-404c-8844-9cca0f84fa66}</UniqueIdentifier>
     </Filter>
@@ -45,6 +42,9 @@
     </Filter>
     <Filter Include="graphics_api\d3d11">
       <UniqueIdentifier>{9dfe46e5-d264-439d-81ff-c97efaad8935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics_api\hw">
+      <UniqueIdentifier>{840e61cf-834f-45a5-99a3-acfce93436c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -125,9 +125,6 @@
     </ClCompile>
     <ClCompile Include="math\ray.cpp">
       <Filter>math</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics_api\sims_sdk_rhi.cpp">
-      <Filter>graphics_api</Filter>
     </ClCompile>
     <ClCompile Include="core\vfs.cpp">
       <Filter>core</Filter>
@@ -212,6 +209,9 @@
     </ClCompile>
     <ClCompile Include="graphics\render_resource.cpp">
       <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\sims_sdk_hw.cpp">
+      <Filter>graphics_api</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -357,9 +357,6 @@
     <ClInclude Include="graphics_api\sims_sdk_ogl.h">
       <Filter>graphics_api</Filter>
     </ClInclude>
-    <ClInclude Include="graphics_api\sims_sdk_rhi.h">
-      <Filter>graphics_api</Filter>
-    </ClInclude>
     <ClInclude Include="core\vfs.h">
       <Filter>core</Filter>
     </ClInclude>
@@ -413,9 +410,6 @@
     </ClInclude>
     <ClInclude Include="graphics_api\ogl\ogl_window.h">
       <Filter>graphics_api\ogl</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics_api\rhi\rhi_renderer.h">
-      <Filter>graphics_api\rhi</Filter>
     </ClInclude>
     <ClInclude Include="graphics_api\ogl\ogl_shader.h">
       <Filter>graphics_api\ogl</Filter>
@@ -476,6 +470,12 @@
     </ClInclude>
     <ClInclude Include="graphics\render_resource.h">
       <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\sims_sdk_hw.h">
+      <Filter>graphics_api</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\hw\hw_renderer.h">
+      <Filter>graphics_api\hw</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

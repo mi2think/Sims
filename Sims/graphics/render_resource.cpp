@@ -66,4 +66,12 @@ namespace sims
 	{
 		shader_ = static_cast<Shader*>(shader);
 	}
+
+	ProgramResource::ProgramResource()
+	{}
+
+	void ProgramResource::Attach(void* program)
+	{
+		program_ = static_cast<Program*>(program);
+	}
 }

@@ -130,7 +130,12 @@ namespace sims
 		{
 			string e = it.Next();
 			if (e == "..")
-				result = Parent(result);
+			{
+				if (!result.empty())
+					result = Parent(result);
+				else
+					result = e; // ".." is head, skip
+			}
 			else if (e == ".")
 				; // do nothing
 			else

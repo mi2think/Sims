@@ -24,7 +24,7 @@ namespace sims
 
 		D3D9VertexBufferResource::~D3D9VertexBufferResource()
 		{
-			ASSERT(!vb_ && ! decl_);
+			InternalReleaseResource();
 		}
 
 		void D3D9VertexBufferResource::UpdateResource()
@@ -38,7 +38,7 @@ namespace sims
 					FillD3DVertexElement(&elements[i], vertexDecl_->GetStream(i));
 				}
 				elements[count] = D3DDECL_END();
-				CHECK_HR = g_pD3DD->CreateVertexDeclaration(elements.GetData(), &decl_);
+				VERIFYD3DRESULT(g_pD3DD->CreateVertexDeclaration(elements.GetData(), &decl_));
 			}
 			if (!vb_)
 			{
@@ -46,25 +46,25 @@ namespace sims
 				if ((vertexBuffer_->GetStorageFlags() & StorageFlags::HintDynamic) != 0)
 					pool = D3DPOOL_DEFAULT;
 
-				CHECK_HR = g_pD3DD->CreateVertexBuffer(vertexBuffer_->GetVertexCount() * vertexDecl_->GetStride(),
+				VERIFYD3DRESULT(g_pD3DD->CreateVertexBuffer(vertexBuffer_->GetVertexCount() * vertexDecl_->GetStride(),
 					D3DUSAGE_WRITEONLY,
 					0, // using vertex decl
 					pool,
 					&vb_,
-					0);
+					0));
 			}
 
 			// update vertex buffer
 			auto L = vertexBuffer_->Lock(LockFlags::LockRead);
 			
 			void* vertices = nullptr;
-			CHECK_HR = vb_->Lock(
+			VERIFYD3DRESULT(vb_->Lock(
 				0,
 				0,
 				&vertices,
-				D3DLOCK_DISCARD); // discard for update entire vertex buffer
+				D3DLOCK_DISCARD)); // discard for update entire vertex buffer
 			memcpy(vertices, L->GetData(), vertexBuffer_->GetVertexCount() * vertexDecl_->GetStride());
-			CHECK_HR = vb_->Unlock();
+			VERIFYD3DRESULT(vb_->Unlock());
 			
 			vertexBuffer_->Unlock(L);
 		}
@@ -73,11 +73,16 @@ namespace sims
 		{
 			ASSERT(decl_ && vb_);
 
-			CHECK_HR = g_pD3DD->SetVertexDeclaration(decl_);
-			CHECK_HR = g_pD3DD->SetStreamSource(0, vb_, 0, vertexDecl_->GetStride());
+			VERIFYD3DRESULT(g_pD3DD->SetVertexDeclaration(decl_));
+			VERIFYD3DRESULT(g_pD3DD->SetStreamSource(0, vb_, 0, vertexDecl_->GetStride()));
 		}
 
 		void D3D9VertexBufferResource::ReleaseResource()
+		{
+			InternalReleaseResource();
+		}
+
+		void D3D9VertexBufferResource::InternalReleaseResource()
 		{
 			SAFE_RELEASE(decl_);
 			SAFE_RELEASE(vb_);

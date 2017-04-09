@@ -10,7 +10,7 @@
 	purpose:	Vertex Buffer
 *********************************************************************/
 #include "vertex_buffer.h"
-#include "graphics_api/sims_sdk_rhi.h"
+#include "graphics_api/sims_sdk_hw.h"
 
 namespace sims
 {
@@ -113,7 +113,7 @@ namespace sims
 
 		// update vertex buffer
 		if (!HWResource_)
-			HWResource_ = rhi::CreateResource<VertexBufferResource>();
+			HWResource_ = hw::CreateResource<VertexBufferResource>();
 		
 		HWResource_->Attach(this);
 		HWResource_->UpdateResource();
