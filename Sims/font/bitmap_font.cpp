@@ -209,8 +209,8 @@ namespace sims
 		for (auto& c : s)
 		{
 			Recti rc = GetCharBoundingBox(c);
-			top = MIN(top, rc.top);
-			bottom = MAX(bottom, rc.bottom);
+			top = MIN(top, rc.x);
+			bottom = MAX(bottom, rc.y + rc.h);
 		}
 		int32 width = (int32)GetStringAdvance(s);
 

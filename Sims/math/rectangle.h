@@ -21,55 +21,56 @@ namespace sims
 	class Rectangle
 	{
 	public:
-		T left, top, right, bottom;
+		T x, y, w, h;
 
-		Rectangle() : left(0), top(0), right(0), bottom(0) {}
-		Rectangle(T l, T t, T r, T b) : left(l), top(t), right(r), bottom(b) {}
-		Rectangle(const Rectangle<T>& rhs) { CopyRect(&rhs); }
+		Rectangle() : x(0), y(0), w(0), h(0) {}
+		Rectangle(T _x, T _y, T _w, T _h) : x(_x), y(_y), w(_w), h(_h) {}
+		Rectangle(const Rectangle<T>& rc) { CopyRect(&rc); }
 		Rectangle(const Rectangle<T>* p) { CopyRect(p); }
 
-		Rectangle& operator=(const Rectangle<T>& rhs)
+		Rectangle& operator=(const Rectangle<T>& rc)
 		{
-			CopyRect(&rhs);
+			CopyRect(&rc);
 			return *this;
 		}
-		Rectangle& operator&=(const Rectangle<T>& rhs) 
+		Rectangle& operator&=(const Rectangle<T>& rc)
 		{
-			left = MAX(left, rhs.left);
-			top = MAX(top, rhs.top);
-			right = MIN(right, rhs.right);
-			bottom = MIN(bottom, rhs.bottom);
+			T r = MIN(x + w, rc.x + rc.w);
+			T b = MIN(y + h, rc.y + rc.h);
+			x = MAX(x, rc.x);
+			y = MAX(y, rc.y);
+			w = r - x;
+			h = b - y;
 			return *this;
 		}
-		Rectangle& operator|=(const Rectangle<T>& rhs)
+		Rectangle& operator|=(const Rectangle<T>& rc)
 		{
-			left = MIN(left, rhs.left);
-			top = MIN(top, rhs.top);
-			right = MAX(right, rhs.right);
-			bottom = MAX(bottom, rhs.bottom);
+			T r = MAX(x + w, rc.x + rc.w);
+			T b = MAX(y + h, rc.y + rc.h);
+			x = MIN(x, rc.x);
+			y = MIN(y, rc.y);
+			w = r - x;
+			h = b - y;
 			return *this;
 		}
 
 		void CopyRect(const Rectangle<T>* src) { memcpy(this, src, sizeof(Rectangle<T>)); }
-		void SetRect(T l, T t, T r, T b) { left = l; top = t; right = r; bottom = b; }
+		void SetRect(T _x, T _y, T _w, T _h) { x = _x; y = _y; w = _w; h = _h; }
 
-		T Width() const { return right - left; }
-		T Height() const { return bottom - top; }
-		void Width(T width) { right = left + width; }
-		void Height(T height) { bottom = top + height; }
-		Vector2f CenterPoint() const { return Vector2f((left + right) / 2.0f, (top + bottom) / 2.0f); }
-		bool IsRectEmpty() const { return left >= right || top >= bottom; }
+		Vector2f CenterPoint() const { return Vector2f(x + w * 0.5f, y + h * 0.5f); }
+		bool IsEmpty() const { return w <= 0 || h <= 0; }
 		
 		template<class U> 
 		bool PtInRect(const Vector2<U>& pt) const 
 		{ 
-			return pt.x >= left && pt.x <= right && pt.y >= top && pt.y <= bottom; 
+			return pt.x >= x && pt.x <= x + w && pt.y >= y && pt.y <= y + h;
 		}
 
 		template<class U>
-		void OffsetRect(U x, U y)
-		{ 
-			left += (T)x; right += (T)x; top += (T)y; bottom += (T)y;
+		void OffsetRect(U _x, U _y)
+		{
+			x += _x;
+			y += _y;
 		}
 
 		template<class U>
@@ -77,38 +78,29 @@ namespace sims
 		{ 
 			OffsetRect(pt.x, pt.y); 
 		}
-
-		template<class U> 
-		void InflateRect(U l, U t, U r, U b) 
-		{ 
-			left -= l; 
-			right += r;
-			top -= t;
-			bottom += t;
-		}
 	};
 
 	template<class T>
-	bool operator==(const Rectangle<T>& lhs, const Rectangle<T>& rhs)
+	bool operator==(const Rectangle<T>& rc1, const Rectangle<T>& rc2)
 	{
-		return equal_t(lhs.left, rhs.left) 
-			&& equal_t(lhs.top, rhs.top)
-			&& equal_t(lhs.right, rhs.right)
-			&& equal_t(lhs.bottom, rhs.bottom);
+		return equal_t(rc1.x, rc2.x)
+			&& equal_t(rc1.y, rc2.y)
+			&& equal_t(rc1.w, rc2.w)
+			&& equal_t(rc1.h, rc2.h);
 	}
 
 	template<class T>
-	bool operator!=(const Rectangle<T>& lhs, const Rectangle<T>& rhs)
+	bool operator!=(const Rectangle<T>& rc1, const Rectangle<T>& rc2)
 	{
-		return !(lhs == rhs);
+		return !(rc1 == rc2);
 	}
 
 	template<class T>
-	Rectangle<T> operator&(const Rectangle<T>& lhs, const Rectangle<T>& rhs)
+	Rectangle<T> operator&(const Rectangle<T>& rc1, const Rectangle<T>& rc2)
 	{
-		Rectangle<T> rect = lhs;
-		rect &= rhs;
-		return rect;
+		Rectangle<T> rc = rc1;
+		rc &= rc2;
+		return rc;
 	}
 }
 

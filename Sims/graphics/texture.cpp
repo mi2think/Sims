@@ -125,7 +125,7 @@ namespace sims
 			else
 				regions[i] = Recti();
 		}
-		if (bbox.IsRectEmpty())
+		if (bbox.IsEmpty())
 			return;
 
 		// update texture
