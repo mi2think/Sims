@@ -15,9 +15,6 @@
 #include "graphics/render_resource.h"
 #include "hw/hw_renderer.h"
 
-// hw implement by ?
-#define SIMS_SDK_IMPL_D3D9 1
-
 namespace sims
 {
 	namespace hw

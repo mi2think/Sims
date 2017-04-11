@@ -244,6 +244,7 @@
     <ClInclude Include="graphics_api\sims_sdk_d3d9.h" />
     <ClInclude Include="graphics_api\sims_sdk_hw.h" />
     <ClInclude Include="graphics_api\sims_sdk_ogl.h" />
+    <ClInclude Include="gui\gui.h" />
     <ClInclude Include="math\bbox.h" />
     <ClInclude Include="math\frustum.h" />
     <ClInclude Include="math\math_fwd.h" />

@@ -46,6 +46,9 @@
     <Filter Include="graphics_api\hw">
       <UniqueIdentifier>{840e61cf-834f-45a5-99a3-acfce93436c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gui">
+      <UniqueIdentifier>{e6b394ee-d3f4-49bd-8cb9-5806f49f0bc7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\math.cpp">
@@ -476,6 +479,9 @@
     </ClInclude>
     <ClInclude Include="graphics_api\hw\hw_renderer.h">
       <Filter>graphics_api\hw</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\gui.h">
+      <Filter>gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
