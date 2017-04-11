@@ -14,6 +14,14 @@
 
 #include "graphics/render_resource.h"
 #include "hw/hw_renderer.h"
+#include "hw/hw_window.h"
+
+// TODO: make it as a plugin
+#define SIMS_SDK_IMPL_D3D9 1
+
+#if SIMS_SDK_IMPL_D3D9
+	#include "d3d9/d3d9_window.h"
+#endif
 
 namespace sims
 {
@@ -31,6 +39,8 @@ namespace sims
 		template<> ShaderResource*          CreateResource<ShaderResource>();
 		template<> ProgramResource*			CreateResource<ProgramResource>();
 	}
+
+	typedef hw::Window<d3d9::Window> HWWindow;
 }
 
 #endif

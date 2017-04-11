@@ -216,6 +216,9 @@
     <ClCompile Include="graphics_api\sims_sdk_hw.cpp">
       <Filter>graphics_api</Filter>
     </ClCompile>
+    <ClCompile Include="graphics_api\d3d9\d3d9_window.cpp">
+      <Filter>graphics_api\d3d9</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -482,6 +485,9 @@
     </ClInclude>
     <ClInclude Include="gui\gui.h">
       <Filter>gui</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\hw\hw_window.h">
+      <Filter>graphics_api\hw</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

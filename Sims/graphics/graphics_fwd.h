@@ -95,6 +95,12 @@ namespace sims
 		HintDynamic = BIT(2) // hint for hardware, only valid if Hardware set
 	END_DECLARE_ENUM()
 
+	DECLARE_ENUM(Transform)
+		World,
+		View,
+		Projection
+	END_DECLARE_ENUM()
+
 	typedef void* RenderID;		// generic, platform independent
 	typedef void* UniformLoc;	// generic, platform independent
 

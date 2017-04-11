@@ -27,6 +27,9 @@ namespace sims
 			virtual void BeginFrame(uint32 clearFlags, Color color, float depth, uint32 stencil) = 0;
 			virtual void EndFrame() = 0;
 			virtual void PresentFrame() = 0;
+
+			virtual void SetTransform(Transform::Type type, const Matrix44f& matrix) = 0;
+			virtual const Matrix44f& GetTransform(Transform::Type type) const = 0;
 		};
 	}
 }

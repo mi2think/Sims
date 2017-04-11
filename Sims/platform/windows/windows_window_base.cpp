@@ -15,6 +15,8 @@
 #include "core/input_state.h"
 #include "platform/platform.h"
 
+#include <windows.h>
+
 #include <windowsx.h>	// for GET_X_LPARAM and GET_Y_LPARAM
 
 namespace sims
@@ -56,7 +58,7 @@ namespace sims
 		app_ = app;
 	}
 
-	HWND WindowBase::GetHandle() const
+	void* WindowBase::GetHandle() const
 	{
 		return g_hwnd;
 	}
@@ -119,7 +121,7 @@ namespace sims
 		Create(cx_screen, cy_screen, title, false);
 	}
 
-	bool WindowBase::MsgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+	bool WindowBase::MsgProc(void* hwnd, uint32 uMsg, uint64 wParam, uint64 lParam)
 	{
 		switch (uMsg)
 		{
@@ -129,17 +131,17 @@ namespace sims
 		case WM_KEYDOWN:
 		case WM_SYSKEYDOWN:
 		{
-			KeyPressEvent event(wParam);
+			KeyPressEvent event((int)wParam);
 			app_->OnEvent(event);
 			InputState::OnKeyPress(event);
 			if (event.GetKey() == KEY_ESCAPE)
-				SendMessage(hwnd, WM_CLOSE, 0, 0);
+				SendMessage((HWND)hwnd, WM_CLOSE, 0, 0);
 		}
 		break;
 		case WM_KEYUP:
 		case WM_SYSKEYUP:
 		{
-			KeyReleaseEvent event(wParam);
+			KeyReleaseEvent event((int)wParam);
 			app_->OnEvent(event);
 			InputState::OnKeyRelease(event);
 		}

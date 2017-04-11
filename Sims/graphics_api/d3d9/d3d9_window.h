@@ -12,9 +12,6 @@
 #ifndef __WINDOW_DX9_H__
 #define __WINDOW_DX9_H__
 
-#include "sims.h"
-#include "d3d9_common.h"
-#include "d3d9_renderer_caps.h"
 #include "platform/windows/windows_window_base.h"
 
 namespace sims
@@ -24,19 +21,8 @@ namespace sims
 		class Window : public WindowBase
 		{
 		public:
-			virtual void OnCreate()
-			{
-				SetupD3D();
-				SetupD3DDevice(GetHandle(), width_, height_, wndmode_);
-
-				InitRendererCaps();
-				g_RendererCaps.Dump();
-			}
-
-			virtual void OnDestroy()
-			{
-				DestoryDirectX();
-			}
+			virtual void OnCreate();
+			virtual void OnDestroy();
 		};
 	}
 }

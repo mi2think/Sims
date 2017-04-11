@@ -16,8 +16,6 @@
 #include "core/timer.h"
 #include "utils/demo_app.h"
 
-#include <windows.h>
-
 namespace sims
 {
 	class WindowBase
@@ -28,12 +26,12 @@ namespace sims
 
 		void Create(uint32 width, uint32 height, const char* title, bool wndmode);
 		void CreateFullScreen(const char* title);
-		bool MsgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+		bool MsgProc(void* hwnd, uint32 uMsg, uint64 wParam, uint64 lParam);
 		bool Loop();
 
 		uint32 GetWidth() const { return width_; }
 		uint32 GetHeight() const { return height_; }
-		HWND GetHandle() const;
+		void* GetHandle() const;
 
 		void SetApp(DemoAppBase* app);
 

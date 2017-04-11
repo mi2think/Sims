@@ -11,8 +11,7 @@
 *********************************************************************/
 #include "sims_sdk_hw.h"
 
-// hw implement by ?
-//#define SIMS_SDK_IMPL_D3D9 1
+
 
 #if SIMS_SDK_IMPL_D3D9
 #include "sims_sdk_d3d9.h"

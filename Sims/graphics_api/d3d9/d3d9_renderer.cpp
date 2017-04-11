@@ -12,6 +12,7 @@
 #include "d3d9_renderer.h"
 #include "d3d9_common.h"
 #include "graphics/texture.h"
+#include "math/matrix44.h"
 
 namespace sims
 {
@@ -39,6 +40,32 @@ namespace sims
 		void D3D9Renderer::PresentFrame()
 		{
 			VERIFYD3DRESULT(g_pD3DD->Present(0, 0, 0, 0));
+		}
+
+		void D3D9Renderer::SetTransform(Transform::Type type, const Matrix44f& matrix)
+		{
+			switch (type)
+			{
+			case Transform::World:
+				VERIFYD3DRESULT(g_pD3DD->SetTransform(D3DTS_WORLD, (const D3DXMATRIX*)&matrix.m));
+				break;
+			case Transform::View:
+				VERIFYD3DRESULT(g_pD3DD->SetTransform(D3DTS_VIEW, (const D3DXMATRIX*)&matrix.m));
+				break;
+			case Transform::Projection:
+				VERIFYD3DRESULT(g_pD3DD->SetTransform(D3DTS_PROJECTION, (const D3DXMATRIX*)&matrix.m));
+				break;
+			default:
+				break;
+			}
+			ASSERT(type < Transform::Max);
+			matrixs_[type] = matrix;
+		}
+
+		const Matrix44f& D3D9Renderer::GetTransform(Transform::Type type) const
+		{
+			ASSERT(type < Transform::Max);
+			return matrixs_[type];
 		}
 	}
 }
