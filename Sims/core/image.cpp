@@ -385,8 +385,8 @@ namespace sims
 
 	void Image::Validate()
 	{
-		invalidRegion_.Width(0);
-		invalidRegion_.Height(0);
+		invalidRegion_.w = 0;
+		invalidRegion_.h = 0;
 	}
 
 	LockedImage* Image::Lock(uint32 lockFlags)
