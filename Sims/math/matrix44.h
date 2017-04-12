@@ -588,6 +588,29 @@ namespace sims
 		return n;
 	}
 
+	template <typename T>
+	inline Matrix44<T>& MatrixOrthoLH(Matrix44<T>& n, float w, float h, float zn, float zf)
+	{
+		auto& m = n.Identity().m;
+		m[0][0] = 2.0f / w;
+		m[1][1] = 2.0f / h;
+		m[2][2] = 1.0f / (zf - zn);
+		m[3][2] = zn / (zn - zf);
+		return n;
+	}
+
+	template <typename T>
+	inline Matrix44<T>& MatrixOrthoOffCenterLH(Matrix44<T>& n, float l, float r, float b, float t, float zn, float zf)
+	{
+		auto& m = n.Identity().m;
+		m[0][0] = 2.0f / (r - l);
+		m[1][1] = 2.0f / (t - b);
+		m[2][2] = 1.0f / (zf - zn);
+		m[3][0] = -1.0f - 2.0f * l / (r - l);
+		m[3][1] = 1.0f + 2.0f * t / (b - t);
+		m[3][2] = zn / (zn - zf);
+		return n;
+	}
 	//////////////////////////////////////////////////////////////////////////
 
 	template <typename T, typename U>
