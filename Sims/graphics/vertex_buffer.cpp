@@ -52,6 +52,14 @@ namespace sims
 		, lockedCount_(0)
 	{}
 
+	VertexBuffer::VertexBuffer(const VertexDeclarationRef& vertexDecl)
+		: vertexDecl_(vertexDecl)
+		, vertexCount_(0)
+		, storageFlags_(StorageFlags::Local)
+		, lockedCount_(0)
+	{
+	}
+
 	VertexBuffer::VertexBuffer(const VertexDeclarationRef& vertexDecl, uint32 vertexCount)
 		: vertexDecl_(vertexDecl)
 		, vertexCount_(vertexCount)
@@ -63,6 +71,11 @@ namespace sims
 
 	VertexBuffer::~VertexBuffer()
 	{
+	}
+
+	void VertexBuffer::Resize(uint32 vertexCount)
+	{
+		vertexData_.Resize(vertexCount * vertexDecl_->GetStride());
 	}
 
 	LockedVertexBuffer* VertexBuffer::Lock(uint32 lockFlags, uint32 offset, uint32 count)

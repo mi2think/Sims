@@ -53,6 +53,7 @@ namespace sims
 
 		bool Valid() const { return indexData_.GetData() != nullptr; }
 		uint32 GetIndexCount() const { return indexCount_; }
+		void Resize(uint32 indexCount);
 
 		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
 		uint32 GetStorageFlags() const { return storageFlags_; }

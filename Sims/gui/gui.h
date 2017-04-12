@@ -17,10 +17,9 @@ namespace sims
 {
 	namespace gui
 	{
-		class SGui
+		class SGuiRenderer
 		{
 		public:
-
 		};
 	}
 }

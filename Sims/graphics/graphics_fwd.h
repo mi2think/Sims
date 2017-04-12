@@ -13,7 +13,6 @@
 #define __GRAPHICS_FWD_H__
 
 #include "sims.h"
-#include "core/color.h"
 
 namespace sims
 {

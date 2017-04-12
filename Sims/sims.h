@@ -14,6 +14,7 @@
 
 #include "math/math_fwd.h"
 #include "core/core.h"
+#include "core/color.h"
 #include "core/log.h"
 #include "core/ref.h"
 #include "core/buffer.h"

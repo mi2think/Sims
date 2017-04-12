@@ -13,7 +13,6 @@
 #define __RENDERER_HW_H__
 
 #include "graphics/graphics_fwd.h"
-#include "core/color.h"
 
 namespace sims
 {

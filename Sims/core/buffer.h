@@ -14,7 +14,8 @@
 #include "core.h"
 
 namespace sims
-{
+{	
+	// T must be POD type 
 	template<typename T>
 	class TBuffer
 	{
