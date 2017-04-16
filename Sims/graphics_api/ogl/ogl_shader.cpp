@@ -72,7 +72,7 @@ namespace sims
 			resource_ = resource;
 		}
 
-		void OGLShaderResource::BindResource()
+		void OGLShaderResource::BindResource() const
 		{
 			ASSERT(false && "we won't use separate shader program in ogl");
 		}

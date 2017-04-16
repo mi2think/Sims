@@ -71,7 +71,7 @@ namespace sims
 		Color
 	END_DECLARE_ENUM()
 
-	DECLARE_ENUM(VertexStreamElementType)
+	DECLARE_ENUM(ElementType)
 		S8,
 		U8,
 		S16,
@@ -100,9 +100,16 @@ namespace sims
 		Projection
 	END_DECLARE_ENUM()
 
+	DECLARE_ENUM(PrimitiveType)
+		Points,
+		Lines,
+		Triangles
+	END_DECLARE_ENUM()
+
 	typedef void* RenderID;		// generic, platform independent
 	typedef void* UniformLoc;	// generic, platform independent
 
+	class RenderResource;
 	class Texture;
 	class TextureResource;
 	class VertexStream;
@@ -127,6 +134,12 @@ namespace sims
 	typedef Ref<ShaderResource> ShaderResourceRef;
 	typedef Ref<Program> ProgramRef;
 	typedef Ref<ProgramResource> ProgramResourceRef;
+
+	template<typename T>
+	struct ElementTypeTraits {};
+	template<> struct ElementTypeTraits<Color>    { static const ElementType::Type Ty = ElementType::U32; static const uint32 N = 1; };
+	template<> struct ElementTypeTraits<Vector2f> { static const ElementType::Type Ty = ElementType::F32; static const uint32 N = 2; };
+	template<> struct ElementTypeTraits<Vector3f> { static const ElementType::Type Ty = ElementType::F32; static const uint32 N = 3; };
 }
 
 #endif

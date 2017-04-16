@@ -61,7 +61,7 @@ namespace sims
 			indexBuffer_->Unlock(L);
 		}
 
-		void D3D9IndexBufferResource::BindResource()
+		void D3D9IndexBufferResource::BindResource() const
 		{
 			ASSERT(ib_);
 			VERIFYD3DRESULT(g_pD3DD->SetIndices(ib_));

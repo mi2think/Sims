@@ -13,7 +13,7 @@
 
 namespace sims
 {
-	VertexStream::VertexStream(VertexStreamUsage::Type usage, uint32 index, VertexStreamElementType::Type type, uint32 elementCount)
+	VertexStream::VertexStream(VertexStreamUsage::Type usage, uint32 index, ElementType::Type type, uint32 elementCount)
 		: usage_(usage)
 		, index_(index)
 		, elementType_(type)
@@ -25,17 +25,17 @@ namespace sims
 		uint32 size = 0;
 		switch (elementType_)
 		{
-		case VertexStreamElementType::S8:
-		case VertexStreamElementType::U8:
+		case ElementType::S8:
+		case ElementType::U8:
 			size = 1;
 			break;
-		case VertexStreamElementType::S16:
-		case sims::VertexStreamElementType::U16:
+		case ElementType::S16:
+		case sims::ElementType::U16:
 			size = 2;
 			break;
-		case sims::VertexStreamElementType::S32:
-		case sims::VertexStreamElementType::U32:
-		case sims::VertexStreamElementType::F32:
+		case sims::ElementType::S32:
+		case sims::ElementType::U32:
+		case sims::ElementType::F32:
 			size = 4;
 			break;
 		default:

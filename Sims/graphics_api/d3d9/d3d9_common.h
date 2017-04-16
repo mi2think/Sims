@@ -67,6 +67,7 @@ namespace sims
 		D3DFORMAT ToD3DFormat(PixelFormat::Type format);
 		D3DTEXTUREFILTERTYPE ToD3DTextureFilterType(TextureFilter::Type filter);
 		D3DTEXTUREADDRESS ToD3DTextureAddress(TextureWrap::Type wrap);
+		D3DPRIMITIVETYPE ToD3DPrimitiveType(PrimitiveType::Type primitive);
 		void FillD3DVertexElement(D3DVERTEXELEMENT9* vertexElement, const VertexStream* vertexStream);
 
 		// vertex define

@@ -69,7 +69,7 @@ namespace sims
 			vertexBuffer_->Unlock(L);
 		}
 
-		void D3D9VertexBufferResource::BindResource()
+		void D3D9VertexBufferResource::BindResource() const
 		{
 			ASSERT(decl_ && vb_);
 

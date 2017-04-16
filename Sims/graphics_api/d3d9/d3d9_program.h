@@ -26,7 +26,7 @@ namespace sims
 			~D3D9ProgramResource();
 
 			virtual void UpdateResource();
-			virtual void BindResource();
+			virtual void BindResource() const;
 			virtual void ReleaseResource();
 		};
 	}

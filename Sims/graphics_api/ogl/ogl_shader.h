@@ -26,7 +26,7 @@ namespace sims
 			~OGLShaderResource();
 
 			virtual void UpdateResource();
-			virtual void BindResource();
+			virtual void BindResource() const;
 			virtual void ReleaseResource();
 
 			GLuint GetResource() const { return resource_; }

@@ -69,7 +69,7 @@ namespace sims
 			gl_check_error("OGLRenderer::UpdateTexture");
 		}
 
-		void OGLTextureResource::BindResource()
+		void OGLTextureResource::BindResource() const
 		{
 			glActiveTexture(GL_TEXTURE0 + bindStage_);
 			glBindTexture(GL_TEXTURE_2D, resource_);

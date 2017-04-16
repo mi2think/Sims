@@ -27,7 +27,7 @@ namespace sims
 			InternalReleaseResource();
 		}
 
-		void OGLProgramResource::UpdateResource()
+		void OGLProgramResource::UpdateResource() 
 		{
 			ReleaseResource();
 
@@ -88,7 +88,7 @@ namespace sims
 			}
 		}
 
-		void OGLProgramResource::BindResource()
+		void OGLProgramResource::BindResource() const
 		{
 			ASSERT(prog_ != 0);
 			glUseProgram(prog_);

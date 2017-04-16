@@ -100,7 +100,7 @@ namespace sims
 			}
 		}
 
-		void D3D9TextureResource::BindResource()
+		void D3D9TextureResource::BindResource() const
 		{
 			ASSERT(resource_ != nullptr);
 

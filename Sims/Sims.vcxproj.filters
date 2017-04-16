@@ -219,9 +219,7 @@
     <ClCompile Include="graphics_api\d3d9\d3d9_window.cpp">
       <Filter>graphics_api\d3d9</Filter>
     </ClCompile>
-    <ClCompile Include="gui\gui_draw_list.cpp">
-      <Filter>gui</Filter>
-    </ClCompile>
+    <ClCompile Include="gui\gui.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -491,9 +489,6 @@
     </ClInclude>
     <ClInclude Include="graphics_api\hw\hw_window.h">
       <Filter>graphics_api\hw</Filter>
-    </ClInclude>
-    <ClInclude Include="gui\gui_draw_list.h">
-      <Filter>gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -30,7 +30,7 @@ namespace sims
 		{
 		}
 
-		void D3D9ProgramResource::BindResource()
+		void D3D9ProgramResource::BindResource() const
 		{
 			for (int i = 0; i < ShaderDomain::Max; ++i)
 			{

@@ -25,7 +25,7 @@ namespace sims
 			~D3D9IndexBufferResource();
 
 			virtual void UpdateResource();
-			virtual void BindResource();
+			virtual void BindResource() const;
 			virtual void ReleaseResource();
 		private:
 			void InternalReleaseResource();

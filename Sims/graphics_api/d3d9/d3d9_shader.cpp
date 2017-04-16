@@ -90,7 +90,7 @@ namespace sims
 			AnalyseConstants();
 		}
 
-		void D3D9ShaderResource::BindResource()
+		void D3D9ShaderResource::BindResource() const
 		{
 			auto type = shader_->GetType();
 			if (type == ShaderDomain::Vertex)
@@ -101,9 +101,6 @@ namespace sims
 			{
 				VERIFYD3DRESULT(g_pD3DD->SetPixelShader(psResource_));
 			}
-
-			constants_.clear();
-			samplers_.clear();
 		}
 
 		void D3D9ShaderResource::ReleaseResource()
@@ -125,6 +122,9 @@ namespace sims
 
 				resource_ = nullptr;
 			}
+
+			constants_.clear();
+			samplers_.clear();
 		}
 
 		void D3D9ShaderResource::AnalyseConstants()

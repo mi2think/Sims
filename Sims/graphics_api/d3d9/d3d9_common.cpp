@@ -183,6 +183,23 @@ namespace sims
 			return D3DTADDRESS_WRAP;
 		}
 
+		D3DPRIMITIVETYPE ToD3DPrimitiveType(PrimitiveType::Type primitive)
+		{
+			switch (primitive)
+			{
+			case PrimitiveType::Points:
+				return D3DPT_POINTLIST;
+			case PrimitiveType::Lines:
+				return D3DPT_LINELIST;
+			case PrimitiveType::Triangles:
+				return D3DPT_TRIANGLELIST;
+			default:
+				LOG_WARN("Using default primitive: Triangles");
+				break;
+			}
+			return D3DPT_TRIANGLELIST;
+		}
+
 		void FillD3DVertexElement(D3DVERTEXELEMENT9* vertexElement, const VertexStream* vertexStream)
 		{
 			// vertex usage
@@ -209,7 +226,7 @@ namespace sims
 			// vertex data type
 			auto type = vertexStream->GetElementType();
 			auto count = vertexStream->GetElementCount();
-			if (type == VertexStreamElementType::F32)
+			if (type == ElementType::F32)
 			{
 				switch (count)
 				{
@@ -222,7 +239,7 @@ namespace sims
 					break;
 				}
 			}
-			else if (type == VertexStreamElementType::U8)
+			else if (type == ElementType::U8)
 			{
 				if (count == 4)
 				{
@@ -234,7 +251,7 @@ namespace sims
 				else
 					ASSERT(false && "unsupport data type!");
 			}
-			else if (type == VertexStreamElementType::S16)
+			else if (type == ElementType::S16)
 			{
 				if (count == 2)
 					vertexElement->Type = D3DDECLTYPE_SHORT2;

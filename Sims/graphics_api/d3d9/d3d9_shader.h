@@ -26,7 +26,7 @@ namespace sims
 			~D3D9ShaderResource();
 
 			virtual void UpdateResource();
-			virtual void BindResource();
+			virtual void BindResource() const;
 			virtual void ReleaseResource();
 
 			virtual void SetConstant(const char* name, const void* data, uint32 dataSize);

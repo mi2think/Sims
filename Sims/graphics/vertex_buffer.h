@@ -24,6 +24,9 @@ namespace sims
 		LockedVertexBuffer();
 		LockedVertexBuffer(VertexBuffer* vertexBuffer, uint32 lockFlags, uint32 offset, uint32 count);
 		
+		void Init(VertexBuffer* vertexBuffer, uint32 lockFlags, uint32 offset, uint32 count);
+		void Clear();
+
 		uint32 GetLockFlags() const { return lockFlags_; }
 		uint32 GetOffset() const { return offset_; }
 		uint32 GetCount() const { return count_; }
@@ -31,9 +34,6 @@ namespace sims
 		const VertexDeclarationRef& GetVertexDeclaration() const;
 		void* GetData() { return vertexData_->GetData(); }
 		const void* GetData() const { return vertexData_->GetData(); }
-
-		void Init(VertexBuffer* vertexBuffer, uint32 lockFlags, uint32 offset, uint32 count);
-		void Clear();
 	private:
 		friend class VertexBuffer;
 
