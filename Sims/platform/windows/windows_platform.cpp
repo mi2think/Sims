@@ -11,6 +11,7 @@
 *********************************************************************/
 #include "windows_platform.h"
 #include "windows_file_system.h"
+#include "core/path.h"
 
 #include <windows.h>
 
@@ -40,7 +41,7 @@ namespace sims
 
 	string Platform::GetEnv(const string& name)
 	{
-		const int32 bufferSize = 4096;
+		const int32 bufferSize = 512;
 		vector<char> buffer;
 		buffer.resize(bufferSize);
 
@@ -73,5 +74,29 @@ namespace sims
 			return false;
 		}
 		return true;
+	}
+
+	string& Platform::GetBaseDir()
+	{
+		static string baseDir(512, '\0');
+
+		if (baseDir[0])
+			return baseDir;
+		else
+		{
+			HMODULE currModule = nullptr;
+			if (!GetModuleHandleEx(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT, (LPCSTR)&GetBaseDir, &currModule))
+			{
+				LOG_ERROR("Platform GetBaseDir failed! Error Code: %d", GetLastError());
+			}
+			else
+			{
+				GetModuleFileName(currModule, &baseDir[0], baseDir.size());
+				baseDir = Path::Normalize(baseDir);
+				baseDir = Path::Parent(baseDir);
+			}
+		}
+
+		return baseDir;
 	}
 }

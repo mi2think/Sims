@@ -23,5 +23,7 @@ namespace sims
 		// environment
 		static string GetEnv(const string& name);
 		static bool SetEnv(const string& name, const string& val);
+
+		static string& GetBaseDir();
 	};
 }

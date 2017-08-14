@@ -18,4 +18,9 @@ UNIT_TEST(Platform)
 		string ev1 = Platform::GetEnv("test_set_env");
 		EXPECT_EQ(ev1, string("hi"));
 	}
+
+	{
+		auto& baseDir = Platform::GetBaseDir();
+		EXPECT_TRUE(! baseDir.empty());
+	}
 }
