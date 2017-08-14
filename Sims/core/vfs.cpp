@@ -11,7 +11,7 @@
 *********************************************************************/
 #include "vfs.h"
 #include "path.h"
-#include "platform/platform.h"
+#include "platform.h"
 #include "utils/string_utils.h"
 
 namespace sims

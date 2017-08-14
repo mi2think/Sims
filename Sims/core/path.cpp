@@ -10,8 +10,8 @@
 	purpose:	Path
 *********************************************************************/
 #include "path.h"
-#include "core/file_system.h"
-#include "platform/platform.h"
+#include "file_system.h"
+#include "platform.h"
 #include "utils/string_utils.h"
 
 namespace sims

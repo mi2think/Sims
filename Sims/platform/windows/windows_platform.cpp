@@ -9,7 +9,7 @@
 
 	purpose:	Windows Platform
 *********************************************************************/
-#include "platform/platform.h"
+#include "windows_platform.h"
 #include "windows_file_system.h"
 
 #include <windows.h>

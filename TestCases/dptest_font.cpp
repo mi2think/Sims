@@ -3,7 +3,7 @@
 #include "core/file_system.h"
 #include "core/log.h"
 #include "core/image.h"
-#include "platform/platform.h"
+#include "core/platform.h"
 #include "utils/unit_test.h"
 #include "ft2build.h"
 #include FT_FREETYPE_H

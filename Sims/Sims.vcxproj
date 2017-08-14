@@ -203,6 +203,8 @@
     <ClInclude Include="core\mouse_event.h" />
     <ClInclude Include="core\output_stream.h" />
     <ClInclude Include="core\path.h" />
+    <ClInclude Include="core\platform.h" />
+    <ClInclude Include="core\platform_def.h" />
     <ClInclude Include="core\ref.h" />
     <ClInclude Include="core\timer.h" />
     <ClInclude Include="core\core.h" />
@@ -262,8 +264,8 @@
     <ClInclude Include="math\vector2.h" />
     <ClInclude Include="math\vector3.h" />
     <ClInclude Include="math\vector4.h" />
-    <ClInclude Include="platform\platform.h" />
     <ClInclude Include="platform\windows\windows_file_system.h" />
+    <ClInclude Include="platform\windows\windows_platform.h" />
     <ClInclude Include="platform\windows\windows_window_base.h" />
     <ClInclude Include="sims.h" />
     <ClInclude Include="utils\demo_app.h" />

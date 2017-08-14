@@ -16,7 +16,7 @@
 #include "core/file_system.h"
 #include "core/file_input_stream.h"
 #include "graphics/texture.h"
-#include "platform/platform.h"
+#include "core/platform.h"
 #include "utils/xml_utils.h"
 
 namespace sims

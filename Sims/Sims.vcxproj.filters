@@ -219,7 +219,9 @@
     <ClCompile Include="graphics_api\d3d9\d3d9_window.cpp">
       <Filter>graphics_api\d3d9</Filter>
     </ClCompile>
-    <ClCompile Include="gui\gui.cpp" />
+    <ClCompile Include="gui\gui.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -297,9 +299,6 @@
     </ClInclude>
     <ClInclude Include="platform\windows\windows_file_system.h">
       <Filter>platform\windows</Filter>
-    </ClInclude>
-    <ClInclude Include="platform\platform.h">
-      <Filter>platform</Filter>
     </ClInclude>
     <ClInclude Include="utils\geometry_gen.h">
       <Filter>utils</Filter>
@@ -489,6 +488,15 @@
     </ClInclude>
     <ClInclude Include="graphics_api\hw\hw_window.h">
       <Filter>graphics_api\hw</Filter>
+    </ClInclude>
+    <ClInclude Include="core\platform.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\platform_def.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\windows\windows_platform.h">
+      <Filter>platform\windows</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

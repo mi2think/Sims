@@ -10,10 +10,10 @@
 	purpose:	Window Base
 *********************************************************************/
 #include "windows_window_base.h"
+#include "windows_platform.h"
 #include "core/key_event.h"
 #include "core/mouse_event.h"
 #include "core/input_state.h"
-#include "platform/platform.h"
 
 #include <windows.h>
 

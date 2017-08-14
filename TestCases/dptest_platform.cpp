@@ -1,4 +1,4 @@
-#include "platform/platform.h"
+#include "core/platform.h"
 #include "utils/unit_test.h"
 using namespace sims;
 
