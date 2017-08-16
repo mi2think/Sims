@@ -19,6 +19,7 @@
 #define GLEW_STATIC     // defined so you can link to glew's static .lib when compiling
 
 #include "graphics/graphics_fwd.h"
+#include "ogl_glut_callbacks.h"
 
 #include <glew.h>
 #include <freeglut.h>
@@ -27,24 +28,6 @@ namespace sims
 {
 	namespace ogl
 	{
-		// glut call backs
-		class GLUT_Callbacks
-		{
-		public:
-			virtual ~GLUT_Callbacks() {}
-
-			virtual void KeyboardFunc(unsigned char key, int x, int y) = 0;
-			virtual void KeyboardSpecialFunc(int key, int x, int y) = 0;
-			virtual void KeyboardUpFunc(unsigned char key, int x, int y) = 0;
-
-			virtual void MouseFunc(int button, int state, int x, int y) = 0;
-			virtual void MotionFunc(int x, int y) = 0;
-			virtual void PassiveMotionFunc(int x, int y) = 0;
-
-			virtual void DisplayFunc() = 0;
-			virtual void IdleFunc() = 0;
-		};
-
 		extern GLUT_Callbacks* g_callback;
 
 		// init glut and display mode with:

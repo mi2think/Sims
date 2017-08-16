@@ -10,6 +10,7 @@
 	purpose:	Window OGL
 *********************************************************************/
 #include "ogl_window.h"
+#include "ogl_common.h"
 #include "ogl_renderer_caps.h"
 #include "core/log.h"
 #include "core/key_event.h"

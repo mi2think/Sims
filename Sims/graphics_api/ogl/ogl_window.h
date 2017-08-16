@@ -15,7 +15,7 @@
 #include "sims.h"
 #include "utils/demo_app.h"
 #include "core/timer.h"
-#include "ogl_common.h"
+#include "ogl_glut_callbacks.h"
 
 namespace sims
 {

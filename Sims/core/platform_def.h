@@ -27,6 +27,8 @@
 #define PLATFORM_WIN64 1
 #else
 #define PLATFORM_WIN32 1
+
+#define WIN32_LEAN_AND_MEAN
 #endif
 
 // Linux

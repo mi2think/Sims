@@ -11,10 +11,10 @@
 *********************************************************************/
 #include "sims_sdk_hw.h"
 
-
-
 #if SIMS_SDK_IMPL_D3D9
-#include "sims_sdk_d3d9.h"
+	#include "sims_sdk_d3d9.h"	
+#elif SIMS_SDK_IMPL_OGL
+	#include "sims_sdk_ogl.h"
 #endif
 
 namespace sims
@@ -22,36 +22,67 @@ namespace sims
 	namespace hw
 	{
 #if SIMS_SDK_IMPL_D3D9
-			HWRenderer* GetRenderer()
-			{
-				static d3d9::D3D9Renderer s_renderer;
-				return &s_renderer;
-			}
+		HWRenderer* GetRenderer()
+		{
+			static d3d9::D3D9Renderer s_renderer;
+			return &s_renderer;
+		}
 
-			template<> TextureResource* CreateResource<TextureResource>()
-			{
-				return new d3d9::D3D9TextureResource();
-			}
+		template<> TextureResource* CreateResource<TextureResource>()
+		{
+			return new d3d9::D3D9TextureResource();
+		}
 
-			template<> VertexBufferResource* CreateResource<VertexBufferResource>()
-			{
-				return new d3d9::D3D9VertexBufferResource();
-			}
+		template<> VertexBufferResource* CreateResource<VertexBufferResource>()
+		{
+			return new d3d9::D3D9VertexBufferResource();
+		}
 
-			template<> IndexBufferResource* CreateResource<IndexBufferResource>()
-			{
-				return new d3d9::D3D9IndexBufferResource();
-			}
+		template<> IndexBufferResource* CreateResource<IndexBufferResource>()
+		{
+			return new d3d9::D3D9IndexBufferResource();
+		}
 
-			template<> ShaderResource* CreateResource<ShaderResource>()
-			{
-				return new d3d9::D3D9ShaderResource();
-			}
+		template<> ShaderResource* CreateResource<ShaderResource>()
+		{
+			return new d3d9::D3D9ShaderResource();
+		}
 
-			template<> ProgramResource* CreateResource<ProgramResource>()
-			{
-				return new d3d9::D3D9ProgramResource();
-			}
+		template<> ProgramResource* CreateResource<ProgramResource>()
+		{
+			return new d3d9::D3D9ProgramResource();
+		}
+#elif SIMS_SDK_IMPL_OGL
+		HWRenderer* GetRenderer()
+		{
+			static ogl::OGLRenderer s_renderer;
+			return &s_renderer;
+		}
+
+		template<> TextureResource* CreateResource<TextureResource>()
+		{
+			return new ogl::OGLTextureResource();
+		}
+
+		template<> VertexBufferResource* CreateResource<VertexBufferResource>()
+		{
+			return new ogl::OGLVertexBufferResource();
+		}
+
+		template<> IndexBufferResource* CreateResource<IndexBufferResource>()
+		{
+			return new ogl::OGLIndexBufferResource();
+		}
+
+		template<> ShaderResource* CreateResource<ShaderResource>()
+		{
+			return new ogl::OGLShaderResource();
+		}
+
+		template<> ProgramResource* CreateResource<ProgramResource>()
+		{
+			return new ogl::OGLProgramResource();
+		}
 #endif
 	}
 }

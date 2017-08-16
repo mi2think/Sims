@@ -498,5 +498,8 @@
     <ClInclude Include="platform\windows\windows_platform.h">
       <Filter>platform\windows</Filter>
     </ClInclude>
+    <ClInclude Include="graphics_api\ogl\ogl_glut_callbacks.h">
+      <Filter>graphics_api\ogl</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
