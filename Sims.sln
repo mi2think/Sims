@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sims", "Sims\Sims.vcxproj", "{CCBE66E5-559F-4EBB-8BE6-83396F87FDA5}"
 EndProject
@@ -13,6 +13,8 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		dx9lib_debug|x64 = dx9lib_debug|x64
+		dx9lib_debug|x86 = dx9lib_debug|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
@@ -21,6 +23,10 @@ Global
 		{CCBE66E5-559F-4EBB-8BE6-83396F87FDA5}.Debug|x64.Build.0 = Debug|x64
 		{CCBE66E5-559F-4EBB-8BE6-83396F87FDA5}.Debug|x86.ActiveCfg = Debug|Win32
 		{CCBE66E5-559F-4EBB-8BE6-83396F87FDA5}.Debug|x86.Build.0 = Debug|Win32
+		{CCBE66E5-559F-4EBB-8BE6-83396F87FDA5}.dx9lib_debug|x64.ActiveCfg = dx9lib_debug|x64
+		{CCBE66E5-559F-4EBB-8BE6-83396F87FDA5}.dx9lib_debug|x64.Build.0 = dx9lib_debug|x64
+		{CCBE66E5-559F-4EBB-8BE6-83396F87FDA5}.dx9lib_debug|x86.ActiveCfg = dx9lib_debug|Win32
+		{CCBE66E5-559F-4EBB-8BE6-83396F87FDA5}.dx9lib_debug|x86.Build.0 = dx9lib_debug|Win32
 		{CCBE66E5-559F-4EBB-8BE6-83396F87FDA5}.Release|x64.ActiveCfg = Release|x64
 		{CCBE66E5-559F-4EBB-8BE6-83396F87FDA5}.Release|x64.Build.0 = Release|x64
 		{CCBE66E5-559F-4EBB-8BE6-83396F87FDA5}.Release|x86.ActiveCfg = Release|Win32
@@ -28,6 +34,10 @@ Global
 		{4B81703A-1C32-4922-B717-6F9FC6D5B218}.Debug|x64.ActiveCfg = Debug|Win32
 		{4B81703A-1C32-4922-B717-6F9FC6D5B218}.Debug|x86.ActiveCfg = Debug|Win32
 		{4B81703A-1C32-4922-B717-6F9FC6D5B218}.Debug|x86.Build.0 = Debug|Win32
+		{4B81703A-1C32-4922-B717-6F9FC6D5B218}.dx9lib_debug|x64.ActiveCfg = Release|Win32
+		{4B81703A-1C32-4922-B717-6F9FC6D5B218}.dx9lib_debug|x64.Build.0 = Release|Win32
+		{4B81703A-1C32-4922-B717-6F9FC6D5B218}.dx9lib_debug|x86.ActiveCfg = Debug|Win32
+		{4B81703A-1C32-4922-B717-6F9FC6D5B218}.dx9lib_debug|x86.Build.0 = Debug|Win32
 		{4B81703A-1C32-4922-B717-6F9FC6D5B218}.Release|x64.ActiveCfg = Release|Win32
 		{4B81703A-1C32-4922-B717-6F9FC6D5B218}.Release|x86.ActiveCfg = Release|Win32
 		{4B81703A-1C32-4922-B717-6F9FC6D5B218}.Release|x86.Build.0 = Release|Win32
@@ -35,6 +45,10 @@ Global
 		{17C808B7-4437-436A-91E6-230DF4C6CB2E}.Debug|x64.Build.0 = Debug|x64
 		{17C808B7-4437-436A-91E6-230DF4C6CB2E}.Debug|x86.ActiveCfg = Debug|Win32
 		{17C808B7-4437-436A-91E6-230DF4C6CB2E}.Debug|x86.Build.0 = Debug|Win32
+		{17C808B7-4437-436A-91E6-230DF4C6CB2E}.dx9lib_debug|x64.ActiveCfg = Debug|x64
+		{17C808B7-4437-436A-91E6-230DF4C6CB2E}.dx9lib_debug|x64.Build.0 = Debug|x64
+		{17C808B7-4437-436A-91E6-230DF4C6CB2E}.dx9lib_debug|x86.ActiveCfg = Debug|Win32
+		{17C808B7-4437-436A-91E6-230DF4C6CB2E}.dx9lib_debug|x86.Build.0 = Debug|Win32
 		{17C808B7-4437-436A-91E6-230DF4C6CB2E}.Release|x64.ActiveCfg = Release|x64
 		{17C808B7-4437-436A-91E6-230DF4C6CB2E}.Release|x64.Build.0 = Release|x64
 		{17C808B7-4437-436A-91E6-230DF4C6CB2E}.Release|x86.ActiveCfg = Release|Win32
