@@ -47,5 +47,36 @@ namespace sims
 		{
 			glut_swap_buffers();
 		}
+
+		void OGLRenderer::SetTransform(Transform::Type type, const Matrix44f& matrix)
+		{
+			ASSERT(type < Transform::Max);
+			matrixs_[type] = matrix;
+
+			if (type == Transform::World || type == Transform::View)
+			{
+				Matrix44f worldView;
+				MatrixMultiply(worldView, matrixs_[Transform::World], matrixs_[Transform::View]);
+
+				glMatrixMode(GL_MODELVIEW);
+				glLoadMatrixf((const GLfloat*)&worldView.m[0]);
+			}
+			else if (type == Transform::Projection)
+			{
+				glMatrixMode(GL_PROJECTION);
+				glLoadMatrixf((const GLfloat*)&matrixs_[type].m[0]);
+			}
+		}
+
+		const Matrix44f& OGLRenderer::GetTransform(Transform::Type type) const
+		{
+			ASSERT(type < Transform::Max);
+			return matrixs_[type];
+		}
+
+		void OGLRenderer::DrawPrimitive(PrimitiveType::Type type, const RenderResource& vb, uint32 primitiveCount)
+		{
+			vb.BindResource();
+		}
 	}
 }

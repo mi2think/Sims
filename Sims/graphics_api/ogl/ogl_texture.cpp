@@ -18,7 +18,7 @@ namespace sims
 	{
 		OGLTextureResource::OGLTextureResource()
 			: TextureResource()
-			, resource_(GL_INVALID_VALUE)
+			, resource_(0)
 		{
 		}
 
@@ -30,7 +30,7 @@ namespace sims
 		void OGLTextureResource::UpdateResource()
 		{
 			// generate texture object
-			if (resource_ == GL_INVALID_VALUE)
+			if (resource_ == 0)
 			{
 				glGenTextures(1, &resource_);
 			}
@@ -83,10 +83,10 @@ namespace sims
 
 		void OGLTextureResource::InternalReleaseResource()
 		{
-			if (resource_ != GL_INVALID_VALUE)
+			if (resource_ != 0)
 			{
 				glDeleteTextures(1, &resource_);
-				resource_ = GL_INVALID_VALUE;
+				resource_ = 0;
 			}
 		}
 

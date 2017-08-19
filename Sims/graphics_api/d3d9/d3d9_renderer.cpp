@@ -43,6 +43,9 @@ namespace sims
 
 		void D3D9Renderer::SetTransform(Transform::Type type, const Matrix44f& matrix)
 		{
+			ASSERT(type < Transform::Max);
+			matrixs_[type] = matrix;
+
 			switch (type)
 			{
 			case Transform::World:
@@ -57,8 +60,6 @@ namespace sims
 			default:
 				break;
 			}
-			ASSERT(type < Transform::Max);
-			matrixs_[type] = matrix;
 		}
 
 		const Matrix44f& D3D9Renderer::GetTransform(Transform::Type type) const

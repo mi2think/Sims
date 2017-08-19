@@ -15,6 +15,7 @@
 #include "ogl/ogl_common.h"
 #include "ogl/ogl_window.h"
 #include "ogl/ogl_renderer_caps.h"
+#include "ogl/ogl_renderer.h"
 #include "ogl/ogl_texture.h"
 
 #endif

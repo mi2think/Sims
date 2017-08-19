@@ -222,6 +222,9 @@
     <ClCompile Include="gui\gui.cpp">
       <Filter>gui</Filter>
     </ClCompile>
+    <ClCompile Include="graphics_api\ogl\ogl_vertex_buffer.cpp">
+      <Filter>graphics_api\ogl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -499,6 +502,9 @@
       <Filter>platform\windows</Filter>
     </ClInclude>
     <ClInclude Include="graphics_api\ogl\ogl_glut_callbacks.h">
+      <Filter>graphics_api\ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\ogl\ogl_vertex_buffer.h">
       <Filter>graphics_api\ogl</Filter>
     </ClInclude>
   </ItemGroup>
