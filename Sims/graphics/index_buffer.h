@@ -31,6 +31,9 @@ namespace sims
 		IndexType* GetData() { return indexData_->GetData(); }
 		const IndexType* GetData() const { return indexData_->GetData(); }
 
+		void* GetLockData() { return  indexData_->GetData() + offset_; }
+		const void* GetLockData() const { return  indexData_->GetData() + offset_; }
+
 		void Init(IndexBuffer* indexBuffer, uint32 lockFlags, uint32 offset, uint32 count);
 		void Clear();
 	private:
@@ -61,6 +64,8 @@ namespace sims
 		// count 0 for lock total buffer
 		LockedIndexBuffer* Lock(uint32 lockFlags, uint32 offset = 0, uint32 count = 0);
 		void Unlock(LockedIndexBuffer* L);
+
+		const IndexRange& GetInvalidRange() const { return invalidRange_; }
 
 		// propagates changes on the index buffer to the renderer.
 		//   you must call invalidate after modifying index buffer data,

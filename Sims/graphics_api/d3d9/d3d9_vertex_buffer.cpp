@@ -55,15 +55,16 @@ namespace sims
 			}
 
 			// update vertex buffer
-			auto L = vertexBuffer_->Lock(LockFlags::LockRead);
+			const IndexRange& range = vertexBuffer_->GetInvalidRange();
+			auto L = vertexBuffer_->Lock(LockFlags::LockRead, range.begin, range.count);
 			
 			void* vertices = nullptr;
 			VERIFYD3DRESULT(vb_->Lock(
-				0,
-				0,
+				L->GetOffset(),
+				L->GetCount(),
 				&vertices,
 				D3DLOCK_DISCARD)); // discard for update entire vertex buffer
-			memcpy(vertices, L->GetData(), vertexBuffer_->GetVertexCount() * vertexDecl_->GetStride());
+			memcpy(vertices, L->GetLockData(), L->GetCount() * vertexDecl_->GetStride());
 			VERIFYD3DRESULT(vb_->Unlock());
 			
 			vertexBuffer_->Unlock(L);

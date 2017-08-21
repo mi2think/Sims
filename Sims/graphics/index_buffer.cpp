@@ -46,6 +46,7 @@ namespace sims
 		: indexCount_(0)
 		, storageFlags_(StorageFlags::Local)
 		, isLocked_(false)
+		, invalidRange_(0, 0)
 	{
 	}
 
@@ -53,6 +54,7 @@ namespace sims
 		: indexCount_(indexCount)
 		, storageFlags_(StorageFlags::Local)
 		, isLocked_(false)
+		, invalidRange_(0, indexCount)
 	{
 		indexData_.Resize(indexCount);
 	}
@@ -61,6 +63,7 @@ namespace sims
 		: indexCount_(indexCount)
 		, storageFlags_(StorageFlags::Local)
 		, isLocked_(false)
+		, invalidRange_(0, indexCount)
 	{
 		ASSERT(indexCount > 0);
 

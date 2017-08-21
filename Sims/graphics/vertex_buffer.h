@@ -34,6 +34,9 @@ namespace sims
 		const VertexDeclarationRef& GetVertexDeclaration() const;
 		void* GetData() { return vertexData_->GetData(); }
 		const void* GetData() const { return vertexData_->GetData(); }
+
+		void* GetLockData() { return  vertexData_->GetData() + offset_; }
+		const void* GetLockData() const  { return  vertexData_->GetData() + offset_; }
 	private:
 		friend class VertexBuffer;
 
@@ -63,6 +66,8 @@ namespace sims
 		// count 0 for lock total buffer
 		LockedVertexBuffer* Lock(uint32 lockFlags, uint32 offset = 0, uint32 count = 0);
 		void Unlock(LockedVertexBuffer* L);
+
+		const IndexRange& GetInvalidRange() const { return invalidRange_; }
 
 		// propagates changes on the vertex buffer to the renderer.
 		//   you must call invalidate after modifying vertex buffer data,
