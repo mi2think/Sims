@@ -105,6 +105,47 @@ namespace sims
 	private:
 		float seconds_;
 	};
+
+	struct IndexRange
+	{
+		int32 begin;
+		int32 count;
+
+		IndexRange() : begin(0), count(0)
+		{}
+		IndexRange(int32 _begin, int32 _count)
+			: begin(_begin)
+			, count(_count)
+		{}
+		
+		IndexRange& operator|=(const IndexRange& indexRange)
+		{
+			if (indexRange.count == 0)
+				return *this;
+
+			if (count == 0)
+				*this = indexRange;
+			else
+			{
+				int32 end = MAX(begin + count, indexRange.begin + indexRange.count);
+				begin = MIN(begin, indexRange.begin);
+				count = end - begin;
+			}
+			return *this;
+		}
+		IndexRange& Union(const IndexRange& indexRange)
+		{
+			return *this |= indexRange;
+		}
+
+		bool IsEmpty() const { return count == 0; }
+
+		void ResetRange()
+		{
+			begin = 0;
+			count = 0;
+		}
+	};
 }
 
 #endif

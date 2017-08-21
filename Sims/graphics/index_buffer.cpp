@@ -45,14 +45,14 @@ namespace sims
 	IndexBuffer::IndexBuffer()
 		: indexCount_(0)
 		, storageFlags_(StorageFlags::Local)
-		, lockedCount_(0)
+		, isLocked_(false)
 	{
 	}
 
 	IndexBuffer::IndexBuffer(uint32 indexCount)
 		: indexCount_(indexCount)
 		, storageFlags_(StorageFlags::Local)
-		, lockedCount_(0)
+		, isLocked_(false)
 	{
 		indexData_.Resize(indexCount);
 	}
@@ -60,7 +60,7 @@ namespace sims
 	IndexBuffer::IndexBuffer(uint32 indexCount, IndexType* data)
 		: indexCount_(indexCount)
 		, storageFlags_(StorageFlags::Local)
-		, lockedCount_(0)
+		, isLocked_(false)
 	{
 		ASSERT(indexCount > 0);
 
@@ -74,21 +74,16 @@ namespace sims
 
 	void IndexBuffer::Resize(uint32 indexCount)
 	{
-		ASSERT(lockedCount_ == 0);
+		ASSERT(! isLocked_);
 		indexData_.Resize(indexCount);
 	}
 
 	LockedIndexBuffer* IndexBuffer::Lock(uint32 lockFlags, uint32 offset, uint32 count)
 	{
-		if (lockedCount_ > 0)
+		if (isLocked_)
 		{
-			// read is ok if pre-lock is read
-			if ((lockFlags & LockFlags::LockWrite) != 0 ||
-				(lockedIB_.lockFlags_ & LockFlags::LockWrite) != 0)
-			{
-				ASSERT(false && "lock locked index buffer");
-				return nullptr;
-			}
+			ASSERT(false && "lock locked index buffer");
+			return nullptr;
 		}
 
 		if (count == 0)
@@ -99,7 +94,7 @@ namespace sims
 			return nullptr;
 		}
 
-		++lockedCount_;
+		isLocked_ = true;
 		lockedIB_.Init(this, lockFlags, offset, count);
 		return &lockedIB_;
 	}
@@ -112,16 +107,25 @@ namespace sims
 			return;
 		}
 
-		--lockedCount_;
-		if (lockedCount_ == 0)
-			L->Clear();
-		else
-			ASSERT(L->GetLockFlags() == LockFlags::LockRead && "multi-lock must be read");
+		if (!isLocked_)
+		{
+			ASSERT(false && "can not unlock unlocked vertex buffer");
+			return;
+		}
+
+		if ((L->GetLockFlags() & LockFlags::LockWrite) != 0)
+			invalidRange_.Union(IndexRange(L->GetOffset(), L->GetCount()));
+
+		L->Clear();
+		isLocked_ = false;
 	}
 
 	void IndexBuffer::Invalidate()
 	{
 		if ((storageFlags_ & StorageFlags::Hardware) == 0)
+			return;
+
+		if (isLocked_ || invalidRange_.IsEmpty())
 			return;
 
 		// update index buffer
@@ -130,5 +134,6 @@ namespace sims
 
 		HWResource_->Attach(this);
 		HWResource_->UpdateResource();
+		invalidRange_.ResetRange();
 	}
 }

@@ -76,9 +76,10 @@ namespace sims
 		uint32 indexCount_;
 		TBuffer<IndexType> indexData_;
 		uint32 storageFlags_;
+		IndexRange invalidRange_;
 
 		LockedIndexBuffer lockedIB_;
-		int32 lockedCount_;
+		bool isLocked_;
 
 		IndexBufferResourceRef HWResource_;
 	};

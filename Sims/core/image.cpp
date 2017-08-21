@@ -66,6 +66,7 @@ namespace sims
 		, format_(PixelFormat::Unknown)
 		, bytesPerPixel_(0)
 		, lockedCount_(0)
+		, invalidRegion_(0, 0, 0, 0)
 	{
 	}
 

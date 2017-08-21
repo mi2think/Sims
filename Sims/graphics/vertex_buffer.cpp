@@ -49,14 +49,16 @@ namespace sims
 	VertexBuffer::VertexBuffer()
 		: vertexCount_(0)
 		, storageFlags_(StorageFlags::Local)
-		, lockedCount_(0)
+		, isLocked_(false)
+		, invalidRange_(0, 0)
 	{}
 
 	VertexBuffer::VertexBuffer(const VertexDeclarationRef& vertexDecl)
 		: vertexDecl_(vertexDecl)
 		, vertexCount_(0)
 		, storageFlags_(StorageFlags::Local)
-		, lockedCount_(0)
+		, isLocked_(false)
+		, invalidRange_(0, 0)
 	{
 	}
 
@@ -64,7 +66,8 @@ namespace sims
 		: vertexDecl_(vertexDecl)
 		, vertexCount_(vertexCount)
 		, storageFlags_(StorageFlags::Local)
-		, lockedCount_(0)
+		, isLocked_(false)
+		, invalidRange_(0, vertexCount)
 	{
 		vertexData_.Resize(vertexCount_ * vertexDecl->GetStride());
 	}
@@ -80,15 +83,10 @@ namespace sims
 
 	LockedVertexBuffer* VertexBuffer::Lock(uint32 lockFlags, uint32 offset, uint32 count)
 	{
-		if (lockedCount_ > 0)
+		if (isLocked_)
 		{
-			// read is ok if pre-lock is read
-			if ((lockFlags & LockFlags::LockWrite) != 0 ||
-				(lockedVB_.lockFlags_ & LockFlags::LockWrite) != 0)
-			{
-				ASSERT(false && "lock locked vertex buffer");
-				return nullptr;
-			}
+			ASSERT(false && "lock locked vertex buffer");
+			return nullptr;
 		}
 
 		if (count == 0)
@@ -99,7 +97,7 @@ namespace sims
 			return nullptr;
 		}
 
-		++lockedCount_;
+		isLocked_ = true;
 		lockedVB_.Init(this, lockFlags, offset, count);
 		return &lockedVB_;
 	}
@@ -112,16 +110,25 @@ namespace sims
 			return;
 		}
 
-		--lockedCount_;
-		if (lockedCount_ == 0)
-			L->Clear();
-		else
-			ASSERT(L->GetLockFlags() == LockFlags::LockRead && "multi-lock must be read");
+		if (!isLocked_)
+		{
+			ASSERT(false && "can not unlock unlocked vertex buffer");
+			return;
+		}
+
+		if ((L->GetLockFlags() & LockFlags::LockWrite) != 0)
+			invalidRange_.Union(IndexRange(L->GetOffset(), L->GetCount()));
+
+		L->Clear();
+		isLocked_ = false;
 	}
 
 	void VertexBuffer::Invalidate()
 	{
 		if ((storageFlags_ & StorageFlags::Hardware) == 0)
+			return;
+
+		if (isLocked_ || invalidRange_.IsEmpty())
 			return;
 
 		// update vertex buffer
@@ -130,5 +137,6 @@ namespace sims
 		
 		HWResource_->Attach(this);
 		HWResource_->UpdateResource();
+		invalidRange_.ResetRange();
 	}
 }

@@ -79,9 +79,10 @@ namespace sims
 		uint32 vertexCount_;
 		Buffer vertexData_;
 		uint32 storageFlags_;
+		IndexRange invalidRange_;
 
 		LockedVertexBuffer lockedVB_;
-		int32 lockedCount_;
+		bool isLocked_;
 
 		VertexBufferResourceRef HWResource_;
 	};
