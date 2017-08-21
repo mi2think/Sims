@@ -55,7 +55,7 @@ namespace sims
 			VERIFYD3DRESULT(ib_->Lock(L->GetOffset(),
 				L->GetCount(),
 				&indices,
-				D3DLOCK_DISCARD)); // discard for update entire index buffer
+				D3DLOCK_NOOVERWRITE));
 			memcpy(indices, L->GetLockData(), sizeof(IndexType) * L->GetCount());
 			VERIFYD3DRESULT(ib_->Unlock());
 

@@ -63,7 +63,7 @@ namespace sims
 				L->GetOffset(),
 				L->GetCount(),
 				&vertices,
-				D3DLOCK_DISCARD)); // discard for update entire vertex buffer
+				D3DLOCK_NOOVERWRITE));
 			memcpy(vertices, L->GetLockData(), L->GetCount() * vertexDecl_->GetStride());
 			VERIFYD3DRESULT(vb_->Unlock());
 			
