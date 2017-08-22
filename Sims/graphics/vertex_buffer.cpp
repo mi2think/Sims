@@ -46,6 +46,16 @@ namespace sims
 		vertexData_ = vertexBuffer_->GetVertexData();
 	}
 
+	void* LockedVertexBuffer::GetLockData()
+	{
+		return vertexData_->GetData() + offset_ * GetVertexDeclaration()->GetStride();
+	}
+
+	const void* LockedVertexBuffer::GetLockData() const
+	{ 
+		return vertexData_->GetData() + offset_ * GetVertexDeclaration()->GetStride();
+	}
+
 	VertexBuffer::VertexBuffer()
 		: vertexCount_(0)
 		, storageFlags_(StorageFlags::Local)

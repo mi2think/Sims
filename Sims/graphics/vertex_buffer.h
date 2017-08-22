@@ -35,8 +35,8 @@ namespace sims
 		void* GetData() { return vertexData_->GetData(); }
 		const void* GetData() const { return vertexData_->GetData(); }
 
-		void* GetLockData() { return  vertexData_->GetData() + offset_; }
-		const void* GetLockData() const  { return  vertexData_->GetData() + offset_; }
+		void* GetLockData();
+		const void* GetLockData() const;
 	private:
 		friend class VertexBuffer;
 

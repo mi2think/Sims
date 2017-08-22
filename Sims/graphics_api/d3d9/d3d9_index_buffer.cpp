@@ -50,13 +50,15 @@ namespace sims
 			// update index buffer
 			const IndexRange& range = indexBuffer_->GetInvalidRange();
 			auto L = indexBuffer_->Lock(LockFlags::LockRead, range.begin, range.count);
+			uint32 dataSize = L->GetCount() * sizeof(IndexType);
+			uint32 dataOffset = L->GetOffset() * sizeof(IndexType);
 
 			void* indices = nullptr;
-			VERIFYD3DRESULT(ib_->Lock(L->GetOffset(),
-				L->GetCount(),
+			VERIFYD3DRESULT(ib_->Lock(dataOffset,
+				dataSize,
 				&indices,
 				D3DLOCK_NOOVERWRITE));
-			memcpy(indices, L->GetLockData(), sizeof(IndexType) * L->GetCount());
+			memcpy(indices, L->GetLockData(), dataSize);
 			VERIFYD3DRESULT(ib_->Unlock());
 
 			indexBuffer_->Unlock(L);
