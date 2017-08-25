@@ -40,7 +40,7 @@ namespace sims
 			const auto& source = shader_->GetSource();
 
 			uint32 flags = D3DXSHADER_ENABLE_BACKWARDS_COMPATIBILITY;
-#ifdef _DEBUG
+#ifdef SIMS_DEBUG
 			flags |= D3DXSHADER_DEBUG;
 			flags |= D3DXSHADER_SKIPOPTIMIZATION;
 #endif

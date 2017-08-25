@@ -17,5 +17,6 @@
 #include "ogl/ogl_renderer_caps.h"
 #include "ogl/ogl_renderer.h"
 #include "ogl/ogl_texture.h"
+#include "ogl/ogl_vertex_buffer.h"
 
 #endif

@@ -22,6 +22,10 @@
 #define SAFE_DELETEARRAY(p) do { if (p != nullptr) { delete[] p; p = nullptr; } } while(0)
 #define SAFE_RELEASE(p)		do { if (p != nullptr) { p->Release(); p = nullptr; } } while(0)
 
+#ifndef NDEBUG
+	#define SIMS_DEBUG 1 
+#endif
+
 namespace sims
 {
 	typedef unsigned char		uint8;

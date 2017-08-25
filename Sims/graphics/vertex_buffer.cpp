@@ -88,7 +88,10 @@ namespace sims
 
 	void VertexBuffer::Resize(uint32 vertexCount)
 	{
+		ASSERT(!isLocked_);
 		vertexData_.Resize(vertexCount * vertexDecl_->GetStride());
+		vertexCount_ = vertexCount;
+		//TODO: change size should create HW buffer
 	}
 
 	LockedVertexBuffer* VertexBuffer::Lock(uint32 lockFlags, uint32 offset, uint32 count)

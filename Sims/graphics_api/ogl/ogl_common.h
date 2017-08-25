@@ -56,11 +56,15 @@ namespace sims
 		void gl_init_states(float r, float g, float b, float a);
 
 		// check error
+#ifdef SIMS_DEBUG
 		GLenum gl_check_error(const char* category = nullptr);
-
+#else
+		inline GLenum gl_check_error(const char* category = nullptr) { return GL_NO_ERROR; }
+#endif 
 
 		GLenum ToGLTextureFilterType(TextureFilter::Type filter);
 		GLenum ToGLTextureWrapType(TextureWrap::Type wrap);
+		GLenum ToGLElementType(ElementType::Type type);
 	}
 }
 

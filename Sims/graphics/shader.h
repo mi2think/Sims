@@ -49,6 +49,7 @@ namespace sims
 		Buffer entryName_;
 		ShaderDomain::Type type_;
 		uint32 storageFlags_;
+		bool invalid_;
 
 		ShaderResourceRef HWResource_;
 	};

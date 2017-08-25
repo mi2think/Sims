@@ -79,6 +79,8 @@ namespace sims
 	{
 		ASSERT(! isLocked_);
 		indexData_.Resize(indexCount);
+		indexCount_ = indexCount;
+		//TODO: change size should create HW buffer
 	}
 
 	LockedIndexBuffer* IndexBuffer::Lock(uint32 lockFlags, uint32 offset, uint32 count)

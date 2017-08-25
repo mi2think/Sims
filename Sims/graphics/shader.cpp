@@ -16,9 +16,13 @@
 namespace sims
 {
 	Shader::Shader()
+		: storageFlags_(StorageFlags::Hardware)
+		, invalid_(true)
 	{}
 	Shader::Shader(ShaderDomain::Type type)
-		: type_(type)
+		: storageFlags_(StorageFlags::Hardware)
+		, invalid_(true)
+		, type_(type)
 	{}
 
 	Shader::~Shader()
@@ -27,6 +31,7 @@ namespace sims
 	void Shader::SetSource(const char* source)
 	{
 		source_ = Buffer(source, strlen(source));
+		invalid_ = true;
 	}
 
 	void Shader::SetSourceFromFile(const char* filename)
@@ -35,16 +40,19 @@ namespace sims
 		auto fsize = stream->GetSize();
 		source_.Resize(fsize);
 		stream->Read(&source_[0], fsize);
+		invalid_ = true;
 	}
 
 	void Shader::SetType(ShaderDomain::Type type)
 	{
 		type_ = type;
+		invalid_ = true;
 	}
 
 	void Shader::SetEntryName(const char* entryName)
 	{
 		entryName_ = Buffer(entryName, strlen(entryName));
+		invalid_ = true;
 	}
 
 	const char* Shader::GetTypeDesc() const
@@ -62,11 +70,15 @@ namespace sims
 		if ((storageFlags_ & StorageFlags::Hardware) == 0)
 			return;
 
+		if (!invalid_)
+			return;
+
 		// update shader
 		if (!HWResource_)
 			HWResource_ = hw::CreateResource<ShaderResource>();
 
 		HWResource_->Attach(this);
 		HWResource_->UpdateResource();
+		invalid_ = true;
 	}
 }

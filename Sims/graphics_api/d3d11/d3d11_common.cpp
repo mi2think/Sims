@@ -56,7 +56,7 @@ namespace sims
 			CHECK_HR = D3D11CreateDevice(nullptr, // default adapter
 				D3D_DRIVER_TYPE_HARDWARE,
 				0, // no software device
-#ifdef _DEBUG
+#ifdef SIMS_DEBUG
 				D3D11_CREATE_DEVICE_DEBUG,
 #else
 				0,
