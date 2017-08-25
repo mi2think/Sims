@@ -225,6 +225,9 @@
     <ClCompile Include="graphics_api\ogl\ogl_vertex_buffer.cpp">
       <Filter>graphics_api\ogl</Filter>
     </ClCompile>
+    <ClCompile Include="graphics_api\ogl\ogl_index_buffer.cpp">
+      <Filter>graphics_api\ogl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -505,6 +508,9 @@
       <Filter>graphics_api\ogl</Filter>
     </ClInclude>
     <ClInclude Include="graphics_api\ogl\ogl_vertex_buffer.h">
+      <Filter>graphics_api\ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\ogl\ogl_index_buffer.h">
       <Filter>graphics_api\ogl</Filter>
     </ClInclude>
   </ItemGroup>

@@ -43,21 +43,15 @@ namespace sims
 				if ((vertexBuffer_->GetStorageFlags() & StorageFlags::HintDynamic) != 0)
 					usage = GL_DYNAMIC_DRAW;
 
-				glBindBuffer(GL_ARRAY_BUFFER, vbo_);
-				
+				glBindBuffer(GL_ARRAY_BUFFER, vbo_);				
 				glBufferData(GL_ARRAY_BUFFER, dataSize, L->GetLockData(), usage);
 				gl_check_error("OGLVertexBufferResource::UpdateResource - glBufferData");
-				
-				glBindBuffer(GL_ARRAY_BUFFER, 0);
 			}
 			else
 			{
 				glBindBuffer(GL_ARRAY_BUFFER, vbo_);
-
 				glBufferSubData(GL_ARRAY_BUFFER, dataOffset, dataSize, L->GetLockData());
 				gl_check_error("OGLVertexBufferResource::UpdateResource - glBufferSubData");
-				
-				glBindBuffer(GL_ARRAY_BUFFER, 0);
 			}
 
 			vertexBuffer_->Unlock(L);
