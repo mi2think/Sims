@@ -62,6 +62,11 @@ namespace sims
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
 		}
 
+		void OGLIndexBufferResource::ReleaseResource()
+		{
+			InternalReleaseResource();
+		}
+
 		void OGLIndexBufferResource::InternalReleaseResource()
 		{
 			if (ibo_ != 0)
