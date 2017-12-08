@@ -29,11 +29,11 @@ namespace sims
 			virtual void BindResource() const;
 			virtual void ReleaseResource();
 
-			virtual void SetConstant(const char* name, const void* data, uint32 dataSize);
+			virtual void SetUniform(const char* name, const void* data, uint32 dataSize);
 
-			virtual uint32 GetSamplerStage(const char* name);
+			uint32 GetSamplerStage(const char* name);
 		private:
-			void AnalyseConstants();
+			void AnalyseUniforms();
 			void InternalReleaseResource();
 
 			union 
@@ -44,14 +44,14 @@ namespace sims
 			};
 			ID3DXConstantTable* table_;
 
-			struct ConstVar
+			struct UniformVar
 			{
 				uint32 regIndex;
 				string name;
 				D3DXPARAMETER_TYPE type;
 			};
-			vector<ConstVar> constants_;
-			vector<ConstVar> samplers_;
+			vector<UniformVar> uniforms_;
+			vector<UniformVar> samplers_;
 		};
 	}
 }

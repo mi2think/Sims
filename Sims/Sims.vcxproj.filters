@@ -513,5 +513,8 @@
     <ClInclude Include="graphics_api\ogl\ogl_index_buffer.h">
       <Filter>graphics_api\ogl</Filter>
     </ClInclude>
+    <ClInclude Include="math\math.h">
+      <Filter>math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

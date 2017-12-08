@@ -37,6 +37,7 @@ namespace sims
 	private:
 		string desc_;
 		ShaderRef shaders_[ShaderDomain::Max];
+		bool invalid_;
 
 		ProgramResourceRef HWResource_;
 	};

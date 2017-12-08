@@ -72,16 +72,9 @@ namespace sims
 		void Attach(void* shader);
 
 		template<typename T>
-		void SetConstant(const char* name, const T& val) { SetConstant(name, &val, sizeof(val)); }
-
-		// d3d9 only
-		virtual uint32 GetSamplerStage(const char* /* name */) { ASSERT(false && "d3d9 only"); return 0; }
-
-		// ogl only
-		virtual void SetSamplerUnit(const char* /* name */, uint32 /* imageUnit */) { ASSERT(false && "ogl only"); };
-		virtual uint32 GetSamplerUnit(const char* /* name */) { ASSERT(false && "ogl only"); return 0; };
+		void SetUniform(const char* name, const T& val) { SetUniform(name, &val, sizeof(val)); }
 	protected:
-		virtual void SetConstant(const char* name, const void* data, uint32 dataSize) = 0;
+		virtual void SetUniform(const char*, const void*, uint32) {}
 		
 		Shader* shader_;
 	};
@@ -92,7 +85,12 @@ namespace sims
 		ProgramResource();
 
 		void Attach(void* program);
+
+		template<typename T>
+		void SetUniform(const char* name, const T& val) { SetUniform(name, &val, sizeof(val)); }
 	protected:
+		virtual void SetUniform(const char*, const void*, uint32) {}
+
 		Program* program_;
 	};
 }

@@ -16,11 +16,13 @@ namespace sims
 {
 	Program::Program()
 		: desc_("<Unknown>")
+		, invalid_(true)
 	{
 	}
 
 	Program::Program(const string& desc)
 		: desc_(desc)
+		, invalid_(true)
 	{}
 
 	Program::~Program()
@@ -33,6 +35,7 @@ namespace sims
 			LOG_WARN("Program %s has changed %s", desc_.c_str());
 
 		shaders_[shader->GetType()] = shader;
+		invalid_ = true;
 	}
 
 	const ShaderRef& Program::GetShader(ShaderDomain::Type type) const
@@ -44,6 +47,8 @@ namespace sims
 	{
 		if (!HWResource_)
 			HWResource_ = hw::CreateResource<ProgramResource>();
+		if (!invalid_)
+			return;
 
 		HWResource_->Attach(this);
 		HWResource_->UpdateResource();

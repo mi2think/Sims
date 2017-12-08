@@ -87,7 +87,7 @@ namespace sims
 				VERIFYD3DRESULT(g_pD3DD->CreatePixelShader((DWORD*)shaderBuffer->GetBufferPointer(), &psResource_));
 			}
 
-			AnalyseConstants();
+			AnalyseUniforms();
 		}
 
 		void D3D9ShaderResource::BindResource() const
@@ -123,11 +123,11 @@ namespace sims
 				resource_ = nullptr;
 			}
 
-			constants_.clear();
+			uniforms_.clear();
 			samplers_.clear();
 		}
 
-		void D3D9ShaderResource::AnalyseConstants()
+		void D3D9ShaderResource::AnalyseUniforms()
 		{
 			D3DXCONSTANTTABLE_DESC tableDesc;
 			VERIFYD3DRESULT(table_->GetDesc(&tableDesc));
@@ -138,60 +138,53 @@ namespace sims
 				uint32 count = 1;
 				table_->GetConstantDesc(table_->GetConstant(0, i), &cDesc, &count);
 
-				ConstVar var;
+				UniformVar var;
 				var.regIndex = cDesc.RegisterIndex;
 				var.name = cDesc.Name;
 				var.type = cDesc.Type;
 
-				vector<ConstVar>* pV = &constants_;
+				vector<UniformVar>* pV = &uniforms_;
 				if (cDesc.Type >= D3DXPT_SAMPLER && cDesc.Type <= D3DXPT_SAMPLERCUBE)
 					pV = &samplers_;
 
-				pV->push_back(var);
+				uniforms_.push_back(var);
 			}
 		}
 
-		void D3D9ShaderResource::SetConstant(const char* name, const void* data, uint32 dataSize)
+		void D3D9ShaderResource::SetUniform(const char* name, const void* data, uint32 dataSize)
 		{
-			const ConstVar* pVar = nullptr;
-			for (const auto& var : constants_)
-			{
-				if (name == var.name)
-				{
-					pVar = &var;
-				}
-			}
-			ASSERT(pVar != nullptr);
+			auto it = std::find_if(uniforms_.begin(), uniforms_.end(), [&name](const UniformVar& var) { return var.name == name; });
+			ASSERT(it != uniforms_.end());
 
 			auto type = shader_->GetType();
 			if (type == ShaderDomain::Vertex)
 			{
-				if (pVar->type == D3DXPT_BOOL)
+				if (it->type == D3DXPT_BOOL)
 				{
-					VERIFYD3DRESULT(g_pD3DD->SetVertexShaderConstantB(pVar->regIndex, (const BOOL*)data, dataSize / sizeof(BOOL)));
+					VERIFYD3DRESULT(g_pD3DD->SetVertexShaderConstantB(it->regIndex, (const BOOL*)data, dataSize / sizeof(BOOL)));
 				}
-				else if (pVar->type == D3DXPT_INT)
+				else if (it->type == D3DXPT_INT)
 				{
-					VERIFYD3DRESULT(g_pD3DD->SetVertexShaderConstantI(pVar->regIndex, (const int*)data, dataSize / (sizeof(int) * 4)));
+					VERIFYD3DRESULT(g_pD3DD->SetVertexShaderConstantI(it->regIndex, (const int*)data, dataSize / (sizeof(int) * 4)));
 				}
-				else if (pVar->type == D3DXPT_FLOAT)
+				else if (it->type == D3DXPT_FLOAT)
 				{
-					VERIFYD3DRESULT(g_pD3DD->SetVertexShaderConstantF(pVar->regIndex, (const float*)data, dataSize / (sizeof(float) * 4)));
+					VERIFYD3DRESULT(g_pD3DD->SetVertexShaderConstantF(it->regIndex, (const float*)data, dataSize / (sizeof(float) * 4)));
 				}
 			}
 			else if (type == ShaderDomain::Fragment)
 			{
-				if (pVar->type == D3DXPT_BOOL)
+				if (it->type == D3DXPT_BOOL)
 				{
-					VERIFYD3DRESULT(g_pD3DD->SetPixelShaderConstantB(pVar->regIndex, (const BOOL*)data, dataSize / sizeof(BOOL)));
+					VERIFYD3DRESULT(g_pD3DD->SetPixelShaderConstantB(it->regIndex, (const BOOL*)data, dataSize / sizeof(BOOL)));
 				}
-				else if (pVar->type == D3DXPT_INT)
+				else if (it->type == D3DXPT_INT)
 				{
-					VERIFYD3DRESULT(g_pD3DD->SetPixelShaderConstantI(pVar->regIndex, (const int*)data, dataSize / (sizeof(int) * 4)));
+					VERIFYD3DRESULT(g_pD3DD->SetPixelShaderConstantI(it->regIndex, (const int*)data, dataSize / (sizeof(int) * 4)));
 				}
-				else if (pVar->type == D3DXPT_FLOAT)
+				else if (it->type == D3DXPT_FLOAT)
 				{
-					VERIFYD3DRESULT(g_pD3DD->SetPixelShaderConstantF(pVar->regIndex, (const float*)data, dataSize / (sizeof(float) * 4)));
+					VERIFYD3DRESULT(g_pD3DD->SetPixelShaderConstantF(it->regIndex, (const float*)data, dataSize / (sizeof(float) * 4)));
 				}
 			}
 		}

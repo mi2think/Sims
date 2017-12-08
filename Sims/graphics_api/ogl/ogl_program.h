@@ -29,10 +29,22 @@ namespace sims
 			virtual void BindResource() const;
 			virtual void ReleaseResource();
 
+			virtual void SetUniform(const char* name, const void* data, uint32 dataSize);
 		private:
+			void AnalyseUniforms();
 			void InternalReleaseResource();
 
 			GLuint prog_;
+
+			struct UniformVar
+			{
+				string name;
+				GLuint index;
+				GLint type;
+				GLint size;
+				GLuint loc;
+			};
+			vector<UniformVar> uniforms_;
 		};
 	}
 }

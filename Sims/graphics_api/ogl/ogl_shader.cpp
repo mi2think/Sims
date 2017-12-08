@@ -85,11 +85,5 @@ namespace sims
 				resource_ = 0;
 			}
 		}
-
-		//UniformLoc OGLShader::GetUniformLoc(const char*, UniformLoc)
-		//{
-		//	ASSERT(false && "we won't use separate shader program in ogl");
-		//	return 0;
-		//}
 	}
 }
