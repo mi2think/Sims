@@ -51,7 +51,6 @@ namespace sims
 				D3DXPARAMETER_TYPE type;
 			};
 			vector<UniformVar> uniforms_;
-			vector<UniformVar> samplers_;
 		};
 	}
 }

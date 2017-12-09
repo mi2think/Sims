@@ -124,7 +124,6 @@ namespace sims
 			}
 
 			uniforms_.clear();
-			samplers_.clear();
 		}
 
 		void D3D9ShaderResource::AnalyseUniforms()
@@ -142,10 +141,6 @@ namespace sims
 				var.regIndex = cDesc.RegisterIndex;
 				var.name = cDesc.Name;
 				var.type = cDesc.Type;
-
-				vector<UniformVar>* pV = &uniforms_;
-				if (cDesc.Type >= D3DXPT_SAMPLER && cDesc.Type <= D3DXPT_SAMPLERCUBE)
-					pV = &samplers_;
 
 				uniforms_.push_back(var);
 			}
@@ -191,9 +186,9 @@ namespace sims
 
 		uint32 D3D9ShaderResource::GetSamplerStage(const char* name)
 		{
-			for (const auto& var : samplers_)
+			for (const auto& var : uniforms_)
 			{
-				if (name == var.name)
+				if (name == var.name && var.type >= D3DXPT_SAMPLER)
 					return var.regIndex;
 			}
 			ASSERT(false && "not find sampler!");

@@ -108,6 +108,7 @@ namespace sims
 				glDeleteProgram(prog_);
 				prog_ = 0;
 			}
+			uniforms_.clear();
 		}
 
 		void OGLProgramResource::AnalyseUniforms()
