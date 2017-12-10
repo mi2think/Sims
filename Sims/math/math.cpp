@@ -9,7 +9,7 @@
 	
 	purpose:	Math
 *********************************************************************/
-#include "math_fwd.h"
+#include "math.h"
 
 namespace sims
 {

@@ -28,7 +28,20 @@ namespace sims
 			LOG_INFO("CAPS:  GLSLVersion: %s", glslVersion);
 			LOG_INFO("CAPS: -------------------------------------");
 			LOG_INFO("CAPS:  ogl extensions:");
-			LOG_INFO("CAPS:  %s", extensions);
+
+			// extension is a space-separated list of tokens
+			const char* p = extensions;
+			for (const char* q = p; *q;)
+			{
+				while (*q != 0 && *q != ' ')
+					++q;
+				if (q != p)
+				{
+					LOG_INFO("CAPS:  ---- %s", string(p, q - p));
+				}
+				// start on next token, if any
+				p = *q ? q + 1 : q;
+			}
 		}
 
 		void InitRendererCaps()
