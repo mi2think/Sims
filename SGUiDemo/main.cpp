@@ -1,7 +1,7 @@
 #include "sims.h"
 #include "gui/gui.h"
+#include "math/math.h"
 #include "utils/demo_app.h"
-#include "math/matrix44.h"
 #include "graphics_api/sims_sdk_hw.h"
 using namespace sims;
 

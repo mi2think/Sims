@@ -83,8 +83,10 @@ namespace sims
 			d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 			d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
 
-			CHECK_HR = g_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hwnd, D3DCREATE_PUREDEVICE | D3DCREATE_HARDWARE_VERTEXPROCESSING,
-				&d3dpp, &g_pD3DD);
+			VERIFYD3DRESULT(g_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hwnd, D3DCREATE_PUREDEVICE | D3DCREATE_HARDWARE_VERTEXPROCESSING,
+				&d3dpp, &g_pD3DD));
+
+			VERIFYD3DRESULT(g_pD3DD->SetRenderState(D3DRS_LIGHTING, false));
 			return g_pD3DD;
 		}
 
@@ -200,7 +202,7 @@ namespace sims
 			return D3DPT_TRIANGLELIST;
 		}
 
-		void FillD3DVertexElement(D3DVERTEXELEMENT9* vertexElement, const VertexStream* vertexStream)
+		void FillD3DVertexElement(D3DVERTEXELEMENT9* vertexElement, const VertexStream* vertexStream, uint32 streamIndex)
 		{
 			// vertex usage
 			auto usage = vertexStream->GetUsage();
@@ -226,6 +228,7 @@ namespace sims
 			// vertex data type
 			auto type = vertexStream->GetElementType();
 			auto count = vertexStream->GetElementCount();
+			vertexElement->Type = D3DDECLTYPE_UNUSED;
 			if (type == ElementType::F32)
 			{
 				switch (count)
@@ -235,7 +238,6 @@ namespace sims
 				case 3: vertexElement->Type = D3DDECLTYPE_FLOAT3; break;
 				case 4: vertexElement->Type = D3DDECLTYPE_FLOAT4; break;
 				default:
-					ASSERT(false && "unsupport data type!");
 					break;
 				}
 			}
@@ -248,8 +250,16 @@ namespace sims
 					else
 						vertexElement->Type = D3DDECLTYPE_UBYTE4;
 				}
-				else
-					ASSERT(false && "unsupport data type!");
+			}
+			else if (type == ElementType::U32)
+			{
+				if (count == 1)
+				{
+					if (usage == VertexStreamUsage::Color)
+						vertexElement->Type = D3DDECLTYPE_D3DCOLOR;
+					else
+						vertexElement->Type = D3DDECLTYPE_UBYTE4;
+				}
 			}
 			else if (type == ElementType::S16)
 			{
@@ -257,10 +267,10 @@ namespace sims
 					vertexElement->Type = D3DDECLTYPE_SHORT2;
 				else if (count == 4)
 					vertexElement->Type = D3DDECLTYPE_SHORT4;
-				else
-					ASSERT(false && "unsupport data type!");
 			}
+			ASSERT(vertexElement->Type != D3DDECLTYPE_UNUSED);
 
+			vertexElement->Stream = (WORD)streamIndex;
 			vertexElement->UsageIndex = (BYTE)vertexStream->GetIndex();
 			vertexElement->Offset = (WORD)vertexStream->GetOffset();
 			vertexElement->Method = D3DDECLMETHOD_DEFAULT;

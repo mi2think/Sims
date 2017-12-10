@@ -24,9 +24,9 @@ namespace sims
 			D3D9VertexBufferResource();
 			~D3D9VertexBufferResource();
 
-			virtual void UpdateResource();
-			virtual void BindResource() const;
-			virtual void ReleaseResource();
+			virtual void UpdateResource() override;
+			virtual void BindResource() const override;
+			virtual void ReleaseResource() override;
 		private:
 			void InternalReleaseResource();
 

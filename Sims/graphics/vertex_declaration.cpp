@@ -20,7 +20,7 @@ namespace sims
 			const auto& stream = streams[i];
 			for (uint32 j = 0; j <= i - 1; ++j)
 			{
-				const auto& checkStream = streams[i];
+				const auto& checkStream = streams[j];
 				if (checkStream.GetIndex() == stream.GetIndex() &&
 					checkStream.GetUsage() == stream.GetUsage())
 				{

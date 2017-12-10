@@ -25,10 +25,10 @@ namespace sims
 			OGLTextureResource();
 			~OGLTextureResource();
 
-			virtual void UpdateResource();
-			virtual void BindResource() const;
-			virtual void ReleaseResource();
-			virtual void OnSamplerStatusUpdated();
+			virtual void UpdateResource() override;
+			virtual void BindResource() const override;
+			virtual void ReleaseResource() override;
+			virtual void OnSamplerStatusUpdated() override;
 		private:
 			void InternalReleaseResource();
 

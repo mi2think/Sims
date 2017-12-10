@@ -19,6 +19,10 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
+#ifdef UpdateResource
+	#undef UpdateResource
+#endif
+
 #define red    D3DXCOLOR(1.0f, 0.0f, 0.0f, 1.0f)
 #define green  D3DXCOLOR(0.0f, 1.0f, 0.0f, 1.0f)
 #define blue   D3DXCOLOR(0.0f, 0.0f, 1.0f, 1.0f)
@@ -68,7 +72,7 @@ namespace sims
 		D3DTEXTUREFILTERTYPE ToD3DTextureFilterType(TextureFilter::Type filter);
 		D3DTEXTUREADDRESS ToD3DTextureAddress(TextureWrap::Type wrap);
 		D3DPRIMITIVETYPE ToD3DPrimitiveType(PrimitiveType::Type primitive);
-		void FillD3DVertexElement(D3DVERTEXELEMENT9* vertexElement, const VertexStream* vertexStream);
+		void FillD3DVertexElement(D3DVERTEXELEMENT9* vertexElement, const VertexStream* vertexStream, uint32 streamIndex);
 
 		// vertex define
 		struct Vertex

@@ -35,7 +35,7 @@ namespace sims
 				TBuffer<D3DVERTEXELEMENT9> elements(count + 1); // +1 for D3DDECL_END
 				for (uint32 i = 0; i < count; ++i)
 				{
-					FillD3DVertexElement(&elements[i], vertexDecl_->GetStream(i));
+					FillD3DVertexElement(&elements[i], vertexDecl_->GetStream(i), 0);
 				}
 				elements[count] = D3DDECL_END();
 				VERIFYD3DRESULT(g_pD3DD->CreateVertexDeclaration(elements.GetData(), &decl_));
@@ -78,6 +78,11 @@ namespace sims
 
 			VERIFYD3DRESULT(g_pD3DD->SetVertexDeclaration(decl_));
 			VERIFYD3DRESULT(g_pD3DD->SetStreamSource(0, vb_, 0, vertexDecl_->GetStride()));
+			//for (uint32 i = 0; i < vertexDecl_->GetStreamCount(); ++i)
+			//{
+			//	uint32 offset = vertexDecl_->GetStream(i)->GetOffset();
+			//	VERIFYD3DRESULT(g_pD3DD->SetStreamSource(i, vb_, offset, vertexDecl_->GetStride()));
+			//}
 		}
 
 		void D3D9VertexBufferResource::ReleaseResource()

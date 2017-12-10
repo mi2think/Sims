@@ -37,10 +37,11 @@ namespace sims
 					++q;
 				if (q != p)
 				{
-					LOG_INFO("CAPS:  ---- %s", string(p, q - p).c_str());
+					LOG_INFO("CAPS:     %s", string(p, q - p).c_str());
 				}
 				// start on next token, if any
 				p = *q ? q + 1 : q;
+				q = p;
 			}
 		}
 

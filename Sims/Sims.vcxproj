@@ -125,11 +125,11 @@
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ogllib_debug|Win32'">
-    <OutDir>$(SolutionDir)$(ProjectName)Lib\x86\ogl</OutDir>
+    <OutDir>$(SolutionDir)$(ProjectName)Lib\x86\ogl\</OutDir>
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='dx9lib_debug|Win32'">
-    <OutDir>$(SolutionDir)$(ProjectName)Lib\x86\dx9</OutDir>
+    <OutDir>$(SolutionDir)$(ProjectName)Lib\x86\dx9\</OutDir>
     <TargetName>$(ProjectName)d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

@@ -77,6 +77,15 @@ namespace sims
 		void OGLRenderer::DrawPrimitive(PrimitiveType::Type type, const RenderResource& vb, uint32 primitiveCount)
 		{
 			vb.BindResource();
+			glDrawArrays(ToGLPrimitiveType(type), 0, primitiveCount);
+
+			gl_check_error("DrawPrimitive");
+		}
+
+		void OGLRenderer::DrawIndexedPrimitive(PrimitiveType::Type type, const RenderResource& vb, const RenderResource& ib, uint32 vertexCount, uint32 primitiveCount)
+		{
+			vb.BindResource();
+			ib.BindResource();
 		}
 	}
 }

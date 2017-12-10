@@ -169,9 +169,27 @@ namespace sims
 			case ElementType::F32:
 				return GL_FLOAT;
 			case ElementType::S32:
+				return GL_INT;
 			case ElementType::U32:
+				return GL_UNSIGNED_INT;
 			default:
 				ASSERT(false && "Unsupported element type");
+				return 0;
+			}
+		}
+
+		GLenum ToGLPrimitiveType(PrimitiveType::Type type)
+		{
+			switch (type)
+			{
+			case PrimitiveType::Points:
+				return GL_POINTS;
+			case PrimitiveType::Lines:
+				return GL_LINES;
+			case sims::PrimitiveType::Triangles:
+				return GL_TRIANGLES;
+			default:
+				ASSERT(false && "Unsupported primitive type");
 				return 0;
 			}
 		}

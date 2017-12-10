@@ -24,6 +24,10 @@
 #include <glew.h>
 #include <freeglut.h>
 
+#ifdef UpdateResource
+	#undef UpdateResource
+#endif
+
 namespace sims
 {
 	namespace ogl
@@ -65,13 +69,14 @@ namespace sims
 		GLenum ToGLTextureFilterType(TextureFilter::Type filter);
 		GLenum ToGLTextureWrapType(TextureWrap::Type wrap);
 		GLenum ToGLElementType(ElementType::Type type);
+		GLenum ToGLPrimitiveType(PrimitiveType::Type type);
 
 		template<typename T>
 		void AllocIndicesByRange(vector<T>& indices, const IndexRange& range)
 		{
 			ASSERT(!range.IsEmpty());
 			indices.resize(range.count);
-			for (T i = 0; i < indices.size(); ++i)
+			for (int i = 0; i < (int)indices.size(); ++i)
 			{
 				indices[i] = T(range.begin + i);
 			}
