@@ -140,6 +140,27 @@ namespace sims
 	template<> struct ElementTypeTraits<Color>    { static const ElementType::Type Ty = ElementType::U32; static const uint32 N = 1; };
 	template<> struct ElementTypeTraits<Vector2f> { static const ElementType::Type Ty = ElementType::F32; static const uint32 N = 2; };
 	template<> struct ElementTypeTraits<Vector3f> { static const ElementType::Type Ty = ElementType::F32; static const uint32 N = 3; };
+
+	inline uint32 GetVertexNumPerPrimitive(PrimitiveType::Type primitive)
+	{
+		uint32 num = 0;
+		switch (primitive)
+		{
+		case PrimitiveType::Triangles:
+			num = 3;
+			break;
+		case PrimitiveType::Lines:
+			num = 2;
+			break;
+		case PrimitiveType::Points:
+			num = 1;
+			break;
+		default:
+			ASSERT(0);
+			break;
+		}
+		return num;
+	}
 }
 
 #endif

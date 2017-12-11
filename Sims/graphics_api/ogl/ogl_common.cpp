@@ -102,10 +102,15 @@ namespace sims
 		void gl_init_states(float r, float g, float b, float a)
 		{
 			glClearColor(r, g, b, a);
-			glFrontFace(GL_CCW);
+			glFrontFace(GL_CW);
 			glCullFace(GL_BACK);
 			glEnable(GL_CULL_FACE);
 			glEnable(GL_DEPTH_TEST);
+
+			LOG_INFO("Front Face: GL_CW");
+			LOG_INFO("Cull Face: GL_BACK");
+			LOG_INFO("Enable: GL_CULL_FACE");
+			LOG_INFO("Enable: GL_DEPTH_TEST");
 		}
 
 		GLenum gl_check_error(const char* category)
