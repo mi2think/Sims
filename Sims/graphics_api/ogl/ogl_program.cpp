@@ -115,6 +115,8 @@ namespace sims
 		{
 			GLint uniformCount;
 			glGetProgramiv(prog_, GL_ACTIVE_UNIFORMS, &uniformCount);
+			if (uniformCount == 0)
+				return;
 
 			vector<GLint> indices;
 			vector<GLint> types;

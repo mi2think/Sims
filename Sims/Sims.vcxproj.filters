@@ -228,6 +228,9 @@
     <ClCompile Include="graphics_api\ogl\ogl_index_buffer.cpp">
       <Filter>graphics_api\ogl</Filter>
     </ClCompile>
+    <ClCompile Include="core\app.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -266,9 +269,6 @@
     </ClInclude>
     <ClInclude Include="core\mouse_event.h">
       <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="utils\demo_app.h">
-      <Filter>utils</Filter>
     </ClInclude>
     <ClInclude Include="core\input_state.h">
       <Filter>core</Filter>
@@ -515,6 +515,12 @@
     </ClInclude>
     <ClInclude Include="math\math.h">
       <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\app.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="core\app.h">
+      <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

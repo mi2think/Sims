@@ -14,7 +14,7 @@
 
 #include "sims.h"
 #include "core/timer.h"
-#include "utils/demo_app.h"
+#include "core/app.h"
 
 namespace sims
 {
@@ -33,7 +33,7 @@ namespace sims
 		uint32 GetHeight() const { return height_; }
 		void* GetHandle() const;
 
-		void SetApp(DemoAppBase* app);
+		void SetApp(AppBase* app);
 
 		virtual void OnCreate() {}
 		virtual void OnDestroy() {}
@@ -41,7 +41,7 @@ namespace sims
 		uint32 width_;
 		uint32 height_;
 		bool wndmode_;
-		DemoAppBase* app_;
+		AppBase* app_;
 		Timer timer_;
 	};
 }

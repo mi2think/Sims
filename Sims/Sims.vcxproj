@@ -221,6 +221,7 @@
   <ItemGroup>
     <ClCompile Include="..\Vendor\stb\stb_image.c" />
     <ClCompile Include="..\Vendor\stb\stb_image_write.c" />
+    <ClCompile Include="core\app.cpp" />
     <ClCompile Include="core\color.cpp" />
     <ClCompile Include="core\event.cpp" />
     <ClCompile Include="core\file_input_stream.cpp" />
@@ -327,6 +328,7 @@
     <ClInclude Include="..\Vendor\rapidxml\rapidxml_utils.hpp" />
     <ClInclude Include="..\Vendor\stb\stb_image.h" />
     <ClInclude Include="..\Vendor\stb\stb_image_write.h" />
+    <ClInclude Include="core\app.h" />
     <ClInclude Include="core\buffer.h" />
     <ClInclude Include="core\color.h" />
     <ClInclude Include="core\event.h" />
@@ -411,7 +413,7 @@
     <ClInclude Include="platform\windows\windows_platform.h" />
     <ClInclude Include="platform\windows\windows_window_base.h" />
     <ClInclude Include="sims.h" />
-    <ClInclude Include="utils\demo_app.h" />
+    <ClInclude Include="utils\app.h" />
     <ClInclude Include="utils\fps.h" />
     <ClInclude Include="utils\geometry_gen.h" />
     <ClInclude Include="utils\string_utils.h" />

@@ -13,7 +13,7 @@
 #define __WINDOW_OGL_H__
 
 #include "sims.h"
-#include "utils/demo_app.h"
+#include "core/app.h"
 #include "core/timer.h"
 #include "ogl_glut_callbacks.h"
 
@@ -34,7 +34,7 @@ namespace sims
 			uint32 GetWidth() const { return width_; }
 			uint32 GetHeight() const { return height_; }
 
-			void SetApp(DemoAppBase* app);
+			void SetApp(AppBase* app);
 
 			// callbacks
 			virtual void KeyboardFunc(unsigned char key, int, int);
@@ -51,7 +51,7 @@ namespace sims
 			uint32 width_;
 			uint32 height_;
 			bool wndmode_;
-			DemoAppBase* app_;
+			AppBase* app_;
 			Timer timer_;
 		};
 	}

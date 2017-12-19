@@ -1,11 +1,11 @@
 #include "sims.h"
 #include "math/math.h"
-#include "utils/demo_app.h"
+#include "core/app.h"
 #include "graphics/vertex_buffer.h"
 #include "graphics_api/sims_sdk_hw.h"
 using namespace sims;
 
-class HelloDot : public DemoApp<HWWindow>
+class HelloDot : public App<HWWindow>
 {
 public:
 	virtual void OnCreate()

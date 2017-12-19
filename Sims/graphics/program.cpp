@@ -52,5 +52,6 @@ namespace sims
 
 		HWResource_->Attach(this);
 		HWResource_->UpdateResource();
+		invalid_ = false;
 	}
 }

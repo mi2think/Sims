@@ -53,7 +53,7 @@ namespace sims
 		g_Window = nullptr;
 	}
 
-	void WindowBase::SetApp(DemoAppBase* app)
+	void WindowBase::SetApp(AppBase* app)
 	{
 		app_ = app;
 	}

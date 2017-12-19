@@ -58,7 +58,7 @@ namespace sims
 			Create(screenW, screenH, title, false);
 		}
 
-		void Window::SetApp(DemoAppBase* app)
+		void Window::SetApp(AppBase* app)
 		{
 			app_ = app;
 		}

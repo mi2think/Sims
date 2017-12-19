@@ -1,9 +1,9 @@
 #include "sims.h"
-#include "utils/demo_app.h"
+#include "core/app.h"
 #include "graphics_api/sims_sdk_hw.h"
 using namespace sims;
 
-class OpenAWindow : public DemoApp<HWWindow>
+class OpenAWindow : public App<HWWindow>
 {
 public:
 	OpenAWindow()

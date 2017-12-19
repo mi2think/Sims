@@ -23,7 +23,7 @@ namespace sims
 
 		OGLShaderResource::~OGLShaderResource()
 		{
-			ASSERT(resource_ == 0);
+			InternalReleaseResource();
 		}
 
 		void OGLShaderResource::UpdateResource()
@@ -78,6 +78,11 @@ namespace sims
 		}
 
 		void OGLShaderResource::ReleaseResource()
+		{
+			InternalReleaseResource();
+		}
+
+		void OGLShaderResource::InternalReleaseResource()
 		{
 			if (resource_ != 0)
 			{

@@ -31,6 +31,8 @@ namespace sims
 
 			GLuint GetResource() const { return resource_; }
 		private:
+			void InternalReleaseResource();
+
 			GLuint resource_;
 		};
 	}

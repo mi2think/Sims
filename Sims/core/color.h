@@ -13,6 +13,7 @@
 #define __COLOR_H__
 
 #include "sims.h"
+#include "math/vector3.h"
 #include "math/vector4.h"
 
 namespace sims
@@ -71,6 +72,11 @@ namespace sims
 		Vector4f GetRGBAVector4() const
 		{
 			return Vector4f(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
+		}
+
+		Vector3f GetRGBVector3() const
+		{
+			return Vector3f(r / 255.0f, g / 255.0f, b / 255.0f);
 		}
 
 		static const Color c_white;

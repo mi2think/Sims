@@ -22,6 +22,7 @@ namespace sims
 	public:
 		Shader();
 		Shader(ShaderDomain::Type type);
+		Shader(ShaderDomain::Type type, const char* source, const char* entryName);
 		~Shader();
 
 		void SetSource(const char* source);

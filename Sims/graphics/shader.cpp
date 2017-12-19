@@ -24,6 +24,14 @@ namespace sims
 		, invalid_(true)
 		, type_(type)
 	{}
+	Shader::Shader(ShaderDomain::Type type, const char* source, const char* entryName)
+		: storageFlags_(StorageFlags::Hardware)
+		, invalid_(true)
+		, type_(type)
+	{
+		SetSource(source);
+		SetEntryName(entryName);
+	}
 
 	Shader::~Shader()
 	{}
