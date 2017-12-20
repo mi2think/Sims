@@ -26,7 +26,25 @@ const char* PSSource = "#version 330\n"
 "FragColor = vec4(VertexColor, 1);"
 "}";
 #else SIMS_SDK_IMPL_D3D9
-const char* VSSource = 
+const char* VSSource = "\n"
+"struct VS_OUTPUT"
+"{"
+"float4 position : POSITION;"
+"float3 color : COLOR;"
+"};"
+"VS_OUTPUT main(float3 pos : POSITION, float3 c : COLOR)"
+"{"
+"VS_OUTPUT o = (VS_OUTPUT)0;"
+"o.position = mul(float4(pos, 1), float3(0.5, 0.5, 1, 1));"
+"o.color = c;"
+"return o;"
+"}";
+
+const char* PSSource = "\n"
+"vector main() : COLOR"
+"{"
+"return vector(1,0,0,1);"
+"}";
 #endif
 
 class Shaders : public App<HWWindow>
@@ -84,7 +102,6 @@ public:
 
 	void SetupProg()
 	{
-
 		ShaderRef VS = new Shader(ShaderDomain::Vertex, VSSource, "main");
 		ShaderRef PS = new Shader(ShaderDomain::Fragment, PSSource, "main");
 		VS->Invalidate();

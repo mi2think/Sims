@@ -38,16 +38,18 @@ namespace sims
 
 	void Shader::SetSource(const char* source)
 	{
-		source_ = Buffer(source, strlen(source));
+		source_ = source;
 		invalid_ = true;
 	}
 
 	void Shader::SetSourceFromFile(const char* filename)
 	{
 		auto stream = VFS::GetVFS().OpenInputStream(filename);
+		ASSERT(stream);
 		auto fsize = stream->GetSize();
-		source_.Resize(fsize);
+		source_.resize(fsize + 1);
 		stream->Read(&source_[0], fsize);
+		source_[fsize] = 0;
 		invalid_ = true;
 	}
 
@@ -59,7 +61,7 @@ namespace sims
 
 	void Shader::SetEntryName(const char* entryName)
 	{
-		entryName_ = Buffer(entryName, strlen(entryName));
+		entryName_ = entryName;
 		invalid_ = true;
 	}
 

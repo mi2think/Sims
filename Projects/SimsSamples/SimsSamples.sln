@@ -73,8 +73,8 @@ Global
 		{28D452B9-F7C8-4571-A4E2-C938CF6C5E09}.Release|x86.Build.0 = Release|Win32
 		{1E30A83C-1836-4F56-9238-59488DBFFDCD}.debug_dx9|x64.ActiveCfg = Debug|x64
 		{1E30A83C-1836-4F56-9238-59488DBFFDCD}.debug_dx9|x64.Build.0 = Debug|x64
-		{1E30A83C-1836-4F56-9238-59488DBFFDCD}.debug_dx9|x86.ActiveCfg = Debug|Win32
-		{1E30A83C-1836-4F56-9238-59488DBFFDCD}.debug_dx9|x86.Build.0 = Debug|Win32
+		{1E30A83C-1836-4F56-9238-59488DBFFDCD}.debug_dx9|x86.ActiveCfg = debug_dx9|Win32
+		{1E30A83C-1836-4F56-9238-59488DBFFDCD}.debug_dx9|x86.Build.0 = debug_dx9|Win32
 		{1E30A83C-1836-4F56-9238-59488DBFFDCD}.debug_ogl|x64.ActiveCfg = Debug|x64
 		{1E30A83C-1836-4F56-9238-59488DBFFDCD}.debug_ogl|x64.Build.0 = Debug|x64
 		{1E30A83C-1836-4F56-9238-59488DBFFDCD}.debug_ogl|x86.ActiveCfg = debug_ogl|Win32

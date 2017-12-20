@@ -46,11 +46,11 @@ namespace sims
 #endif
 			if (type == ShaderDomain::Vertex)
 			{
-				VERIFYD3DRESULT(D3DXCompileShader(source.GetData(),
-					source.GetSize(),
+				VERIFYD3DRESULT(D3DXCompileShader(source.c_str(),
+					source.size(),
 					0,
 					0,
-					shader_->GetEntryName().GetData(),
+					shader_->GetEntryName().c_str(),
 					g_RendererCaps.GetVSVersionProfile(),
 					flags,
 					&shaderBuffer,
@@ -59,11 +59,11 @@ namespace sims
 			}
 			else if (type == ShaderDomain::Fragment)
 			{
-				VERIFYD3DRESULT(D3DXCompileShader(source.GetData(),
-					source.GetSize(),
+				VERIFYD3DRESULT(D3DXCompileShader(source.c_str(),
+					source.size(),
 					0,
 					0,
-					shader_->GetEntryName().GetData(),
+					shader_->GetEntryName().c_str(),
 					g_RendererCaps.GetPSVersionProfile(),
 					flags,
 					&shaderBuffer,

@@ -30,10 +30,10 @@ namespace sims
 		void SetType(ShaderDomain::Type type);
 		void SetEntryName(const char* entryName);
 
-		const Buffer& GetSource() const { return source_; }
+		const string& GetSource() const { return source_; }
 		ShaderDomain::Type GetType() const { return type_; }
 		const char* GetTypeDesc() const;
-		const Buffer& GetEntryName() const { return entryName_; }
+		const string& GetEntryName() const { return entryName_; }
 
 		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
 		uint32 GetStorageFlags() const { return storageFlags_; }
@@ -46,8 +46,8 @@ namespace sims
 		// Hardware resource
 		ShaderResourceRef& HWResource() { return HWResource_; }
 	private:
-		Buffer source_;
-		Buffer entryName_;
+		string source_;
+		string entryName_;
 		ShaderDomain::Type type_;
 		uint32 storageFlags_;
 		bool invalid_;
