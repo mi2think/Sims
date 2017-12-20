@@ -35,15 +35,15 @@ const char* VSSource = "\n"
 "VS_OUTPUT main(float3 pos : POSITION, float3 c : COLOR)"
 "{"
 "VS_OUTPUT o = (VS_OUTPUT)0;"
-"o.position = mul(float4(pos, 1), float3(0.5, 0.5, 1, 1));"
+"o.position = float4(pos, 1) * float4(0.5, 0.5, 1, 1);"
 "o.color = c;"
 "return o;"
 "}";
 
 const char* PSSource = "\n"
-"vector main() : COLOR"
+"float4 main(float3 color : COLOR) : COLOR"
 "{"
-"return vector(1,0,0,1);"
+"return float4(color, 1);"
 "}";
 #endif
 
