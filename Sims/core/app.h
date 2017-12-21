@@ -77,9 +77,10 @@ namespace sims
 			window_->SetApp(this);
 			width_ = window_->GetWidth();
 			height_ = window_->GetHeight();
-			OnCreate();
 
 			InitApp();
+
+			OnCreate();
 		}
 
 		uint32 width_;

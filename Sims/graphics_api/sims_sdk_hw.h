@@ -39,6 +39,20 @@ namespace sims
 		template<> IndexBufferResource*     CreateResource<IndexBufferResource>();
 		template<> ShaderResource*          CreateResource<ShaderResource>();
 		template<> ProgramResource*			CreateResource<ProgramResource>();
+
+		template<typename T>
+		void SetUniform(ProgramRef prog, const char* name, const T& data, ShaderDomain::Type type = ShaderDomain::Vertex)
+		{
+#if SIMS_SDK_IMPL_D3D9
+			ShaderRef shader = prog->GetShader(type);
+			if (shader)
+			{
+				shader->HWResource()->SetUniform<T>(name, data);
+			}
+#elif SIMS_SDK_IMPL_OGL
+			prog->HWResource()->SetUniform<T>(name, data);
+#endif
+		}
 	}
 }
 

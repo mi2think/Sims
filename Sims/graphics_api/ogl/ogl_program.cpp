@@ -142,8 +142,8 @@ namespace sims
 				buf.Resize(nameLengths[i]);
 				GLsizei len = 0;
 				glGetActiveUniformName(prog_, var.index, nameLengths[i], &len, &buf[0]);
-				ASSERT(len == nameLengths[i]);
-				var.name.assign(buf.GetData(), buf.GetSize());
+				ASSERT(len + 1 == nameLengths[i]); 	// nameLength count null character.
+				var.name.assign(buf.GetData(), len);
 				
 				var.loc = glGetUniformLocation(prog_, buf.GetData());
 				if (var.loc == GL_INVALID_VALUE)

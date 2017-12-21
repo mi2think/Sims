@@ -141,6 +141,7 @@ namespace sims
 				var.regIndex = cDesc.RegisterIndex;
 				var.name = cDesc.Name;
 				var.type = cDesc.Type;
+				var.hConstant = table_->GetConstant(0, i);
 
 				uniforms_.push_back(var);
 			}
@@ -151,36 +152,24 @@ namespace sims
 			auto it = std::find_if(uniforms_.begin(), uniforms_.end(), [&name](const UniformVar& var) { return var.name == name; });
 			ASSERT(it != uniforms_.end());
 
-			auto type = shader_->GetType();
-			if (type == ShaderDomain::Vertex)
+			if (it->type == D3DXPT_BOOL)
 			{
-				if (it->type == D3DXPT_BOOL)
-				{
-					VERIFYD3DRESULT(g_pD3DD->SetVertexShaderConstantB(it->regIndex, (const BOOL*)data, dataSize / sizeof(BOOL)));
-				}
-				else if (it->type == D3DXPT_INT)
-				{
-					VERIFYD3DRESULT(g_pD3DD->SetVertexShaderConstantI(it->regIndex, (const int*)data, dataSize / (sizeof(int) * 4)));
-				}
-				else if (it->type == D3DXPT_FLOAT)
-				{
-					VERIFYD3DRESULT(g_pD3DD->SetVertexShaderConstantF(it->regIndex, (const float*)data, dataSize / (sizeof(float) * 4)));
-				}
+				uint32 count = MAX(1, dataSize / sizeof(BOOL));
+				VERIFYD3DRESULT(table_->SetBoolArray(g_pD3DD, it->hConstant, (const BOOL*)data, count));
 			}
-			else if (type == ShaderDomain::Fragment)
+			else if (it->type == D3DXPT_INT)
 			{
-				if (it->type == D3DXPT_BOOL)
-				{
-					VERIFYD3DRESULT(g_pD3DD->SetPixelShaderConstantB(it->regIndex, (const BOOL*)data, dataSize / sizeof(BOOL)));
-				}
-				else if (it->type == D3DXPT_INT)
-				{
-					VERIFYD3DRESULT(g_pD3DD->SetPixelShaderConstantI(it->regIndex, (const int*)data, dataSize / (sizeof(int) * 4)));
-				}
-				else if (it->type == D3DXPT_FLOAT)
-				{
-					VERIFYD3DRESULT(g_pD3DD->SetPixelShaderConstantF(it->regIndex, (const float*)data, dataSize / (sizeof(float) * 4)));
-				}
+				uint32 count = MAX(1, dataSize / sizeof(int));
+				VERIFYD3DRESULT(table_->SetIntArray(g_pD3DD, it->hConstant, (const int*)data, count));
+			}
+			else if (it->type == D3DXPT_FLOAT)
+			{
+				uint32 count = MAX(1, dataSize / sizeof(float));
+				VERIFYD3DRESULT(table_->SetFloatArray(g_pD3DD, it->hConstant, (const float*)data, count));
+			}
+			else
+			{
+				LOG_ERROR("D3D9ShaderResource - SetUniform not support type!");
 			}
 		}
 

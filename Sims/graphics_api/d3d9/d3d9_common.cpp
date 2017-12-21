@@ -79,7 +79,9 @@ namespace sims
 			d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 			d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
 			d3dpp.MultiSampleQuality = 0;
-			d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+			// D3DPRESENT_INTERVAL_IMMEDIATE : an unlimited presentation rate.
+			// D3DPRESENT_INTERVAL_DEFAUL: the default system timer resolution.
+			d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT; 
 			d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 			d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
 

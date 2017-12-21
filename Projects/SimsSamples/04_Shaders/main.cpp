@@ -25,7 +25,7 @@ const char* PSSource = "#version 330\n"
 "{"
 "FragColor = vec4(VertexColor, 1);"
 "}";
-#else SIMS_SDK_IMPL_D3D9
+#elif SIMS_SDK_IMPL_D3D9
 const char* VSSource = "\n"
 "struct VS_OUTPUT"
 "{"

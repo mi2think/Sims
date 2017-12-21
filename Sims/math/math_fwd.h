@@ -60,6 +60,7 @@ namespace sims
 
 	template <typename T> class Vector4;
 	typedef Vector4<float> Vector4f;
+	typedef Vector4<int> Vector4i;
 
 	template <typename T> class Matrix33;
 	typedef Matrix33<float> Matrix33f;

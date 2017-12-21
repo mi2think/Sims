@@ -35,7 +35,6 @@ namespace sims
 		private:
 			void AnalyseUniforms();
 			void InternalReleaseResource();
-
 			union 
 			{
 				void* resource_;
@@ -49,6 +48,7 @@ namespace sims
 				uint32 regIndex;
 				string name;
 				D3DXPARAMETER_TYPE type;
+				D3DXHANDLE hConstant;
 			};
 			vector<UniformVar> uniforms_;
 		};

@@ -41,8 +41,8 @@ namespace sims
 
 			gl_check_error("glCreateShader");
 
-			const char* csource = source.GetData();
-			GLint csize = source.GetSize();
+			const char* csource = source.c_str();
+			GLint csize = source.size();
 			glShaderSource(resource, 1, (GLchar**)&csource, &csize);
 			gl_check_error("glShaderSource");
 
