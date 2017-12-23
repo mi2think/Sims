@@ -10,6 +10,7 @@
 	purpose:	String Utils
 *********************************************************************/
 #include "string_utils.h"
+#include "core/log.h"
 
 #include <cstdarg>
 #include <cassert>
@@ -17,6 +18,21 @@
 
 namespace sims
 {
+	int atoi_s(const char* s)
+	{
+		char* end = 0;
+		long num = (int)strtol(s, &end, 10);
+#if SIMS_DEBUG
+		if (end == s)
+			LOG_ERROR("cannot convert '%s' to number", s);
+		else if (errno == ERANGE && (num  == LONG_MAX || num == LONG_MIN))
+			LOG_ERROR("'%s' out of range for long", s);
+		else if (num > INT_MAX || num < INT_MIN)
+			LOG_ERROR("'%s' out of range for int", s);
+#endif
+		return (int)num;
+	}
+
 	void strncpy_s(char* pDest, const char* pSrc, int destSize)
 	{
 		if (!pDest || !pSrc)
@@ -196,6 +212,16 @@ namespace sims
 				vec.push_back(strTemp);
 			}
 		}
+	}
+
+	void str_split_int(vector<int>& ivec, const string& str, char ch)
+	{
+		vector<string> vec;
+		str_split(vec, str, ch);
+		std::for_each(vec.begin(), vec.end(), [&ivec](const string& s) 
+		{ 
+			ivec.push_back(atoi_s(s.c_str()));
+		});
 	}
 
 	void str_replace(string& strDest, const string& strSrc, const string& strPattern, const string& strReplace)

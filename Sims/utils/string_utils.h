@@ -22,6 +22,8 @@ namespace sims
 	using std::wstring;
 	using std::vector;
 
+	// atoi with check
+	int atoi_s(const char* s);
 	// string copy
 	void strncpy_s(char* pDest, const char* pSrc, int destSize);
 	// string format
@@ -38,7 +40,8 @@ namespace sims
 	void str_strip_anychar(char* strDest, const char* strSrc, const char* anychar);
 	void str_strip_anychar(string& strDest, const string& strSrc, const string& anychar);
 	// string split
-	void str_split(std::vector<string>& vec, const string& str, char ch);
+	void str_split(vector<string>& vec, const string& str, char ch);
+	void str_split_int(vector<int>& ivec, const string& str, char ch);
 	// string replace
 	void str_replace(string& strDest, const string& strSrc, const string& strPattern, const string& strReplace);
 	// string replace by regex pattern
