@@ -18,23 +18,30 @@ namespace sims
 {
 	namespace ogl
 	{
-		struct RendererCaps
+		class OGLCapsInfo
 		{
-			const char* vendor;
-			const char* renderer;
-			const char* version;
-			const char* glslVersion;
+		public:
+			static void InitCapsInfo();
+			static void DumpCapsInfo();
+			static bool HasExtension(const char* extension);
 
-			const char* extensions;
+			static bool SupportVertexArrayObjects() { return bSupportVertexArrayObjects; }
+		private:
+			struct BaseCapsInfo
+			{
+				const char* vendor;
+				const char* renderer;
+				const char* version;
+				const char* glslVersion;
+				const char* extensions;
+			};
 
-			void Dump();
+			static BaseCapsInfo baseCapsInfo;
+			static int32 majorVersion;
+			static int32 minorVersion;
+
+			static bool bSupportVertexArrayObjects;
 		};
-
-		extern RendererCaps g_RendererCaps;
-
-		void InitRendererCaps();
-
-		bool HasExtension(const char* extension);
 	}
 }
 

@@ -43,8 +43,8 @@ namespace sims
 			ASSERT(res == GLEW_OK);
 			
 			// ogl caps
-			InitRendererCaps();
-			g_RendererCaps.Dump();
+			OGLCapsInfo::InitCapsInfo();
+			OGLCapsInfo::DumpCapsInfo();
 
 			gl_init_states(0.0f, 0.0f, 0.0f, 0.0f);
 		}

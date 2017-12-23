@@ -16,21 +16,23 @@ namespace sims
 {
 	namespace ogl
 	{
-		RendererCaps g_RendererCaps;
+		OGLCapsInfo::BaseCapsInfo OGLCapsInfo::baseCapsInfo;
+		int32 OGLCapsInfo::majorVersion = 0;
+		int32 OGLCapsInfo::minorVersion = 0;
 
-		void RendererCaps::Dump()
+		void OGLCapsInfo::DumpCapsInfo()
 		{
 			LOG_INFO("CAPS: -------------------------------------");
 			LOG_INFO("CAPS:  ogl renderer caps");
-			LOG_INFO("CAPS:  Vendor: %s", vendor);
-			LOG_INFO("CAPS:  Renderer: %s", renderer);
-			LOG_INFO("CAPS:  Version: %s", version);
-			LOG_INFO("CAPS:  GLSLVersion: %s", glslVersion);
+			LOG_INFO("CAPS:  Vendor: %s", baseCapsInfo.vendor);
+			LOG_INFO("CAPS:  Renderer: %s", baseCapsInfo.renderer);
+			LOG_INFO("CAPS:  Version: %s", baseCapsInfo.version);
+			LOG_INFO("CAPS:  GLSLVersion: %s", baseCapsInfo.glslVersion);
 			LOG_INFO("CAPS: -------------------------------------");
 			LOG_INFO("CAPS:  ogl extensions:");
 
 			// extension is a space-separated list of tokens
-			const char* p = extensions;
+			const char* p = baseCapsInfo.extensions;
 			for (const char* q = p; *q;)
 			{
 				while (*q != 0 && *q != ' ')
@@ -43,40 +45,44 @@ namespace sims
 				p = *q ? q + 1 : q;
 				q = p;
 			}
+
+			LOG_INFO("CAPS:  major version: %d", majorVersion);
+			LOG_INFO("CAPS:  minor version: %d", minorVersion);
 		}
 
-		void InitRendererCaps()
-		{
-			auto& caps = g_RendererCaps;
-		
+		void OGLCapsInfo::InitCapsInfo()
+		{		
 			// https://www.opengl.org/wiki/GLAPI/glGetString
 
-			caps.vendor = (const char*)glGetString(GL_VENDOR);
-			if (!caps.vendor)
-				caps.vendor = "<undefined>";
+			baseCapsInfo.vendor = (const char*)glGetString(GL_VENDOR);
+			if (!baseCapsInfo.vendor)
+				baseCapsInfo.vendor = "<undefined>";
 
-			caps.renderer = (const char*)glGetString(GL_RENDERER);
-			if (!caps.renderer)
-				caps.renderer = "<undefined>";
+			baseCapsInfo.renderer = (const char*)glGetString(GL_RENDERER);
+			if (!baseCapsInfo.renderer)
+				baseCapsInfo.renderer = "<undefined>";
 
-			caps.version = (const char*)glGetString(GL_VERSION);
-			if (!caps.version)
-				caps.version = "<undefined>";
+			baseCapsInfo.version = (const char*)glGetString(GL_VERSION);
+			if (!baseCapsInfo.version)
+				baseCapsInfo.version = "<undefined>";
 
-			caps.glslVersion = (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
-			if (!caps.glslVersion)
-				caps.glslVersion = "<undefined>";
+			baseCapsInfo.glslVersion = (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
+			if (!baseCapsInfo.glslVersion)
+				baseCapsInfo.glslVersion = "<undefined>";
 
-			caps.extensions = (const char*)glGetString(GL_EXTENSIONS);
-			if (!caps.extensions)
-				caps.extensions = "no extensions";
+			baseCapsInfo.extensions = (const char*)glGetString(GL_EXTENSIONS);
+			if (!baseCapsInfo.extensions)
+				baseCapsInfo.extensions = "no extensions";
+
+			glGetIntegerv(GL_MAJOR_VERSION, (GLint*)&majorVersion);
+			glGetIntegerv(GL_MINOR_VERSION, (GLint*)&minorVersion);
+
+			// since 3.0
+			bSupportVertexArrayObjects = (majorVersion >= 3) || HasExtension("GL_OES_vertex_array_object");
 		}
 
-		bool HasExtension(const char* extension)
+		bool OGLCapsInfo::HasExtension(const char* extension)
 		{
-			if (!g_RendererCaps.extensions)
-				return false;
-
 			// extension is a space-separated list of tokens
 			const char* p = extension;
 			for (const char* q = p; *q;)
