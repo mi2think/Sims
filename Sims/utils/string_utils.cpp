@@ -11,6 +11,7 @@
 *********************************************************************/
 #include "string_utils.h"
 #include "core/log.h"
+#include "core/core.h" // for SIMS_DEBUG
 
 #include <cstdarg>
 #include <cassert>
