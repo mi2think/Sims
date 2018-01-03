@@ -20,13 +20,14 @@ namespace sims
 	{
 	public:
 		VertexStream() = default;
-		VertexStream(VertexStreamUsage::Type usage, uint32 index, ElementType::Type type, uint32 elementCount);
+		VertexStream(VertexStreamUsage::Type usage, uint32 index, ElementType::Type type, uint32 elementCount, uint32 usageIndex = 0);
 
 		VertexStreamUsage::Type GetUsage() const { return usage_; }
 		uint32 GetIndex() const { return index_; }
 		ElementType::Type GetElementType() const { return elementType_; }
 		uint32 GetElementCount() const { return elementCount_; }
 		uint32 GetElementSize() const;
+		uint32 GetUsageIndex() const { return usageIndex_; }
 
 		uint32 GetSize() const;
 
@@ -35,9 +36,11 @@ namespace sims
 	private:
 		friend class VertexDeclaration;
 		void SetOffset(uint32 offset);
-
-		VertexStreamUsage::Type usage_;
+		
+		// stream index
 		uint32 index_;
+		VertexStreamUsage::Type usage_;
+		uint32 usageIndex_;
 		ElementType::Type elementType_;
 		uint32 elementCount_;
 

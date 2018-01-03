@@ -35,7 +35,7 @@ namespace sims
 				TBuffer<D3DVERTEXELEMENT9> elements(count + 1); // +1 for D3DDECL_END
 				for (uint32 i = 0; i < count; ++i)
 				{
-					FillD3DVertexElement(&elements[i], vertexDecl_->GetStream(i), 0);
+					FillD3DVertexElement(&elements[i], vertexDecl_->GetStream(i));
 				}
 				elements[count] = D3DDECL_END();
 				VERIFYD3DRESULT(g_pD3DD->CreateVertexDeclaration(elements.GetData(), &decl_));

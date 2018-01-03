@@ -13,11 +13,12 @@
 
 namespace sims
 {
-	VertexStream::VertexStream(VertexStreamUsage::Type usage, uint32 index, ElementType::Type type, uint32 elementCount)
+	VertexStream::VertexStream(VertexStreamUsage::Type usage, uint32 index, ElementType::Type type, uint32 elementCount, uint32 usageIndex)
 		: usage_(usage)
 		, index_(index)
 		, elementType_(type)
 		, elementCount_(elementCount)
+		, usageIndex_(usageIndex)
 	{}
 
 	uint32 VertexStream::GetElementSize() const

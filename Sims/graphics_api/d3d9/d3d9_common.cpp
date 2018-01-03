@@ -204,7 +204,7 @@ namespace sims
 			return D3DPT_TRIANGLELIST;
 		}
 
-		void FillD3DVertexElement(D3DVERTEXELEMENT9* vertexElement, const VertexStream* vertexStream, uint32 streamIndex)
+		void FillD3DVertexElement(D3DVERTEXELEMENT9* vertexElement, const VertexStream* vertexStream)
 		{
 			// vertex usage
 			auto usage = vertexStream->GetUsage();
@@ -272,8 +272,8 @@ namespace sims
 			}
 			ASSERT(vertexElement->Type != D3DDECLTYPE_UNUSED);
 
-			vertexElement->Stream = (WORD)streamIndex;
-			vertexElement->UsageIndex = (BYTE)vertexStream->GetIndex();
+			vertexElement->Stream = (WORD)vertexStream->GetIndex();
+			vertexElement->UsageIndex = (BYTE)vertexStream->GetUsageIndex();
 			vertexElement->Offset = (WORD)vertexStream->GetOffset();
 			vertexElement->Method = D3DDECLMETHOD_DEFAULT;
 		}
