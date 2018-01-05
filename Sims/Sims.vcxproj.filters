@@ -516,9 +516,6 @@
     <ClInclude Include="math\math.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="utils\app.h">
-      <Filter>utils</Filter>
-    </ClInclude>
     <ClInclude Include="core\app.h">
       <Filter>core</Filter>
     </ClInclude>

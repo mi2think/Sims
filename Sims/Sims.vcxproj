@@ -413,7 +413,6 @@
     <ClInclude Include="platform\windows\windows_platform.h" />
     <ClInclude Include="platform\windows\windows_window_base.h" />
     <ClInclude Include="sims.h" />
-    <ClInclude Include="utils\app.h" />
     <ClInclude Include="utils\fps.h" />
     <ClInclude Include="utils\geometry_gen.h" />
     <ClInclude Include="utils\string_utils.h" />
