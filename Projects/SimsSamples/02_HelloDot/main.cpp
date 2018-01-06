@@ -41,7 +41,8 @@ public:
 			// draw
 			renderer_->BeginFrame(ClearFlags::Color | ClearFlags::Depth, Color(0xff000000), 1.0f, 0);
 
-			renderer_->DrawPrimitive(PrimitiveType::Points, *(vertexBuf_->HWResource()), 1);
+			vertexBuf_->HWResource()->BindResource();
+			renderer_->DrawPrimitive(PrimitiveType::Points, 1);
 			
 			renderer_->EndFrame();
 			renderer_->PresentFrame();

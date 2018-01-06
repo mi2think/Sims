@@ -29,8 +29,8 @@ namespace sims
 			virtual void SetTransform(Transform::Type type, const Matrix44f& matrix);
 			virtual const Matrix44f& GetTransform(Transform::Type type) const;
 
-			virtual void DrawPrimitive(PrimitiveType::Type type, const RenderResource& vb, uint32 primitiveCount);
-			virtual void DrawIndexedPrimitive(PrimitiveType::Type type, const RenderResource& vb, const RenderResource& ib, uint32 vertexCount, uint32 primitiveCount);
+			virtual void DrawPrimitive(PrimitiveType::Type type, uint32 primitiveCount);
+			virtual void DrawIndexedPrimitive(PrimitiveType::Type type, const RenderResource& ib, uint32 vertexCount, uint32 primitiveCount);
 		private:
 			Matrix44f matrixs_[Transform::Max];
 		};

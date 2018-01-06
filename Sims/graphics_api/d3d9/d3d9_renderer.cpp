@@ -68,15 +68,13 @@ namespace sims
 			return matrixs_[type];
 		}
 
-		void D3D9Renderer::DrawPrimitive(PrimitiveType::Type type, const RenderResource& vb, uint32 primitiveCount)
+		void D3D9Renderer::DrawPrimitive(PrimitiveType::Type type, uint32 primitiveCount)
 		{
-			vb.BindResource();
 			VERIFYD3DRESULT(g_pD3DD->DrawPrimitive(ToD3DPrimitiveType(type), 0, primitiveCount));
 		}
 
-		void D3D9Renderer::DrawIndexedPrimitive(PrimitiveType::Type type, const RenderResource& vb, const RenderResource& ib, uint32 vertexCount, uint32 primitiveCount)
+		void D3D9Renderer::DrawIndexedPrimitive(PrimitiveType::Type type, const RenderResource& ib, uint32 vertexCount, uint32 primitiveCount)
 		{
-			vb.BindResource();
 			ib.BindResource();
 			VERIFYD3DRESULT(g_pD3DD->DrawIndexedPrimitive(ToD3DPrimitiveType(type), 0, 0, vertexCount, 0, primitiveCount));
 		}

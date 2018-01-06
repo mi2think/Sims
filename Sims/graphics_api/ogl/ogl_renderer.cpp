@@ -74,18 +74,17 @@ namespace sims
 			return matrixs_[type];
 		}
 
-		void OGLRenderer::DrawPrimitive(PrimitiveType::Type type, const RenderResource& vb, uint32 primitiveCount)
+		void OGLRenderer::DrawPrimitive(PrimitiveType::Type type, uint32 primitiveCount)
 		{
-			vb.BindResource();
 			glDrawArrays(ToGLPrimitiveType(type), 0, primitiveCount * GetVertexNumPerPrimitive(type));
 
 			gl_check_error("DrawPrimitive");
 		}
 
-		void OGLRenderer::DrawIndexedPrimitive(PrimitiveType::Type type, const RenderResource& vb, const RenderResource& ib, uint32 vertexCount, uint32 primitiveCount)
+		void OGLRenderer::DrawIndexedPrimitive(PrimitiveType::Type type, const RenderResource& ib, uint32 vertexCount, uint32 primitiveCount)
 		{
-			vb.BindResource();
 			ib.BindResource();
+			
 		}
 	}
 }
