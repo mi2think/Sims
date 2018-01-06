@@ -73,7 +73,7 @@ namespace sims
 			VERIFYD3DRESULT(g_pD3DD->DrawPrimitive(ToD3DPrimitiveType(type), 0, primitiveCount));
 		}
 
-		void D3D9Renderer::DrawIndexedPrimitive(PrimitiveType::Type type, const RenderResource& ib, uint32 vertexCount, uint32 primitiveCount)
+		void D3D9Renderer::DrawIndexedPrimitive(PrimitiveType::Type type, const IndexBufferResource& ib, uint32 vertexCount, uint32 primitiveCount)
 		{
 			ib.BindResource();
 			VERIFYD3DRESULT(g_pD3DD->DrawIndexedPrimitive(ToD3DPrimitiveType(type), 0, 0, vertexCount, 0, primitiveCount));

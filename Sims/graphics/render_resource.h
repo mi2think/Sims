@@ -61,6 +61,7 @@ namespace sims
 		IndexBufferResource();
 
 		void Attach(void* indexBuffer);
+		uint32 GetIndexCount() const;
 	protected:
 		IndexBuffer* indexBuffer_;
 	};

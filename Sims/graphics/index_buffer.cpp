@@ -52,7 +52,7 @@ namespace sims
 
 	IndexBuffer::IndexBuffer(uint32 indexCount)
 		: indexCount_(indexCount)
-		, storageFlags_(StorageFlags::Local)
+		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 		, isLocked_(false)
 		, invalidRange_(0, indexCount)
 	{
@@ -61,7 +61,7 @@ namespace sims
 
 	IndexBuffer::IndexBuffer(uint32 indexCount, IndexType* data)
 		: indexCount_(indexCount)
-		, storageFlags_(StorageFlags::Local)
+		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 		, isLocked_(false)
 		, invalidRange_(0, indexCount)
 	{

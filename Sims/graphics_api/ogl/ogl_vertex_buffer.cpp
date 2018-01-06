@@ -65,6 +65,7 @@ namespace sims
 
 			// bind stream
 			uint32 count = vertexStream_->GetVertexElementCount();
+			uint32 attriIndex = vertexStream_->GetIndex();
 			for (uint32 i = 0; i < count; ++i)
 			{
 				const VertexElement& vertexElement = vertexStream_->GetVertexElement(i);

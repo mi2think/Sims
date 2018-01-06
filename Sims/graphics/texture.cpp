@@ -19,7 +19,7 @@ namespace sims
 		, height_(0)
 		, format_(PixelFormat::Unknown)
 		, mipmapCount_(0)
-		, storageFlags_(StorageFlags::Local)
+		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 	{
 	}
 
@@ -28,20 +28,20 @@ namespace sims
 		, height_(height)
 		, format_(format)
 		, mipmapCount_(1)
-		, storageFlags_(StorageFlags::Local)
+		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 	{
 		ImageRef image(new Image(width, height, format));
 		mipmaps_.push_back(image);
 	}
 
 	Texture::Texture(const string& path, PixelFormat::Type format)
-		: storageFlags_(StorageFlags::Local)
+		: storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 	{
 		Load(path, format);
 	}
 
 	Texture::Texture(const ImageRef& image)
-		: storageFlags_(StorageFlags::Local)
+		: storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 	{
 		SetImage(image);
 	}

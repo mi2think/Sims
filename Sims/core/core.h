@@ -16,7 +16,7 @@
 
 #define ASSERT	assert
 #define BIT(x)	(1<<(x))
-#define count_of(_Array) (sizeof(_Array) / sizeof(_Array[0]))
+#define ARRAY_COUNT(_Array) (sizeof(_Array) / sizeof(_Array[0]))
 
 #define SAFE_DELETE(p)		do { if (p != nullptr) { delete p; p = nullptr; } } while(0)
 #define SAFE_DELETEARRAY(p) do { if (p != nullptr) { delete[] p; p = nullptr; } } while(0)

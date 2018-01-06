@@ -11,6 +11,7 @@
 *********************************************************************/
 #include "render_resource.h"
 #include "vertex_buffer.h"
+#include "index_buffer.h"
 #include "math/rectangle.h"
 
 namespace sims
@@ -59,6 +60,11 @@ namespace sims
 	void IndexBufferResource::Attach(void* indexBuffer)
 	{
 		indexBuffer_ = static_cast<IndexBuffer*>(indexBuffer);
+	}
+
+	uint32 IndexBufferResource::GetIndexCount() const
+	{
+		return indexBuffer_->GetIndexCount();
 	}
 
 	ShaderResource::ShaderResource()

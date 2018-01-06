@@ -81,10 +81,12 @@ namespace sims
 			gl_check_error("DrawPrimitive");
 		}
 
-		void OGLRenderer::DrawIndexedPrimitive(PrimitiveType::Type type, const RenderResource& ib, uint32 vertexCount, uint32 primitiveCount)
+		void OGLRenderer::DrawIndexedPrimitive(PrimitiveType::Type type, const IndexBufferResource& ib, uint32 vertexCount, uint32 primitiveCount)
 		{
 			ib.BindResource();
-			
+			glDrawElements(ToGLPrimitiveType(type), ib.GetIndexCount(), GL_UNSIGNED_SHORT, 0);
+
+			gl_check_error("DrawIndexedPrimitive");
 		}
 	}
 }
