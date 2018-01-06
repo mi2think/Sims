@@ -41,6 +41,7 @@ namespace sims
 	VertexBufferResource::VertexBufferResource()
 		: vertexBuffer_(nullptr)
 		, vertexDecl_(nullptr)
+		, vertexStream_(nullptr)
 	{
 	}
 
@@ -48,6 +49,7 @@ namespace sims
 	{
 		vertexBuffer_ = static_cast<VertexBuffer*>(vertexBuffer);
 		vertexDecl_ = vertexBuffer_->GetVertexDeclaration().Get();
+		vertexStream_ = vertexDecl_->GetStream(vertexBuffer_->GetStreamIndex());
 	}
 
 	IndexBufferResource::IndexBufferResource()

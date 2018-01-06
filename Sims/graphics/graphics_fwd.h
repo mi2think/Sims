@@ -71,7 +71,7 @@ namespace sims
 		Color
 	END_DECLARE_ENUM()
 
-	DECLARE_ENUM(ElementType)
+	DECLARE_ENUM(DataType)
 		S8,
 		U8,
 		S16,
@@ -81,7 +81,7 @@ namespace sims
 		F32
 	END_DECLARE_ENUM()
 
-	DECLARE_ENUM(VertexStreamUsage)
+	DECLARE_ENUM(VertexElementUsage)
 		Position,
 		Normal,
 		TexCoord,
@@ -112,6 +112,7 @@ namespace sims
 	class RenderResource;
 	class Texture;
 	class TextureResource;
+	class VertexElement;
 	class VertexStream;
 	class VertexDeclaration;
 	class VertexBuffer;
@@ -137,9 +138,9 @@ namespace sims
 
 	template<typename T>
 	struct ElementTypeTraits {};
-	template<> struct ElementTypeTraits<Color>    { static const ElementType::Type Ty = ElementType::U32; static const uint32 N = 1; };
-	template<> struct ElementTypeTraits<Vector2f> { static const ElementType::Type Ty = ElementType::F32; static const uint32 N = 2; };
-	template<> struct ElementTypeTraits<Vector3f> { static const ElementType::Type Ty = ElementType::F32; static const uint32 N = 3; };
+	template<> struct ElementTypeTraits<Color>    { static const DataType::Type Ty = DataType::U32; static const uint32 N = 1; };
+	template<> struct ElementTypeTraits<Vector2f> { static const DataType::Type Ty = DataType::F32; static const uint32 N = 2; };
+	template<> struct ElementTypeTraits<Vector3f> { static const DataType::Type Ty = DataType::F32; static const uint32 N = 3; };
 
 	inline uint32 GetVertexNumPerPrimitive(PrimitiveType::Type primitive)
 	{

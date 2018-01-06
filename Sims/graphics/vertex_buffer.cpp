@@ -23,11 +23,6 @@ namespace sims
 	{
 		Init(vertexBuffer, lockFlags, offset, count);
 	}
-	
-	const VertexDeclarationRef& LockedVertexBuffer::GetVertexDeclaration() const
-	{
-		return vertexBuffer_->GetVertexDeclaration();
-	}
 
 	void LockedVertexBuffer::Clear()
 	{
@@ -48,12 +43,12 @@ namespace sims
 
 	void* LockedVertexBuffer::GetLockData()
 	{
-		return vertexData_->GetData() + offset_ * GetVertexDeclaration()->GetStride();
+		return vertexData_->GetData() + offset_ * vertexBuffer_->GetVertexStream()->GetStride();
 	}
 
 	const void* LockedVertexBuffer::GetLockData() const
 	{ 
-		return vertexData_->GetData() + offset_ * GetVertexDeclaration()->GetStride();
+		return vertexData_->GetData() + offset_ * vertexBuffer_->GetVertexStream()->GetStride();
 	}
 
 	VertexBuffer::VertexBuffer()
@@ -61,25 +56,32 @@ namespace sims
 		, storageFlags_(StorageFlags::Local)
 		, isLocked_(false)
 		, invalidRange_(0, 0)
+		, streamIndex_(0)
+		, vertexStream_(nullptr)
 	{}
 
-	VertexBuffer::VertexBuffer(const VertexDeclarationRef& vertexDecl)
+	VertexBuffer::VertexBuffer(const VertexDeclarationRef& vertexDecl, uint32 streamIndex)
 		: vertexDecl_(vertexDecl)
 		, vertexCount_(0)
 		, storageFlags_(StorageFlags::Local)
 		, isLocked_(false)
 		, invalidRange_(0, 0)
+		, streamIndex_(streamIndex)
+		, vertexStream_(nullptr)
 	{
 	}
 
-	VertexBuffer::VertexBuffer(const VertexDeclarationRef& vertexDecl, uint32 vertexCount)
+	VertexBuffer::VertexBuffer(const VertexDeclarationRef& vertexDecl, uint32 vertexCount, uint32 streamIndex)
 		: vertexDecl_(vertexDecl)
 		, vertexCount_(vertexCount)
 		, storageFlags_(StorageFlags::Local)
 		, isLocked_(false)
 		, invalidRange_(0, vertexCount)
+		, streamIndex_(streamIndex)
+		, vertexStream_(nullptr)
 	{
-		vertexData_.Resize(vertexCount_ * vertexDecl->GetStride());
+		vertexStream_ = vertexDecl->GetStream(streamIndex);
+		vertexData_.Resize(vertexCount_ * vertexStream_->GetStride());
 	}
 
 	VertexBuffer::~VertexBuffer()
@@ -89,7 +91,7 @@ namespace sims
 	void VertexBuffer::Resize(uint32 vertexCount)
 	{
 		ASSERT(!isLocked_);
-		vertexData_.Resize(vertexCount * vertexDecl_->GetStride());
+		vertexData_.Resize(vertexCount * vertexStream_->GetStride());
 		vertexCount_ = vertexCount;
 		//TODO: change size should create HW buffer
 	}

@@ -21,8 +21,7 @@ namespace sims
 			for (uint32 j = 0; j <= i - 1; ++j)
 			{
 				const auto& checkStream = streams[j];
-				if (checkStream.GetIndex() == stream.GetIndex() &&
-					checkStream.GetUsage() == stream.GetUsage())
+				if (checkStream.GetIndex() == stream.GetIndex())
 				{
 					return false;
 				}
@@ -31,13 +30,12 @@ namespace sims
 		return true;
 	}
 
-	VertexDeclaration::VertexDeclaration(VertexStream* streams, uint32 streamCount, uint32 stride)
+	VertexDeclaration::VertexDeclaration(VertexStream* streams, uint32 streamCount)
 		: streams_(streams)
 		, streamCount_(streamCount)
-		, stride_(stride)
 	{
 		ASSERT(CheckStreams(streams_, streamCount_)
-			&& "two vertex stream has same usage and index");
+			&& "two vertex stream has same index");
 	}
 
 	VertexDeclaration::~VertexDeclaration()
@@ -48,19 +46,12 @@ namespace sims
 	VertexDeclarationRef VertexDeclaration::Get(const VertexStream* streams, uint32 streamCount)
 	{
 		VertexStream* myStreams = new VertexStream[streamCount];
-		memcpy(myStreams, streams, streamCount * sizeof(VertexStream));
-
-		// compute stride
-		uint32 stride = 0;
 		for (uint32 i = 0; i < streamCount; ++i)
 		{
 			VertexStream& stream = myStreams[i];
-			stride = align(stride, stream.GetAlign());
-			stream.SetOffset(stride);
-
-			stride += stream.GetSize();
+			stream = streams[i];
 		}
 
-		return VertexDeclarationRef(new VertexDeclaration(myStreams, streamCount, stride));
+		return VertexDeclarationRef(new VertexDeclaration(myStreams, streamCount));
 	}
 }

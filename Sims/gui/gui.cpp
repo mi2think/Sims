@@ -51,16 +51,16 @@ namespace sims
 			: vbWritePos_(0)
 			, ibWritePos_(0)
 		{
-			VertexStream streams[3] = 
-			{
-				VertexStream(VertexStreamUsage::Position, 0, ElementTypeTraits<Vertex::V3F>::Ty, ElementTypeTraits<Vertex::V3F>::N),
-				VertexStream(VertexStreamUsage::TexCoord, 0, ElementTypeTraits<Vertex::V2F>::Ty, ElementTypeTraits<Vertex::V2F>::N),
-				VertexStream(VertexStreamUsage::Color, 0, ElementTypeTraits<Vertex::C>::Ty, ElementTypeTraits<Vertex::C>::N),
-			};
-			VertexDeclarationRef vertexDecl = VertexDeclaration::Get(&streams[0], count_of(streams));
-			ASSERT(vertexDecl->GetStride() == sizeof(Vertex));
+			VertexStream streams 
+			(
+				0,
+				VertexElement(VertexElementUsage::Position, 0, ElementTypeTraits<Vertex::V3F>::Ty, ElementTypeTraits<Vertex::V3F>::N),
+				VertexElement(VertexElementUsage::TexCoord, 0, ElementTypeTraits<Vertex::V2F>::Ty, ElementTypeTraits<Vertex::V2F>::N),
+				VertexElement(VertexElementUsage::Color, 0, ElementTypeTraits<Vertex::C>::Ty, ElementTypeTraits<Vertex::C>::N)
+			);
+			VertexDeclarationRef vertexDecl = VertexDeclaration::Get(&streams, 1);
 
-			vertexBuf_ = new VertexBuffer(vertexDecl);
+			vertexBuf_ = new VertexBuffer(vertexDecl, 0);
 			indexBuf_ = new IndexBuffer();
 		}
 

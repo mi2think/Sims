@@ -12,13 +12,14 @@ public:
 	{
 		renderer_ = hw::GetRenderer();
 
-		VertexStream streams[2] = 
-		{ 
-			VertexStream(VertexStreamUsage::Position, 0, ElementType::F32, 3),
-			VertexStream(VertexStreamUsage::Color, 0, ElementType::U32, 1)
-		};
-		VertexDeclarationRef vertexDecl = VertexDeclaration::Get(&streams[0], 2);
-		vertexBuf_ = new VertexBuffer(vertexDecl, 1);
+		VertexStream stream 
+		(
+			0,
+			VertexElement(VertexElementUsage::Position, 0, DataType::F32, 3),
+			VertexElement(VertexElementUsage::Color, 0, DataType::U32, 1)
+		);
+		VertexDeclarationRef vertexDecl = VertexDeclaration::Get(&stream, 1);
+		vertexBuf_ = new VertexBuffer(vertexDecl, 1, 0);
 		vertexBuf_->SetStorageFlags(StorageFlags::Hardware);
 
 		auto L = vertexBuf_->Lock(LockFlags::LockWrite);

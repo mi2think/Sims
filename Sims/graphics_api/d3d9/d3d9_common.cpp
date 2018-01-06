@@ -204,23 +204,23 @@ namespace sims
 			return D3DPT_TRIANGLELIST;
 		}
 
-		void FillD3DVertexElement(D3DVERTEXELEMENT9* vertexElement, const VertexStream* vertexStream)
+		void FillD3DVertexElement(D3DVERTEXELEMENT9* d3d9VertexElement, const VertexElement* vertexElement, uint32 streamIndex)
 		{
 			// vertex usage
-			auto usage = vertexStream->GetUsage();
+			auto usage = vertexElement->GetUsage();
 			switch (usage)
 			{
-			case VertexStreamUsage::Position:
-				vertexElement->Usage = D3DDECLUSAGE_POSITION;
+			case VertexElementUsage::Position:
+				d3d9VertexElement->Usage = D3DDECLUSAGE_POSITION;
 				break;
-			case VertexStreamUsage::Normal:
-				vertexElement->Usage = D3DDECLUSAGE_NORMAL;
+			case VertexElementUsage::Normal:
+				d3d9VertexElement->Usage = D3DDECLUSAGE_NORMAL;
 				break;
-			case VertexStreamUsage::TexCoord:
-				vertexElement->Usage = D3DDECLUSAGE_TEXCOORD;
+			case VertexElementUsage::TexCoord:
+				d3d9VertexElement->Usage = D3DDECLUSAGE_TEXCOORD;
 				break;
-			case VertexStreamUsage::Color:
-				vertexElement->Usage = D3DDECLUSAGE_COLOR;
+			case VertexElementUsage::Color:
+				d3d9VertexElement->Usage = D3DDECLUSAGE_COLOR;
 				break;
 			default:
 				ASSERT(false && "unsupport usage type!");
@@ -228,54 +228,54 @@ namespace sims
 			}
 
 			// vertex data type
-			auto type = vertexStream->GetElementType();
-			auto count = vertexStream->GetElementCount();
-			vertexElement->Type = D3DDECLTYPE_UNUSED;
-			if (type == ElementType::F32)
+			auto type = vertexElement->GetComponentType();
+			auto count = vertexElement->GetComponentCount();
+			d3d9VertexElement->Type = D3DDECLTYPE_UNUSED;
+			if (type == DataType::F32)
 			{
 				switch (count)
 				{
-				case 1: vertexElement->Type = D3DDECLTYPE_FLOAT1; break;
-				case 2: vertexElement->Type = D3DDECLTYPE_FLOAT2; break;
-				case 3: vertexElement->Type = D3DDECLTYPE_FLOAT3; break;
-				case 4: vertexElement->Type = D3DDECLTYPE_FLOAT4; break;
+				case 1: d3d9VertexElement->Type = D3DDECLTYPE_FLOAT1; break;
+				case 2: d3d9VertexElement->Type = D3DDECLTYPE_FLOAT2; break;
+				case 3: d3d9VertexElement->Type = D3DDECLTYPE_FLOAT3; break;
+				case 4: d3d9VertexElement->Type = D3DDECLTYPE_FLOAT4; break;
 				default:
 					break;
 				}
 			}
-			else if (type == ElementType::U8)
+			else if (type == DataType::U8)
 			{
 				if (count == 4)
 				{
-					if (usage == VertexStreamUsage::Color)
-						vertexElement->Type = D3DDECLTYPE_D3DCOLOR;
+					if (usage == VertexElementUsage::Color)
+						d3d9VertexElement->Type = D3DDECLTYPE_D3DCOLOR;
 					else
-						vertexElement->Type = D3DDECLTYPE_UBYTE4;
+						d3d9VertexElement->Type = D3DDECLTYPE_UBYTE4;
 				}
 			}
-			else if (type == ElementType::U32)
+			else if (type == DataType::U32)
 			{
 				if (count == 1)
 				{
-					if (usage == VertexStreamUsage::Color)
-						vertexElement->Type = D3DDECLTYPE_D3DCOLOR;
+					if (usage == VertexElementUsage::Color)
+						d3d9VertexElement->Type = D3DDECLTYPE_D3DCOLOR;
 					else
-						vertexElement->Type = D3DDECLTYPE_UBYTE4;
+						d3d9VertexElement->Type = D3DDECLTYPE_UBYTE4;
 				}
 			}
-			else if (type == ElementType::S16)
+			else if (type == DataType::S16)
 			{
 				if (count == 2)
-					vertexElement->Type = D3DDECLTYPE_SHORT2;
+					d3d9VertexElement->Type = D3DDECLTYPE_SHORT2;
 				else if (count == 4)
-					vertexElement->Type = D3DDECLTYPE_SHORT4;
+					d3d9VertexElement->Type = D3DDECLTYPE_SHORT4;
 			}
-			ASSERT(vertexElement->Type != D3DDECLTYPE_UNUSED);
+			ASSERT(d3d9VertexElement->Type != D3DDECLTYPE_UNUSED);
 
-			vertexElement->Stream = (WORD)vertexStream->GetIndex();
-			vertexElement->UsageIndex = (BYTE)vertexStream->GetUsageIndex();
-			vertexElement->Offset = (WORD)vertexStream->GetOffset();
-			vertexElement->Method = D3DDECLMETHOD_DEFAULT;
+			d3d9VertexElement->Stream = (WORD)streamIndex;
+			d3d9VertexElement->UsageIndex = (BYTE)vertexElement->GetUsageIndex();
+			d3d9VertexElement->Offset = (WORD)vertexElement->GetOffset();
+			d3d9VertexElement->Method = D3DDECLMETHOD_DEFAULT;
 		}
 	}
 }

@@ -31,11 +31,12 @@ namespace sims
 		{
 			if (!decl_)
 			{
-				uint32 count = vertexDecl_->GetStreamCount();
+				uint32 count = vertexStream_->GetVertexElementCount();
+				uint32 streamIndex = vertexStream_->GetIndex();
 				TBuffer<D3DVERTEXELEMENT9> elements(count + 1); // +1 for D3DDECL_END
 				for (uint32 i = 0; i < count; ++i)
 				{
-					FillD3DVertexElement(&elements[i], vertexDecl_->GetStream(i));
+					FillD3DVertexElement(&elements[i], &vertexStream_->GetVertexElement(i), streamIndex);
 				}
 				elements[count] = D3DDECL_END();
 				VERIFYD3DRESULT(g_pD3DD->CreateVertexDeclaration(elements.GetData(), &decl_));
@@ -46,7 +47,7 @@ namespace sims
 				if ((vertexBuffer_->GetStorageFlags() & StorageFlags::HintDynamic) != 0)
 					pool = D3DPOOL_DEFAULT;
 
-				VERIFYD3DRESULT(g_pD3DD->CreateVertexBuffer(vertexBuffer_->GetVertexCount() * vertexDecl_->GetStride(),
+				VERIFYD3DRESULT(g_pD3DD->CreateVertexBuffer(vertexBuffer_->GetVertexCount() * vertexStream_->GetStride(),
 					D3DUSAGE_WRITEONLY,
 					0, // using vertex decl
 					pool,
@@ -57,8 +58,8 @@ namespace sims
 			// update vertex buffer
 			const IndexRange& range = vertexBuffer_->GetInvalidRange();
 			auto L = vertexBuffer_->Lock(LockFlags::LockRead, range.begin, range.count);
-			uint32 dataSize = L->GetCount() * vertexDecl_->GetStride();
-			uint32 dataOffset = L->GetOffset() * vertexDecl_->GetStride();
+			uint32 dataSize = L->GetCount() * vertexStream_->GetStride();
+			uint32 dataOffset = L->GetOffset() * vertexStream_->GetStride();
 
 			void* vertices = nullptr;
 			VERIFYD3DRESULT(vb_->Lock(
@@ -77,12 +78,7 @@ namespace sims
 			ASSERT(decl_ && vb_);
 
 			VERIFYD3DRESULT(g_pD3DD->SetVertexDeclaration(decl_));
-			VERIFYD3DRESULT(g_pD3DD->SetStreamSource(0, vb_, 0, vertexDecl_->GetStride()));
-			//for (uint32 i = 0; i < vertexDecl_->GetStreamCount(); ++i)
-			//{
-			//	uint32 offset = vertexDecl_->GetStream(i)->GetOffset();
-			//	VERIFYD3DRESULT(g_pD3DD->SetStreamSource(i, vb_, offset, vertexDecl_->GetStride()));
-			//}
+			VERIFYD3DRESULT(g_pD3DD->SetStreamSource(vertexStream_->GetIndex(), vb_, 0, vertexStream_->GetStride()));
 		}
 
 		void D3D9VertexBufferResource::ReleaseResource()

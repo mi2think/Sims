@@ -25,13 +25,10 @@ namespace sims
 		const VertexStream* GetStream(uint32 index) const { ASSERT(index < streamCount_); return &streams_[index]; }
 		const VertexStream* GetStreams() const { return streams_; }
 		uint32 GetStreamCount() const { return streamCount_; }
-		uint32 GetStride() const { return stride_; }
 	private:
-		// stride computed by steams
-		VertexDeclaration(VertexStream* streams, uint32 streamCount, uint32 stride);
+		VertexDeclaration(VertexStream* streams, uint32 streamCount);
 
 		VertexStream* streams_;
 		uint32 streamCount_;
-		uint32 stride_;
 	};
 }

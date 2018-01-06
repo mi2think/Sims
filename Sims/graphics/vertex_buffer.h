@@ -7,7 +7,10 @@
 	file ext:	h
 	author:		mi2think@gmail.com
 	
-	purpose:	Vertex Buffer
+	purpose:
+		Vertex Buffer is buffer store vertex element, it's responsible for 
+		vertex data update.
+
 *********************************************************************/
 #pragma once
 
@@ -31,7 +34,6 @@ namespace sims
 		uint32 GetOffset() const { return offset_; }
 		uint32 GetCount() const { return count_; }
 
-		const VertexDeclarationRef& GetVertexDeclaration() const;
 		void* GetData() { return vertexData_->GetData(); }
 		const void* GetData() const { return vertexData_->GetData(); }
 
@@ -51,13 +53,15 @@ namespace sims
 	{
 	public:
 		VertexBuffer();
-		VertexBuffer(const VertexDeclarationRef& vertexDecl);
-		VertexBuffer(const VertexDeclarationRef& vertexDecl, uint32 vertexCount);
+		VertexBuffer(const VertexDeclarationRef& vertexDecl, uint32 streamIndex);
+		VertexBuffer(const VertexDeclarationRef& vertexDecl, uint32 vertexCount, uint32 streamIndex);
 		~VertexBuffer();
 
 		bool Valid() const { return vertexData_.GetData() != nullptr; }
 		const VertexDeclarationRef& GetVertexDeclaration() const { return vertexDecl_; }
-		int GetVertexCount() const { return vertexCount_; }
+		uint32 GetVertexCount() const { return vertexCount_; }
+		uint32 GetStreamIndex() const { return streamIndex_; }
+		const VertexStream* GetVertexStream() const { return vertexStream_; }
 		void Resize(uint32 vertexCount);
 
 		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
@@ -81,11 +85,13 @@ namespace sims
 		Buffer* GetVertexData() { return &vertexData_; }
 	private:
 		VertexDeclarationRef vertexDecl_;
+		const VertexStream* vertexStream_;
 		uint32 vertexCount_;
+		uint32 streamIndex_;
+
 		Buffer vertexData_;
 		uint32 storageFlags_;
 		IndexRange invalidRange_;
-
 		LockedVertexBuffer lockedVB_;
 		bool isLocked_;
 

@@ -13,30 +13,22 @@
 
 namespace sims
 {
-	VertexStream::VertexStream(VertexStreamUsage::Type usage, uint32 index, ElementType::Type type, uint32 elementCount, uint32 usageIndex)
-		: usage_(usage)
-		, index_(index)
-		, elementType_(type)
-		, elementCount_(elementCount)
-		, usageIndex_(usageIndex)
-	{}
-
-	uint32 VertexStream::GetElementSize() const
+	uint32 VertexElement::GetComponentSize() const
 	{
 		uint32 size = 0;
-		switch (elementType_)
+		switch (componentType_)
 		{
-		case ElementType::S8:
-		case ElementType::U8:
+		case DataType::S8:
+		case DataType::U8:
 			size = 1;
 			break;
-		case ElementType::S16:
-		case sims::ElementType::U16:
+		case DataType::S16:
+		case DataType::U16:
 			size = 2;
 			break;
-		case sims::ElementType::S32:
-		case sims::ElementType::U32:
-		case sims::ElementType::F32:
+		case DataType::S32:
+		case DataType::U32:
+		case DataType::F32:
 			size = 4;
 			break;
 		default:
@@ -46,9 +38,44 @@ namespace sims
 		return size;
 	}
 
-	uint32 VertexStream::GetSize() const
+	uint32 VertexElement::GetTotalSize() const
 	{
-		return elementCount_ * GetElementSize();
+		return componentCount_ * GetComponentSize();
+	}
+
+	void VertexElement::SetOffset(uint32 offset)
+	{
+		offset_ = offset;
+	}
+
+	VertexStream::VertexStream(uint32 index, const VertexElement& v1)
+		: index_(index)
+	{
+		vertexElements_.reserve(1);
+		vertexElements_.push_back(v1);
+
+		CalcVertexElementOffset();
+	}
+
+	VertexStream::VertexStream(uint32 index, const VertexElement& v1, const VertexElement& v2)
+		: index_(index)
+	{
+		vertexElements_.reserve(2);
+		vertexElements_.push_back(v1);
+		vertexElements_.push_back(v2);
+
+		CalcVertexElementOffset();
+	}
+
+	VertexStream::VertexStream(uint32 index, const VertexElement& v1, const VertexElement& v2, const VertexElement& v3)
+		: index_(index)
+	{
+		vertexElements_.reserve(3);
+		vertexElements_.push_back(v1);
+		vertexElements_.push_back(v2);
+		vertexElements_.push_back(v3);
+
+		CalcVertexElementOffset();
 	}
 
 	uint32 VertexStream::GetAlign() const
@@ -56,8 +83,16 @@ namespace sims
 		return 4; // default
 	}
 
-	void VertexStream::SetOffset(uint32 offset)
+	void VertexStream::CalcVertexElementOffset()
 	{
-		offset_ = offset;
+		stride_ = 0;
+		for (uint32 i = 0; i < vertexElements_.size(); ++i)
+		{
+			auto& element = vertexElements_[i];
+
+			stride_ = align(stride_, GetAlign());
+			element.SetOffset(stride_);
+			stride_ += element.GetTotalSize();
+		}
 	}
 }

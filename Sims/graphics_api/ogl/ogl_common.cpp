@@ -159,23 +159,23 @@ namespace sims
 			return GL_REPEAT;
 		}
 
-		GLenum ToGLElementType(ElementType::Type type)
+		GLenum ToGLElementType(DataType::Type type)
 		{
 			switch (type)
 			{
-			case ElementType::S8:
+			case DataType::S8:
 				return GL_BYTE;
-			case ElementType::U8:
+			case DataType::U8:
 				return GL_UNSIGNED_BYTE;
-			case ElementType::S16:
+			case DataType::S16:
 				return GL_SHORT;
-			case ElementType::U16:
+			case DataType::U16:
 				return GL_UNSIGNED_SHORT;
-			case ElementType::F32:
+			case DataType::F32:
 				return GL_FLOAT;
-			case ElementType::S32:
+			case DataType::S32:
 				return GL_INT;
-			case ElementType::U32:
+			case DataType::U32:
 				return GL_UNSIGNED_INT;
 			default:
 				ASSERT(false && "Unsupported element type");

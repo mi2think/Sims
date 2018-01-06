@@ -52,6 +52,7 @@ namespace sims
 	protected:
 		VertexBuffer* vertexBuffer_;
 		VertexDeclaration* vertexDecl_;
+		const VertexStream* vertexStream_;
 	};
 
 	class IndexBufferResource : public RenderResource

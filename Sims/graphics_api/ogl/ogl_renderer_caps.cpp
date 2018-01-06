@@ -19,6 +19,7 @@ namespace sims
 		OGLCapsInfo::BaseCapsInfo OGLCapsInfo::baseCapsInfo;
 		int32 OGLCapsInfo::majorVersion = 0;
 		int32 OGLCapsInfo::minorVersion = 0;
+		bool OGLCapsInfo::bSupportVertexArrayObjects;
 
 		void OGLCapsInfo::DumpCapsInfo()
 		{
