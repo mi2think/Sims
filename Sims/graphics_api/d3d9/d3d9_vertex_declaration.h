@@ -1,13 +1,13 @@
 /********************************************************************
-	created:	2016/11/30
-	created:	30:11:2016   21:03
-	filename: 	D:\Code\Sims\Sims\graphics_api\d3d9\d3d9_vertex_buffer.h
+	created:	2018/01/07
+	created:	7:1:2018   19:06
+	filename: 	D:\Code\Sims\Sims\graphics_api\d3d9\d3d9_vertex_declaration.h
 	file path:	D:\Code\Sims\Sims\graphics_api\d3d9
-	file base:	d3d9_vertex_buffer
+	file base:	d3d9_vertex_declaration
 	file ext:	h
 	author:		mi2think@gmail.com
-
-	purpose:	D3D9 Vertex Buffer
+	
+	purpose:	D3D9 Vertex Declaration
 *********************************************************************/
 #pragma once
 
@@ -18,11 +18,11 @@ namespace sims
 {
 	namespace d3d9
 	{
-		class D3D9VertexBufferResource : public VertexBufferResource
+		class D3D9VertexDeclarationResource : public VertexDeclarationResource
 		{
 		public:
-			D3D9VertexBufferResource();
-			~D3D9VertexBufferResource();
+			D3D9VertexDeclarationResource();
+			~D3D9VertexDeclarationResource();
 
 			virtual void UpdateResource() override;
 			virtual void BindResource() const override;
@@ -30,7 +30,8 @@ namespace sims
 		private:
 			void InternalReleaseResource();
 
-			IDirect3DVertexBuffer9* vb_;
+			IDirect3DVertexDeclaration9* decl_;
 		};
 	}
 }
+

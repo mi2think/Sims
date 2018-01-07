@@ -58,9 +58,7 @@ namespace sims
 		~VertexBuffer();
 
 		bool Valid() const { return vertexData_.GetData() != nullptr; }
-		const VertexDeclarationRef& GetVertexDeclaration() const { return vertexDecl_; }
 		uint32 GetVertexCount() const { return vertexCount_; }
-		uint32 GetStreamIndex() const { return streamIndex_; }
 		const VertexStream* GetVertexStream() const { return vertexStream_; }
 		void Resize(uint32 vertexCount);
 

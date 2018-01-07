@@ -33,6 +33,11 @@ namespace sims
 			return new d3d9::D3D9TextureResource();
 		}
 
+		template<> VertexDeclarationResource* CreateResource<VertexDeclarationResource>()
+		{
+			return new d3d9::D3D9VertexDeclarationResource();
+		}
+
 		template<> VertexBufferResource* CreateResource<VertexBufferResource>()
 		{
 			return new d3d9::D3D9VertexBufferResource();
@@ -62,6 +67,12 @@ namespace sims
 		template<> TextureResource* CreateResource<TextureResource>()
 		{
 			return new ogl::OGLTextureResource();
+		}
+
+		template<> VertexDeclarationResource* CreateResource<VertexDeclarationResource>()
+		{
+			// dummy
+			return new VertexDeclarationResource();
 		}
 
 		template<> VertexBufferResource* CreateResource<VertexBufferResource>()

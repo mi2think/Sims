@@ -115,6 +115,7 @@ namespace sims
 	class VertexElement;
 	class VertexStream;
 	class VertexDeclaration;
+	class VertexDeclarationResource;
 	class VertexBuffer;
 	class VertexBufferResource;
 	class IndexBuffer;
@@ -127,6 +128,7 @@ namespace sims
 	typedef Ref<Texture> TextureRef;
 	typedef Ref<TextureResource> TextureResourceRef;
 	typedef Ref<VertexDeclaration> VertexDeclarationRef;
+	typedef Ref<VertexDeclarationResource> VertexDeclarationResourceRef;
 	typedef Ref<VertexBuffer> VertexBufferRef;
 	typedef Ref<VertexBufferResource> VertexBufferResourceRef;
 	typedef Ref<IndexBuffer> IndexBufferRef;

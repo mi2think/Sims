@@ -18,10 +18,10 @@ public:
 			VertexElement(VertexElementUsage::Position, 0, DataType::F32, 3),
 			VertexElement(VertexElementUsage::Color, 0, DataType::U32, 1)
 		);
-		VertexDeclarationRef vertexDecl = VertexDeclaration::Get(&stream, 1);
-		vertexBuf_ = new VertexBuffer(vertexDecl, 1, 0);
-		vertexBuf_->SetStorageFlags(StorageFlags::Hardware);
+		vertexDecl_ = VertexDeclaration::Get(&stream, 1);
+		vertexDecl_->Invalidate();
 
+		vertexBuf_ = new VertexBuffer(vertexDecl_, 1, 0);
 		auto L = vertexBuf_->Lock(LockFlags::LockWrite);
 		struct Vertex
 		{
@@ -41,6 +41,7 @@ public:
 			// draw
 			renderer_->BeginFrame(ClearFlags::Color | ClearFlags::Depth, Color(0xff000000), 1.0f, 0);
 
+			vertexDecl_->HWResource()->BindResource();
 			vertexBuf_->HWResource()->BindResource();
 			renderer_->DrawPrimitive(PrimitiveType::Points, 1);
 			
@@ -50,6 +51,7 @@ public:
 
 	}
 private:
+	VertexDeclarationRef vertexDecl_;
 	VertexBufferRef vertexBuf_;
 	hw::HWRenderer* renderer_;
 };

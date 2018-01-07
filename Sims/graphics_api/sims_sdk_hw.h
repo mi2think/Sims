@@ -34,11 +34,12 @@ namespace sims
 		template<typename ResourceType>
 		ResourceType* CreateResource() { ASSERT(false && "Unknow resource type!"); return nullptr; }
 
-		template<> TextureResource*         CreateResource<TextureResource>();
-		template<> VertexBufferResource*    CreateResource<VertexBufferResource>();
-		template<> IndexBufferResource*     CreateResource<IndexBufferResource>();
-		template<> ShaderResource*          CreateResource<ShaderResource>();
-		template<> ProgramResource*			CreateResource<ProgramResource>();
+		template<> TextureResource*				CreateResource<TextureResource>();
+		template<> VertexDeclarationResource*	CreateResource<VertexDeclarationResource>();
+		template<> VertexBufferResource*		CreateResource<VertexBufferResource>();
+		template<> IndexBufferResource*			CreateResource<IndexBufferResource>();
+		template<> ShaderResource*				CreateResource<ShaderResource>();
+		template<> ProgramResource*				CreateResource<ProgramResource>();
 
 		template<typename T>
 		void SetUniform(ProgramRef prog, const char* name, const T& data, ShaderDomain::Type type = ShaderDomain::Vertex)

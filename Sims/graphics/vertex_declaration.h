@@ -25,10 +25,24 @@ namespace sims
 		const VertexStream* GetStream(uint32 index) const { ASSERT(index < streamCount_); return &streams_[index]; }
 		const VertexStream* GetStreams() const { return streams_; }
 		uint32 GetStreamCount() const { return streamCount_; }
+
+		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
+		uint32 GetStorageFlags() const { return storageFlags_; }
+
+		// propagates changes on the vertex declaration to the renderer.
+		//   you must call invalidate after modifying vertex declaration data,
+		//   for it to be uploaded to GPU.
+		void Invalidate();
+
+		// Hardware resource
+		VertexDeclarationResourceRef& HWResource() { return HWResource_; }
 	private:
 		VertexDeclaration(VertexStream* streams, uint32 streamCount);
 
 		VertexStream* streams_;
 		uint32 streamCount_;
+
+		uint32 storageFlags_;
+		VertexDeclarationResourceRef HWResource_;
 	};
 }

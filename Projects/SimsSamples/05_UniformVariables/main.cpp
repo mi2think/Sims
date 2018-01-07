@@ -30,6 +30,7 @@ public:
 			// draw
 			renderer_->BeginFrame(ClearFlags::Color | ClearFlags::Depth, Color(0xff000000), 1.0f, 0);
 
+			vertexDecl_->HWResource()->BindResource();
 			vertexBuf_->HWResource()->BindResource();
 			renderer_->DrawPrimitive(PrimitiveType::Triangles, 1);
 
@@ -46,10 +47,10 @@ public:
 			VertexElement(VertexElementUsage::Position, 0, DataType::F32, 3),
 			VertexElement(VertexElementUsage::Color, 0, DataType::F32, 3)
 		);
-		VertexDeclarationRef vertexDecl = VertexDeclaration::Get(&stream, 1);
-		vertexBuf_ = new VertexBuffer(vertexDecl, 3, 0);
-		vertexBuf_->SetStorageFlags(StorageFlags::Hardware);
+		vertexDecl_ = VertexDeclaration::Get(&stream, 1);
+		vertexDecl_->Invalidate();
 
+		vertexBuf_ = new VertexBuffer(vertexDecl_, 3, 0);
 		auto L = vertexBuf_->Lock(LockFlags::LockWrite);
 		struct Vertex
 		{
@@ -91,6 +92,7 @@ public:
 	}
 private:
 	hw::HWRenderer* renderer_;
+	VertexDeclarationRef vertexDecl_;
 	VertexBufferRef vertexBuf_;
 	ProgramRef prog_;
 };

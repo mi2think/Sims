@@ -19,7 +19,6 @@ namespace sims
 		D3D9VertexBufferResource::D3D9VertexBufferResource()
 			: VertexBufferResource()
 			, vb_(nullptr)
-			, decl_(nullptr)
 		{}
 
 		D3D9VertexBufferResource::~D3D9VertexBufferResource()
@@ -29,18 +28,6 @@ namespace sims
 
 		void D3D9VertexBufferResource::UpdateResource()
 		{
-			if (!decl_)
-			{
-				uint32 count = vertexStream_->GetVertexElementCount();
-				uint32 streamIndex = vertexStream_->GetIndex();
-				TBuffer<D3DVERTEXELEMENT9> elements(count + 1); // +1 for D3DDECL_END
-				for (uint32 i = 0; i < count; ++i)
-				{
-					FillD3DVertexElement(&elements[i], &vertexStream_->GetVertexElement(i), streamIndex);
-				}
-				elements[count] = D3DDECL_END();
-				VERIFYD3DRESULT(g_pD3DD->CreateVertexDeclaration(elements.GetData(), &decl_));
-			}
 			if (!vb_)
 			{
 				D3DPOOL pool = D3DPOOL_MANAGED;
@@ -75,9 +62,8 @@ namespace sims
 
 		void D3D9VertexBufferResource::BindResource() const
 		{
-			ASSERT(decl_ && vb_);
+			ASSERT(vb_);
 
-			VERIFYD3DRESULT(g_pD3DD->SetVertexDeclaration(decl_));
 			VERIFYD3DRESULT(g_pD3DD->SetStreamSource(vertexStream_->GetIndex(), vb_, 0, vertexStream_->GetStride()));
 		}
 
@@ -88,7 +74,6 @@ namespace sims
 
 		void D3D9VertexBufferResource::InternalReleaseResource()
 		{
-			SAFE_RELEASE(decl_);
 			SAFE_RELEASE(vb_);
 		}
 	}

@@ -43,6 +43,16 @@ namespace sims
 		TBuffer<Recti> regions_;
 	};
 
+	class VertexDeclarationResource : public RenderResource
+	{
+	public:
+		VertexDeclarationResource();
+
+		void Attach(void* vertexDecl);
+	protected:
+		VertexDeclaration* vertexDecl_;
+	};
+
 	class VertexBufferResource : public RenderResource
 	{
 	public:
@@ -51,7 +61,6 @@ namespace sims
 		void Attach(void* vertexBuffer);
 	protected:
 		VertexBuffer* vertexBuffer_;
-		VertexDeclaration* vertexDecl_;
 		const VertexStream* vertexStream_;
 	};
 

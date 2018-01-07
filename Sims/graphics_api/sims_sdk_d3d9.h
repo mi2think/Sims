@@ -17,6 +17,7 @@
 #include "d3d9/d3d9_window.h"
 #include "d3d9/d3d9_renderer.h"
 #include "d3d9/d3d9_xmesh.h"
+#include "d3d9/d3d9_vertex_declaration.h"
 #include "d3d9/d3d9_vertex_buffer.h"
 #include "d3d9/d3d9_index_buffer.h"
 #include "d3d9/d3d9_texture.h"

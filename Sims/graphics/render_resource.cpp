@@ -39,9 +39,18 @@ namespace sims
 		regions_ = regions;
 	}
 
+	VertexDeclarationResource::VertexDeclarationResource()
+		: vertexDecl_(nullptr)
+	{
+	}
+
+	void VertexDeclarationResource::Attach(void* vertexDecl)
+	{
+		vertexDecl_ = static_cast<VertexDeclaration*>(vertexDecl);
+	}
+
 	VertexBufferResource::VertexBufferResource()
 		: vertexBuffer_(nullptr)
-		, vertexDecl_(nullptr)
 		, vertexStream_(nullptr)
 	{
 	}
@@ -49,8 +58,7 @@ namespace sims
 	void VertexBufferResource::Attach(void* vertexBuffer)
 	{
 		vertexBuffer_ = static_cast<VertexBuffer*>(vertexBuffer);
-		vertexDecl_ = vertexBuffer_->GetVertexDeclaration().Get();
-		vertexStream_ = vertexDecl_->GetStream(vertexBuffer_->GetStreamIndex());
+		vertexStream_ = vertexBuffer_->GetVertexStream();
 	}
 
 	IndexBufferResource::IndexBufferResource()

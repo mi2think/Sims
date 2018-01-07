@@ -89,6 +89,7 @@ namespace sims
 				&d3dpp, &g_pD3DD));
 
 			VERIFYD3DRESULT(g_pD3DD->SetRenderState(D3DRS_LIGHTING, false));
+			VERIFYD3DRESULT(g_pD3DD->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW));
 			return g_pD3DD;
 		}
 

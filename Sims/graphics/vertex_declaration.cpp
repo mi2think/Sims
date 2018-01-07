@@ -10,6 +10,7 @@
 	purpose:	Vertex Declaration
 *********************************************************************/
 #include "vertex_declaration.h"
+#include "graphics_api/sims_sdk_hw.h"
 
 namespace sims
 {
@@ -33,6 +34,7 @@ namespace sims
 	VertexDeclaration::VertexDeclaration(VertexStream* streams, uint32 streamCount)
 		: streams_(streams)
 		, streamCount_(streamCount)
+		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 	{
 		ASSERT(CheckStreams(streams_, streamCount_)
 			&& "two vertex stream has same index");
@@ -57,5 +59,18 @@ namespace sims
 		}
 
 		return VertexDeclarationRef(new VertexDeclaration(myStreams, streamCount));
+	}
+
+	void VertexDeclaration::Invalidate()
+	{
+		if ((storageFlags_ & StorageFlags::Hardware) == 0)
+			return;
+
+		// update vertex buffer
+		if (!HWResource_)
+			HWResource_ = hw::CreateResource<VertexDeclarationResource>();
+
+		HWResource_->Attach(this);
+		HWResource_->UpdateResource();
 	}
 }
