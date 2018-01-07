@@ -46,10 +46,14 @@ namespace sims
 	VertexDeclarationRef VertexDeclaration::Get(const VertexStream* streams, uint32 streamCount)
 	{
 		VertexStream* myStreams = new VertexStream[streamCount];
+
+		uint32 attriBaseIndex = 0;
 		for (uint32 i = 0; i < streamCount; ++i)
 		{
 			VertexStream& stream = myStreams[i];
 			stream = streams[i];
+			stream.SetAttriBaseIndex(attriBaseIndex);
+			attriBaseIndex += stream.GetVertexElementCount();
 		}
 
 		return VertexDeclarationRef(new VertexDeclaration(myStreams, streamCount));

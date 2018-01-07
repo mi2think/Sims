@@ -24,6 +24,16 @@ public:
 	{
 		if (renderer_)
 		{
+			static float scale = 0.0f;
+			scale += 0.001f;
+
+			// built mat, note, opengl matrix is col major, in glsl, use matrix * vector
+			// in hlsl, use vector * materix
+			Matrix44f mat;
+			MatrixRotationY(mat, scale);
+
+			hw::SetUniform(prog_, "gMatWorld", mat, ShaderDomain::Vertex);
+
 			// draw
 			renderer_->BeginFrame(ClearFlags::Color | ClearFlags::Depth, Color(0xff000000), 1.0f, 0);
 
@@ -64,10 +74,10 @@ public:
 		auto L2 = vertexBuf2_->Lock(LockFlags::LockWrite);
 		Vector3f v2[4] =
 		{
-			Color::c_red.GetRGBVector3(),
-			Color::c_green.GetRGBVector3(),
-			Color::c_blue.GetRGBVector3(),
-			Color::c_white.GetRGBVector3(),
+			Vector3f(1.0f, 0.0f, 0.0f),
+			Vector3f(0.0f, 1.0f, 0.0f),
+			Vector3f(0.0f, 0.0f, 1.0f),
+			Vector3f(1.0f, 1.0f, 1.0f),
 		};
 		memcpy(L2->GetData(), &v2[0], sizeof(v2));
 		vertexBuf2_->Unlock(L2);
@@ -76,10 +86,10 @@ public:
 
 	void SetupIndexBuffer()
 	{
-		uint16 indices[] = { 0, 3, 1,
-			1, 3, 2,
-			2, 3, 0,
-			0, 1, 2 };
+		uint16 indices[] = { 0, 1, 3,
+			1, 2, 3,
+			2, 0, 3,
+			0, 2, 1 };
 
 		IndexBuf_ = new IndexBuffer(ARRAY_COUNT(indices), &indices[0]);
 		IndexBuf_->Invalidate();

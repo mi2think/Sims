@@ -58,6 +58,7 @@ namespace sims
 		VertexStream(uint32 index, const VertexElement& v1, const VertexElement& v2, const VertexElement& v3);
 
 		uint32 GetIndex() const { return index_; }
+		uint32 GetAttriBaseIndex() const { return attriBaseIndex_; }
 		uint32 GetStride() const { return stride_; }
 		uint32 GetAlign() const;
 
@@ -65,11 +66,16 @@ namespace sims
 		const VertexElement& GetVertexElement(int elementIndex) const { return vertexElements_[elementIndex]; }
 	private:
 		void CalcVertexElementOffset();
+
+		friend class VertexDeclaration;
+		void SetAttriBaseIndex(uint32 attriBaseIndex);
 		
 		// stream index
 		uint32 index_;
 		uint32 stride_;
 		vector<VertexElement> vertexElements_;
+		// attribute index
+		uint32 attriBaseIndex_;
 	};
 }
 

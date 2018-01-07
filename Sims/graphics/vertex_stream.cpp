@@ -50,6 +50,7 @@ namespace sims
 
 	VertexStream::VertexStream(uint32 index, const VertexElement& v1)
 		: index_(index)
+		, attriBaseIndex_(0)
 	{
 		vertexElements_.reserve(1);
 		vertexElements_.push_back(v1);
@@ -59,6 +60,7 @@ namespace sims
 
 	VertexStream::VertexStream(uint32 index, const VertexElement& v1, const VertexElement& v2)
 		: index_(index)
+		, attriBaseIndex_(0)
 	{
 		vertexElements_.reserve(2);
 		vertexElements_.push_back(v1);
@@ -69,6 +71,7 @@ namespace sims
 
 	VertexStream::VertexStream(uint32 index, const VertexElement& v1, const VertexElement& v2, const VertexElement& v3)
 		: index_(index)
+		, attriBaseIndex_(0)
 	{
 		vertexElements_.reserve(3);
 		vertexElements_.push_back(v1);
@@ -94,5 +97,10 @@ namespace sims
 			element.SetOffset(stride_);
 			stride_ += element.GetTotalSize();
 		}
+	}
+
+	void VertexStream::SetAttriBaseIndex(uint32 attriBaseIndex)
+	{
+		attriBaseIndex_ = attriBaseIndex;
 	}
 }

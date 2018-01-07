@@ -65,15 +65,16 @@ namespace sims
 
 			// bind stream
 			uint32 count = vertexStream_->GetVertexElementCount();
-			uint32 attriIndex = vertexStream_->GetIndex();
+			uint32 attriBaseIndex = vertexStream_->GetAttriBaseIndex();
 			for (uint32 i = 0; i < count; ++i)
 			{
 				const VertexElement& vertexElement = vertexStream_->GetVertexElement(i);
 
-				glEnableVertexAttribArray(i);
+				uint32 attriIndex = attriBaseIndex + i;
+				glEnableVertexAttribArray(attriIndex);
 				gl_check_error("glEnableVertexAttribArray");
 
-				glVertexAttribPointer(i,
+				glVertexAttribPointer(attriIndex,
 					vertexElement.GetComponentCount(),
 					ToGLElementType(vertexElement.GetComponentType()),
 					GL_FALSE,
