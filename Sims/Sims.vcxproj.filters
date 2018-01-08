@@ -240,6 +240,9 @@
     <ClCompile Include="graphics_api\d3d9\d3d9_vertex_array.cpp">
       <Filter>graphics_api\d3d9</Filter>
     </ClCompile>
+    <ClCompile Include="graphics_api\ogl\ogl_vertex_array.cpp">
+      <Filter>graphics_api\ogl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -536,6 +539,9 @@
     </ClInclude>
     <ClInclude Include="graphics_api\d3d9\d3d9_vertex_array.h">
       <Filter>graphics_api\d3d9</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\ogl\ogl_vertex_array.h">
+      <Filter>graphics_api\ogl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
