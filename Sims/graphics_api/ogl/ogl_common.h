@@ -20,6 +20,7 @@
 
 #include "graphics/graphics_fwd.h"
 #include "ogl_glut_callbacks.h"
+#include "ogl_renderer_caps.h"
 
 #include <glew.h>
 #include <freeglut.h>

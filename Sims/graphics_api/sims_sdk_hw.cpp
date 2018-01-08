@@ -87,7 +87,7 @@ namespace sims
 
 		template<> VertexArrayResource* CreateResource<VertexArrayResource>()
 		{
-			return new
+			return new ogl::OGLVertexArrayResource();
 		}
 
 		template<> IndexBufferResource* CreateResource<IndexBufferResource>()

@@ -11,3 +11,88 @@
 *********************************************************************/
 #include "ogl_vertex_array.h"
 #include "graphics/vertex_array.h"
+
+namespace sims
+{
+	namespace ogl
+	{
+		OGLVertexArrayResource::OGLVertexArrayResource()
+			: VertexArrayResource()
+			, vao_(0)
+		{
+		}
+
+		OGLVertexArrayResource::~OGLVertexArrayResource()
+		{
+			InternalReleaseResource();
+		}
+
+		void OGLVertexArrayResource::UpdateResource()
+		{
+			if (OGLCapsInfo::SupportVertexArrayObjects())
+			{
+				if (vao_ == 0)
+				{
+					glGenVertexArrays(1, &vao_);
+					glBindVertexArray(vao_);
+
+					// configure attributes in VAO
+					auto count = vertexArray_->GetVertexBufferCount();
+					for (uint32 i = 0; i < count; ++i)
+					{
+						auto vertexBuffer = vertexArray_->GetVertexBuffer(i);
+						vertexBuffer->Invalidate();
+						vertexBuffer->HWResource()->BindResource();
+					}
+
+					gl_check_error("OGLVertexArrayResource::UpdateResource");
+				}
+			}
+			// fall back
+			else
+			{
+				auto count = vertexArray_->GetVertexBufferCount();
+				for (uint32 i = 0; i < count; ++i)
+				{
+					auto vertexBuffer = vertexArray_->GetVertexBuffer(i);
+					vertexBuffer->Invalidate();
+				}
+			}
+		}
+
+		void OGLVertexArrayResource::BindResource() const
+		{
+			if (OGLCapsInfo::SupportVertexArrayObjects())
+			{
+				ASSERT(vao_ != 0);
+				glBindVertexArray(vao_);
+
+				gl_check_error("OGLVertexArrayResource::BindResource");
+			}
+			// fall back
+			else
+			{
+				auto count = vertexArray_->GetVertexBufferCount();
+				for (uint32 i = 0; i < count; ++i)
+				{
+					auto vertexBuffer = vertexArray_->GetVertexBuffer(i);
+					vertexBuffer->HWResource()->BindResource();
+				}
+			}
+		}
+
+		void OGLVertexArrayResource::ReleaseResource()
+		{
+			InternalReleaseResource();
+		}
+
+		void OGLVertexArrayResource::InternalReleaseResource()
+		{
+			if (vao_ != 0)
+			{
+				glDeleteBuffers(1, &vao_);
+				vao_ = 0;
+			}
+		}
+	}
+}
