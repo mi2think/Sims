@@ -61,6 +61,16 @@ namespace sims
 		vertexStream_ = vertexBuffer_->GetVertexStream();
 	}
 
+	VertexArrayResource::VertexArrayResource()
+		: vertexArray_(nullptr)
+	{
+	}
+
+	void VertexArrayResource::Attach(void* vertexArray)
+	{
+		vertexArray_ = static_cast<VertexArray*>(vertexArray);
+	}
+
 	IndexBufferResource::IndexBufferResource()
 		: indexBuffer_(nullptr)
 	{}

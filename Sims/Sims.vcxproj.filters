@@ -234,6 +234,12 @@
     <ClCompile Include="graphics_api\d3d9\d3d9_vertex_declaration.cpp">
       <Filter>graphics_api\d3d9</Filter>
     </ClCompile>
+    <ClCompile Include="graphics\vertex_array.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\d3d9\d3d9_vertex_array.cpp">
+      <Filter>graphics_api\d3d9</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -523,6 +529,12 @@
       <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="graphics_api\d3d9\d3d9_vertex_declaration.h">
+      <Filter>graphics_api\d3d9</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\vertex_array.h">
+      <Filter>graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\d3d9\d3d9_vertex_array.h">
       <Filter>graphics_api\d3d9</Filter>
     </ClInclude>
   </ItemGroup>

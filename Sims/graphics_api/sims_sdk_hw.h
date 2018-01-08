@@ -37,6 +37,7 @@ namespace sims
 		template<> TextureResource*				CreateResource<TextureResource>();
 		template<> VertexDeclarationResource*	CreateResource<VertexDeclarationResource>();
 		template<> VertexBufferResource*		CreateResource<VertexBufferResource>();
+		template<> VertexArrayResource*			CreateResource<VertexArrayResource>();
 		template<> IndexBufferResource*			CreateResource<IndexBufferResource>();
 		template<> ShaderResource*				CreateResource<ShaderResource>();
 		template<> ProgramResource*				CreateResource<ProgramResource>();

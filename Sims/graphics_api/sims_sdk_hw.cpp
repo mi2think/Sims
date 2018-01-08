@@ -43,6 +43,11 @@ namespace sims
 			return new d3d9::D3D9VertexBufferResource();
 		}
 
+		template<> VertexArrayResource* CreateResource<VertexArrayResource>()
+		{
+			return new d3d9::D3D9VertexArrayResource();
+		}
+
 		template<> IndexBufferResource* CreateResource<IndexBufferResource>()
 		{
 			return new d3d9::D3D9IndexBufferResource();
@@ -78,6 +83,11 @@ namespace sims
 		template<> VertexBufferResource* CreateResource<VertexBufferResource>()
 		{
 			return new ogl::OGLVertexBufferResource();
+		}
+
+		template<> VertexArrayResource* CreateResource<VertexArrayResource>()
+		{
+			return new
 		}
 
 		template<> IndexBufferResource* CreateResource<IndexBufferResource>()

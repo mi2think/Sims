@@ -118,6 +118,8 @@ namespace sims
 	class VertexDeclarationResource;
 	class VertexBuffer;
 	class VertexBufferResource;
+	class VertexArray;
+	class VertexArrayResource;
 	class IndexBuffer;
 	class IndexBufferResource;
 	class Shader;
@@ -131,6 +133,8 @@ namespace sims
 	typedef Ref<VertexDeclarationResource> VertexDeclarationResourceRef;
 	typedef Ref<VertexBuffer> VertexBufferRef;
 	typedef Ref<VertexBufferResource> VertexBufferResourceRef;
+	typedef Ref<VertexArray> VertexArrayRef;
+	typedef Ref<VertexArrayResource> VertexArrayResourceRef;
 	typedef Ref<IndexBuffer> IndexBufferRef;
 	typedef Ref<IndexBufferResource> IndexBufferResourceRef;
 	typedef Ref<Shader>  ShaderRef;

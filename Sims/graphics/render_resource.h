@@ -64,6 +64,16 @@ namespace sims
 		const VertexStream* vertexStream_;
 	};
 
+	class VertexArrayResource : public RenderResource
+	{
+	public:
+		VertexArrayResource();
+
+		void Attach(void* vertexArray);
+	protected:
+		VertexArray* vertexArray_;
+	};
+
 	class IndexBufferResource : public RenderResource
 	{
 	public:

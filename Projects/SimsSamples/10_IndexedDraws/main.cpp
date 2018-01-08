@@ -1,7 +1,7 @@
 #include "sims.h"
 #include "math/math.h"
 #include "core/app.h"
-#include "graphics/vertex_buffer.h"
+#include "graphics/vertex_array.h"
 #include "graphics/index_buffer.h"
 #include "graphics/shader.h"
 #include "graphics/program.h"
@@ -45,9 +45,7 @@ public:
 			// draw
 			renderer_->BeginFrame(ClearFlags::Color | ClearFlags::Depth, Color(0xff000000), 1.0f, 0);
 
-			vertexDecl_->HWResource()->BindResource();
-			vertexBuf1_->HWResource()->BindResource();
-			vertexBuf2_->HWResource()->BindResource();
+			vertexArray_->HWResource()->BindResource();
 			renderer_->DrawIndexedPrimitive(PrimitiveType::Triangles, *IndexBuf_->HWResource(), 4, 4);
 
 			renderer_->EndFrame();
@@ -62,12 +60,11 @@ public:
 			VertexStream(0, VertexElement(VertexElementUsage::Position, 0, DataType::F32, 3)),
 			VertexStream(1, VertexElement(VertexElementUsage::Color, 0, DataType::F32, 3)),
 		};
-		vertexDecl_ = VertexDeclaration::Get(&streams[0], 2);
-		vertexDecl_->Invalidate();
+		VertexDeclarationRef vertexDecl = VertexDeclaration::Get(&streams[0], 2);
 
 		// vertex buffer 1
-		vertexBuf1_ = new VertexBuffer(vertexDecl_, 4, 0);
-		auto L1 = vertexBuf1_->Lock(LockFlags::LockWrite);
+		VertexBufferRef vertexBuf1 = new VertexBuffer(vertexDecl, 4, 0);
+		auto L1 = vertexBuf1->Lock(LockFlags::LockWrite);
 		Vector3f v1[4] =
 		{
 			Vector3f(-0.5f, -0.5f, 0.0f),
@@ -76,12 +73,11 @@ public:
 			Vector3f(0.0f, 0.5f, 0.0f),
 		};
 		memcpy(L1->GetData(), &v1[0], sizeof(v1));
-		vertexBuf1_->Unlock(L1);
-		vertexBuf1_->Invalidate();
+		vertexBuf1->Unlock(L1);
 
 		// vertex buffer 2
-		vertexBuf2_ = new VertexBuffer(vertexDecl_, 4, 1);
-		auto L2 = vertexBuf2_->Lock(LockFlags::LockWrite);
+		VertexBufferRef vertexBuf2 = new VertexBuffer(vertexDecl, 4, 1);
+		auto L2 = vertexBuf2->Lock(LockFlags::LockWrite);
 		Vector3f v2[4] =
 		{
 			Vector3f(1.0f, 0.0f, 0.0f),
@@ -90,8 +86,10 @@ public:
 			Vector3f(1.0f, 1.0f, 1.0f),
 		};
 		memcpy(L2->GetData(), &v2[0], sizeof(v2));
-		vertexBuf2_->Unlock(L2);
-		vertexBuf2_->Invalidate();
+		vertexBuf2->Unlock(L2);
+
+		vertexArray_ = new VertexArray(vertexDecl, vertexBuf1, vertexBuf2);
+		vertexArray_->Invalidate();
 	}
 
 	void SetupIndexBuffer()
@@ -129,9 +127,7 @@ public:
 	}
 private:
 	hw::HWRenderer* renderer_;
-	VertexDeclarationRef vertexDecl_;
-	VertexBufferRef vertexBuf1_;
-	VertexBufferRef vertexBuf2_;
+	VertexArrayRef vertexArray_;
 	IndexBufferRef IndexBuf_;
 	ProgramRef prog_;
 };
