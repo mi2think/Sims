@@ -237,6 +237,24 @@ namespace sims
 		return q;
 	}
 
+	// "The Shortest Arc Quaternion", Stan Melax, Game Programming Gems.
+	// from v0 to v1
+	inline Quat QuatRotationArc(Vector3f v0, Vector3f v1)
+	{
+		v0.Normalize();
+		v1.Normalize();
+		Vector3f c = CrossProduct(v0, v1);
+		float d = DotProduct(v0, v1);
+		float s = (float)sqrt((1 + d) * 2);
+
+		Quat q;
+		q.w = s / 2.0f;
+		q.x = c.x / s;
+		q.y = c.y / s;
+		q.z = c.z / s;
+		return q;
+	}
+
 	inline Quat QuatRotationX(float radian)
 	{
 		float thetaOver2 = radian * 0.5f;
