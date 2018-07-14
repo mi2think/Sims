@@ -45,13 +45,20 @@ namespace sims
 
 	void Program::Invalidate()
 	{
-		if (!HWResource_)
-			HWResource_ = hw::CreateResource<ProgramResource>();
 		if (!invalid_)
 			return;
-
-		HWResource_->Attach(this);
-		HWResource_->UpdateResource();
 		invalid_ = false;
+
+		IResourceOperation::Invalidate();
+	}
+
+	void Program::Create()
+	{
+		if (HWResource_)
+		{
+			Release();
+		}
+
+		HWResource_ = hw::CreateResource<ProgramResource>();
 	}
 }

@@ -127,6 +127,7 @@ namespace sims
 	class Program;
 	class ProgramResource;
 
+	typedef Ref<RenderResource> RenderResourceRef;
 	typedef Ref<Texture> TextureRef;
 	typedef Ref<TextureResource> TextureResourceRef;
 	typedef Ref<VertexDeclaration> VertexDeclarationRef;

@@ -49,7 +49,7 @@ namespace sims
 		Buffer* vertexData_;
 	};
 
-	class VertexBuffer
+	class VertexBuffer : public IResourceOperation
 	{
 	public:
 		VertexBuffer();
@@ -62,23 +62,18 @@ namespace sims
 		const VertexStream* GetVertexStream() const { return vertexStream_; }
 		void Resize(uint32 vertexCount);
 
-		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
-		uint32 GetStorageFlags() const { return storageFlags_; }
-
 		// count 0 for lock total buffer
 		LockedVertexBuffer* Lock(uint32 lockFlags, uint32 offset = 0, uint32 count = 0);
 		void Unlock(LockedVertexBuffer* L);
 
 		const IndexRange& GetInvalidRange() const { return invalidRange_; }
 
-		// propagates changes on the vertex buffer to the renderer.
-		//   you must call invalidate after modifying vertex buffer data,
-		//   for it to be uploaded to GPU.
-		void Invalidate();
+		// ~ IResourceOperation
+		virtual void Invalidate() override;
+	protected:
+		virtual void Create();
+		// ~ IResourceOperation
 
-		// Hardware resource
-		VertexBufferResourceRef& HWResource() { return HWResource_; }
-	private:
 		friend class LockedVertexBuffer;
 		Buffer* GetVertexData() { return &vertexData_; }
 	private:
@@ -88,12 +83,10 @@ namespace sims
 		uint32 streamIndex_;
 
 		Buffer vertexData_;
-		uint32 storageFlags_;
+
 		IndexRange invalidRange_;
 		LockedVertexBuffer lockedVB_;
 		bool isLocked_;
-
-		VertexBufferResourceRef HWResource_;
 	};
 }
 

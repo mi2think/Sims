@@ -43,26 +43,26 @@ namespace sims
 		void D3D9VertexArrayResource::BindResource() const
 		{
 			auto vertexDecl = vertexArray_->GetVertexDeclaration();
-			vertexDecl->HWResource()->BindResource();
+			vertexDecl->Bind();
 
 			auto count = vertexArray_->GetVertexBufferCount();
 			for (uint32 i = 0; i < count; ++i)
 			{
 				auto vertexBuffer = vertexArray_->GetVertexBuffer(i);
-				vertexBuffer->HWResource()->BindResource();
+				vertexBuffer->Bind();
 			}
 		}
 		
 		void D3D9VertexArrayResource::ReleaseResource()
 		{
 			auto vertexDecl = vertexArray_->GetVertexDeclaration();
-			vertexDecl->HWResource()->ReleaseResource();
+			vertexDecl->Release();
 
 			auto count = vertexArray_->GetVertexBufferCount();
 			for (uint32 i = 0; i < count; ++i)
 			{
 				auto vertexBuffer = vertexArray_->GetVertexBuffer(i);
-				vertexBuffer->HWResource()->ReleaseResource();
+				vertexBuffer->Release();
 			}
 		}
 	}

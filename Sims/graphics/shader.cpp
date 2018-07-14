@@ -16,17 +16,14 @@
 namespace sims
 {
 	Shader::Shader()
-		: storageFlags_(StorageFlags::Hardware)
-		, invalid_(true)
+		: invalid_(true)
 	{}
 	Shader::Shader(ShaderDomain::Type type)
-		: storageFlags_(StorageFlags::Hardware)
-		, invalid_(true)
+		: invalid_(true)
 		, type_(type)
 	{}
 	Shader::Shader(ShaderDomain::Type type, const char* source, const char* entryName)
-		: storageFlags_(StorageFlags::Hardware)
-		, invalid_(true)
+		: invalid_(true)
 		, type_(type)
 	{
 		SetSource(source);
@@ -77,18 +74,20 @@ namespace sims
 
 	void Shader::Invalidate()
 	{
-		if ((storageFlags_ & StorageFlags::Hardware) == 0)
-			return;
-
 		if (!invalid_)
 			return;
-
-		// update shader
-		if (!HWResource_)
-			HWResource_ = hw::CreateResource<ShaderResource>();
-
-		HWResource_->Attach(this);
-		HWResource_->UpdateResource();
 		invalid_ = true;
+
+		IResourceOperation::Invalidate();
+	}
+
+	void Shader::Create()
+	{
+		if (HWResource_)
+		{
+			Release();
+		}
+
+		HWResource_ = hw::CreateResource<ShaderResource>();
 	}
 }

@@ -13,10 +13,11 @@
 
 #include "graphics_fwd.h"
 #include "vertex_stream.h"
+#include "render_resource.h"
 
 namespace sims
 {
-	class VertexDeclaration
+	class VertexDeclaration : public IResourceOperation
 	{
 	public:
 		static VertexDeclarationRef Get(const VertexStream* streams, uint32 streamCount);
@@ -26,23 +27,14 @@ namespace sims
 		const VertexStream* GetStreams() const { return streams_; }
 		uint32 GetStreamCount() const { return streamCount_; }
 
-		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
-		uint32 GetStorageFlags() const { return storageFlags_; }
-
-		// propagates changes on the vertex declaration to the renderer.
-		//   you must call invalidate after modifying vertex declaration data,
-		//   for it to be uploaded to GPU.
-		void Invalidate();
-
-		// Hardware resource
-		VertexDeclarationResourceRef& HWResource() { return HWResource_; }
+		// ~ IResourceOperation
 	private:
+		virtual void Create();
+		// ~ IResourceOperation
+
 		VertexDeclaration(VertexStream* streams, uint32 streamCount);
 
 		VertexStream* streams_;
 		uint32 streamCount_;
-
-		uint32 storageFlags_;
-		VertexDeclarationResourceRef HWResource_;
 	};
 }

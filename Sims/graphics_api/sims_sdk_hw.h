@@ -49,7 +49,7 @@ namespace sims
 			ShaderRef shader = prog->GetShader(type);
 			if (shader)
 			{
-				shader->HWResource()->SetUniform<T>(name, data);
+				shader->Resource().As<ShaderResource>()->SetUniform<T>(name, data);
 			}
 #elif SIMS_SDK_IMPL_OGL
 			prog->HWResource()->SetUniform<T>(name, data);

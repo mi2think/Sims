@@ -19,7 +19,7 @@
 
 namespace sims
 {
-	class VertexArray
+	class VertexArray : public IResourceOperation
 	{
 	public:
 		VertexArray(const VertexDeclarationRef& vertexDecl);
@@ -31,22 +31,13 @@ namespace sims
 		uint32 GetVertexBufferCount() const { return vertexBuffers_.size(); }
 		VertexBufferRef GetVertexBuffer(int index) const { return vertexBuffers_[index]; }
 
-		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
-		uint32 GetStorageFlags() const { return storageFlags_; }
-
-		// propagates changes on the vertex array to the renderer.
-		//   you must call invalidate after modifying vertex array data,
-		//   for it to be uploaded to GPU.
-		void Invalidate();
-
-		// Hardware resource
-		VertexArrayResourceRef& HWResource() { return HWResource_; }
+		// ~ IResourceOperation
 	private:
+		virtual void Create();
+		// ~ IResourceOperation
+
 		VertexDeclarationRef vertexDecl_;
 		vector<VertexBufferRef> vertexBuffers_;
-
-		uint32 storageFlags_;
-		VertexArrayResourceRef HWResource_;
 	};
 }
 

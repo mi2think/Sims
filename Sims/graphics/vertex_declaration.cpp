@@ -34,7 +34,6 @@ namespace sims
 	VertexDeclaration::VertexDeclaration(VertexStream* streams, uint32 streamCount)
 		: streams_(streams)
 		, streamCount_(streamCount)
-		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 	{
 		ASSERT(CheckStreams(streams_, streamCount_)
 			&& "two vertex stream has same index");
@@ -61,16 +60,13 @@ namespace sims
 		return VertexDeclarationRef(new VertexDeclaration(myStreams, streamCount));
 	}
 
-	void VertexDeclaration::Invalidate()
+	void VertexDeclaration::Create()
 	{
-		if ((storageFlags_ & StorageFlags::Hardware) == 0)
-			return;
+		if (HWResource_)
+		{
+			Release();
+		}
 
-		// update vertex buffer
-		if (!HWResource_)
-			HWResource_ = hw::CreateResource<VertexDeclarationResource>();
-
-		HWResource_->Attach(this);
-		HWResource_->UpdateResource();
+		HWResource_ = hw::CreateResource<VertexDeclarationResource>();
 	}
 }

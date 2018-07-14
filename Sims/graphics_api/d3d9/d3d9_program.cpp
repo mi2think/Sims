@@ -36,8 +36,8 @@ namespace sims
 			{
 				auto type = ShaderDomain::Type(i);
 				auto shader = program_->GetShader(type);
-				if (shader && shader->HWResource())
-					shader->HWResource()->BindResource();
+				if (shader)
+					shader->Bind();
 				else
 				{
 					switch (type)

@@ -44,7 +44,6 @@ namespace sims
 
 	IndexBuffer::IndexBuffer()
 		: indexCount_(0)
-		, storageFlags_(StorageFlags::Local)
 		, isLocked_(false)
 		, invalidRange_(0, 0)
 	{
@@ -52,7 +51,6 @@ namespace sims
 
 	IndexBuffer::IndexBuffer(uint32 indexCount)
 		: indexCount_(indexCount)
-		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 		, isLocked_(false)
 		, invalidRange_(0, indexCount)
 	{
@@ -61,7 +59,6 @@ namespace sims
 
 	IndexBuffer::IndexBuffer(uint32 indexCount, IndexType* data)
 		: indexCount_(indexCount)
-		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 		, isLocked_(false)
 		, invalidRange_(0, indexCount)
 	{
@@ -77,10 +74,9 @@ namespace sims
 
 	void IndexBuffer::Resize(uint32 indexCount)
 	{
-		ASSERT(! isLocked_);
+		ASSERT(!isLocked_ && !HWResource_);
 		indexData_.Resize(indexCount);
 		indexCount_ = indexCount;
-		//TODO: change size should create HW buffer
 	}
 
 	LockedIndexBuffer* IndexBuffer::Lock(uint32 lockFlags, uint32 offset, uint32 count)
@@ -127,18 +123,20 @@ namespace sims
 
 	void IndexBuffer::Invalidate()
 	{
-		if ((storageFlags_ & StorageFlags::Hardware) == 0)
-			return;
-
 		if (isLocked_ || invalidRange_.IsEmpty())
 			return;
-
-		// update index buffer
-		if (!HWResource_)
-			HWResource_ = hw::CreateResource<IndexBufferResource>();
-
-		HWResource_->Attach(this);
-		HWResource_->UpdateResource();
 		invalidRange_.ResetRange();
+
+		IResourceOperation::Invalidate();
+	}
+
+	void IndexBuffer::Create()
+	{
+		if (HWResource_)
+		{
+			Release();
+		}
+
+		HWResource_ = hw::CreateResource<IndexBufferResource>();
 	}
 }

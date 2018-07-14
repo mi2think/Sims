@@ -16,6 +16,44 @@
 
 namespace sims
 {
+	IResourceOperation::IResourceOperation()
+		: storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
+	{}
+
+	IResourceOperation::~IResourceOperation()
+	{}
+
+	void IResourceOperation::Invalidate()
+	{
+		if ((storageFlags_ & StorageFlags::Hardware) == 0)
+			return;
+
+		if (!HWResource_)
+			Create();
+		else
+			PreUpdate();
+
+		HWResource_->Attach(this);
+		HWResource_->UpdateResource();
+	}
+
+	void IResourceOperation::Bind()
+	{
+		ASSERT(HWResource_);
+		HWResource_->BindResource();
+	}
+
+	void IResourceOperation::Release()
+	{
+		ASSERT(HWResource_);
+		HWResource_->ReleaseResource();
+		HWResource_ = nullptr;
+	}
+
+	void IResourceOperation::PreUpdate()
+	{}
+	//////////////////////////////////////////////////////////////////////////
+
 	RenderResource::~RenderResource()
 	{}
 
@@ -34,9 +72,25 @@ namespace sims
 		bindStage_ = bindStage;
 	}
 
-	void TextureResource::SetUpdateRegions(const TBuffer<Recti>& regions)
+	void TextureResource::SetUpdateRegions(const vector<Recti>& regions)
 	{
 		regions_ = regions;
+	}
+
+	void TextureResource::OnOperate(OPCODE Op, const void* Param)
+	{
+		switch (Op)
+		{
+		case OP_TEX_UPDATE_REGIONS:
+			SetUpdateRegions(*((const vector<Recti>*)Param));
+			break;
+		case OP_TEX_BIND_STAGE:
+			SetBindStage(*((const uint32*)Param));
+			break;
+		case OP_TEX_UPDATE_SAMPLE:
+			OnSamplerStatusUpdated();
+			break;
+		}
 	}
 
 	VertexDeclarationResource::VertexDeclarationResource()

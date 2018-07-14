@@ -46,7 +46,7 @@ namespace sims
 		TBuffer<IndexType>* indexData_;
 	};
 
-	class IndexBuffer
+	class IndexBuffer : public IResourceOperation
 	{
 	public:
 		IndexBuffer();
@@ -58,34 +58,26 @@ namespace sims
 		uint32 GetIndexCount() const { return indexCount_; }
 		void Resize(uint32 indexCount);
 
-		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
-		uint32 GetStorageFlags() const { return storageFlags_; }
-
 		// count 0 for lock total buffer
 		LockedIndexBuffer* Lock(uint32 lockFlags, uint32 offset = 0, uint32 count = 0);
 		void Unlock(LockedIndexBuffer* L);
 
 		const IndexRange& GetInvalidRange() const { return invalidRange_; }
 
-		// propagates changes on the index buffer to the renderer.
-		//   you must call invalidate after modifying index buffer data,
-		//   for it to be uploaded to GPU.
-		void Invalidate();
+		// ~ IResourceOperation
+		virtual void Invalidate() override;
+	protected:
+		virtual void Create();
+		// ~ IResourceOperation
 
-		// Hardware resource
-		IndexBufferResourceRef& HWResource() { return HWResource_; }
-	private:
 		friend class LockedIndexBuffer;
 		TBuffer<IndexType>* GetIndexData() { return &indexData_; }
 	private:
 		uint32 indexCount_;
 		TBuffer<IndexType> indexData_;
-		uint32 storageFlags_;
 		IndexRange invalidRange_;
 
 		LockedIndexBuffer lockedIB_;
 		bool isLocked_;
-
-		IndexBufferResourceRef HWResource_;
 	};
 }

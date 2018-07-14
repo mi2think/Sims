@@ -17,7 +17,7 @@
 
 namespace sims
 {
-	class Shader
+	class Shader : public IResourceOperation
 	{
 	public:
 		Shader();
@@ -35,24 +35,16 @@ namespace sims
 		const char* GetTypeDesc() const;
 		const string& GetEntryName() const { return entryName_; }
 
-		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
-		uint32 GetStorageFlags() const { return storageFlags_; }
-
-		// propagates changes on the shader to the renderer.
-		//   you must call invalidate after modifying shader data,
-		//   for it to be uploaded to GPU.
-		void Invalidate();
-
-		// Hardware resource
-		ShaderResourceRef& HWResource() { return HWResource_; }
+		// ~ IResourceOperation
+		virtual void Invalidate() override;
 	private:
+		virtual void Create();
+		// ~ IResourceOperation
+
 		string source_;
 		string entryName_;
 		ShaderDomain::Type type_;
-		uint32 storageFlags_;
 		bool invalid_;
-
-		ShaderResourceRef HWResource_;
 	};
 }
 

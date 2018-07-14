@@ -16,13 +16,11 @@ namespace sims
 {
 	VertexArray::VertexArray(const VertexDeclarationRef& vertexDecl)
 		: vertexDecl_(vertexDecl)
-		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 	{
 	}
 
 	VertexArray::VertexArray(const VertexDeclarationRef& vertexDecl, const VertexBufferRef& vb1)
 		: vertexDecl_(vertexDecl)
-		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 	{
 		vertexBuffers_.reserve(1);
 		vertexBuffers_.push_back(vb1);
@@ -30,7 +28,6 @@ namespace sims
 
 	VertexArray::VertexArray(const VertexDeclarationRef& vertexDecl, const VertexBufferRef& vb1, const VertexBufferRef& vb2)
 		: vertexDecl_(vertexDecl)
-		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 	{
 		vertexBuffers_.reserve(2);
 		vertexBuffers_.push_back(vb1);
@@ -39,7 +36,6 @@ namespace sims
 
 	VertexArray::VertexArray(const VertexDeclarationRef& vertexDecl, const VertexBufferRef& vb1, const VertexBufferRef& vb2, const VertexBufferRef& vb3)
 		: vertexDecl_(vertexDecl)
-		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 	{
 		vertexBuffers_.reserve(3);
 		vertexBuffers_.push_back(vb1);
@@ -47,16 +43,13 @@ namespace sims
 		vertexBuffers_.push_back(vb3);
 	}
 
-	void VertexArray::Invalidate()
+	void VertexArray::Create()
 	{
-		if ((storageFlags_ & StorageFlags::Hardware) == 0)
-			return;
+		if (HWResource_)
+		{
+			Release();
+		}
 
-		// update vertex buffer
-		if (!HWResource_)
-			HWResource_ = hw::CreateResource<VertexArrayResource>();
-
-		HWResource_->Attach(this);
-		HWResource_->UpdateResource();
+		HWResource_ = hw::CreateResource<VertexArrayResource>();
 	}
 }

@@ -19,7 +19,6 @@ namespace sims
 		, height_(0)
 		, format_(PixelFormat::Unknown)
 		, mipmapCount_(0)
-		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 	{
 	}
 
@@ -28,20 +27,17 @@ namespace sims
 		, height_(height)
 		, format_(format)
 		, mipmapCount_(1)
-		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 	{
 		ImageRef image(new Image(width, height, format));
 		mipmaps_.push_back(image);
 	}
 
 	Texture::Texture(const string& path, PixelFormat::Type format)
-		: storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 	{
 		Load(path, format);
 	}
 
 	Texture::Texture(const ImageRef& image)
-		: storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 	{
 		SetImage(image);
 	}
@@ -107,43 +103,48 @@ namespace sims
 
 	void Texture::Invalidate()
 	{
-		if ((storageFlags_ & StorageFlags::Hardware) == 0)
-			return;
-
 		// collect invalid region, for update later
-		TBuffer<Recti> regions(mipmapCount_);
+		regions_.resize(mipmapCount_);
 		Recti bbox;
 		for (uint32 i = 0; i < mipmapCount_; ++i)
 		{
 			ImageRef image = GetImage(i);
 			if (image)
 			{
-				regions[i] = image->GetInvalidRegion();
-				bbox |= regions[i];
+				regions_[i] = image->GetInvalidRegion();
+				bbox |= regions_[i];
 				image->Validate(); // clear invalidate
 			}
 			else
-				regions[i] = Recti();
+				regions_[i] = Recti();
 		}
 		if (bbox.IsEmpty())
 			return;
 
-		// update texture
-		if (!HWResource_)
-			HWResource_ = hw::CreateResource<TextureResource>();
+		IResourceOperation::Invalidate();
+	}
 
-		HWResource_->Attach(this);
-		HWResource_->SetUpdateRegions(regions);
-		HWResource_->UpdateResource();
+	void Texture::Create()
+	{
+		if (HWResource_)
+		{
+			Release();
+		}
+
+		HWResource_ = hw::CreateResource<TextureResource>();
+	}
+
+	void Texture::PreUpdate()
+	{
+		ASSERT(HWResource_);
+		HWResource_->OnOperate(RenderResource::OP_TEX_UPDATE_REGIONS, &regions_);
 	}
 
 	void Texture::SetSamplerStatus(const TextureSamplerStatus& status)
 	{
 		samplerStatus_ = status;
 		
-		if ((storageFlags_ & StorageFlags::Hardware) == 0)
-			return;
 		if (HWResource_)
-			HWResource_->OnSamplerStatusUpdated();
+			HWResource_->OnOperate(RenderResource::OP_TEX_UPDATE_SAMPLE);
 	}
 }

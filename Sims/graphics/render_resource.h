@@ -15,6 +15,40 @@
 
 namespace sims
 {
+	// resource operation interface
+	class IResourceOperation
+	{
+	public:
+		IResourceOperation();
+		virtual ~IResourceOperation();
+
+		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
+		uint32 GetStorageFlags() const { return storageFlags_; }
+
+		// get resource
+		RenderResourceRef& Resource() { return HWResource_; }
+
+		// bind resource
+		void Bind();
+
+		// release resource
+		void Release();
+
+		// propagates changes on the resource to the renderer.
+		//   you must call invalidate after modifying resource data,
+		//   for it to be uploaded to GPU.
+		virtual void Invalidate();
+	protected:
+		// create resource
+		virtual void Create() = 0;
+		// a chance before real upload to GPU.
+		virtual void PreUpdate();
+
+		uint32 storageFlags_;
+		RenderResourceRef HWResource_;
+	};
+
+	// various render resource
 	class RenderResource
 	{
 	public:
@@ -25,6 +59,18 @@ namespace sims
 		virtual void UpdateResource() {}
 		virtual void BindResource() const {}
 		virtual void ReleaseResource() {}
+
+		// for special case
+		enum OPCODE
+		{
+			OP_NONE = 0,
+
+			// texture
+			OP_TEX_UPDATE_REGIONS = 1,
+			OP_TEX_BIND_STAGE = 2,
+			OP_TEX_UPDATE_SAMPLE = 3,
+		};
+		virtual void OnOperate(OPCODE, const void* = nullptr) {}
 	};
 
 	class TextureResource : public RenderResource
@@ -34,13 +80,15 @@ namespace sims
 
 		void Attach(void* texture);
 
-		void SetBindStage(uint32 bindStage);
-		void SetUpdateRegions(const TBuffer<Recti>& regions);
-		virtual void OnSamplerStatusUpdated() {}
+		void OnOperate(OPCODE Op, const void* Parm);
 	protected:
+		void SetBindStage(uint32 bindStage);
+		void SetUpdateRegions(const vector<Recti>& regions);
+		virtual void OnSamplerStatusUpdated() {}
+
 		Texture* texture_;
 		uint32 bindStage_;
-		TBuffer<Recti> regions_;
+		vector<Recti> regions_;
 	};
 
 	class VertexDeclarationResource : public RenderResource

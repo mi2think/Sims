@@ -19,7 +19,7 @@
 
 namespace sims
 {
-	class Texture
+	class Texture : public IResourceOperation
 	{
 	public:
 		Texture();
@@ -43,20 +43,16 @@ namespace sims
 		bool HasMips() const { return mipmapCount_ > 1; }
 		void SetImage(const ImageRef& image);
 
-		void SetStorageFlags(uint32 flags) { storageFlags_ = flags; }
-		uint32 GetStorageFlags() const { return storageFlags_; }
-
 		void SetSamplerStatus(const TextureSamplerStatus& status);
 		const TextureSamplerStatus& GetSamplerStatus() const { return samplerStatus_; }
-
-		// propagates changes on the texture and its mipmap images to the renderer.
-		//   you must call invalidate after modifying any texture paramters or image data,
-		//   for it to be uploaded to GPU.
-		void Invalidate();
-
-		// Hardware resource
-		TextureResourceRef& HWResource() { return HWResource_; }
+		
+		// ~ IResourceOperation
+		virtual void Invalidate() override;
 	private:
+		virtual void Create();
+		virtual void PreUpdate();
+		// ~ IResourceOperation
+
 		void GenMipmaps(ImageRef image);
 
 		string name_; // file name if load from file
@@ -66,14 +62,13 @@ namespace sims
 
 		uint32 mipmapCount_;
 		vector<ImageRef> mipmaps_;
+		vector<Recti> regions_;
 
 		uint32 storageFlags_;
 
 		// texture sampler paramters
 		// no need to upload to GPU if changes, it will bind when use
 		TextureSamplerStatus samplerStatus_;
-
-		TextureResourceRef HWResource_;
 	};
 }
 

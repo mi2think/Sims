@@ -45,8 +45,8 @@ public:
 			// draw
 			renderer_->BeginFrame(ClearFlags::Color | ClearFlags::Depth, Color(0xff000000), 1.0f, 0);
 
-			vertexArray_->HWResource()->BindResource();
-			renderer_->DrawIndexedPrimitive(PrimitiveType::Triangles, *IndexBuf_->HWResource(), 4, 4);
+			vertexArray_->Bind();
+			renderer_->DrawIndexedPrimitive(PrimitiveType::Triangles, IndexBuf_->Resource(), 4, 4);
 
 			renderer_->EndFrame();
 			renderer_->PresentFrame();
@@ -123,7 +123,7 @@ public:
 		prog_->AddShader(VS);
 		prog_->AddShader(PS);
 		prog_->Invalidate();
-		prog_->HWResource()->BindResource();
+		prog_->Bind();
 	}
 private:
 	hw::HWRenderer* renderer_;

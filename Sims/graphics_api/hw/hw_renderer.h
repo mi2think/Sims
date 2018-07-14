@@ -31,7 +31,7 @@ namespace sims
 			virtual const Matrix44f& GetTransform(Transform::Type type) const = 0;
 
 			virtual void DrawPrimitive(PrimitiveType::Type type, uint32 primitiveCount) = 0;
-			virtual void DrawIndexedPrimitive(PrimitiveType::Type type, const IndexBufferResource& ib, uint32 vertexCount, uint32 primitiveCount) = 0;
+			virtual void DrawIndexedPrimitive(PrimitiveType::Type type, const RenderResourceRef& ib, uint32 vertexCount, uint32 primitiveCount) = 0;
 		};
 	}
 }

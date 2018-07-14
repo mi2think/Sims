@@ -17,7 +17,7 @@
 
 namespace sims
 {
-	class Program
+	class Program : public IResourceOperation
 	{
 	public:
 		Program();
@@ -28,18 +28,15 @@ namespace sims
 		const ShaderRef& GetShader(ShaderDomain::Type type) const;
 		const ShaderRef* GetShaders() const { return shaders_; }
 
-		// propagates changes on the program to the renderer.
-		//   you must call invalidate after modifying shader by type
-		void Invalidate();
-
-		// Hardware resource
-		ProgramResourceRef& HWResource() { return HWResource_; }
+		// ~ IResourceOperation
+		virtual void Invalidate() override;
 	private:
+		virtual void Create();
+		// ~ IResourceOperation
+
 		string desc_;
 		ShaderRef shaders_[ShaderDomain::Max];
 		bool invalid_;
-
-		ProgramResourceRef HWResource_;
 	};
 }
 

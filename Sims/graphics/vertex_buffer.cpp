@@ -53,7 +53,6 @@ namespace sims
 
 	VertexBuffer::VertexBuffer()
 		: vertexCount_(0)
-		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 		, isLocked_(false)
 		, invalidRange_(0, 0)
 		, streamIndex_(0)
@@ -63,7 +62,6 @@ namespace sims
 	VertexBuffer::VertexBuffer(const VertexDeclarationRef& vertexDecl, uint32 streamIndex)
 		: vertexDecl_(vertexDecl)
 		, vertexCount_(0)
-		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 		, isLocked_(false)
 		, invalidRange_(0, 0)
 		, streamIndex_(streamIndex)
@@ -74,7 +72,6 @@ namespace sims
 	VertexBuffer::VertexBuffer(const VertexDeclarationRef& vertexDecl, uint32 vertexCount, uint32 streamIndex)
 		: vertexDecl_(vertexDecl)
 		, vertexCount_(vertexCount)
-		, storageFlags_(StorageFlags::Local | StorageFlags::Hardware)
 		, isLocked_(false)
 		, invalidRange_(0, vertexCount)
 		, streamIndex_(streamIndex)
@@ -90,10 +87,9 @@ namespace sims
 
 	void VertexBuffer::Resize(uint32 vertexCount)
 	{
-		ASSERT(!isLocked_);
+		ASSERT(!isLocked_ && ! HWResource_);
 		vertexData_.Resize(vertexCount * vertexStream_->GetStride());
 		vertexCount_ = vertexCount;
-		//TODO: change size should create HW buffer
 	}
 
 	LockedVertexBuffer* VertexBuffer::Lock(uint32 lockFlags, uint32 offset, uint32 count)
@@ -140,18 +136,20 @@ namespace sims
 
 	void VertexBuffer::Invalidate()
 	{
-		if ((storageFlags_ & StorageFlags::Hardware) == 0)
-			return;
-
 		if (isLocked_ || invalidRange_.IsEmpty())
 			return;
-
-		// update vertex buffer
-		if (!HWResource_)
-			HWResource_ = hw::CreateResource<VertexBufferResource>();
-		
-		HWResource_->Attach(this);
-		HWResource_->UpdateResource();
 		invalidRange_.ResetRange();
+
+		IResourceOperation::Invalidate();
+	}
+
+	void VertexBuffer::Create()
+	{
+		if (HWResource_)
+		{
+			Release();
+		}
+
+		HWResource_ = hw::CreateResource<VertexBufferResource>();
 	}
 }
