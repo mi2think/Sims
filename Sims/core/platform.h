@@ -25,5 +25,7 @@ namespace sims
 		static bool SetEnv(const string& name, const string& val);
 
 		static string& GetBaseDir();
+
+		static void LowLevelOutputDebugString(const char* s);
 	};
 }

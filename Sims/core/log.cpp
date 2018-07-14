@@ -10,6 +10,7 @@
 	purpose:	LOG
 *********************************************************************/
 #include "log.h"
+#include "platform.h"
 
 #include <windows.h>
 #include <cstdarg>
@@ -36,7 +37,11 @@ namespace sims
 	void Log::WriteEnd()
 	{
 		if (newline_)
+		{
 			(*os_) << std::endl;
+
+			Platform::LowLevelOutputDebugString("\n");
+		}
 	}
 
 	void Log::WriteFormat(int level, const char* fmt, ...)
@@ -58,6 +63,8 @@ namespace sims
 		va_end(ap);
 
 		(*os_) << buffer.c_str();
+
+		Platform::LowLevelOutputDebugString(buffer.c_str());
 
 		WriteEnd();
 	}

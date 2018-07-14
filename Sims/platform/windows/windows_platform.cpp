@@ -99,4 +99,9 @@ namespace sims
 
 		return baseDir;
 	}
+
+	void Platform::LowLevelOutputDebugString(const char* s)
+	{
+		::OutputDebugString(s);
+	}
 }
