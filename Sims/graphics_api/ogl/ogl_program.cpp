@@ -39,7 +39,7 @@ namespace sims
 				if (! shader)
 					continue;
 
-				auto& shaderRes = shader->HWResource();
+				auto& shaderRes = shader->Resource();
 				if (shaderRes)
 				{
 					auto oglShaderRes = shaderRes.As<OGLShaderResource>();

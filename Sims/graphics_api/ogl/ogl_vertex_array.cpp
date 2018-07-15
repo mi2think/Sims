@@ -42,7 +42,7 @@ namespace sims
 					{
 						auto vertexBuffer = vertexArray_->GetVertexBuffer(i);
 						vertexBuffer->Invalidate();
-						vertexBuffer->HWResource()->BindResource();
+						vertexBuffer->Bind();
 					}
 
 					gl_check_error("OGLVertexArrayResource::UpdateResource");
@@ -76,7 +76,7 @@ namespace sims
 				for (uint32 i = 0; i < count; ++i)
 				{
 					auto vertexBuffer = vertexArray_->GetVertexBuffer(i);
-					vertexBuffer->HWResource()->BindResource();
+					vertexBuffer->Bind();
 				}
 			}
 		}

@@ -52,7 +52,7 @@ namespace sims
 				shader->Resource().As<ShaderResource>()->SetUniform<T>(name, data);
 			}
 #elif SIMS_SDK_IMPL_OGL
-			prog->HWResource()->SetUniform<T>(name, data);
+			prog->Resource().As<ProgramResource>()->SetUniform<T>(name, data);
 #endif
 		}
 	}
