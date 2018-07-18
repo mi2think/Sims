@@ -28,11 +28,8 @@ namespace sims
 		uint32 GetOffset() const { return offset_; }
 		uint32 GetCount() const { return count_; }
 
-		IndexType* GetData() { return indexData_->GetData(); }
-		const IndexType* GetData() const { return indexData_->GetData(); }
-
-		void* GetLockData() { return  indexData_->GetData() + offset_; }
-		const void* GetLockData() const { return  indexData_->GetData() + offset_; }
+		IndexType* GetData();
+		const IndexType* GetData() const;
 
 		void Init(IndexBuffer* indexBuffer, uint32 lockFlags, uint32 offset, uint32 count);
 		void Clear();

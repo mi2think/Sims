@@ -12,7 +12,6 @@
 #include "path.h"
 #include "file_system.h"
 #include "platform.h"
-#include "utils/string_utils.h"
 
 namespace sims
 {

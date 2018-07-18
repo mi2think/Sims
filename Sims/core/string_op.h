@@ -1,13 +1,13 @@
 /********************************************************************
 	created:	2016/09/04
 	created:	4:9:2016   22:51
-	filename: 	D:\Code\Sims\Sims\utils\string_utils.h
-	file path:	D:\Code\Sims\Sims\utils
-	file base:	string_utils
+	filename: 	D:\Code\Sims\Sims\core\string_op.h
+	file path:	D:\Code\Sims\Sims\core
+	file base:	string_op
 	file ext:	h
 	author:		mi2think@gmail.com
 
-	purpose:	String Utils
+	purpose:	String Operate
 *********************************************************************/
 #ifndef __STRING_UTILS_H__
 #define __STRING_UTILS_H__

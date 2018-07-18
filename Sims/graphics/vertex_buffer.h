@@ -33,20 +33,22 @@ namespace sims
 		uint32 GetLockFlags() const { return lockFlags_; }
 		uint32 GetOffset() const { return offset_; }
 		uint32 GetCount() const { return count_; }
+		uint32 GetStride() const;
 
-		void* GetData() { return vertexData_->GetData(); }
-		const void* GetData() const { return vertexData_->GetData(); }
+		void* GetData();
+		const void* GetData() const;
 
-		void* GetLockData();
-		const void* GetLockData() const;
+		// may be null ptr if can not find specify usage
+		void* GetDataByUsage(VertexElementUsage::Type usage, uint32 usageIndex = 0);
+		const void* GetDataByUsage(VertexElementUsage::Type usage, uint32 usageIndex = 0) const;
 	private:
-		friend class VertexBuffer;
+		friend class VertexStream;
 
-		VertexBuffer* vertexBuffer_;
+		const VertexStream* vertexStream_;
 		uint32 offset_;
 		uint32 count_;
 		uint32 lockFlags_;
-		Buffer* vertexData_;
+		char*  data_;
 	};
 
 	class VertexBuffer : public IResourceOperation
@@ -80,7 +82,6 @@ namespace sims
 		VertexDeclarationRef vertexDecl_;
 		const VertexStream* vertexStream_;
 		uint32 vertexCount_;
-		uint32 streamIndex_;
 
 		Buffer vertexData_;
 

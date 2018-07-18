@@ -74,6 +74,9 @@ namespace sims
 		D3DPRIMITIVETYPE ToD3DPrimitiveType(PrimitiveType::Type primitive);
 		void FillD3DVertexElement(D3DVERTEXELEMENT9* d3d9VertexElement, const VertexElement* vertexElement, uint32 streamIndex);
 
+		//////////////////////////////////////////////////////////////////////////
+		// Legacy code
+
 		// vertex define
 		struct Vertex
 		{
@@ -121,6 +124,23 @@ namespace sims
 				, uv(_uv)
 			{}
 			static const uint32 FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1;
+		};
+
+		class D3D9XMesh
+		{
+		public:
+			D3D9XMesh(const char* filename);
+			~D3D9XMesh();
+
+			void Clear();
+
+			bool Load(const char* filename);
+
+			void Render(D3DXMATRIX* world);
+		private:
+			ID3DXMesh* mesh_;
+			vector<D3DMATERIAL9> mtrls_;
+			vector<IDirect3DTexture9*> textures_;
 		};
 	}
 }

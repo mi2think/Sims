@@ -16,13 +16,6 @@
 #include "d3d9/d3d9_geometry_def.h"
 #include "d3d9/d3d9_window.h"
 #include "d3d9/d3d9_renderer.h"
-#include "d3d9/d3d9_xmesh.h"
-#include "d3d9/d3d9_vertex_declaration.h"
-#include "d3d9/d3d9_vertex_buffer.h"
-#include "d3d9/d3d9_vertex_array.h"
-#include "d3d9/d3d9_index_buffer.h"
-#include "d3d9/d3d9_texture.h"
-#include "d3d9/d3d9_shader.h"
-#include "d3d9/d3d9_program.h"
+#include "d3d9/d3d9_render_resource.h"
 
 #endif

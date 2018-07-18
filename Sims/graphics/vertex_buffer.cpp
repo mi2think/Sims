@@ -26,36 +26,63 @@ namespace sims
 
 	void LockedVertexBuffer::Clear()
 	{
-		vertexBuffer_ = nullptr;
+		vertexStream_ = nullptr;
 		offset_ = count_ = 0;
 		lockFlags_ = LockFlags::LockRead;
-		vertexData_ = nullptr;
+		data_ = nullptr;
 	}
 
 	void LockedVertexBuffer::Init(VertexBuffer* vertexBuffer, uint32 lockFlags, uint32 offset, uint32 count)
 	{
-		vertexBuffer_ = vertexBuffer;
+		vertexStream_ = vertexBuffer->GetVertexStream();
 		offset_ = offset;
 		count_ = count;
 		lockFlags_ = lockFlags;
-		vertexData_ = vertexBuffer_->GetVertexData();
+		data_ = vertexBuffer->GetVertexData()->GetData() + offset_ * vertexStream_->GetStride();
 	}
 
-	void* LockedVertexBuffer::GetLockData()
+	uint32 LockedVertexBuffer::GetStride() const
 	{
-		return vertexData_->GetData() + offset_ * vertexBuffer_->GetVertexStream()->GetStride();
+		return vertexStream_->GetStride();
 	}
 
-	const void* LockedVertexBuffer::GetLockData() const
-	{ 
-		return vertexData_->GetData() + offset_ * vertexBuffer_->GetVertexStream()->GetStride();
+	void* LockedVertexBuffer::GetData()
+	{
+		return data_;
 	}
+
+	const void* LockedVertexBuffer::GetData() const
+	{ 
+		return data_;
+	}
+
+	void* LockedVertexBuffer::GetDataByUsage(VertexElementUsage::Type usage, uint32 usageIndex)
+	{
+		const VertexElement* p = vertexStream_->GetVertexElementByUsage(usage, usageIndex);
+		if (p)
+		{
+			return data_ + p->GetOffset();
+		}
+		return nullptr;
+	}
+
+	const void* LockedVertexBuffer::GetDataByUsage(VertexElementUsage::Type usage, uint32 usageIndex) const
+	{
+		const VertexElement* p = vertexStream_->GetVertexElementByUsage(usage, usageIndex);
+		if (p)
+		{
+			return data_ + p->GetOffset();
+		}
+		return nullptr;
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+
 
 	VertexBuffer::VertexBuffer()
 		: vertexCount_(0)
 		, isLocked_(false)
 		, invalidRange_(0, 0)
-		, streamIndex_(0)
 		, vertexStream_(nullptr)
 	{}
 
@@ -64,9 +91,9 @@ namespace sims
 		, vertexCount_(0)
 		, isLocked_(false)
 		, invalidRange_(0, 0)
-		, streamIndex_(streamIndex)
 		, vertexStream_(nullptr)
 	{
+		vertexStream_ = vertexDecl->GetStream(streamIndex);
 	}
 
 	VertexBuffer::VertexBuffer(const VertexDeclarationRef& vertexDecl, uint32 vertexCount, uint32 streamIndex)
@@ -74,7 +101,6 @@ namespace sims
 		, vertexCount_(vertexCount)
 		, isLocked_(false)
 		, invalidRange_(0, vertexCount)
-		, streamIndex_(streamIndex)
 		, vertexStream_(nullptr)
 	{
 		vertexStream_ = vertexDecl->GetStream(streamIndex);
@@ -115,12 +141,6 @@ namespace sims
 
 	void VertexBuffer::Unlock(LockedVertexBuffer* L)
 	{
-		if (!L || L->vertexBuffer_ != this)
-		{
-			ASSERT(false && "can not unlock vertex buffer");
-			return;
-		}
-
 		if (!isLocked_)
 		{
 			ASSERT(false && "can not unlock unlocked vertex buffer");

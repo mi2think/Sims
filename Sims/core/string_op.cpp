@@ -1,15 +1,15 @@
 /********************************************************************
 	created:	2016/09/04
 	created:	4:9:2016   22:54
-	filename: 	D:\Code\Sims\Sims\utils\string_utils.cpp
-	file path:	D:\Code\Sims\Sims\utils
-	file base:	string_utils
+	filename: 	D:\Code\Sims\Sims\core\string_op.cpp
+	file path:	D:\Code\Sims\Sims\core
+	file base:	string_op
 	file ext:	cpp
 	author:		mi2think@gmail.com
 
 	purpose:	String Utils
 *********************************************************************/
-#include "string_utils.h"
+#include "string_op.h"
 #include "core/log.h"
 #include "core/core.h" // for SIMS_DEBUG
 

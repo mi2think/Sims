@@ -57,8 +57,8 @@ public:
 	{
 		VertexStream streams[2] =
 		{
-			VertexStream(0, VertexElement(VertexElementUsage::Position, 0, DataType::F32, 3)),
-			VertexStream(1, VertexElement(VertexElementUsage::Color, 0, DataType::F32, 3)),
+			VertexStream(VertexElement(VertexElementUsage::Position, 0, DataType::F32, 3), 0),
+			VertexStream(VertexElement(VertexElementUsage::Color, 0, DataType::F32, 3), 1),
 		};
 		VertexDeclarationRef vertexDecl = VertexDeclaration::Get(&streams[0], 2);
 

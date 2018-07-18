@@ -83,9 +83,9 @@ namespace sims
 
 	DECLARE_ENUM(VertexElementUsage)
 		Position,
+		Color,
 		Normal,
-		TexCoord,
-		Color
+		TexCoord
 	END_DECLARE_ENUM()
 
 	DECLARE_ENUM(StorageFlags)

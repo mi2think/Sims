@@ -278,5 +278,108 @@ namespace sims
 			d3d9VertexElement->Offset = (WORD)vertexElement->GetOffset();
 			d3d9VertexElement->Method = D3DDECLMETHOD_DEFAULT;
 		}
+
+		//////////////////////////////////////////////////////////////////////////
+		// Legacy code
+
+		D3D9XMesh::D3D9XMesh(const char* filename)
+			: mesh_(nullptr)
+		{
+			Load(filename);
+		}
+
+		D3D9XMesh::~D3D9XMesh()
+		{
+			Clear();
+		}
+
+		void D3D9XMesh::Clear()
+		{
+			for (auto& tex : textures_)
+			{
+				SAFE_RELEASE(tex);
+			}
+			textures_.clear();
+			SAFE_RELEASE(mesh_);
+		}
+
+		bool D3D9XMesh::Load(const char* filename)
+		{
+			Clear();
+
+			// load .x file
+			ID3DXBuffer* adjBuffer = nullptr;
+			ID3DXBuffer* mtrlBuffer = nullptr;
+			DWORD numMtrls = 0;
+
+			VERIFYD3DRESULT(D3DXLoadMeshFromX(filename,
+				D3DXMESH_MANAGED,
+				d3d9::g_pD3DD,
+				&adjBuffer,
+				&mtrlBuffer,
+				0,
+				&numMtrls,
+				&mesh_));
+
+			// extract the materials, and load textures
+			if (mtrlBuffer != nullptr && numMtrls > 0)
+			{
+				mtrls_.reserve(numMtrls);
+
+				D3DXMATERIAL* mt = (D3DXMATERIAL*)mtrlBuffer->GetBufferPointer();
+				for (uint32 i = 0; i < numMtrls; ++i)
+				{
+					D3DMATERIAL9& matD3D = mt[i].MatD3D;
+
+					// the MatD3D property does not have an ambient value set when its loaded, so set it now
+					matD3D.Ambient = matD3D.Diffuse;
+
+					// save the material
+					mtrls_.push_back(matD3D);
+
+					// check if the material has an associative texture
+					if (mt[i].pTextureFilename != nullptr)
+					{
+						// load texture
+						IDirect3DTexture9* tex = nullptr;
+						VERIFYD3DRESULT(D3DXCreateTextureFromFile(d3d9::g_pD3DD,
+							mt[i].pTextureFilename,
+							&tex));
+						textures_.push_back(tex);
+					}
+					else
+					{
+						textures_.push_back(nullptr);
+					}
+				}
+			}
+			SAFE_RELEASE(mtrlBuffer);
+
+			// optimize mesh
+			VERIFYD3DRESULT(mesh_->OptimizeInplace(D3DXMESHOPT_ATTRSORT | D3DXMESHOPT_COMPACT | D3DXMESHOPT_VERTEXCACHE,
+				(DWORD*)adjBuffer->GetBufferPointer(),
+				0,
+				0,
+				0));
+			SAFE_RELEASE(adjBuffer);
+
+			return true;
+		}
+
+		void D3D9XMesh::Render(D3DXMATRIX* world)
+		{
+			if (world)
+			{
+				VERIFYD3DRESULT(g_pD3DD->SetTransform(D3DTS_WORLD, world));
+			}
+
+			for (uint32 i = 0; i < mtrls_.size(); ++i)
+			{
+				auto& mtrl = mtrls_[i];
+				VERIFYD3DRESULT(g_pD3DD->SetMaterial(&mtrl));
+				VERIFYD3DRESULT(g_pD3DD->SetTexture(0, textures_[i]));
+				VERIFYD3DRESULT(mesh_->DrawSubset(i));
+			}
+		}
 	}
 }

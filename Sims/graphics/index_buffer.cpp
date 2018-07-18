@@ -42,6 +42,18 @@ namespace sims
 		indexData_ = nullptr;
 	}
 
+	IndexType* LockedIndexBuffer::GetData() 
+	{ 
+		return indexData_->GetData() + offset_;
+	}
+
+	const IndexType* LockedIndexBuffer::GetData() const 
+	{ 
+		return indexData_->GetData() + offset_;
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+
 	IndexBuffer::IndexBuffer()
 		: indexCount_(0)
 		, isLocked_(false)

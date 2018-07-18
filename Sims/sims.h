@@ -19,7 +19,7 @@
 #include "core/ref.h"
 #include "core/buffer.h"
 #include "core/platform_def.h"
-#include "utils/string_utils.h"
+#include "core/string_op.h"
 
 #include <sstream>
 #include <functional>

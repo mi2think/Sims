@@ -78,7 +78,6 @@ public:
 	{
 		VertexStream stream
 		(
-			0,
 			VertexElement(VertexElementUsage::Position, 0, DataType::F32, 3),
 			VertexElement(VertexElementUsage::Color, 0, DataType::F32, 3)
 		);

@@ -48,7 +48,13 @@ namespace sims
 		offset_ = offset;
 	}
 
-	VertexStream::VertexStream(uint32 index, const VertexElement& v1)
+	VertexStream::VertexStream()
+		: index_(0)
+		, attriBaseIndex_(0)
+	{
+	}
+
+	VertexStream::VertexStream(const VertexElement& v1, uint32 index)
 		: index_(index)
 		, attriBaseIndex_(0)
 	{
@@ -58,7 +64,7 @@ namespace sims
 		CalcVertexElementOffset();
 	}
 
-	VertexStream::VertexStream(uint32 index, const VertexElement& v1, const VertexElement& v2)
+	VertexStream::VertexStream(const VertexElement& v1, const VertexElement& v2, uint32 index)
 		: index_(index)
 		, attriBaseIndex_(0)
 	{
@@ -69,7 +75,7 @@ namespace sims
 		CalcVertexElementOffset();
 	}
 
-	VertexStream::VertexStream(uint32 index, const VertexElement& v1, const VertexElement& v2, const VertexElement& v3)
+	VertexStream::VertexStream(const VertexElement& v1, const VertexElement& v2, const VertexElement& v3, uint32 index)
 		: index_(index)
 		, attriBaseIndex_(0)
 	{
@@ -77,6 +83,18 @@ namespace sims
 		vertexElements_.push_back(v1);
 		vertexElements_.push_back(v2);
 		vertexElements_.push_back(v3);
+
+		CalcVertexElementOffset();
+	}
+
+	VertexStream::VertexStream(const VertexElement* v, uint32 num, uint32 index)
+		: index_(index)
+		, attriBaseIndex_(0)
+	{
+		for (uint32 i = 0; i < num; ++i)
+		{
+			vertexElements_.push_back(v[i]);
+		}
 
 		CalcVertexElementOffset();
 	}
@@ -102,5 +120,18 @@ namespace sims
 	void VertexStream::SetAttriBaseIndex(uint32 attriBaseIndex)
 	{
 		attriBaseIndex_ = attriBaseIndex;
+	}
+
+	const VertexElement* VertexStream::GetVertexElementByUsage(VertexElementUsage::Type usage, uint32 usageIndex) const
+	{
+		for (const auto& e : vertexElements_)
+		{
+			if (e.GetUsage() == usage 
+				&& e.GetUsageIndex() == usageIndex)
+			{
+				return &e;
+			}
+		}
+		return nullptr;
 	}
 }

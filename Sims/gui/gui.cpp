@@ -54,7 +54,6 @@ namespace sims
 		{
 			VertexStream streams 
 			(
-				0,
 				VertexElement(VertexElementUsage::Position, 0, ElementTypeTraits<Vertex::V3F>::Ty, ElementTypeTraits<Vertex::V3F>::N),
 				VertexElement(VertexElementUsage::TexCoord, 0, ElementTypeTraits<Vertex::V2F>::Ty, ElementTypeTraits<Vertex::V2F>::N),
 				VertexElement(VertexElementUsage::Color, 0, ElementTypeTraits<Vertex::C>::Ty, ElementTypeTraits<Vertex::C>::N)

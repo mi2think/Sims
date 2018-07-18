@@ -52,11 +52,13 @@ namespace sims
 	class VertexStream
 	{
 	public:
-		VertexStream() = default;
-		VertexStream(uint32 index, const VertexElement& v1);
-		VertexStream(uint32 index, const VertexElement& v1, const VertexElement& v2);
-		VertexStream(uint32 index, const VertexElement& v1, const VertexElement& v2, const VertexElement& v3);
+		VertexStream();
+		VertexStream(const VertexElement& v1, uint32 index = 0);
+		VertexStream(const VertexElement& v1, const VertexElement& v2, uint32 index = 0);
+		VertexStream(const VertexElement& v1, const VertexElement& v2, const VertexElement& v3, uint32 index = 0);
+		VertexStream(const VertexElement* v, uint32 num, uint32 index = 0);
 
+		uint32 SetIndex(uint32 index) { index_ = index; }
 		uint32 GetIndex() const { return index_; }
 		uint32 GetAttriBaseIndex() const { return attriBaseIndex_; }
 		uint32 GetStride() const { return stride_; }
@@ -64,6 +66,7 @@ namespace sims
 
 		uint32 GetVertexElementCount() const { return vertexElements_.size(); }
 		const VertexElement& GetVertexElement(int elementIndex) const { return vertexElements_[elementIndex]; }
+		const VertexElement* GetVertexElementByUsage(VertexElementUsage::Type usage, uint32 usageIndex = 0) const;
 	private:
 		void CalcVertexElementOffset();
 

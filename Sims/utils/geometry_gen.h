@@ -13,133 +13,38 @@
 #define __GEOMETRY_GEN_H__
 
 #include "sims.h"
-#include "math/matrix44.h"
+#include "math/math.h"
+#include "graphics/vertex_buffer.h"
+#include "graphics/index_buffer.h"
 
 namespace sims
 {
-	class GeometryGen
+	namespace utils
 	{
-	public:
-		enum VertexType
+		class Model
 		{
-			VT_Position = BIT(0),
-			VT_Normal	= BIT(1),
-			VT_UV		= BIT(2),
+		public:
+			Model(const VertexBufferRef& vb, const IndexBufferRef& ib);
 
-			VT_Num
+			const VertexBufferRef& GetVertexBuffer() const { return vb_; }
+			const IndexBufferRef&  GetIndexBuffer() const { return ib_; }
+		private:
+			VertexBufferRef	vb_;
+			IndexBufferRef	ib_;
 		};
+		typedef Ref<Model> ModelRef;
 
-		struct VBDesc
+
+		enum GenOptions
 		{
-			uint8* vb;		// vertex buffer
-			uint32 offset;	// offset of vertex buffer
-			uint16 stride;	// vertex stride
-			uint16 voffsets[VT_Num];
-			Matrix44f m;	// transform apply to vertex
-
-			VBDesc(uint8* _vb, uint16 _stride, uint32 _offset = 0, uint16 voftUV = 0, uint16 voftN = 0, uint16 voftP = 0)
-				: vb(_vb)
-				, stride(_stride)
-				, offset(_offset)
-			{
-				voffsets[VT_Position] = voftP;
-				voffsets[VT_Normal] = voftN;
-				voffsets[VT_UV] = voftUV;
-				m.Identity();
-			}
-
-			void SetVOffset(VertexType vt, uint16 ofs) { ASSERT(vt < VT_Num); voffsets[vt] = ofs; }
-			void SetTransform(const Matrix44f& _m) { m = _m; }
+			Gen_Color	= BIT(0),
+			Gen_Tex1	= BIT(1),
+			Gen_Tex2	= BIT(2),
+			Gen_Normal	= BIT(3),
 		};
-
-		struct IBDesc
-		{
-			enum IndexType { Index16, Index32 };
-			uint8* ib;		// index buffer
-			uint16 offset;	// offset of vertex buffer
-			IndexType indexType;	// index type
-
-			IBDesc(uint8* _ib, IndexType _indexType, uint16 _offset = 0)
-				: ib(_ib)
-				, indexType(_indexType)
-				, offset(_offset)
-			{}
-		};
-
-		struct TriIndex16
-		{
-			uint16 i0;
-			uint16 i1;
-			uint16 i2;
-		};
-
-		struct TriIndex32
-		{
-			uint32 i0;
-			uint32 i1;
-			uint32 i2;
-		};
-
-		
-		// Plane
-		// slices*stacks vertices, (stacks-1)*(slices-1)*6 indices
-		// slices number of slices about the x axis
-		// stacks number of stacks about the y axis
-		static bool GenPlane(float width,
-			float depth,
-			uint32 slices,
-			uint32 stacks,
-			const VBDesc& vbDesc,
-			const IBDesc& ibDesc,
-			int vts);
-
-		// Quad
-		// 4 vertices, 6 indices(2 triangles)
-		// x-z axis
-		static bool GenQuad(float width,
-			float height,
-			float z,
-			const VBDesc& vbDesc,
-			const IBDesc& ibDesc,
-			int vts);
-
-		// Quad
-		// 6 vertices(2 triangles)
-		// x-z axis,  no index
-		static bool GenQuad(float width,
-			float height,
-			float z,
-			const VBDesc& vbDesc,
-			int vts);
-
-		// Box
-		// 8  vertices, 36 indices(12 triangles) or
-		// 24 vertices, 36 indices(12 triangles) if box has UV 
-		static bool GenBox(float width,
-			float height,
-			float depth,
-			const VBDesc& vbDesc,
-			const IBDesc& ibDesc,
-			int vts);
-
-		// sky box
-		// 14 vertices, 36 indices(12 triangles)
-		// special UV at vertex
-		static bool GenSkyBox(float width,
-			float height,
-			float depth,
-			const VBDesc& vbDesc,
-			const IBDesc& ibDesc,
-			int vts);
-
-
-		static void GenNormals(uint32 vertexNum,
-			uint32 triNum,
-			const VBDesc& vbDesc,
-			const IBDesc& ibDesc);
-
-		static void TransformVertex(uint32 vertexNum, const VBDesc& vbDesc, int vts);
-	};
+		// face +Y axis
+		ModelRef GenPlane(float width, float depth, uint32 slices, uint32 stacks, uint32 options = 0);
+	}
 }
 
 #endif

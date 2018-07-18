@@ -1,16 +1,15 @@
 /********************************************************************
 	created:	2016/09/15
 	created:	15:9:2016   15:30
-	filename: 	D:\Code\Sims\Sims\fps.h
-	file path:	D:\Code\Sims\Sims
+	filename: 	D:\Code\Sims\Sims\core\fps.h
+	file path:	D:\Code\Sims\Sims\core
 	file base:	fps
 	file ext:	h
 	author:		mi2think@gmail.com
 	
 	purpose:	FPS
 *********************************************************************/
-#ifndef __FPS_H__
-#define __FPS_H__
+#pragma once
 
 #include "sims.h"
 
@@ -39,5 +38,3 @@ namespace sims
 		float fps_;
 	};
 }
-
-#endif
