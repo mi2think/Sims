@@ -13,7 +13,6 @@
 #define __SIMS_SDK_DX9_H__
 
 #include "d3d9/d3d9_common.h"
-#include "d3d9/d3d9_geometry_def.h"
 #include "d3d9/d3d9_window.h"
 #include "d3d9/d3d9_renderer.h"
 #include "d3d9/d3d9_render_resource.h"

@@ -153,9 +153,6 @@
     <ClCompile Include="graphics_api\ogl\ogl_window.cpp">
       <Filter>graphics_api\ogl</Filter>
     </ClCompile>
-    <ClCompile Include="graphics_api\ogl\ogl_shader.cpp">
-      <Filter>graphics_api\ogl</Filter>
-    </ClCompile>
     <ClCompile Include="graphics_api\ogl\ogl_renderer.cpp">
       <Filter>graphics_api\ogl</Filter>
     </ClCompile>
@@ -164,12 +161,6 @@
     </ClCompile>
     <ClCompile Include="graphics\shader.cpp">
       <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics_api\ogl\ogl_texture.cpp">
-      <Filter>graphics_api\ogl</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics_api\ogl\ogl_program.cpp">
-      <Filter>graphics_api\ogl</Filter>
     </ClCompile>
     <ClCompile Include="math\plane.cpp">
       <Filter>math</Filter>
@@ -201,26 +192,20 @@
     <ClCompile Include="gui\gui.cpp">
       <Filter>gui</Filter>
     </ClCompile>
-    <ClCompile Include="graphics_api\ogl\ogl_vertex_buffer.cpp">
-      <Filter>graphics_api\ogl</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics_api\ogl\ogl_index_buffer.cpp">
-      <Filter>graphics_api\ogl</Filter>
-    </ClCompile>
     <ClCompile Include="core\app.cpp">
       <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="graphics\vertex_array.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
-    <ClCompile Include="graphics_api\ogl\ogl_vertex_array.cpp">
-      <Filter>graphics_api\ogl</Filter>
+    <ClCompile Include="core\string_op.cpp">
+      <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="graphics_api\d3d9\d3d9_render_resource.cpp">
       <Filter>graphics_api\d3d9</Filter>
     </ClCompile>
-    <ClCompile Include="core\string_op.cpp">
-      <Filter>core</Filter>
+    <ClCompile Include="graphics_api\ogl\ogl_render_resource.cpp">
+      <Filter>graphics_api\ogl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -366,9 +351,6 @@
     <ClInclude Include="graphics_api\d3d9\d3d9_common.h">
       <Filter>graphics_api\d3d9</Filter>
     </ClInclude>
-    <ClInclude Include="graphics_api\d3d9\d3d9_geometry_def.h">
-      <Filter>graphics_api\d3d9</Filter>
-    </ClInclude>
     <ClInclude Include="graphics_api\d3d9\d3d9_renderer_caps.h">
       <Filter>graphics_api\d3d9</Filter>
     </ClInclude>
@@ -402,9 +384,6 @@
     <ClInclude Include="graphics_api\ogl\ogl_window.h">
       <Filter>graphics_api\ogl</Filter>
     </ClInclude>
-    <ClInclude Include="graphics_api\ogl\ogl_shader.h">
-      <Filter>graphics_api\ogl</Filter>
-    </ClInclude>
     <ClInclude Include="graphics_api\ogl\ogl_renderer.h">
       <Filter>graphics_api\ogl</Filter>
     </ClInclude>
@@ -416,12 +395,6 @@
     </ClInclude>
     <ClInclude Include="graphics\texture_sampler_status.h">
       <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics_api\ogl\ogl_texture.h">
-      <Filter>graphics_api\ogl</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics_api\ogl\ogl_program.h">
-      <Filter>graphics_api\ogl</Filter>
     </ClInclude>
     <ClInclude Include="math\plane.h">
       <Filter>math</Filter>
@@ -474,12 +447,6 @@
     <ClInclude Include="graphics_api\ogl\ogl_glut_callbacks.h">
       <Filter>graphics_api\ogl</Filter>
     </ClInclude>
-    <ClInclude Include="graphics_api\ogl\ogl_vertex_buffer.h">
-      <Filter>graphics_api\ogl</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics_api\ogl\ogl_index_buffer.h">
-      <Filter>graphics_api\ogl</Filter>
-    </ClInclude>
     <ClInclude Include="math\math.h">
       <Filter>math</Filter>
     </ClInclude>
@@ -489,9 +456,6 @@
     <ClInclude Include="graphics\vertex_array.h">
       <Filter>graphics</Filter>
     </ClInclude>
-    <ClInclude Include="graphics_api\ogl\ogl_vertex_array.h">
-      <Filter>graphics_api\ogl</Filter>
-    </ClInclude>
     <ClInclude Include="graphics_api\d3d9\d3d9_render_resource.h">
       <Filter>graphics_api\d3d9</Filter>
     </ClInclude>
@@ -500,6 +464,9 @@
     </ClInclude>
     <ClInclude Include="core\fps.h">
       <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\ogl\ogl_render_resource.h">
+      <Filter>graphics_api\ogl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

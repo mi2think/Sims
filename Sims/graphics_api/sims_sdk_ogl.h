@@ -16,11 +16,6 @@
 #include "ogl/ogl_window.h"
 #include "ogl/ogl_renderer_caps.h"
 #include "ogl/ogl_renderer.h"
-#include "ogl/ogl_texture.h"
-#include "ogl/ogl_vertex_buffer.h"
-#include "ogl/ogl_vertex_array.h"
-#include "ogl/ogl_index_buffer.h"
-#include "ogl/ogl_shader.h"
-#include "ogl/ogl_program.h"
+#include "ogl/ogl_render_resource.h"
 
 #endif

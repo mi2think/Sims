@@ -30,8 +30,8 @@ public:
 			// draw
 			renderer_->BeginFrame(ClearFlags::Color | ClearFlags::Depth, Color(0xff000000), 1.0f, 0);
 
-			vertexDecl_->HWResource()->BindResource();
-			vertexBuf_->HWResource()->BindResource();
+			vertexDecl_->Bind();
+			vertexBuf_->Bind();
 			renderer_->DrawPrimitive(PrimitiveType::Triangles, 1);
 
 			renderer_->EndFrame();
@@ -43,7 +43,6 @@ public:
 	{
 		VertexStream stream
 		(
-			0,
 			VertexElement(VertexElementUsage::Position, 0, DataType::F32, 3),
 			VertexElement(VertexElementUsage::Color, 0, DataType::F32, 3)
 		);
@@ -88,7 +87,7 @@ public:
 		prog_->AddShader(VS);
 		prog_->AddShader(PS);
 		prog_->Invalidate();
-		prog_->HWResource()->BindResource();
+		prog_->Bind();
 	}
 private:
 	hw::HWRenderer* renderer_;
