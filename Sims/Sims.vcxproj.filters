@@ -49,6 +49,9 @@
     <Filter Include="gui">
       <UniqueIdentifier>{e6b394ee-d3f4-49bd-8cb9-5806f49f0bc7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphics\hw">
+      <UniqueIdentifier>{e30ef914-9c4e-4a7c-a69d-3880f9c06f49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\math.cpp">
@@ -129,38 +132,8 @@
     <ClCompile Include="core\vfs.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\texture.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics_api\d3d9\d3d9_common.cpp">
-      <Filter>graphics_api\d3d9</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics_api\d3d9\d3d9_renderer_caps.cpp">
-      <Filter>graphics_api\d3d9</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics_api\d3d9\d3d9_renderer.cpp">
-      <Filter>graphics_api\d3d9</Filter>
-    </ClCompile>
     <ClCompile Include="graphics_api\d3d11\d3d11_common.cpp">
       <Filter>graphics_api\d3d11</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics_api\ogl\ogl_common.cpp">
-      <Filter>graphics_api\ogl</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics_api\ogl\ogl_renderer_caps.cpp">
-      <Filter>graphics_api\ogl</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics_api\ogl\ogl_window.cpp">
-      <Filter>graphics_api\ogl</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics_api\ogl\ogl_renderer.cpp">
-      <Filter>graphics_api\ogl</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\program.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\shader.cpp">
-      <Filter>graphics</Filter>
     </ClCompile>
     <ClCompile Include="math\plane.cpp">
       <Filter>math</Filter>
@@ -168,26 +141,8 @@
     <ClCompile Include="math\frustum.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\vertex_stream.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\vertex_declaration.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\vertex_buffer.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\index_buffer.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics\render_resource.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
     <ClCompile Include="graphics_api\sims_sdk_hw.cpp">
       <Filter>graphics_api</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics_api\d3d9\d3d9_window.cpp">
-      <Filter>graphics_api\d3d9</Filter>
     </ClCompile>
     <ClCompile Include="gui\gui.cpp">
       <Filter>gui</Filter>
@@ -195,16 +150,64 @@
     <ClCompile Include="core\app.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="graphics\vertex_array.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
     <ClCompile Include="core\string_op.cpp">
       <Filter>core</Filter>
     </ClCompile>
-    <ClCompile Include="graphics_api\d3d9\d3d9_render_resource.cpp">
+    <ClCompile Include="graphics\hw\index_buffer.cpp">
+      <Filter>graphics\hw</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\hw\program.cpp">
+      <Filter>graphics\hw</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\hw\render_resource.cpp">
+      <Filter>graphics\hw</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\hw\shader.cpp">
+      <Filter>graphics\hw</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\hw\texture.cpp">
+      <Filter>graphics\hw</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\hw\vertex_array.cpp">
+      <Filter>graphics\hw</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\hw\vertex_buffer.cpp">
+      <Filter>graphics\hw</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\hw\vertex_declaration.cpp">
+      <Filter>graphics\hw</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\hw\vertex_stream.cpp">
+      <Filter>graphics\hw</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\d3d9\common.cpp">
       <Filter>graphics_api\d3d9</Filter>
     </ClCompile>
-    <ClCompile Include="graphics_api\ogl\ogl_render_resource.cpp">
+    <ClCompile Include="graphics_api\d3d9\render_resource.cpp">
+      <Filter>graphics_api\d3d9</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\d3d9\renderer.cpp">
+      <Filter>graphics_api\d3d9</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\d3d9\renderer_caps.cpp">
+      <Filter>graphics_api\d3d9</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\d3d9\window.cpp">
+      <Filter>graphics_api\d3d9</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\ogl\common.cpp">
+      <Filter>graphics_api\ogl</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\ogl\render_resource.cpp">
+      <Filter>graphics_api\ogl</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\ogl\renderer.cpp">
+      <Filter>graphics_api\ogl</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\ogl\renderer_caps.cpp">
+      <Filter>graphics_api\ogl</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\ogl\window.cpp">
       <Filter>graphics_api\ogl</Filter>
     </ClCompile>
   </ItemGroup>
@@ -342,23 +345,8 @@
     <ClInclude Include="core\vfs.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\texture.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
     <ClInclude Include="graphics\graphics_fwd.h">
       <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics_api\d3d9\d3d9_common.h">
-      <Filter>graphics_api\d3d9</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics_api\d3d9\d3d9_renderer_caps.h">
-      <Filter>graphics_api\d3d9</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics_api\d3d9\d3d9_renderer.h">
-      <Filter>graphics_api\d3d9</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics_api\d3d9\d3d9_window.h">
-      <Filter>graphics_api\d3d9</Filter>
     </ClInclude>
     <ClInclude Include="graphics_api\sims_sdk_d3d9.h">
       <Filter>graphics_api</Filter>
@@ -375,41 +363,11 @@
     <ClInclude Include="graphics_api\sims_sdk_d3d11.h">
       <Filter>graphics_api</Filter>
     </ClInclude>
-    <ClInclude Include="graphics_api\ogl\ogl_common.h">
-      <Filter>graphics_api\ogl</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics_api\ogl\ogl_renderer_caps.h">
-      <Filter>graphics_api\ogl</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics_api\ogl\ogl_window.h">
-      <Filter>graphics_api\ogl</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics_api\ogl\ogl_renderer.h">
-      <Filter>graphics_api\ogl</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\program.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\shader.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\texture_sampler_status.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
     <ClInclude Include="math\plane.h">
       <Filter>math</Filter>
     </ClInclude>
     <ClInclude Include="math\frustum.h">
       <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\vertex_stream.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\vertex_declaration.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\vertex_buffer.h">
-      <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="core\buffer.h">
       <Filter>core</Filter>
@@ -417,17 +375,8 @@
     <ClInclude Include="core\core.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="graphics\index_buffer.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\render_resource.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
     <ClInclude Include="graphics_api\sims_sdk_hw.h">
       <Filter>graphics_api</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics_api\hw\hw_renderer.h">
-      <Filter>graphics_api\hw</Filter>
     </ClInclude>
     <ClInclude Include="gui\gui.h">
       <Filter>gui</Filter>
@@ -444,20 +393,11 @@
     <ClInclude Include="platform\windows\windows_platform.h">
       <Filter>platform\windows</Filter>
     </ClInclude>
-    <ClInclude Include="graphics_api\ogl\ogl_glut_callbacks.h">
-      <Filter>graphics_api\ogl</Filter>
-    </ClInclude>
     <ClInclude Include="math\math.h">
       <Filter>math</Filter>
     </ClInclude>
     <ClInclude Include="core\app.h">
       <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics\vertex_array.h">
-      <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics_api\d3d9\d3d9_render_resource.h">
-      <Filter>graphics_api\d3d9</Filter>
     </ClInclude>
     <ClInclude Include="core\string_op.h">
       <Filter>core</Filter>
@@ -465,7 +405,67 @@
     <ClInclude Include="core\fps.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="graphics_api\ogl\ogl_render_resource.h">
+    <ClInclude Include="graphics\hw\index_buffer.h">
+      <Filter>graphics\hw</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\hw\program.h">
+      <Filter>graphics\hw</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\hw\render_resource.h">
+      <Filter>graphics\hw</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\hw\shader.h">
+      <Filter>graphics\hw</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\hw\texture.h">
+      <Filter>graphics\hw</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\hw\texture_sampler_status.h">
+      <Filter>graphics\hw</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\hw\vertex_array.h">
+      <Filter>graphics\hw</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\hw\vertex_buffer.h">
+      <Filter>graphics\hw</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\hw\vertex_declaration.h">
+      <Filter>graphics\hw</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\hw\vertex_stream.h">
+      <Filter>graphics\hw</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\d3d9\common.h">
+      <Filter>graphics_api\d3d9</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\d3d9\render_resource.h">
+      <Filter>graphics_api\d3d9</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\d3d9\renderer.h">
+      <Filter>graphics_api\d3d9</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\d3d9\renderer_caps.h">
+      <Filter>graphics_api\d3d9</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\d3d9\window.h">
+      <Filter>graphics_api\d3d9</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\ogl\glut_callbacks.h">
+      <Filter>graphics_api\ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\ogl\common.h">
+      <Filter>graphics_api\ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\ogl\render_resource.h">
+      <Filter>graphics_api\ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\ogl\renderer.h">
+      <Filter>graphics_api\ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\ogl\renderer_caps.h">
+      <Filter>graphics_api\ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\ogl\window.h">
       <Filter>graphics_api\ogl</Filter>
     </ClInclude>
   </ItemGroup>

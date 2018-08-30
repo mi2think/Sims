@@ -15,7 +15,7 @@
 #include "core/log.h"
 #include "core/file_system.h"
 #include "core/file_input_stream.h"
-#include "graphics/texture.h"
+#include "graphics/hw/texture.h"
 #include "core/platform.h"
 #include "utils/xml_utils.h"
 

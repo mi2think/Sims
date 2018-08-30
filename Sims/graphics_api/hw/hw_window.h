@@ -18,7 +18,6 @@ namespace sims
 		template<typename DetailWindow>
 		class Window : public DetailWindow
 		{
-		public:
 		};
 	}
 }

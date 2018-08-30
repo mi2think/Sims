@@ -153,6 +153,7 @@
       <AdditionalIncludeDirectories>.\;..\Vendor;..\Vendor\stb\;..\Vendor\opengl\</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4201</DisableSpecificWarnings>
       <PreprocessorDefinitions>SIMS_SDK_IMPL_OGL;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='dx9lib_debug|Win32'">
@@ -163,6 +164,7 @@
       <AdditionalIncludeDirectories>.\;..\Vendor;..\Vendor\stb\;..\Vendor\DirectX\Include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4201</DisableSpecificWarnings>
       <PreprocessorDefinitions>SIMS_SDK_IMPL_D3D9;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)/%(RelativeDir)/</ObjectFileName>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -238,47 +240,47 @@
     <ClCompile Include="font\bitmap_font.cpp" />
     <ClCompile Include="font\font.cpp" />
     <ClCompile Include="font\glyph.cpp" />
-    <ClCompile Include="graphics\index_buffer.cpp" />
-    <ClCompile Include="graphics\program.cpp" />
-    <ClCompile Include="graphics\render_resource.cpp" />
-    <ClCompile Include="graphics\shader.cpp" />
-    <ClCompile Include="graphics\texture.cpp" />
-    <ClCompile Include="graphics\vertex_array.cpp" />
-    <ClCompile Include="graphics\vertex_buffer.cpp" />
-    <ClCompile Include="graphics\vertex_declaration.cpp" />
-    <ClCompile Include="graphics\vertex_stream.cpp" />
+    <ClCompile Include="graphics\hw\index_buffer.cpp" />
+    <ClCompile Include="graphics\hw\program.cpp" />
+    <ClCompile Include="graphics\hw\render_resource.cpp" />
+    <ClCompile Include="graphics\hw\shader.cpp" />
+    <ClCompile Include="graphics\hw\texture.cpp" />
+    <ClCompile Include="graphics\hw\vertex_array.cpp" />
+    <ClCompile Include="graphics\hw\vertex_buffer.cpp" />
+    <ClCompile Include="graphics\hw\vertex_declaration.cpp" />
+    <ClCompile Include="graphics\hw\vertex_stream.cpp" />
     <ClCompile Include="graphics_api\d3d11\d3d11_common.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ogllib_debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='dx9lib_debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="graphics_api\d3d9\d3d9_common.cpp">
+    <ClCompile Include="graphics_api\d3d9\common.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ogllib_debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="graphics_api\d3d9\d3d9_renderer_caps.cpp">
+    <ClCompile Include="graphics_api\d3d9\renderer_caps.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ogllib_debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="graphics_api\d3d9\d3d9_renderer.cpp">
+    <ClCompile Include="graphics_api\d3d9\renderer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ogllib_debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="graphics_api\d3d9\d3d9_render_resource.cpp">
+    <ClCompile Include="graphics_api\d3d9\render_resource.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ogllib_debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="graphics_api\d3d9\d3d9_window.cpp">
+    <ClCompile Include="graphics_api\d3d9\window.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ogllib_debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="graphics_api\ogl\ogl_common.cpp">
+    <ClCompile Include="graphics_api\ogl\common.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='dx9lib_debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="graphics_api\ogl\ogl_renderer.cpp">
+    <ClCompile Include="graphics_api\ogl\renderer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='dx9lib_debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="graphics_api\ogl\ogl_renderer_caps.cpp">
+    <ClCompile Include="graphics_api\ogl\renderer_caps.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='dx9lib_debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="graphics_api\ogl\ogl_render_resource.cpp">
+    <ClCompile Include="graphics_api\ogl\render_resource.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='dx9lib_debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="graphics_api\ogl\ogl_window.cpp">
+    <ClCompile Include="graphics_api\ogl\window.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='dx9lib_debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="graphics_api\sims_sdk_hw.cpp" />
@@ -330,32 +332,31 @@
     <ClInclude Include="font\font.h" />
     <ClInclude Include="font\glyph.h" />
     <ClInclude Include="graphics\graphics_fwd.h" />
-    <ClInclude Include="graphics\index_buffer.h" />
-    <ClInclude Include="graphics\program.h" />
-    <ClInclude Include="graphics\render_resource.h" />
-    <ClInclude Include="graphics\shader.h" />
-    <ClInclude Include="graphics\texture.h" />
-    <ClInclude Include="graphics\texture_sampler_status.h" />
-    <ClInclude Include="graphics\vertex_array.h" />
-    <ClInclude Include="graphics\vertex_buffer.h" />
-    <ClInclude Include="graphics\vertex_declaration.h" />
-    <ClInclude Include="graphics\vertex_stream.h" />
+    <ClInclude Include="graphics\hw\index_buffer.h" />
+    <ClInclude Include="graphics\hw\program.h" />
+    <ClInclude Include="graphics\hw\render_resource.h" />
+    <ClInclude Include="graphics\hw\shader.h" />
+    <ClInclude Include="graphics\hw\texture.h" />
+    <ClInclude Include="graphics\hw\texture_sampler_status.h" />
+    <ClInclude Include="graphics\hw\vertex_array.h" />
+    <ClInclude Include="graphics\hw\vertex_buffer.h" />
+    <ClInclude Include="graphics\hw\vertex_declaration.h" />
+    <ClInclude Include="graphics\hw\vertex_stream.h" />
     <ClInclude Include="graphics_api\d3d11\d3d11_common.h" />
     <ClInclude Include="graphics_api\d3d11\d3d11_geometry_def.h" />
     <ClInclude Include="graphics_api\d3d11\d3d11_window.h" />
-    <ClInclude Include="graphics_api\d3d9\d3d9_common.h" />
-    <ClInclude Include="graphics_api\d3d9\d3d9_renderer_caps.h" />
-    <ClInclude Include="graphics_api\d3d9\d3d9_renderer.h" />
-    <ClInclude Include="graphics_api\d3d9\d3d9_render_resource.h" />
-    <ClInclude Include="graphics_api\d3d9\d3d9_window.h" />
-    <ClInclude Include="graphics_api\hw\hw_renderer.h" />
+    <ClInclude Include="graphics_api\d3d9\common.h" />
+    <ClInclude Include="graphics_api\d3d9\renderer_caps.h" />
+    <ClInclude Include="graphics_api\d3d9\renderer.h" />
+    <ClInclude Include="graphics_api\d3d9\render_resource.h" />
+    <ClInclude Include="graphics_api\d3d9\window.h" />
     <ClInclude Include="graphics_api\hw\hw_window.h" />
-    <ClInclude Include="graphics_api\ogl\ogl_common.h" />
-    <ClInclude Include="graphics_api\ogl\ogl_glut_callbacks.h" />
-    <ClInclude Include="graphics_api\ogl\ogl_renderer.h" />
-    <ClInclude Include="graphics_api\ogl\ogl_renderer_caps.h" />
-    <ClInclude Include="graphics_api\ogl\ogl_render_resource.h" />
-    <ClInclude Include="graphics_api\ogl\ogl_window.h" />
+    <ClInclude Include="graphics_api\ogl\common.h" />
+    <ClInclude Include="graphics_api\ogl\glut_callbacks.h" />
+    <ClInclude Include="graphics_api\ogl\renderer.h" />
+    <ClInclude Include="graphics_api\ogl\renderer_caps.h" />
+    <ClInclude Include="graphics_api\ogl\render_resource.h" />
+    <ClInclude Include="graphics_api\ogl\window.h" />
     <ClInclude Include="graphics_api\sims_sdk_d3d11.h" />
     <ClInclude Include="graphics_api\sims_sdk_d3d9.h" />
     <ClInclude Include="graphics_api\sims_sdk_hw.h" />

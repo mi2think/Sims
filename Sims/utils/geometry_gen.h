@@ -14,8 +14,8 @@
 
 #include "sims.h"
 #include "math/math.h"
-#include "graphics/vertex_buffer.h"
-#include "graphics/index_buffer.h"
+#include "graphics/hw/vertex_buffer.h"
+#include "graphics/hw/index_buffer.h"
 
 namespace sims
 {

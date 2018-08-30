@@ -14,7 +14,7 @@
 
 #include "sims.h"
 #include "font.h"
-#include "graphics/texture.h"
+#include "graphics/hw/texture.h"
 #include <unordered_map>
 #include <set>
 

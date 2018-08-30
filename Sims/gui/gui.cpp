@@ -10,8 +10,8 @@
 	purpose:	SGui
 *********************************************************************/
 #include "gui.h"
-#include "graphics/vertex_buffer.h"
-#include "graphics/index_buffer.h"
+#include "graphics/hw/vertex_buffer.h"
+#include "graphics/hw/index_buffer.h"
 #include "graphics_api/sims_sdk_hw.h"
 
 namespace sims

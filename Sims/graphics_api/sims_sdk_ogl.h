@@ -12,10 +12,10 @@
 #ifndef __SIMS_SDK_OGL_H__
 #define __SIMS_SDK_OGL_H__
 
-#include "ogl/ogl_common.h"
-#include "ogl/ogl_window.h"
-#include "ogl/ogl_renderer_caps.h"
-#include "ogl/ogl_renderer.h"
-#include "ogl/ogl_render_resource.h"
+#include "ogl/common.h"
+#include "ogl/window.h"
+#include "ogl/renderer_caps.h"
+#include "ogl/renderer.h"
+#include "ogl/render_resource.h"
 
 #endif
