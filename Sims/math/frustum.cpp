@@ -16,9 +16,7 @@ namespace sims
 {
 	Frustum::Frustum(const Matrix44f& view, const Matrix44f& proj)
 	{
-		Matrix44f viewProj;
-		MatrixMultiply(viewProj, view, proj);
-		ExtractFrustum(viewProj);
+		ExtractFrustum(view, proj);
 	}
 
 	Frustum::Frustum(const Matrix44f& viewProj)
@@ -74,6 +72,13 @@ namespace sims
 			m[1][3] + m[1][1],
 			m[2][3] + m[2][1],
 			m[3][3] + m[3][1]);
+	}
+
+	void Frustum::ExtractFrustum(const Matrix44f& view, const Matrix44f& proj)
+	{
+		Matrix44f viewProj;
+		MatrixMultiply(viewProj, view, proj);
+		ExtractFrustum(viewProj);
 	}
 
 	bool Frustum::Inside(const Vector3f& pt) const

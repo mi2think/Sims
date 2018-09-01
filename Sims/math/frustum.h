@@ -38,8 +38,10 @@ namespace sims
 		Frustum(const Matrix44f& viewProj);
 
 		const Plane& GetPlane(PlaneID index) const;
+
 		// extract frustum from view-projection matrix
 		void ExtractFrustum(const Matrix44f& viewProj);
+		void ExtractFrustum(const Matrix44f& view, const Matrix44f& proj);
 
 		bool Inside(const Vector3f& pt) const;
 	};

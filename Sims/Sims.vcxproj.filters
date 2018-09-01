@@ -52,6 +52,9 @@
     <Filter Include="graphics\hw">
       <UniqueIdentifier>{e30ef914-9c4e-4a7c-a69d-3880f9c06f49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphics\scene">
+      <UniqueIdentifier>{b7ce9778-7fd8-4201-abea-9150ae00c23a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\math.cpp">
@@ -209,6 +212,9 @@
     </ClCompile>
     <ClCompile Include="graphics_api\ogl\device_context.cpp">
       <Filter>graphics_api\ogl</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\scene\scene_view.cpp">
+      <Filter>graphics\scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -470,6 +476,9 @@
     </ClInclude>
     <ClInclude Include="graphics_api\ogl\device_context.h">
       <Filter>graphics_api\ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\scene\scene_view.h">
+      <Filter>graphics\scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -28,7 +28,7 @@ namespace sims
 {
 	namespace hw
 	{
-		// renderer
+		// DC
 		hw::DeviceContext* GetDeviceContext();
 
 		template<typename ResourceType>

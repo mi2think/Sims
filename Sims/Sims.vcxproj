@@ -249,6 +249,7 @@
     <ClCompile Include="graphics\hw\vertex_buffer.cpp" />
     <ClCompile Include="graphics\hw\vertex_declaration.cpp" />
     <ClCompile Include="graphics\hw\vertex_stream.cpp" />
+    <ClCompile Include="graphics\scene\scene_view.cpp" />
     <ClCompile Include="graphics_api\d3d11\d3d11_common.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='ogllib_debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='dx9lib_debug|Win32'">true</ExcludedFromBuild>
@@ -342,6 +343,7 @@
     <ClInclude Include="graphics\hw\vertex_buffer.h" />
     <ClInclude Include="graphics\hw\vertex_declaration.h" />
     <ClInclude Include="graphics\hw\vertex_stream.h" />
+    <ClInclude Include="graphics\scene\scene_view.h" />
     <ClInclude Include="graphics_api\d3d11\d3d11_common.h" />
     <ClInclude Include="graphics_api\d3d11\d3d11_geometry_def.h" />
     <ClInclude Include="graphics_api\d3d11\d3d11_window.h" />
