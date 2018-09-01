@@ -30,7 +30,7 @@ namespace sims
 			vb->Invalidate();
 			ib->Invalidate();
 
-			auto renderer = hw::GetRenderer();
+			//auto renderer = hw::GetRenderer();
 			vb->Bind();
 			//renderer->DrawIndexedPrimitive(PrimitiveType::Triangles, *ib->Resource(), vb->GetVertexCount(), ib->GetIndexCount() / 3);
 		}

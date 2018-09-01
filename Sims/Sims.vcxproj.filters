@@ -186,9 +186,6 @@
     <ClCompile Include="graphics_api\d3d9\render_resource.cpp">
       <Filter>graphics_api\d3d9</Filter>
     </ClCompile>
-    <ClCompile Include="graphics_api\d3d9\renderer.cpp">
-      <Filter>graphics_api\d3d9</Filter>
-    </ClCompile>
     <ClCompile Include="graphics_api\d3d9\renderer_caps.cpp">
       <Filter>graphics_api\d3d9</Filter>
     </ClCompile>
@@ -209,6 +206,9 @@
     </ClCompile>
     <ClCompile Include="graphics_api\ogl\window.cpp">
       <Filter>graphics_api\ogl</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_api\d3d9\device_context.cpp">
+      <Filter>graphics_api\d3d9</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -381,9 +381,6 @@
     <ClInclude Include="gui\gui.h">
       <Filter>gui</Filter>
     </ClInclude>
-    <ClInclude Include="graphics_api\hw\hw_window.h">
-      <Filter>graphics_api\hw</Filter>
-    </ClInclude>
     <ClInclude Include="core\platform.h">
       <Filter>core</Filter>
     </ClInclude>
@@ -441,9 +438,6 @@
     <ClInclude Include="graphics_api\d3d9\render_resource.h">
       <Filter>graphics_api\d3d9</Filter>
     </ClInclude>
-    <ClInclude Include="graphics_api\d3d9\renderer.h">
-      <Filter>graphics_api\d3d9</Filter>
-    </ClInclude>
     <ClInclude Include="graphics_api\d3d9\renderer_caps.h">
       <Filter>graphics_api\d3d9</Filter>
     </ClInclude>
@@ -467,6 +461,15 @@
     </ClInclude>
     <ClInclude Include="graphics_api\ogl\window.h">
       <Filter>graphics_api\ogl</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\hw\window.h">
+      <Filter>graphics_api\hw</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\hw\device_context.h">
+      <Filter>graphics_api\hw</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_api\d3d9\device_context.h">
+      <Filter>graphics_api\d3d9</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

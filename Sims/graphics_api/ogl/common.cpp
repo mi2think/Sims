@@ -3,7 +3,7 @@
 	created:	12:10:2016   21:38
 	filename: 	D:\Code\Sims\Sims\graphics_api\ogl\common.cpp
 	file path:	D:\Code\Sims\Sims\graphics_api\ogl
-	file base:	ogl_common
+	file base:	common
 	file ext:	cpp
 	author:		mi2think@gmail.com
 

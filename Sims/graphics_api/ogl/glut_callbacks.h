@@ -3,7 +3,7 @@
 	created:	16:8:2017   11:40
 	filename: 	D:\Code\Sims\Sims\graphics_api\ogl\glut_callbacks.h
 	file path:	D:\Code\Sims\Sims\graphics_api\ogl
-	file base:	ogl_glut_callbacks
+	file base:	glut_callbacks
 	file ext:	h
 	author:		mi2think@gmail.com
 	

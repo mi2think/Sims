@@ -3,7 +3,7 @@
 	created:	12:10:2016   20:40
 	filename: 	D:\Code\Sims\Sims\graphics_api\ogl\window.h
 	file path:	D:\Code\Sims\Sims\graphics_api\ogl
-	file base:	ogl_window
+	file base:	window
 	file ext:	h
 	author:		mi2think@gmail.com
 

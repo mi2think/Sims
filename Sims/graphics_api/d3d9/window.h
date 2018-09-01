@@ -3,7 +3,7 @@
 	created:	21:9:2016   23:57
 	filename: 	D:\Code\Sims\Sims\graphics_api\d3d9\window.h
 	file path:	D:\Code\Sims\Sims\graphics_api\d3d9
-	file base:	d3d9_window
+	file base:	window
 	file ext:	h
 	author:		mi2think@gmail.com
 

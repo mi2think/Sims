@@ -3,7 +3,7 @@
 	created:	17:10:2016   18:05
 	filename: 	D:\Code\Sims\Sims\graphics_api\d3d9\renderer_caps.cpp
 	file path:	D:\Code\Sims\Sims\graphics_api\d3d9
-	file base:	d3d9_renderer_caps
+	file base:	renderer_caps
 	file ext:	cpp
 	author:		mi2think@gmail.com
 	

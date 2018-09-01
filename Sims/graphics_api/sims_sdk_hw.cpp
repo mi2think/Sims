@@ -22,10 +22,10 @@ namespace sims
 	namespace hw
 	{
 #if SIMS_SDK_IMPL_D3D9
-		HWRenderer* GetRenderer()
+		hw::DeviceContext* GetDeviceContext()
 		{
-			static d3d9::D3D9Renderer s_renderer;
-			return &s_renderer;
+			static d3d9::D3D9DeviceContext s_dc;
+			return &s_dc;
 		}
 
 		template<> TextureResource* CreateResource<TextureResource>()

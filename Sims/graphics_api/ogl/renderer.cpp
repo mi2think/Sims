@@ -3,7 +3,7 @@
 	created:	27:10:2016   16:16
 	filename: 	D:\Code\Sims\Sims\graphics_api\ogl\renderer.cpp
 	file path:	D:\Code\Sims\Sims\graphics_api\ogl
-	file base:	ogl_renderer
+	file base:	renderer
 	file ext:	cpp
 	author:		mi2think@gmail.com
 	

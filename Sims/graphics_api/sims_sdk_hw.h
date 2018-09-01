@@ -13,8 +13,8 @@
 #define __SIMS_SDK_RHI_H__
 
 #include "graphics/hw/render_resource.h"
-#include "hw/hw_renderer.h"
-#include "hw/hw_window.h"
+#include "hw/device_context.h"
+#include "hw/window.h"
 
 #if SIMS_SDK_IMPL_D3D9
 	#include "d3d9/window.h"
@@ -29,7 +29,7 @@ namespace sims
 	namespace hw
 	{
 		// renderer
-		HWRenderer* GetRenderer();
+		hw::DeviceContext* GetDeviceContext();
 
 		template<typename ResourceType>
 		ResourceType* CreateResource() { ASSERT(false && "Unknow resource type!"); return nullptr; }

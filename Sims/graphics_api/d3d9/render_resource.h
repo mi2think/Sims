@@ -3,7 +3,7 @@
 	created:	16:7:2018   11:10
 	filename: 	D:\Code\Sims\Sims\graphics_api\d3d9\render_resource.h
 	file path:	D:\Code\Sims\Sims\graphics_api\d3d9
-	file base:	d3d9_render_resource
+	file base:	render_resource
 	file ext:	h
 	author:		mi2think@gmail.com
 	

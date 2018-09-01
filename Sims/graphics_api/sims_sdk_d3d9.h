@@ -14,7 +14,7 @@
 
 #include "d3d9/common.h"
 #include "d3d9/window.h"
-#include "d3d9/renderer.h"
+#include "d3d9/device_context.h"
 #include "d3d9/render_resource.h"
 
 #endif

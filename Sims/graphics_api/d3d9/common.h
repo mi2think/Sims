@@ -3,7 +3,7 @@
 	created:	21:9:2016   22:48
 	filename: 	D:\Code\Sims\Sims\graphics_api\d3d9\common.h
 	file path:	D:\Code\Sims\Sims\graphics_api\d3d9
-	file base:	d3d9_common
+	file base:	common
 	file ext:	h
 	author:		mi2think@gmail.com
 

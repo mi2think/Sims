@@ -3,14 +3,13 @@
 	created:	21:9:2016   23:05
 	filename: 	D:\Code\Sims\Sims\graphics_api\d3d9\common.cpp
 	file path:	D:\Code\Sims\Sims\graphics_api\d3d9
-	file base:	d3d9_common
+	file base:	common
 	file ext:	cpp
 	author:		mi2think@gmail.com
 
 	purpose:	Common def
 *********************************************************************/
 #include "common.h"
-#include "renderer.h"
 #include "core/log.h"
 #include "graphics/hw/vertex_stream.h"
 

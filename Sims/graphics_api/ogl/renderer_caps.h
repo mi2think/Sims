@@ -3,7 +3,7 @@
 	created:	17:10:2016   17:17
 	filename: 	D:\Code\Sims\Sims\graphics_api\ogl\renderer_caps.h
 	file path:	D:\Code\Sims\Sims\graphics_api\ogl
-	file base:	ogl_renderer_caps
+	file base:	renderer_caps
 	file ext:	h
 	author:		mi2think@gmail.com
 	

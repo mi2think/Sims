@@ -1,9 +1,9 @@
 /********************************************************************
 	created:	2017/04/12
 	created:	12:4:2017   2:49
-	filename: 	D:\Code\Sims\Sims\hw_window.h
-	file path:	D:\Code\Sims\Sims
-	file base:	hw_window
+	filename: 	D:\Code\Sims\Sims\graphics_api\hw\window.h
+	file path:	D:\Code\Sims\Sims\graphics_api\hw
+	file base:	window
 	file ext:	h
 	author:		mi2think@gmail.com
 
@@ -15,8 +15,8 @@ namespace sims
 {
 	namespace hw
 	{
-		template<typename DetailWindow>
-		class Window : public DetailWindow
+		template<typename ActualWindow>
+		class Window : public ActualWindow
 		{
 		};
 	}

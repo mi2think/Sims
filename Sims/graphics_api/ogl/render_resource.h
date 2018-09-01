@@ -3,7 +3,7 @@
 	created:	19:7:2018   17:07
 	filename: 	D:\Code\Sims\Sims\graphics_api\ogl\render_resource.h
 	file path:	D:\Code\Sims\Sims\graphics_api\ogl
-	file base:	ogl_render_resource
+	file base:	render_resource
 	file ext:	h
 	author:		mi2think@gmail.com
 	
