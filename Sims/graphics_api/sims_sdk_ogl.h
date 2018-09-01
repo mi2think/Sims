@@ -15,7 +15,7 @@
 #include "ogl/common.h"
 #include "ogl/window.h"
 #include "ogl/renderer_caps.h"
-#include "ogl/renderer.h"
+#include "ogl/device_context.h"
 #include "ogl/render_resource.h"
 
 #endif

@@ -63,10 +63,10 @@ namespace sims
 			return new d3d9::D3D9ProgramResource();
 		}
 #elif SIMS_SDK_IMPL_OGL
-		HWRenderer* GetRenderer()
+		hw::DeviceContext* GetDeviceContext()
 		{
-			static ogl::OGLRenderer s_renderer;
-			return &s_renderer;
+			static ogl::OGLDeviceContext s_dc;
+			return &s_dc;
 		}
 
 		template<> TextureResource* CreateResource<TextureResource>()

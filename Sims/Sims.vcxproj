@@ -271,7 +271,7 @@
     <ClCompile Include="graphics_api\ogl\common.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='dx9lib_debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="graphics_api\ogl\renderer.cpp">
+    <ClCompile Include="graphics_api\ogl\device_context.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='dx9lib_debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="graphics_api\ogl\renderer_caps.cpp">
@@ -354,7 +354,7 @@
     <ClInclude Include="graphics_api\hw\window.h" />
     <ClInclude Include="graphics_api\ogl\common.h" />
     <ClInclude Include="graphics_api\ogl\glut_callbacks.h" />
-    <ClInclude Include="graphics_api\ogl\renderer.h" />
+    <ClInclude Include="graphics_api\ogl\device_context.h" />
     <ClInclude Include="graphics_api\ogl\renderer_caps.h" />
     <ClInclude Include="graphics_api\ogl\render_resource.h" />
     <ClInclude Include="graphics_api\ogl\window.h" />
