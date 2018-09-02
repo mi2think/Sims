@@ -103,6 +103,11 @@ namespace sims
 			}
 		}
 
+		Vector3<T> GetXYZ() const
+		{
+			return Vector3<T>(x, y, z);
+		}
+
 		string ToString() const
 		{
 			ostringstream oss;

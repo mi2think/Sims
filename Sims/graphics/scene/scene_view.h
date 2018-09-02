@@ -24,7 +24,6 @@ namespace sims
 		int32 height;
 	};
 
-
 	class SceneView
 	{
 	public:

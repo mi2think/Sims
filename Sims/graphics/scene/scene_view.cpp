@@ -13,5 +13,14 @@
 
 namespace sims
 {
+	SceneView::SceneView(const Matrix44f& view, const Matrix44f& proj)
+		: viewM_(view)
+		, projM_(proj)
+	{
+		MatrixInverse(inversedViewM_, viewM_);
+		MatrixInverse(inversedProjM_, projM_);
 
+		cameraWorldPos_ = (Vector4f(0, 0, 0, 1) * inversedViewM_).GetXYZ();
+		cameraDir_ = (Vector4f(0, 0, 1, 0) * inversedViewM_).GetXYZ();
+	}
 }
