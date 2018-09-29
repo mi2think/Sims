@@ -23,4 +23,12 @@ namespace sims
 		cameraWorldPos_ = (Vector4f(0, 0, 0, 1) * inversedViewM_).GetXYZ();
 		cameraDir_ = (Vector4f(0, 0, 1, 0) * inversedViewM_).GetXYZ();
 	}
+
+	void SceneView::SetViewport(int32 x, int32 y, int32 width, int32 height)
+	{
+		viewport_.x = x;
+		viewport_.y = y;
+		viewport_.width = width;
+		viewport_.height = height;
+	}
 }

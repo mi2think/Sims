@@ -216,6 +216,9 @@
     <ClCompile Include="graphics\scene\scene_view.cpp">
       <Filter>graphics\scene</Filter>
     </ClCompile>
+    <ClCompile Include="graphics\material.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\math_fwd.h">
@@ -479,6 +482,9 @@
     </ClInclude>
     <ClInclude Include="graphics\scene\scene_view.h">
       <Filter>graphics\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\material.h">
+      <Filter>graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
