@@ -16,27 +16,26 @@
 #include "render_resource.h"
 #include "vertex_declaration.h"
 #include "vertex_buffer.h"
+#include "index_buffer.h"
 
 namespace sims
 {
 	class VertexArray : public IResourceOperation
 	{
 	public:
-		VertexArray(const VertexDeclarationRef& vertexDecl);
-		VertexArray(const VertexDeclarationRef& vertexDecl, const VertexBufferRef& vb1);
-		VertexArray(const VertexDeclarationRef& vertexDecl, const VertexBufferRef& vb1, const VertexBufferRef& vb2);
-		VertexArray(const VertexDeclarationRef& vertexDecl, const VertexBufferRef& vb1, const VertexBufferRef& vb2, const VertexBufferRef& vb3);
+		VertexArray(const VertexDeclarationRef& vertexDecl, const IndexBufferRef& IndexBuffer, const vector<VertexBufferRef>&  vertexBuffers);
 
 		VertexDeclarationRef GetVertexDeclaration() const { return vertexDecl_; }
 		uint32 GetVertexBufferCount() const { return vertexBuffers_.size(); }
 		VertexBufferRef GetVertexBuffer(int index) const { return vertexBuffers_[index]; }
-
+		IndexBufferRef GetIndexBuffer() const { return indexBuffer_; }
 		// ~ IResourceOperation
 	private:
 		virtual void Create();
 		// ~ IResourceOperation
 
 		VertexDeclarationRef vertexDecl_;
+		IndexBufferRef indexBuffer_;
 		vector<VertexBufferRef> vertexBuffers_;
 	};
 }

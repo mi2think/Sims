@@ -1,11 +1,12 @@
 #include "sims.h"
 #include "math/math.h"
 #include "core/app.h"
-#include "graphics/vertex_array.h"
-#include "graphics/index_buffer.h"
-#include "graphics/shader.h"
-#include "graphics/program.h"
+#include "graphics/hw/vertex_array.h"
+#include "graphics/hw/index_buffer.h"
+#include "graphics/hw/shader.h"
+#include "graphics/hw/program.h"
 #include "graphics_api/sims_sdk_hw.h"
+#include "graphics_api/sims_sdk_ogl.h"
 using namespace sims;
 
 class IndexedDraws : public App<HWWindow>
@@ -13,16 +14,16 @@ class IndexedDraws : public App<HWWindow>
 public:
 	virtual void OnCreate()
 	{
-		renderer_ = hw::GetRenderer();
+		Context_ = hw::GetDeviceContext();
 
-		SetupVertexBuffer();
-		SetupIndexBuffer();
+		SetupVertexArray();
 		SetupProg();
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
 	virtual void OnRender(const Timestep&)
 	{
-		if (renderer_)
+		if (Context_)
 		{
 			static float scale = 0.0f;
 			scale += 0.001f;
@@ -43,17 +44,18 @@ public:
 			hw::SetUniform(prog_, "gMatWorld", mat, ShaderDomain::Vertex);
 
 			// draw
-			renderer_->BeginFrame(ClearFlags::Color | ClearFlags::Depth, Color(0xff000000), 1.0f, 0);
+			Context_->BeginScene();
+			Context_->Clear(ClearFlags::Color | ClearFlags::Depth, Color(0xff000000), 1.0f, 0);
 
 			vertexArray_->Bind();
-			renderer_->DrawIndexedPrimitive(PrimitiveType::Triangles, IndexBuf_->Resource(), 4, 4);
+			Context_->DrawIndexedPrimitive(PrimitiveType::Triangles, IndexBuf_->Resource(), 4, 4);
 
-			renderer_->EndFrame();
-			renderer_->PresentFrame();
+			Context_->EndScene();
+			Context_->Present();
 		}
 	}
 
-	void SetupVertexBuffer()
+	void SetupVertexArray()
 	{
 		VertexStream streams[2] =
 		{
@@ -88,12 +90,6 @@ public:
 		memcpy(L2->GetData(), &v2[0], sizeof(v2));
 		vertexBuf2->Unlock(L2);
 
-		vertexArray_ = new VertexArray(vertexDecl, vertexBuf1, vertexBuf2);
-		vertexArray_->Invalidate();
-	}
-
-	void SetupIndexBuffer()
-	{
 		uint16 indices[] = { 0, 1, 3,
 			1, 2, 3,
 			2, 0, 3,
@@ -101,6 +97,12 @@ public:
 
 		IndexBuf_ = new IndexBuffer(ARRAY_COUNT(indices), &indices[0]);
 		IndexBuf_->Invalidate();
+
+		vector<VertexBufferRef> VBOs;
+		VBOs.push_back(vertexBuf1);
+		VBOs.push_back(vertexBuf2);
+		vertexArray_ = new VertexArray(vertexDecl, IndexBuf_, VBOs);
+		vertexArray_->Invalidate();
 	}
 
 	void SetupProg()
@@ -126,7 +128,7 @@ public:
 		prog_->Bind();
 	}
 private:
-	hw::HWRenderer* renderer_;
+	hw::DeviceContext* Context_;
 	VertexArrayRef vertexArray_;
 	IndexBufferRef IndexBuf_;
 	ProgramRef prog_;

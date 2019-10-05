@@ -64,7 +64,7 @@ namespace sims
 					0,
 					GL_RGBA,
 					GL_UNSIGNED_BYTE,
-					(const GLvoid *)src);
+					(const GLvoid *)src); // data may be a null pointer. In this case, texture memory is allocated to accommodate a texture of width width and height height.
 			}
 
 			glBindTexture(GL_TEXTURE_2D, 0);
@@ -226,7 +226,8 @@ namespace sims
 						vertexBuffer->Invalidate();
 						vertexBuffer->Bind();
 					}
-
+					vertexArray_->GetIndexBuffer()->Bind();
+					glBindVertexArray(0);
 					gl_check_error("OGLVertexArrayResource::UpdateResource");
 				}
 			}
@@ -260,6 +261,7 @@ namespace sims
 					auto vertexBuffer = vertexArray_->GetVertexBuffer(i);
 					vertexBuffer->Bind();
 				}
+				vertexArray_->GetIndexBuffer()->Bind();
 			}
 		}
 
@@ -272,7 +274,7 @@ namespace sims
 		{
 			if (vao_ != 0)
 			{
-				glDeleteBuffers(1, &vao_);
+				glDeleteVertexArrays(1, &vao_);
 				vao_ = 0;
 			}
 		}

@@ -14,33 +14,11 @@
 
 namespace sims
 {
-	VertexArray::VertexArray(const VertexDeclarationRef& vertexDecl)
+	VertexArray::VertexArray(const VertexDeclarationRef& vertexDecl, const IndexBufferRef& indexBuffer, const vector<VertexBufferRef>& vertexBuffers)
 		: vertexDecl_(vertexDecl)
 	{
-	}
-
-	VertexArray::VertexArray(const VertexDeclarationRef& vertexDecl, const VertexBufferRef& vb1)
-		: vertexDecl_(vertexDecl)
-	{
-		vertexBuffers_.reserve(1);
-		vertexBuffers_.push_back(vb1);
-	}
-
-	VertexArray::VertexArray(const VertexDeclarationRef& vertexDecl, const VertexBufferRef& vb1, const VertexBufferRef& vb2)
-		: vertexDecl_(vertexDecl)
-	{
-		vertexBuffers_.reserve(2);
-		vertexBuffers_.push_back(vb1);
-		vertexBuffers_.push_back(vb2);
-	}
-
-	VertexArray::VertexArray(const VertexDeclarationRef& vertexDecl, const VertexBufferRef& vb1, const VertexBufferRef& vb2, const VertexBufferRef& vb3)
-		: vertexDecl_(vertexDecl)
-	{
-		vertexBuffers_.reserve(3);
-		vertexBuffers_.push_back(vb1);
-		vertexBuffers_.push_back(vb2);
-		vertexBuffers_.push_back(vb3);
+		indexBuffer_ = indexBuffer;
+		vertexBuffers_ = vertexBuffers;
 	}
 
 	void VertexArray::Create()
