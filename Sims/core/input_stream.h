@@ -24,7 +24,7 @@ namespace sims
 		// get buffer size required to read the entire stream, return -1 if unknown
 		virtual uint32 GetSize() const = 0;
 
-		// read size bytes into buffer, return actually read size
+		// read size bytes into buffer from stream, return actually read size
 		virtual uint32 Read(char* buffer, uint32 size) = 0;
 
 		// read the entire stream

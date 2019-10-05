@@ -32,6 +32,15 @@ namespace sims
 		return result;
 	}
 
+	uint32 FileOutputStream::Write(const char* s)
+	{
+		uint32 size = strlen(s);
+		uint32 result = fwrite(s, 1, size, fp_);
+		if (result != size)
+			hasError_ = true;
+		return result;
+	}
+
 	void FileOutputStream::Flush()
 	{
 		int result = fflush(fp_);

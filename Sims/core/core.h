@@ -14,6 +14,7 @@
 #include <cassert>
 #include <cstring> // memcpy
 
+#define INDEX_NONE -1
 #define ASSERT	assert
 #define BIT(x)	(1<<(x))
 #define ARRAY_COUNT(_Array) (sizeof(_Array) / sizeof(_Array[0]))

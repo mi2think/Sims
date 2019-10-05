@@ -136,6 +136,41 @@ namespace sims
 			}
 			size_ = size;
 		}
+
+		template<typename Pred>
+		int32 FindIf(Pred P)
+		{
+			ASSERT(data_ && size_ > 0);
+
+			for (uint32 index = 0; index < size_; ++index)
+			{
+				if (P(data_[index]))
+				{
+					return (int32)index;
+				}
+			}
+			return INDEX_NONE;
+		}
+
+		template<typename Pred>
+		void RemoveIf(Pred P)
+		{
+			ASSERT(data_ && size_ > 0);
+
+			int32 first = FindIf(P);
+			if (first != INDEX_NONE)
+			{
+				for (int32 index = first; index < (int32)size_; ++index)
+				{
+					if (!P(data_[index]))
+					{
+						data_[first] = data_[index];
+						++first;
+					}
+				}
+				size_ = first;
+			}
+		}
 	private:
 		uint32 size_;
 		uint32 capacity_;

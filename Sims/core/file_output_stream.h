@@ -23,8 +23,9 @@ namespace sims
 		FileOutputStream(FILE* fp);
 		virtual ~FileOutputStream();
 
-		// write size bytes into buffer, return actually written bytes.
+		// write size bytes from buffer to stream, return actually written bytes.
 		virtual uint32 Write(const char* buffer, uint32 size);
+		virtual uint32 Write(const char* s);
 
 		// flush stream
 		virtual void Flush();
