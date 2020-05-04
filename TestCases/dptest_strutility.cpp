@@ -9,7 +9,7 @@
 	
 	purpose:	Test 
 *********************************************************************/
-#include "utils/string_utils.h"
+#include "core/string_op.h"
 #include "utils/unit_test.h"
 using namespace sims;
 
