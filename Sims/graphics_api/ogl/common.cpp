@@ -159,23 +159,23 @@ namespace sims
 			return GL_REPEAT;
 		}
 
-		GLenum ToGLElementType(DataType::Type type)
+		GLenum ToGLElementType(VertexDataType::Type type)
 		{
 			switch (type)
 			{
-			case DataType::S8:
+			case VertexDataType::S8:
 				return GL_BYTE;
-			case DataType::U8:
+			case VertexDataType::U8:
 				return GL_UNSIGNED_BYTE;
-			case DataType::S16:
+			case VertexDataType::S16:
 				return GL_SHORT;
-			case DataType::U16:
+			case VertexDataType::U16:
 				return GL_UNSIGNED_SHORT;
-			case DataType::F32:
+			case VertexDataType::F32:
 				return GL_FLOAT;
-			case DataType::S32:
+			case VertexDataType::S32:
 				return GL_INT;
-			case DataType::U32:
+			case VertexDataType::U32:
 				return GL_UNSIGNED_INT;
 			default:
 				ASSERT(false && "Unsupported element type");

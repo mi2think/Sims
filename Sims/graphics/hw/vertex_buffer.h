@@ -11,6 +11,12 @@
 		Vertex Buffer is buffer store vertex element, it's responsible for 
 		vertex data update.
 
+		Vertex Stream : Vertex element	= 1 : N 
+		Vertex decl   : Vertex stream	= 1 : N
+		Vertex buffer : Vertex stream	= 1 : 1
+
+		Basically, a model has a vertex decl, which may have multi vertex streams, which may have multi vertex elements.
+
 *********************************************************************/
 #pragma once
 

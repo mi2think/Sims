@@ -18,17 +18,17 @@ namespace sims
 		uint32 size = 0;
 		switch (componentType_)
 		{
-		case DataType::S8:
-		case DataType::U8:
+		case VertexDataType::S8:
+		case VertexDataType::U8:
 			size = 1;
 			break;
-		case DataType::S16:
-		case DataType::U16:
+		case VertexDataType::S16:
+		case VertexDataType::U16:
 			size = 2;
 			break;
-		case DataType::S32:
-		case DataType::U32:
-		case DataType::F32:
+		case VertexDataType::S32:
+		case VertexDataType::U32:
+		case VertexDataType::F32:
 			size = 4;
 			break;
 		default:

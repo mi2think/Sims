@@ -16,7 +16,7 @@
 
 namespace sims
 {
-	class FileInputStream : IInputStream
+	class FileInputStream :  public IInputStream
 	{
 	public:
 		FileInputStream(FILE* fp, int size = -1);

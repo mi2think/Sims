@@ -69,7 +69,7 @@ namespace sims
 
 		GLenum ToGLTextureFilterType(TextureFilter::Type filter);
 		GLenum ToGLTextureWrapType(TextureWrap::Type wrap);
-		GLenum ToGLElementType(DataType::Type type);
+		GLenum ToGLElementType(VertexDataType::Type type);
 		GLenum ToGLPrimitiveType(PrimitiveType::Type type);
 
 		template<typename T>

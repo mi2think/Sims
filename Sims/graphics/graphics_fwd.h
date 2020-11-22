@@ -71,7 +71,7 @@ namespace sims
 		Color
 	END_DECLARE_ENUM()
 
-	DECLARE_ENUM(DataType)
+	DECLARE_ENUM(VertexDataType)
 		S8,
 		U8,
 		S16,
@@ -145,9 +145,9 @@ namespace sims
 
 	template<typename T>
 	struct ElementTypeTraits {};
-	template<> struct ElementTypeTraits<Color>    { static const DataType::Type Ty = DataType::U32; static const uint32 N = 1; };
-	template<> struct ElementTypeTraits<Vector2f> { static const DataType::Type Ty = DataType::F32; static const uint32 N = 2; };
-	template<> struct ElementTypeTraits<Vector3f> { static const DataType::Type Ty = DataType::F32; static const uint32 N = 3; };
+	template<> struct ElementTypeTraits<Color>    { static const VertexDataType::Type Ty = VertexDataType::U32; static const uint32 N = 1; };
+	template<> struct ElementTypeTraits<Vector2f> { static const VertexDataType::Type Ty = VertexDataType::F32; static const uint32 N = 2; };
+	template<> struct ElementTypeTraits<Vector3f> { static const VertexDataType::Type Ty = VertexDataType::F32; static const uint32 N = 3; };
 
 	inline uint32 GetVertexNumPerPrimitive(PrimitiveType::Type primitive)
 	{

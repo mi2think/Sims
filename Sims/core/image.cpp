@@ -126,7 +126,7 @@ namespace sims
 		{
 			uint8 idlength;
 			uint8 colourmaptype;
-			uint8 datatypecode;
+			uint8 VertexDataTypecode;
 			uint16 colourmapOrigin;
 			uint16 colourmapLength;
 			uint8 colourmapDepth;
@@ -140,7 +140,7 @@ namespace sims
 		TGAHeader header;
 
 		memset(&header, 0, sizeof(TGAHeader));
-		header.datatypecode = 2;	// uncompressed RGB
+		header.VertexDataTypecode = 2;	// uncompressed RGB
 		header.width = (uint16)width_;
 		header.height = (uint16)height_;
 		header.bitsperpixel = 32;
@@ -148,7 +148,7 @@ namespace sims
 		// write out the TGA header
 		stream->Write((char*)&header.idlength, 1);
 		stream->Write((char*)&header.colourmaptype, 1);
-		stream->Write((char*)&header.datatypecode, 1);
+		stream->Write((char*)&header.VertexDataTypecode, 1);
 		stream->Write((char*)&header.colourmapOrigin, 2);
 		stream->Write((char*)&header.colourmapLength, 2);
 		stream->Write((char*)&header.colourmapDepth, 1);

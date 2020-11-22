@@ -35,15 +35,37 @@ namespace sims
 		typedef Ref<Model> ModelRef;
 
 
-		enum GenOptions
+		struct GenOptions
 		{
-			Gen_Color	= BIT(0),
-			Gen_Tex1	= BIT(1),
-			Gen_Tex2	= BIT(2),
-			Gen_Normal	= BIT(3),
+			// triangle or lines.
+			uint8 bSolid : 1;
+			// vertex color
+			uint8 bGenColor : 1;
+			// normal
+			uint8 bGenNormal : 1;
+			// UVs
+			uint8 bGenTex1 : 1;
+			uint8 bGenTex2 : 1;
+
+			Color color;
+
+			GenOptions()
+				: bSolid(true)
+				, bGenColor(false)
+				, bGenNormal(false)
+				, bGenTex1(false)
+				, bGenTex2(false)
+				, color(Color::c_white)
+
+			{
+			}
+
 		};
+
 		// face +Y axis
-		ModelRef GenPlane(float width, float depth, uint32 slices, uint32 stacks, uint32 options = 0);
+		ModelRef GenPlane(float width, float depth, uint32 slices, uint32 stacks, GenOptions options);
+		ModelRef GenCube(float width, float height, float depth, GenOptions options);
+		ModelRef GenScreenQuad(float z, GenOptions options);
 	}
 }
 

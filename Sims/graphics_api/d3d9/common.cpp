@@ -231,7 +231,7 @@ namespace sims
 			auto type = vertexElement->GetComponentType();
 			auto count = vertexElement->GetComponentCount();
 			d3d9VertexElement->Type = D3DDECLTYPE_UNUSED;
-			if (type == DataType::F32)
+			if (type == VertexDataType::F32)
 			{
 				switch (count)
 				{
@@ -243,7 +243,7 @@ namespace sims
 					break;
 				}
 			}
-			else if (type == DataType::U8)
+			else if (type == VertexDataType::U8)
 			{
 				if (count == 4)
 				{
@@ -253,7 +253,7 @@ namespace sims
 						d3d9VertexElement->Type = D3DDECLTYPE_UBYTE4;
 				}
 			}
-			else if (type == DataType::U32)
+			else if (type == VertexDataType::U32)
 			{
 				if (count == 1)
 				{
@@ -263,7 +263,7 @@ namespace sims
 						d3d9VertexElement->Type = D3DDECLTYPE_UBYTE4;
 				}
 			}
-			else if (type == DataType::S16)
+			else if (type == VertexDataType::S16)
 			{
 				if (count == 2)
 					d3d9VertexElement->Type = D3DDECLTYPE_SHORT2;

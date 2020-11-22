@@ -22,7 +22,7 @@ namespace sims
 	class VertexElement
 	{
 	public:
-		VertexElement(VertexElementUsage::Type usage, uint32 usageIndex, DataType::Type componentType, uint32 elementCount)
+		VertexElement(VertexElementUsage::Type usage, uint32 usageIndex, VertexDataType::Type componentType, uint32 elementCount)
 			: usage_(usage)
 			, usageIndex_(usageIndex)
 			, componentType_(componentType)
@@ -32,7 +32,7 @@ namespace sims
 
 		VertexElementUsage::Type GetUsage() const { return usage_; }
 		uint32 GetUsageIndex() const { return usageIndex_; }
-		DataType::Type GetComponentType() const { return componentType_; }
+		VertexDataType::Type GetComponentType() const { return componentType_; }
 		uint32 GetComponentCount() const { return componentCount_; }
 		uint32 GetComponentSize() const;
 		uint32 GetTotalSize() const;
@@ -43,7 +43,7 @@ namespace sims
 
 		VertexElementUsage::Type usage_;
 		uint32 usageIndex_;
-		DataType::Type componentType_;
+		VertexDataType::Type componentType_;
 		uint32 componentCount_;
 		// offset in vertex stream
 		uint32 offset_;
